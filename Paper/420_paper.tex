@@ -1,0 +1,339 @@
+% !TeX program = pdflatex
+% !BIB program = bibtex
+% Template LaTeX file for DAFx-19 papers
+%
+% To generate the correct references using BibTeX, run
+%     latex, bibtex, latex, latex
+% modified...
+% - from DAFx-00 to DAFx-02 by Florian Keiler, 2002-07-08
+% - from DAFx-02 to DAFx-03 by Gianpaolo Evangelista
+% - from DAFx-05 to DAFx-06 by Vincent Verfaille, 2006-02-05
+% - from DAFx-06 to DAFx-07 by Vincent Verfaille, 2007-01-05
+%                          and Sylvain Marchand, 2007-01-31
+% - from DAFx-07 to DAFx-08 by Henri Penttinen, 2007-12-12
+%                          and Jyri Pakarinen 2008-01-28
+% - from DAFx-08 to DAFx-09 by Giorgio Prandi, Fabio Antonacci 2008-10-03
+% - from DAFx-09 to DAFx-10 by Hannes Pomberger 2010-02-01
+% - from DAFx-10 to DAFx-12 by Jez Wells 2011
+% - from DAFx-12 to DAFx-14 by Sascha Disch 2013
+% - from DAFx-15 to DAFx-16 by Pavel Rajmic 2015
+% - from DAFx-16 to DAFx-17 by Brian Hamilton 2016
+% - from DAFx-18 to DAFx-19 by Dave Moffat 2019
+%
+% Template with hyper-references (links) active after conversion to pdf
+% (with the distiller) or if compiled with pdflatex.
+%
+% 20060205: added package 'hypcap' to correct hyperlinks to figures and tables
+%                      use of \papertitle and \paperauthorA, etc for same title in PDF and Metadata
+%
+% 1) Please compile using latex or pdflatex.
+% 2) If using pdflatex, you need your figures in a file format other than eps! e.g. png or jpg is working
+% 3) Please use "paperftitle" and "pdfauthor" definitions below
+
+%------------------------------------------------------------------------------------------
+%  !  !  !  !  !  !  !  !  !  !  !  ! user defined variables  !  !  !  !  !  !  !  !  !  !  !  !  !  !
+% Please use these commands to define title and author(s) of the paper:
+\def\papertitle{Real-time Physical Model for Sony TC-260 Tape Machine}
+\def\paperauthorA{Jatin Chowdhury}
+
+% Authors' affiliations have to be set below
+
+%------------------------------------------------------------------------------------------
+\documentclass[twoside,a4paper]{article}
+\usepackage{dafx_19}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{euscript}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ifpdf}
+
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage{subfig} % or can use subcaption package
+\usepackage{color}
+
+\setcounter{page}{1}
+\ninept
+
+\usepackage{times}
+% Saves a lot of ouptut space in PDF... after conversion with the distiller
+% Delete if you cannot get PS fonts working on your system.
+
+% pdf-tex settings: detect automatically if run by latex or pdflatex
+\newif\ifpdf
+\ifx\pdfoutput\relax
+\else
+   \ifcase\pdfoutput
+      \pdffalse
+   \else
+      \pdftrue
+\fi
+
+\ifpdf % compiling with pdflatex
+  \usepackage[pdftex,
+    pdftitle={\papertitle},
+    pdfauthor={\paperauthorA},
+    colorlinks=false, % links are activated as colror boxes instead of color text
+    bookmarksnumbered, % use section numbers with bookmarks
+    pdfstartview=XYZ % start with zoom=100% instead of full screen; especially useful if working with a big screen :-)
+  ]{hyperref}
+  \pdfcompresslevel=9
+  \usepackage[pdftex]{graphicx}
+  \usepackage[figure,table]{hypcap}
+\else % compiling with latex
+  \usepackage[dvips]{epsfig,graphicx}
+  \usepackage[dvips,
+    colorlinks=false, % no color links
+    bookmarksnumbered, % use section numbers with bookmarks
+    pdfstartview=XYZ % start with zoom=100% instead of full screen
+  ]{hyperref}
+  % hyperrefs are active in the pdf file after conversion
+  \usepackage[figure,table]{hypcap}
+\fi
+\usepackage{cleveref}
+
+\title{\papertitle}
+
+\affiliation{
+\paperauthorA \,}
+{\href{http://ccrma.stanford.edu}{Center for Computer Research in Music and Acoustics} \\ Stanford University \\ Palo Alto, CA \\ {\tt \href{mailto:jatin@ccrma.stanford.edu}{jatin@ccrma.stanford.edu}}}
+
+\begin{document}
+% more pdf-tex settings:
+\ifpdf % used graphic file format for pdflatex
+  \DeclareGraphicsExtensions{.png,.jpg,.pdf}
+\else  % used graphic file format for latex
+  \DeclareGraphicsExtensions{.eps}
+\fi
+
+\maketitle
+
+\section{Abstract}
+For decades, analog magnetic tape recording was the most popular
+method for recording music, but has been replaced over the past 30 years first by
+DAT tape, and then by DAWs \cite{Kadis}. Despite being replaced
+by higher quality technology,
+many have sought to recreate a "tape" sound through digital effects, despite
+the distortion, tape "hiss", and other oddities analog tape produced.
+To quote Brian Eno, "Whatever you now find weird, ugly, uncomfortable, and nasty
+about a new medium will surely become its signature. CD distortion, the jitteriness
+of digital video, the crap sound of 8-bit - all of these will be cherished
+and emulated as soon as they can be avoided." \cite{Eno}. The following describes
+a physical model of an analog tape machine, starting from basic physical
+principles.
+
+\section{Continuous Time System}
+Audio recorded to and played back from a tape machine can be thought of as going
+through three distinct processors: the record head, tape magnetisation, and the play
+head.
+
+\subsection{The Record Head}
+For an instantaneous input current $I(t)$, the magnetic field output of the record 
+head is given as a function of distance along the tape 'x', and depth into 
+the tape 'y' (Karlqvist medium field approximation) \cite{1994tmr..book.....B}.
+
+\begin{multline}
+    H_x(x,y) = \frac{1}{\pi} H_0 \Big(\tan^{-1} \Big(\frac{(g/2) + x}{y} \Big) + \\
+    \tan^{-1} \Big(\frac{(g/2) - x}{y} \Big) \Big)
+    \label{eq1}
+\end{multline}
+\begin{equation}
+    H_y(x,y) = \frac{1}{2 \pi} H_0 \ln \Big(\frac{((g/2) - x)^2 + y^2}{((g/2) + x)^2 + y^2} \Big)
+    \label{eq2}
+\end{equation}
+%
+where $g$ = head gap, and $H_0$ = deep gap field, given by:
+
+\begin{equation}
+    H_0 = \frac{NEI}{g}
+\end{equation}
+%
+where $N$ = number of turns coils of wire around the head, and $E$ = head 
+efficiency given by:
+
+\begin{equation}
+    E = \frac{1}{1 + \frac{l  A_g}{\mu_r g} \int_{core} \frac {d \vec{l}}{A(l)}}
+\end{equation}
+%
+where $A_g$ is the gap area, $\mu_r$ is the core permeability relative to 
+free space ($\mu_0$), $g$ if the gap width, and $A(l)$ is the cross-sectional 
+area of the core as a function of length.
+
+\subsection{Tape Magnetisation}
+The magnetic field being recorded to tape can be described using 
+a hysteresis loop, as follows \cite{1994tmr..book.....B}:
+
+\begin{equation}
+    \vec{M}(x,y) = F_{Loop}(\vec{H}(x,y))
+\end{equation}
+%
+where $F_{Loop}$ is a generalized hysteresis function.
+\newline\newline
+Using the Jiles-Atherton magnetisation model, the following
+differential equation describes magnetisation 'M' as a function 
+of magnetic field 'H' \cite{Hysteresis}:
+
+\begin{equation}
+    \frac{dM}{dH} = \frac{(1-c) \delta_M (M_{an} - M)}{(1-c) \delta k - \alpha (M_{an} - M)} + c \frac{dM_{an}}{dH}
+    \label{eq5}
+\end{equation}
+%
+where $c$ is the ration of normal and anhysteric initial susceptibilities,
+$k$ is a measure of the width of the hysteresis
+loop, $\alpha$ is a mean field parameter, representing inter-domain
+coupling, and
+
+\begin{equation}
+    \delta = \begin{cases}
+        1 & \text{if H is increasing} \\
+        -1 & \text{if H is decreasing}
+    \end{cases}
+\end{equation}
+\begin{equation}
+    \delta_M = \begin{cases}
+        1 & \text{if $\delta$ and $M_{an} - M$ have the same sign} \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation}
+%
+$M_{an}$ is the anisotropic magnetisation given by:
+
+\begin{equation}
+    M_{an} = M_s L \Big( \frac{H + \alpha M}{a} \Big)
+\end{equation}
+%
+where $M_s$ is the magnetisation saturation, $a$ characterizes the shape
+of the anhysteric magnetisation and $L$ is the Langevin function:
+
+\begin{equation}
+    L(x) = \coth (x) - \frac{1}{x}
+\end{equation}
+
+\subsection{Play Head}
+\subsubsection{Ideal Playback Voltage}
+The ideal playback voltage as a function of tape magnetisation is given by
+\cite{1994tmr..book.....B}:
+
+\begin{equation}
+    V(x) =  NWEv \mu_0 \int_{-\infty}^{\infty} dx' \int_{-\delta/2}^{\delta/2} dy' \vec{h}(x' + x, y') \cdot \frac{\vec{M}(x', y')}{dx}
+    \label{eq11}
+\end{equation}
+%
+where $N$ = number of turns of wire, $W$ = width of the playhead, $E$ = playhead
+efficiency, $v$ = tape speed, and $\mu_0$ is the permeability of free space.
+Note that $V(x) = V(vt)$ for constant $v$. $\vec{h}(x, y)$ is defined as:
+
+\begin{equation}
+    \vec{h} (x, y) \equiv \frac{\vec{H} (x, y)}{NIE}
+    \label{eq12}
+\end{equation}
+%
+where $\vec{H} (x, y)$ can be calculated by \cref{eq1,eq2}.
+
+\subsubsection{Loss Effects}
+There are several frequency-dependent loss effects associated with playback,
+described as follows \cite{Kadis}:
+
+\begin{equation}
+    V(x) = V_0(x) [e^{-kd}] \Big[\frac{1 - e^{-k \delta}}{k \delta} \Big] \Big[\frac{\sin (kg /2)}{kg/2} \Big]
+\end{equation}
+%
+where $k$ = wave number, $d$ is the distance between the tape and the playhead,
+$g$ is the gap width of the play head, and $\delta$ is the thickness of the tape.
+
+\section{Digitizing the System}
+\subsection{Record Head}
+For simplicity, let us assume,
+\begin{equation}
+    \vec{H}(x,y,t) = \vec{H}(0,0,t)
+\end{equation}
+%
+In this case $H_y \equiv 0$, and $H_x \equiv H_0$. Thus,
+\begin{equation}
+    H(t) = \frac{NEI(t)}{g}
+    \label{eq15}
+\end{equation}
+%
+or,
+\begin{equation}
+    \hat{H}(n) = \frac{NE\hat{I}(n)}{g}
+\end{equation}
+
+\subsection{Hysteresis}
+Beginning from \cref{eq5}, we can find the derivative of $M$ w.r.t. time,
+as in \cite{Hysteresis}:
+\begin{multline}
+    \frac{dM}{dt} = \frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt} + \\
+     c \frac{M_s}{a} \Big(\frac{dH}{dt} + \alpha \frac{dM}{dt} \Big) L'(Q)
+\end{multline}
+%
+where $Q = \frac{H + \alpha M}{a}$, and
+
+\begin{equation}
+    L'(x) = \frac{1}{x^2} - \coth^2(x) + 1
+\end{equation}
+%
+Taking the second derivative, we find:
+\begin{multline}
+    \frac{d^2 M}{dt^2} = \frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{d^2H}{dt^2}\\
+     + \frac{(1-c) \delta_M (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M})}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt}\\
+     + \frac{(1-c) \delta_M (M_sL(Q) - M)(-\alpha (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M}))}{((1-c) \delta k - \alpha (M_sL(Q) - M))^2} \frac{dH}{dt}\\
+     + c \frac{M_s}{a} \Big(\frac{dH}{dt} c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L''(Q) + \frac{d^2H}{dt^2} L'(Q) + \alpha \frac{dM}{dt} c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L''(Q) + \alpha \frac{d^2M}{dt^2} L'(Q) \Big)
+\end{multline}
+%
+where
+\begin{equation}
+    L''(x) = 2 \coth(x) \cdot (\coth^2(x) - 1) - \frac{2}{x^3}
+\end{equation}
+%
+Solving for $\frac{dM}{dt}$ and $\frac{d^2M}{dt^2}$, we get:
+\begin{equation}
+    \frac{dM}{dt} = \frac{\frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt} + c \frac{M_s}{a} \frac{dH}{dt} L'(Q)}{1 - c \alpha \frac{M_s}{a} L'(Q)} = f(t, M, \vec{u})
+\end{equation}
+\begin{multline}
+    \frac{d^2 M}{dt^2} = \frac{1}{1 - c \alpha \frac{M_s}{a} L'(Q)} \Bigg[
+\frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{d^2H}{dt^2}\\
++ \frac{(1-c) \delta_M (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M})}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt}\\
++ \frac{(1-c) \delta_M (M_sL(Q) - M)(-\alpha (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M}))}{((1-c) \delta k - \alpha (M_sL(Q) - M))^2} \frac{dH}{dt}\\
++ c \frac{M_s}{a} \Big(\frac{d^2H}{dt^2} L'(Q) + c \frac{M_s}{a} L''(Q) (\dot{H} + \alpha \dot{M})^2 \Big) \Bigg]
+\end{multline}
+%
+where $\vec{u} = \begin{bmatrix}
+    H \\
+    \dot{H}
+    \end{bmatrix}$.
+\newline\newline
+Using the trapezoidal rule:
+
+\begin{equation}
+    \dot{\hat{H}}(n) = 2 \frac{\hat{H}(n) - \hat{H}(n-1)}{T} - \dot{\hat{H}}(n-1)
+\end{equation}
+\begin{equation}
+    \ddot{\hat{H}}(n) = 2 \frac{\dot{\hat{H}}(n) - \dot{\hat{H}}(n-1)}{T} - \ddot{\hat{H}}(n-1)
+\end{equation}
+%
+Then, using the semi-implicit trapezoidal rule for non-linear differential
+equations \cite{Yeh}.
+\begin{multline}
+    \hat{M}(n) = \hat{M}(n-1)\\
+     + \frac{T}{2} \frac{f[n, \hat{M}(n-1), \hat{\vec{u}}(n)] + f[n-1, \hat{M}(n-1), \hat{\vec{u}}(n-1)]}{1 - \frac{T}{2}\ddot{\hat{M}}(n-1)}
+\end{multline}
+
+\subsection{Play Head}
+By combining \cref{eq11} with \cref{eq12,eq15}, we get:
+\begin{equation}
+    V(t) =  NWEv \mu_0  g M(t)
+\end{equation}
+%
+or,
+\begin{equation}
+    \hat{V}(n) =  NWEv \mu_0  g \hat{M}(t)
+\end{equation}
+%
+
+%\newpage
+\nocite{*}
+\bibliographystyle{IEEEbib}
+\bibliography{references}
+
+\end{document}

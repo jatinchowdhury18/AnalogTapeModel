@@ -1,0 +1,10 @@
+# References folder
+Refs
+
+# Tex artifacts
+*.synctex.gz
+*.aux
+*.bbl
+*.blg
+420_paper.log
+*.out
