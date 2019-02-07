@@ -33,7 +33,7 @@
 %------------------------------------------------------------------------------------------
 %  !  !  !  !  !  !  !  !  !  !  !  ! user defined variables  !  !  !  !  !  !  !  !  !  !  !  !  !  !
 % Please use these commands to define title and author(s) of the paper:
-\def\papertitle{Real-time Physical Model for Sony TC-260 Tape Machine}
+\def\papertitle{Real-time Physical Model for Analog Tape Machines}
 \def\paperauthorA{Jatin Chowdhury}
 
 % Authors' affiliations have to be set below
@@ -115,12 +115,14 @@ DAT tape, and then by DAWs \cite{Kadis}. Despite being replaced
 by higher quality technology,
 many have sought to recreate a "tape" sound through digital effects, despite
 the distortion, tape "hiss", and other oddities analog tape produced.
-To quote Brian Eno, "Whatever you now find weird, ugly, uncomfortable, and nasty
+The following describes
+a physical modelling process for an analog tape machine,
+starting from basic physical principles.
+\newline\newline
+"Whatever you now find weird, ugly, uncomfortable, and nasty
 about a new medium will surely become its signature. CD distortion, the jitteriness
 of digital video, the crap sound of 8-bit - all of these will be cherished
-and emulated as soon as they can be avoided." \cite{Eno}. The following describes
-a physical model of a Sony TC-260 tape machine, starting from basic physical
-principles.
+and emulated as soon as they can be avoided." -Brian Eno \cite{Eno}.
 
 \section{Continuous Time System}
 Audio recorded to and played back from a tape machine can be thought of as going
@@ -149,7 +151,7 @@ where $g$ = head gap, and $H_0$ = deep gap field, given by:
 \end{equation}
 %
 where $N$ = number of turns coils of wire around the head, and $E$ = head 
-efficiency given by:
+efficiency which can be calculated by:
 
 \begin{equation}
     E = \frac{1}{1 + \frac{l  A_g}{\mu_r g} \int_{core} \frac {d \vec{l}}{A(l)}}
@@ -236,9 +238,10 @@ described as follows \cite{Kadis}:
 
 \begin{equation}
     V(x) = V_0(x) [e^{-kd}] \Big[\frac{1 - e^{-k \delta}}{k \delta} \Big] \Big[\frac{\sin (kg /2)}{kg/2} \Big]
+    \label{eq:lossEffects}
 \end{equation}
 %
-where $k$ = wave number, $d$ is the distance between the tape and the playhead,
+for sinusoidal input, where $k$ = wave number, $d$ is the distance between the tape and the playhead,
 $g$ is the gap width of the play head, and $\delta$ is the thickness of the tape.
 
 \section{Digitizing the System}
@@ -305,7 +308,7 @@ We use linear interpolation to find the half-sample values used to calculate $k_
 
 \subsubsection{Numerical Considerations}
 To account for rounding errors in the Langevin function for values close to 
-zero, we use the following for numerical evaluation, as in \cite{Hysteresis}:
+zero, we use the following approximation about zero, as in \cite{Hysteresis}:
 \begin{equation}
     L(x) = \begin{cases}
         \coth(x) - \frac{1}{x} & \text{for $|x| > 10^{-4}$} \\
@@ -329,7 +332,7 @@ meter, the following plot shows the Magnetisation output.
 \begin{figure}[ht]
     \center
     \includegraphics[width=3in]{../Simulations/Sim2-M_H.png}
-    \caption{\label{flowchart}{\it Digitized Hysteresis Loop}}
+    \caption{\label{flowchart}{\it Digitized Hysteresis Loop Simulation}}
 \end{figure}
 %
 \subsection{Play Head}
@@ -343,6 +346,58 @@ or,
     \hat{V}(n) =  NWEv \mu_0  g \hat{M}(t)
 \end{equation}
 %
+The loss effects described in \cref{eq:lossEffects}
+can be modelled as a series of digital filters.
+
+\subsection{Oversampling}
+To reduce frequency aliasing caused by the hysteresis non-linearity,
+we recommend oversampling by at least 4x.
+%
+%\section{Determining System Parameters}
+%\subsection {Tape Machine Parameters}
+%%@TODO: Do I need this section?
+%\subsubsection {Record Head}
+%The input current to the record head is approximately 0.1 mA peak-to-peak
+%\cite{RefManual}. Plugging into equation (16)
+%
+%g = 20 microns, N = 100, E = 0.1
+%
+%gives a peak-to-peak field amplitude of 5E5 A/m
+%
+%\subsubsection{Play Head}
+%N = 100, W = 0.25in = 6.3e-3m, v = 7 ips = 0.18 m/s,
+%g = 20 microns, mu = 12.57e-7
+%
+%Gain of play head = 2.85e-14
+\section{System Parameters}
+\subsection {Tape Parameters}
+For the tape hysteresis \cref{eq:dmdt}, following parameters are necessary:
+\begin{itemize}
+\item Magnetic Saturation ($M_s$): For Ferric Oxide ($\gamma F_2O_3$)
+magnetic tape as would typically be used for a reel-to-reel machine,
+the magnetic saturation is $3.5e5$ (A/m) \cite{jilesBook}
+\item Hysteresis Loop Width ($k$): For soft materials, $k$ can be approximated
+as the coercivity, $H_c$ \cite{Jiles1992}. For Ferric Oxide, $H_c$ is approximately
+$27$ kA/m \cite{jilesBook}.
+\item a: Knowing the coercivity and remnance magnetism of Ferric Oxide
+\cite{jilesBook}, we can calculate $a$ = 22  kA/m by the method described includegraphics
+\cite{Jiles1992}
+\item c: From \cite{Jiles1992}, $c$ = 1.7e-1.
+\item alpha: From \cite{Jiles1992}, alpha = 1.6e-3
+\end{itemize}
+
+\subsection{Tape Bias}
+A typical analog tape recorder modulates the input signal by a
+"bias" signal to avoid the "deadzone" effect whenever the input
+signal crosses zero \cite{Camras:1987:MRH:27189}. Thus, the
+input signal to the record head can be described by:
+\begin{equation}
+    \hat{V}_{head}(n) = \hat{V}_{in}(n) \cos(2 \pi f_{bias} n T)
+\end{equation}
+%
+An output signal in the audio frequency range can be recovered
+by a simple low-pass filter \cite{Camras:1987:MRH:27189}.
+
 
 %\newpage
 \nocite{*}

@@ -5,10 +5,11 @@ from matplotlib import animation
 fs = 48000
 T = 1/fs # sample interval
 M_s = 350000 # Jiles book
-a = 1.1e3 # adjustable parameter
+a = 2.2e4 #adjustable parameter
 alpha = 1.6e-3
-k = 4.0e2
-c = 1.7e-1
+k = 27.0e3 #Coercivity
+c = 1.7e-1 #1.867e-1
+#M_r = 0.5e6 (A/m)
 #H_c (coercivity) = 25000 - 30000 A/m (Jiles book)
 
 # Langevin function
@@ -52,13 +53,13 @@ def M_n (M_n1, k1, k2, k3, k4):
 
 #input signal
 t = np.linspace (0, 1, fs * 50)
-#H_in = 100 * np.sin (2 * np.pi * 100 * t)
+#H_in = (5e5) * np.sin (2 * np.pi * 100 * t)
 freq = 2000
-H_in = np.concatenate ((2000 * np.sin (2 * np.pi * freq * t[0:fs*5]), 1800 * np.sin (2 * np.pi * freq * t[fs*5:fs*10]), \
-                        1600 * np.sin (2 * np.pi * freq * t[fs*10:fs*15]), 1500 * np.sin (2 * np.pi * freq * t[fs*15:fs*20]), \
-                        1400 * np.sin (2 * np.pi * freq * t[fs*20:fs*25]), 1300 * np.sin (2 * np.pi * freq * t[fs*25:fs*30]), \
-                        1200 * np.sin (2 * np.pi * freq * t[fs*30:fs*35]), 1100 * np.sin (2 * np.pi * freq * t[fs*35:fs*40]), \
-                        1000 * np.sin (2 * np.pi * freq * t[fs*40:fs*45]), 800 * np.sin (2 * np.pi * freq * t[fs*45:fs*50])))
+H_in = np.concatenate ((5e2 * np.sin (2 * np.pi * freq * t[0:fs*5]), 1e3 * np.sin (2 * np.pi * freq * t[fs*5:fs*10]), \
+                        3e3 * np.sin (2 * np.pi * freq * t[fs*10:fs*15]), 5e3 * np.sin (2 * np.pi * freq * t[fs*15:fs*20]), \
+                        1e4 * np.sin (2 * np.pi * freq * t[fs*20:fs*25]), 3e4 * np.sin (2 * np.pi * freq * t[fs*25:fs*30]), \
+                        5e4 * np.sin (2 * np.pi * freq * t[fs*30:fs*35]), 1e5 * np.sin (2 * np.pi * freq * t[fs*35:fs*40]), \
+                        3e5 * np.sin (2 * np.pi * freq * t[fs*40:fs*45]), 5e5 * np.sin (2 * np.pi * freq * t[fs*45:fs*50])))
 # plt.plot (t, H_in)
 # plt.show()
 
