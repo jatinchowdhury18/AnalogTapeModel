@@ -119,7 +119,7 @@ To quote Brian Eno, "Whatever you now find weird, ugly, uncomfortable, and nasty
 about a new medium will surely become its signature. CD distortion, the jitteriness
 of digital video, the crap sound of 8-bit - all of these will be cherished
 and emulated as soon as they can be avoided." \cite{Eno}. The following describes
-a physical model of an analog tape machine, starting from basic physical
+a physical model of a Sony TC-260 tape machine, starting from basic physical
 principles.
 
 \section{Continuous Time System}
@@ -262,10 +262,10 @@ or,
 \subsection{Hysteresis}
 Beginning from \cref{eq5}, we can find the derivative of $M$ w.r.t. time,
 as in \cite{Hysteresis}:
-\begin{multline}
-    \frac{dM}{dt} = \frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt} + \\
-     c \frac{M_s}{a} \Big(\frac{dH}{dt} + \alpha \frac{dM}{dt} \Big) L'(Q)
-\end{multline}
+\begin{equation}
+    \frac{dM}{dt} = \frac{\frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt} + c \frac{M_s}{a} \frac{dH}{dt} L'(Q)}{1 - c \alpha \frac{M_s}{a} L'(Q)}
+    \label{eq:dmdt}
+\end{equation}
 %
 where $Q = \frac{H + \alpha M}{a}$, and
 
@@ -273,52 +273,65 @@ where $Q = \frac{H + \alpha M}{a}$, and
     L'(x) = \frac{1}{x^2} - \coth^2(x) + 1
 \end{equation}
 %
-Taking the second derivative, we find:
-\begin{multline}
-    \frac{d^2 M}{dt^2} = \frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{d^2H}{dt^2}\\
-     + \frac{(1-c) \delta_M (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M})}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt}\\
-     + \frac{(1-c) \delta_M (M_sL(Q) - M)(-\alpha (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M}))}{((1-c) \delta k - \alpha (M_sL(Q) - M))^2} \frac{dH}{dt}\\
-     + c \frac{M_s}{a} \Big(\frac{dH}{dt} c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L''(Q) + \frac{d^2H}{dt^2} L'(Q) + \alpha \frac{dM}{dt} c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L''(Q) + \alpha \frac{d^2M}{dt^2} L'(Q) \Big)
-\end{multline}
-%
-where
+Note that \cref{eq:dmdt} can also be written in the general form for non-linear
+Ordinary Differential Equations:
 \begin{equation}
-    L''(x) = 2 \coth(x) \cdot (\coth^2(x) - 1) - \frac{2}{x^3}
+    \frac{dM}{dt} = f(t,M,\vec{u})
 \end{equation}
-%
-Solving for $\frac{dM}{dt}$ and $\frac{d^2M}{dt^2}$, we get:
-\begin{equation}
-    \frac{dM}{dt} = \frac{\frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt} + c \frac{M_s}{a} \frac{dH}{dt} L'(Q)}{1 - c \alpha \frac{M_s}{a} L'(Q)} = f(t, M, \vec{u})
-\end{equation}
-\begin{multline}
-    \frac{d^2 M}{dt^2} = \frac{1}{1 - c \alpha \frac{M_s}{a} L'(Q)} \Bigg[
-\frac{(1-c) \delta_M (M_sL(Q) - M)}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{d^2H}{dt^2}\\
-+ \frac{(1-c) \delta_M (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M})}{(1-c) \delta k - \alpha (M_sL(Q) - M)} \frac{dH}{dt}\\
-+ \frac{(1-c) \delta_M (M_sL(Q) - M)(-\alpha (c \frac{M_s}{a} (\frac{dH}{dt} + \alpha \frac{dM}{dt}) L'(Q) - \dot{M}))}{((1-c) \delta k - \alpha (M_sL(Q) - M))^2} \frac{dH}{dt}\\
-+ c \frac{M_s}{a} \Big(\frac{d^2H}{dt^2} L'(Q) + c \frac{M_s}{a} L''(Q) (\dot{H} + \alpha \dot{M})^2 \Big) \Bigg]
-\end{multline}
-%
 where $\vec{u} = \begin{bmatrix}
     H \\
     \dot{H}
     \end{bmatrix}$.
 \newline\newline
-Using the trapezoidal rule:
+Using the trapezoidal rule for derivative approximation, we find:
 
 \begin{equation}
-    \dot{\hat{H}}(n) = 2 \frac{\hat{H}(n) - \hat{H}(n-1)}{T} - \dot{\hat{H}}(n-1)
-\end{equation}
-\begin{equation}
-    \ddot{\hat{H}}(n) = 2 \frac{\dot{\hat{H}}(n) - \dot{\hat{H}}(n-1)}{T} - \ddot{\hat{H}}(n-1)
+    \dot{\hat{H}}(n) = 2\frac{\hat{H}(n) - \hat{H}(n-1)}{T} - \dot{\hat{H}}(n-1)
 \end{equation}
 %
-Then, using the semi-implicit trapezoidal rule for non-linear differential
-equations \cite{Yeh}.
-\begin{multline}
-    \hat{M}(n) = \hat{M}(n-1)\\
-     + \frac{T}{2} \frac{f[n, \hat{M}(n-1), \hat{\vec{u}}(n)] + f[n-1, \hat{M}(n-1), \hat{\vec{u}}(n-1)]}{1 - \frac{T}{2}\ddot{\hat{M}}(n-1)}
-\end{multline}
+We can use the Runge-Kutta 4th order method \cite{Yeh} to find an explicit solution
+for $\hat{M}(n)$:
+\begin{align}
+\begin{split}
+    k_1 &= T f \Big(n-1, \hat{M}(n-1), \hat{\vec{u}}(n-1) \Big)\\
+    k_2 &= T f \Big(n - \frac{1}{2}, \hat{M}(n-1) + \frac{k_1}{2}, \hat{\vec{u}}  \Big(n-\frac{1}{2} \Big) \Big)\\
+    k_3 &= T f \Big(n- \frac{1}{2}, \hat{M}(n-1) + \frac{k_2}{2}, \hat{\vec{u}} \Big(n-\frac{1}{2} \Big) \Big)\\
+    k_4 &= T f \Big(n, \hat{M}(n-1) + k_3, \hat{\vec{u}}(n) \Big)\\
+    \hat{M}(n) &= \hat{M}(n-1) + \frac{k_1}{6} + \frac{k_2}{3} + \frac{k_3}{3} + \frac{k_4}{6}
+\end{split}
+\end{align}
+%
+We use linear interpolation to find the half-sample values used to calculate $k_2$ and $k_3$.
 
+\subsubsection{Numerical Considerations}
+To account for rounding errors in the Langevin function for values close to 
+zero, we use the following for numerical evaluation, as in \cite{Hysteresis}:
+\begin{equation}
+    L(x) = \begin{cases}
+        \coth(x) - \frac{1}{x} & \text{for $|x| > 10^{-4}$} \\
+        \frac{x}{3} & \text{otherwise}
+    \end{cases}
+\end{equation}
+\begin{equation}
+    L'(x) = \begin{cases}
+        \frac{1}{x^2} - \coth^{2}(x) + 1 & \text{for $|x| > 10^{-4}$} \\
+        \frac{1}{3} & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+\subsubsection{Simulation}
+The digitized hysteresis loop was implemented and tested offline
+in \texttt{Python}, using the constants $M_s$, $a$, $\alpha$, $k$,
+and $c$ from \cite{JilesAtherton1986}. For a sinusoidal input signal
+with frequency 2kHz, and varying amplitude from 800 - 2000 Amperes per
+meter, the following plot shows the Magnetisation output.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=3in]{../Simulations/Sim2-M_H.png}
+    \caption{\label{flowchart}{\it Digitized Hysteresis Loop}}
+\end{figure}
+%
 \subsection{Play Head}
 By combining \cref{eq11} with \cref{eq12,eq15}, we get:
 \begin{equation}
