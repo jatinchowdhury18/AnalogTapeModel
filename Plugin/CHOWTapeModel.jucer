@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.2">
+<JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.2"
+              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
   <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
     <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
+      <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
+        <FILE id="SSdMYR" name="HysteresisProcessing.cpp" compile="1" resource="0"
+              file="Source/Processors/HysteresisProcessing.cpp"/>
+        <FILE id="vvuNZS" name="HysteresisProcessing.h" compile="0" resource="0"
+              file="Source/Processors/HysteresisProcessing.h"/>
+      </GROUP>
       <FILE id="y330sp" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="FvqAFZ" name="PluginProcessor.h" compile="0" resource="0"
