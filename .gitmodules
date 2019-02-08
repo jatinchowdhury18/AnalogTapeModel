@@ -1,0 +1,3 @@
+[submodule "Plugin/Juce"]
+	path = Plugin/Juce
+	url = https://github.com/WeAreROLI/Juce.git

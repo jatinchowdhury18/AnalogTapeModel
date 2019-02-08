@@ -8,3 +8,21 @@ Refs
 *.blg
 420_paper.log
 *.out
+
+#JUCE generated content
+Builds
+BinaryData.h
+BinaryData.cpp
+BinaryData2.cpp
+
+#Windows Temp Cache Files
+[Tt]humbs.db
+
+#macOS Finder and whatnot
+.DS_Store
+*.DS_Store
+*.swp
+*~
+
+#Visual Studio Code files
+.vscode/
