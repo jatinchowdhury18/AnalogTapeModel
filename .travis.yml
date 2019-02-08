@@ -1,0 +1,84 @@
+notifications:
+  email: false
+
+language: cpp
+sudo: false
+
+# if pull request: always build
+# if push: only build for master branch
+if: (type != push) OR (type = push AND branch = master)
+
+matrix:
+  include:
+    #- name: "unit-tests"
+    #  os: osx
+    #  env:
+    #    - BUILD_FOLDER="MacOSX"
+    #    - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer" 
+    - name: "osx"
+      os: osx
+      env:
+        - BUILD_FOLDER="MacOSX"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
+        - secure: EWeaPVOC8rWVkV1Rb6kf90BMr+QGtsC9YN+c+XJ0rIftndY5CSKnBZxU9iwZEQXaRxjdlMcDl95F8IeKlY7yIpN793+SLcx4h6XpijUhqqwWgybhy4jdO23fjefAThExDWzuAg7xfB1LyOC/BO9HRS8qFbCcvVdwCzETtItSW05nxHWICQl6c25Otdduh33EPORYBRUxB3MdPMvcpaYwAslGvSJ2AP7fQsnx3sMwxJLj1J5tiYkdvfm2xy1kv7/C8CF1Zp4Zg9ds+9qAG64v7I8VciuZ1tjmd01TUkal3sWu/78Jyk5avp2fzFR803QeLlcK2ivislZkc+vmMg7yXfjX5zTcgHfrrXlbKame/4xGuxbd6lYqUICeijZdv53d61f1lvvIbNKwzrH74vji5QMJkhjSzWyJt6IL6AriKCETCguKgXNOChbmqqSaTvA/OSwHu9JHH6byk229uQWjIAmj0egCr5WC+fk6LmSrbSG+iPkorSYlilxuGrRZWptVjTkqfbixuloNuwWLw69iHTM//T99E16I5ASN/T2KpQPJyrcPGz+R2ooL5OAb2LAZON58wIKLwaw0Wf6WCLYMmXxNm2vFbS1LsuHEbIMKDIlsMhiZYeCaYfvr942mJond1C2k2WYHwhS14R1sgnJFZGqPJLGzzl7rpxurf0MuOI4=
+    - name: "win"
+      os: windows
+      env:
+        - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
+        - BUILD_FOLDER="VisualStudio2017"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
+
+before_install:
+  # mac installs
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then gem install xcpretty; fi
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then gem install xcpretty-travis-formatter; fi
+  # windows setup msbuild path
+  - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then export PATH=$MSBUILD_PATH:$PATH; fi
+
+  # Build Projucer
+  - cd $TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/$BUILD_FOLDER
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project Projucer.xcodeproj > /dev/null; fi
+  - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then msbuild.exe -v:quiet Projucer.sln; fi
+
+script:
+  - cd $TRAVIS_BUILD_DIR/Plugin/
+  - export PROJUCER=$PROJUCER_EXPORT
+  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/JUCE/modules
+  - $PROJUCER --resave CHOWTapeModel.jucer
+  - cd $TRAVIS_BUILD_DIR/Plugin/Builds/$BUILD_FOLDER/
+
+  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ clean; fi
+  - if [[ $TRAVIS_JOB_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release | xcpretty -s -f `xcpretty-travis-formatter`; fi
+  - if [[ $TRAVIS_JOB_NAME == 'win' ]]; then msbuild.exe -v:normal CHOWTapeModel.sln; fi
+
+  #- |
+  #  if [[ $TRAVIS_JOB_NAME == 'unit-tests' ]]; then 
+  #    xcodebuild -project NewMixer.xcodeproj/ -configuration Debug | xcpretty -s -f `xcpretty-travis-formatter`
+  #    cd build/Debug/NewMixer.app/Contents/MacOS
+  #    ./NewMixer --unit-tests
+  #  fi
+
+  - echo "SUCCESS"
+
+# after_success: # upload mac bins
+#   - |
+#     if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
+#       echo "Copying Files..."
+#       cd $TRAVIS_BUILD_DIR/
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
+# 
+#       echo "Setting Up Git..."
+#       git config --global user.email "travis@travis-ci.org"
+#       git config --global user.name "Travis CI"
+# 
+#       echo "Committing Files..."
+#       git checkout -b builds
+#       git add Bin/Mac/
+#       git commit -m "Travis build- $TRAVIS_BUILD_NUMBER"
+# 
+#       echo "Pushing to branch..."
+#       git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
+#     fi
