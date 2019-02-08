@@ -43,8 +43,8 @@ before_install:
 script:
   - cd $TRAVIS_BUILD_DIR/Plugin/
   - export PROJUCER=$PROJUCER_EXPORT
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/JUCE/modules
-  - $PROJUCER --resave NewMixer.jucer
+  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/JUCE/modules
+  - $PROJUCER --resave CHOWTapeModel.jucer
   - cd $TRAVIS_BUILD_DIR/Plugin/Builds/$BUILD_FOLDER/
 
   - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ clean; fi
