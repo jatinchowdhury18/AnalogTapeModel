@@ -19,14 +19,14 @@ matrix:
       os: osx
       env:
         - BUILD_FOLDER="MacOSX"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
         - secure: EWeaPVOC8rWVkV1Rb6kf90BMr+QGtsC9YN+c+XJ0rIftndY5CSKnBZxU9iwZEQXaRxjdlMcDl95F8IeKlY7yIpN793+SLcx4h6XpijUhqqwWgybhy4jdO23fjefAThExDWzuAg7xfB1LyOC/BO9HRS8qFbCcvVdwCzETtItSW05nxHWICQl6c25Otdduh33EPORYBRUxB3MdPMvcpaYwAslGvSJ2AP7fQsnx3sMwxJLj1J5tiYkdvfm2xy1kv7/C8CF1Zp4Zg9ds+9qAG64v7I8VciuZ1tjmd01TUkal3sWu/78Jyk5avp2fzFR803QeLlcK2ivislZkc+vmMg7yXfjX5zTcgHfrrXlbKame/4xGuxbd6lYqUICeijZdv53d61f1lvvIbNKwzrH74vji5QMJkhjSzWyJt6IL6AriKCETCguKgXNOChbmqqSaTvA/OSwHu9JHH6byk229uQWjIAmj0egCr5WC+fk6LmSrbSG+iPkorSYlilxuGrRZWptVjTkqfbixuloNuwWLw69iHTM//T99E16I5ASN/T2KpQPJyrcPGz+R2ooL5OAb2LAZON58wIKLwaw0Wf6WCLYMmXxNm2vFbS1LsuHEbIMKDIlsMhiZYeCaYfvr942mJond1C2k2WYHwhS14R1sgnJFZGqPJLGzzl7rpxurf0MuOI4=
     - name: "win"
       os: windows
       env:
         - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
         - BUILD_FOLDER="VisualStudio2017"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
 
 before_install:
   # mac installs
