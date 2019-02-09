@@ -10,6 +10,8 @@ public:
 
     float process (float H);
 
+    void setSampleRate (float newSR) { fs = newSR; }
+
 private:
 
     float langevin (float x);
@@ -26,7 +28,7 @@ private:
     const float k = (float) 27.0e3;
     const float c = (float) 1.7e-1;
 
-    float M_n1 = 0.0;
+    float M_n1 = 0.0f;
     float H_n1 = 0.0f;
     float H_d_n1 = 0.0f;
 
