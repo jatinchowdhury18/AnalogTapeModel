@@ -72,5 +72,5 @@ float HysteresisProcessor::process (float H)
     H_n1 = H;
     H_d_n1 = H_d;
 
-    return M;
+    return M / M_s;
 }
