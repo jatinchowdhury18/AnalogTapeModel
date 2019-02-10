@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
@@ -56,9 +46,14 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    AudioParameterFloat* inGain;
+    AudioParameterFloat* outGain;
+    AudioParameterChoice* overSampling;
+    AudioParameterChoice* tapeSpeed;
+
 private:
     HysteresisProcessor hProcs[2];
-    dsp::Oversampling<float>* overSample;
+    std::unique_ptr<dsp::Oversampling<float>> overSample;
 
     int overSamplingFactor = 8;
 
