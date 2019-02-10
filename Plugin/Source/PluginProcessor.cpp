@@ -1,13 +1,3 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -24,7 +14,17 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        )
 #endif
 {
-    overSample = new dsp::Oversampling<float> (2, 1, dsp::Oversampling<float>::FilterType::filterHalfBandFIREquiripple);
+    addParameter (inGain = new AudioParameterFloat (String ("inGain"), String ("Input Gain"), -30.0f, 30.0f, 0.0f));
+    addParameter (outGain = new AudioParameterFloat (String ("outGain"), String ("Output Gain"), -30.0f, 30.0f, 0.0f));
+
+    addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Oversampling"),
+                                                           StringArray ({ "2x", "4x", "8x" }), 0));
+
+    addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Tape Speed"),
+                                                        StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
+
+
+    overSample.reset (new dsp::Oversampling<float> (2, 1, dsp::Oversampling<float>::FilterType::filterHalfBandFIREquiripple));
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -157,7 +157,6 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     }
 
     overSample->processSamplesDown(block);
-    //osBlock.clear();
 }
 
 //==============================================================================
