@@ -1,12 +1,14 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Processors/HysteresisProcessing.h"
+#include "Processors/Hysteresis/HysteresisProcessor.h"
+#include "Processors/GainProcessor.h"
 
 //==============================================================================
 /**
 */
-class ChowtapeModelAudioProcessor  : public AudioProcessor
+class ChowtapeModelAudioProcessor  : public AudioProcessor,
+                                     public AudioProcessorParameter::Listener
 {
 public:
     //==============================================================================
@@ -51,13 +53,14 @@ public:
     AudioParameterChoice* overSampling;
     AudioParameterChoice* tapeSpeed;
 
+    void parameterValueChanged (int paramIndex, float newValue) override;
+    void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
+
 private:
-    HysteresisProcessor hProcs[2];
-    std::unique_ptr<dsp::Oversampling<float>> overSample;
+    HysteresisProcessor hysteresis;
 
-    int overSamplingFactor = 8;
-
-    int n_t[2] = { 0, 0 };
+    GainProcessor inGainProc;
+    GainProcessor outGainProc;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)

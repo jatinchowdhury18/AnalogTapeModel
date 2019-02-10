@@ -15,20 +15,30 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 #endif
 {
     addParameter (inGain = new AudioParameterFloat (String ("inGain"), String ("Input Gain"), -30.0f, 30.0f, 0.0f));
+    inGain->addListener (this);
+
     addParameter (outGain = new AudioParameterFloat (String ("outGain"), String ("Output Gain"), -30.0f, 30.0f, 0.0f));
+    outGain->addListener (this);
 
     addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Oversampling"),
                                                            StringArray ({ "2x", "4x", "8x" }), 0));
 
     addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Tape Speed"),
                                                         StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
-
-
-    overSample.reset (new dsp::Oversampling<float> (2, 1, dsp::Oversampling<float>::FilterType::filterHalfBandFIREquiripple));
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
 {
+}
+
+void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float newValue)
+{
+    if (paramIndex == inGain->getParameterIndex())
+        inGainProc.setGain (Decibels::decibelsToGain (inGain->convertFrom0to1 (newValue)));
+    else if (paramIndex == outGain->getParameterIndex())
+        outGainProc.setGain (Decibels::decibelsToGain (outGain->convertFrom0to1 (newValue)));
+    else if (paramIndex == overSampling->getParameterIndex())
+        hysteresis.setOverSamplingFactor (*overSampling);
 }
 
 //==============================================================================
@@ -80,35 +90,32 @@ int ChowtapeModelAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
+void ChowtapeModelAudioProcessor::setCurrentProgram (int /*index*/)
 {
 }
 
-const String ChowtapeModelAudioProcessor::getProgramName (int index)
+const String ChowtapeModelAudioProcessor::getProgramName (int /*index*/)
 {
     return {};
 }
 
-void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& newName)
+void ChowtapeModelAudioProcessor::changeProgramName (int /*index*/, const String& /*newName*/)
 {
 }
 
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
-    hProcs[0].setSampleRate ((float) (sampleRate * overSamplingFactor));
-    hProcs[1].setSampleRate ((float) (sampleRate * overSamplingFactor));
-
-    overSample->factorOversampling = overSamplingFactor;
-    overSample->initProcessing (samplesPerBlock);
+    inGainProc.prepareToPlay (sampleRate, samplesPerBlock);
+    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    outGainProc.prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
+    inGainProc.releaseResources();
+    hysteresis.releaseResources();
+    outGainProc.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -138,25 +145,11 @@ bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
-    auto totalNumOutputChannels = getTotalNumOutputChannels();
+    
+    inGainProc.processBlock (buffer, midiMessages);
+    hysteresis.processBlock (buffer, midiMessages);
 
-    dsp::AudioBlock<float> block (buffer);
-    dsp::AudioBlock<float> osBlock = overSample->processSamplesUp(block);
-
-    float* ptrArray[] = { osBlock.getChannelPointer(0), osBlock.getChannelPointer(1) };
-    AudioBuffer<float> osBuffer (ptrArray, 2, static_cast<int> (osBlock.getNumSamples()));
-
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* x = osBuffer.getWritePointer (channel);
-        for (int n = 0; n < osBuffer.getNumSamples(); n++)
-        {
-            x[n] = hProcs[channel].process (((float) 1e5) * x[n]);
-        }
-    }
-
-    overSample->processSamplesDown(block);
+    outGainProc.processBlock (buffer, midiMessages);
 }
 
 //==============================================================================
@@ -171,14 +164,14 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
+void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& /*destData*/)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void ChowtapeModelAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.

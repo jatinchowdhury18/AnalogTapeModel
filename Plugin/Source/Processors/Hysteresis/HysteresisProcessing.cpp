@@ -1,12 +1,12 @@
 #include "HysteresisProcessing.h"
 #include <math.h>
 
-HysteresisProcessor::HysteresisProcessor()
+HysteresisProcessing::HysteresisProcessing()
 {
 
 }
 
-float HysteresisProcessor::langevin (float x)
+float HysteresisProcessing::langevin (float x)
 {
     if (std::abs (x) > (float) (10e-4))
         return (1.0f / (float) tanh (x)) - (1.0f / x);
@@ -14,7 +14,7 @@ float HysteresisProcessor::langevin (float x)
         return (x / 3.0f);
 }
 
-float HysteresisProcessor::langevinD (float x)
+float HysteresisProcessing::langevinD (float x)
 {
     if (std::abs (x) > (float) (10e-4))
     {
@@ -25,12 +25,12 @@ float HysteresisProcessor::langevinD (float x)
         return (1.0f / 3.0f);
 }
 
-float HysteresisProcessor::deriv (float x_n, float x_n1, float x_d_n1)
+float HysteresisProcessing::deriv (float x_n, float x_n1, float x_d_n1)
 {
     return ((2.0f * fs) * (x_n - x_n1)) - x_d_n1;
 }
 
-float HysteresisProcessor::hysteresisFunc (float M, float H, float H_d)
+float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
 {
     const float Q = (H + alpha * M) / a;
     const float M_diff = M_s * langevin (Q) - M;
@@ -51,12 +51,12 @@ float HysteresisProcessor::hysteresisFunc (float M, float H, float H_d)
     return (t1 + t2) / denominator;
 }
 
-float HysteresisProcessor::M_n (float prevM, float k1, float k2, float k3, float k4)
+float HysteresisProcessing::M_n (float prevM, float k1, float k2, float k3, float k4)
 {
     return prevM + (k1 / 6.0f) + (k2 / 3.0f) + (k3 / 3.0f) + (k4 / 6.0f);
 }
 
-float HysteresisProcessor::process (float H)
+float HysteresisProcessing::process (float H)
 {
     const float H_d = deriv (H, H_n1, H_d_n1);
 
