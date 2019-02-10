@@ -131,22 +131,36 @@ AudioParameterFloat* ChowtapeModelAudioProcessorEditor::getParamForSlider (Slide
         return nullptr;
 }
 
+AudioParameterChoice* ChowtapeModelAudioProcessorEditor::getParamForBox (ComboBox* box)
+{
+    if (processor.overSampling->name == box->getName())
+        return processor.overSampling;
+    else if (processor.tapeSpeed->name == box->getName())
+        return processor.tapeSpeed;
+    else
+        return nullptr;
+}
+
+void ChowtapeModelAudioProcessorEditor::comboBoxChanged (ComboBox* box)
+{
+    if (AudioParameterChoice* param = getParamForBox (box))
+        *param = box->getSelectedItemIndex();
+}
+
 void ChowtapeModelAudioProcessorEditor::sliderValueChanged (Slider* slider)
 {
-    if (AudioParameterFloat* param = getParamForSlider(slider)){
+    if (AudioParameterFloat* param = getParamForSlider (slider))
         *param = (float) slider->getValue();
-    }
 }
 
 void ChowtapeModelAudioProcessorEditor::sliderDragStarted(Slider* slider)
 {
-    if (AudioParameterFloat* param = getParamForSlider(slider))
+    if (AudioParameterFloat* param = getParamForSlider (slider))
         param->beginChangeGesture();
 }
 
 void ChowtapeModelAudioProcessorEditor::sliderDragEnded(Slider* slider)
 {
-    if (AudioParameterFloat* param = getParamForSlider(slider))
+    if (AudioParameterFloat* param = getParamForSlider (slider))
         param->endChangeGesture();
-
 }
