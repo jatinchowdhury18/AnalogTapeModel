@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CAEF60E6-7FA2-1116-844C-DA580AC0B8B7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestPrefetchableSupport</RootNamespace>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Locals">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="PropertySheets">
+    <Import Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <EmbedManifest>false</EmbedManifest>
+    <GenerateManifest>false</GenerateManifest>
+    <IntDir>..\win\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir>..\win\$(Platform)\$(Configuration)\</OutDir>
+    <TargetExt>.vst3</TargetExt>
+    <TargetName>TestPrefetchableSupport</TargetName>
+    <TargetPath>$(OutDir)\TestPrefetchableSupport.vst3</TargetPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4985;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)objects\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;DEVELOPMENT=1;_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>Ole32.lib;User32.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>libcmt;libcpmt</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ModuleDefinitionFile>$(ProjectDir)/plug.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)TestPrefetchableSupport.vst3</OutputFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <TargetExt>.vst3</TargetExt>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "C:\Program Files (x86)\Common Files\VST3\Steinberg" &amp; del "C:\Program Files (x86)\Common Files\VST3\Steinberg\$(TargetName)_debug$(TargetExt)" &amp; mklink "C:\Program Files (x86)\Common Files\VST3\Steinberg\$(TargetName)_debug$(TargetExt)" "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Culture>0x0407</Culture>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;DEVELOPMENT=1;_DEBUG=1;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4985;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)objects\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;DEVELOPMENT=1;_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>Ole32.lib;User32.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>libcmt;libcpmt</IgnoreSpecificDefaultLibraries>
+      <ModuleDefinitionFile>$(ProjectDir)/plug.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)TestPrefetchableSupport.vst3</OutputFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <TargetExt>.vst3</TargetExt>
+    </Link>
+    <PostBuildEvent>
+      <Command>mkdir "C:\Program Files\Common Files\VST3\Steinberg" &amp; del "C:\Program Files\Common Files\VST3\Steinberg\$(TargetName)_debug$(TargetExt)" &amp; mklink "C:\Program Files\Common Files\VST3\Steinberg\$(TargetName)_debug$(TargetExt)" "$(ProjectDir)$(Platform)\$(Configuration)\$(TargetName)$(TargetExt)"</Command>
+    </PostBuildEvent>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Culture>0x0407</Culture>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;DEVELOPMENT=1;_DEBUG=1;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)objects\</ObjectFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;RELEASE=1;NDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>Ole32.lib;User32.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <ModuleDefinitionFile>$(ProjectDir)/plug.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)TestPrefetchableSupport.vst3</OutputFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <SetChecksum>true</SetChecksum>
+      <SubSystem>Windows</SubSystem>
+      <TargetExt>.vst3</TargetExt>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Culture>0x0407</Culture>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;RELEASE=1;NDEBUG=1;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ObjectFileName>$(IntDir)objects\</ObjectFileName>
+      <OmitFramePointers>true</OmitFramePointers>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;RELEASE=1;NDEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>Ole32.lib;User32.lib</AdditionalDependencies>
+      <AdditionalOptions>/IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <ModuleDefinitionFile>$(ProjectDir)/plug.def</ModuleDefinitionFile>
+      <OutputFile>$(OutDir)TestPrefetchableSupport.vst3</OutputFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <SetChecksum>true</SetChecksum>
+      <SubSystem>Windows</SubSystem>
+      <TargetExt>.vst3</TargetExt>
+    </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\..\..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Culture>0x0407</Culture>
+      <PreprocessorDefinitions>WINVER=_WIN32_WINNT_WIN7;_WIN32_WINNT=_WIN32_WINNT_WIN7;_USE_MATH_DEFINES;NOMINMAX;RELEASE=1;NDEBUG=1;%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\plug.h" />
+    <ClInclude Include="..\source\plugcids.h" />
+    <ClInclude Include="..\source\plugcontroller.h" />
+    <ClInclude Include="..\source\plugparamids.h" />
+    <ClInclude Include="..\source\version.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpop.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpush.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\fplatform.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ftypes.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\funknown.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ipluginbase.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\keycodes.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ustring.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\gui\iplugview.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstattributes.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstaudioprocessor.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstcomponent.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsteditcontroller.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstevents.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsthostapplication.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmessage.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmidicontrollers.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstparameterchanges.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstprocesscontext.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstunits.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vstpresetkeys.h" />
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vsttypes.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\common\pluginview.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\main\pluginfactoryvst3.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstaudioeffect.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstbus.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstcomponent.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstcomponentbase.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vsteditcontroller.h" />
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstparameters.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\plug.cpp" />
+    <ClCompile Include="..\source\plugcontroller.cpp" />
+    <ClCompile Include="..\source\plugentry.cpp" />
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\funknown.cpp" />
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\ustring.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\common\pluginview.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\main\pluginfactoryvst3.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\main\dllmain.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstaudioeffect.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstbus.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstcomponent.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstcomponentbase.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vsteditcontroller.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstinitiids.cpp" />
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstparameters.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(ProjectDir)..\resource\plug.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\base\win\base.vcxproj">
+      <Project>{6F060EF8-07BE-4944-A28B-9A9D8AE7AF0E}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

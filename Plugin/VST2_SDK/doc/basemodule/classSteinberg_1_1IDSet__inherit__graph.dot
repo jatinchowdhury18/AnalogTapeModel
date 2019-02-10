@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{IDSet\n|- start\l- growSize\l|+ IDSet()\l+ newID()\l+ releaseID()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="firebrick4",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{BitSet\n|# kChunkSize\l# kChunkByteSize\l# kFullChunk\l- size\l- chunkCount\l- bits\l|+ BitSet()\l+ BitSet()\l+ BitSet()\l+ ~BitSet()\l+ operator=()\l+ operator==()\l+ operator!=()\l+ operator&=()\l+ operator\|=()\l+ operator^=()\l+ setSize()\l+ getSize()\l+ setBit()\l+ clearBit()\l+ toggleBit()\l+ setAll()\l+ clearAll()\l+ getBit()\l+ isEmpty()\l+ countSetBits()\l+ getFirstSet()\l+ getFirstNotSet()\l+ getLastSet()\l# onChange()\l# getChunkCount()\l# getChunk()\l# setChunk()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1BitSet.html",tooltip="Bitset - A collection of bits."];
+}

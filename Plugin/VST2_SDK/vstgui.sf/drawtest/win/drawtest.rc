@@ -1,0 +1,32 @@
+#define APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Data
+//
+
+1 			PNG			"../resources/bmp00001.png"
+100			PNG			"../resources/bmp00100.png"
+1000			PNG			"../resources/bmp01000.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+10001                   BITMAP  DISCARDABLE     "../resources/bmp10001.bmp"
+10002                   BITMAP  DISCARDABLE     "../resources/bmp10002.bmp"
+10003                   BITMAP  DISCARDABLE     "../resources/bmp10003.bmp"
+10004                   BITMAP  DISCARDABLE     "../resources/bmp10004.bmp"
+10005                   BITMAP  DISCARDABLE     "../resources/bmp10005.bmp"
+10006                   BITMAP  DISCARDABLE     "../resources/bmp10006.bmp"
+10007                   BITMAP  DISCARDABLE     "../resources/bmp10007.bmp"
+10008                   BITMAP  DISCARDABLE     "../resources/bmp10008.bmp"
+10009                   BITMAP  DISCARDABLE     "../resources/bmp10009.bmp"
+10010                   BITMAP  DISCARDABLE     "../resources/bmp10010.bmp"
+10011                   BITMAP  DISCARDABLE     "../resources/bmp10011.bmp"
+10012                   BITMAP  DISCARDABLE     "../resources/bmp10012.bmp"
+10013                   BITMAP  DISCARDABLE     "../resources/bmp10013.bmp"
+10014                   BITMAP  DISCARDABLE     "../resources/bmp10014.bmp"
+10015                   BITMAP  DISCARDABLE     "../resources/bmp10015.bmp"
+10016                   BITMAP  DISCARDABLE     "../resources/bmp10016.bmp"

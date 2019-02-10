@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="IAnimationTarget",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="AlphaValueAnimation",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_alpha_value_animation.html",tooltip="animates the alpha value of the view"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="ControlValueAnimation",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_control_value_animation.html",tooltip="animates the value of a CControl"];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="ExchangeViewAnimation",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_exchange_view_animation.html",tooltip="exchange a view by another view with an animation"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="ViewSizeAnimation",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_view_size_animation.html",tooltip="animates the view size of the view"];
+}

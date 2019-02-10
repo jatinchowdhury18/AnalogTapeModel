@@ -1,0 +1,28 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="UIDescription",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node3 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="IUIDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_u_i_description.html"];
+  Node4 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="IHandler",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_xml_1_1_i_handler.html"];
+  Node5 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="IDependency",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_dependency.html",tooltip="simple dependency between objects."];
+  Node6 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="xmlFile",fontname="Arial"];
+  Node6 [label="CResourceDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_resource_description.html",tooltip="Describes a resource by name or by ID."];
+  Node7 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="xmlContentProvider",fontname="Arial"];
+  Node7 [label="IContentProvider",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_xml_1_1_i_content_provider.html"];
+  Node8 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="controller",fontname="Arial"];
+  Node8 [label="IController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_controller.html",tooltip="extension to CControlListener used by UIDescription"];
+  Node9 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node9 [label="CControlListener",height=0.2,width=0.4,color="black",URL="$class_c_control_listener.html"];
+  Node10 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="viewFactory",fontname="Arial"];
+  Node10 [label="IViewFactory",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_view_factory.html"];
+  Node11 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="bitmapCreator",fontname="Arial"];
+  Node11 [label="IBitmapCreator",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_bitmap_creator.html"];
+}

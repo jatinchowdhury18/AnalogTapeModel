@@ -1,0 +1,31 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="CControlListener",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CColorChooser",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_color_chooser.html"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CFontChooser",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_font_chooser.html"];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="CScrollView",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_scroll_view.html",tooltip="a scrollable container view with scrollbars"];
+  Node4 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="CDataBrowser",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_data_browser.html",tooltip="DataBrowser view."];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="CSplashScreen",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_splash_screen.html"];
+  Node6 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 [label="CAnimationSplashScreen",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_animation_splash_screen.html",tooltip="a splash screen which animates the opening and closing of the splash bitmap"];
+  Node1 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node8 [label="CTabView",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_tab_view.html",tooltip="a tab view"];
+  Node1 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node9 [label="IController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_controller.html",tooltip="extension to CControlListener used by UIDescription"];
+  Node9 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node10 [label="DelegationController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_delegation_controller.html"];
+  Node10 -> Node11 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node11 [label="PadController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_pad_controller.html"];
+  Node9 -> Node12 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node12 [label="GroupController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_group_controller.html"];
+  Node9 -> Node13 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node13 [label="VST3Editor",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_v_s_t3_editor.html",tooltip="VST3 Editor with automatic parameter binding."];
+}

@@ -1,0 +1,41 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{FUnknown\n|+ iid\l|+ queryInterface()\l+ addRef()\l+ release()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{IAttributes\n|+ iid\l|+ set()\l+ queue()\l+ setBinaryData()\l+ get()\l+ unqueue()\l+ getQueueItemCount()\l+ resetQueue()\l+ resetAllQueues()\l+ getBinaryData()\l+ getBinaryDataSize()\l* set()\l* queue()\l* setBinaryData()\l* get()\l* unqueue()\l* getQueueItemCount()\l* resetQueue()\l* resetAllQueues()\l* getBinaryData()\l* getBinaryDataSize()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IAttributes.html",tooltip="Object Data Archive Interface."];
+  Node2 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{IAttributes2\n|+ iid\l|+ countAttributes()\l+ getAttributeID()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IAttributes2.html",tooltip="Extended access to Attributes; supports Attribute retrieval via iteration."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{IBStream\n|+ iid\l|+ read()\l+ write()\l+ seek()\l+ tell()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IBStream.html",tooltip="Base class for streams."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{ICloneable\n|+ iid\l|+ clone()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1ICloneable.html",tooltip="Interface allowing an object to be copied."];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IDependent\n|+ iid\l|+ update()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IDependent.html",tooltip="A dependent will get notified about changes of a model."];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IErrorContext\n|+ iid\l|+ disableErrorUI()\l+ errorMessageShown()\l+ getErrorMessage()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IErrorContext.html",tooltip="Interface for error handling."];
+  Node1 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{IPersistent\n|+ iid\l|+ getClassID()\l+ saveAttributes()\l+ loadAttributes()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPersistent.html",tooltip="Persistent Object Interface."];
+  Node1 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 [label="{IPlugFrame\n|+ iid\l|+ resizeView()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPlugFrame.html",tooltip="Callback interface passed to IPlugView."];
+  Node1 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 [label="{IPluginBase\n|+ iid\l|+ initialize()\l+ terminate()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPluginBase.html",tooltip="Basic interface to a Plug-in component."];
+  Node1 -> Node11 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node11 [label="{IPluginFactory\n|+ iid\l|+ getFactoryInfo()\l+ countClasses()\l+ getClassInfo()\l+ createInstance()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPluginFactory.html",tooltip="Class factory that any Plug-in defines for creating class instances."];
+  Node11 -> Node12 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node12 [label="{IPluginFactory2\n|+ iid\l|+ getClassInfo2()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPluginFactory2.html",tooltip="Version 2 of class factory supporting PClassInfo2."];
+  Node12 -> Node13 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node13 [label="{IPluginFactory3\n|+ iid\l|+ getClassInfoUnicode()\l+ setHostContext()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPluginFactory3.html",tooltip="Version 3 of class factory supporting PClassInfoW."];
+  Node1 -> Node14 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node14 [label="{IPlugView\n|+ iid\l|+ isPlatformTypeSupported()\l+ attached()\l+ removed()\l+ onWheel()\l+ onKeyDown()\l+ onKeyUp()\l+ getSize()\l+ onSize()\l+ onFocus()\l+ setFrame()\l+ canResize()\l+ checkSizeConstraint()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IPlugView.html",tooltip="Plug-in definition of a view."];
+  Node1 -> Node15 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node15 [label="{ISizeableStream\n|+ iid\l|+ getStreamSize()\l+ setStreamSize()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1ISizeableStream.html",tooltip="Stream with a size."];
+  Node1 -> Node16 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node16 [label="{IString\n|+ iid\l|+ setText8()\l+ setText16()\l+ getText8()\l+ getText16()\l+ take()\l+ isWideString()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IString.html",tooltip="Interface to a string of variable size and encoding."];
+  Node1 -> Node17 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node17 [label="{IStringResult\n|+ iid\l|+ setText()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IStringResult.html",tooltip="Interface to return an ascii string of variable size."];
+  Node1 -> Node18 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node18 [label="{IUpdateHandler\n|+ iid\l|+ addDependent()\l+ removeDependent()\l+ triggerUpdates()\l+ deferUpdates()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IUpdateHandler.html",tooltip="Host implements dependency handling for plugins."];
+}

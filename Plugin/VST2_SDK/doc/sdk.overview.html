@@ -1,0 +1,626 @@
+<html>
+
+<head>
+    <title>Steinberg VST SDK 3 :: Overview</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta name="Author" content="Yvan Grabit" />
+    <link rel="stylesheet" type="text/css" href="docu.css" />
+</head>
+
+<body>
+
+    <table border="0">
+        <tr>
+            <td>
+                <font size="+1"><b>Steinberg VST SDK 3 Overview</b></font>
+            </td>
+        </tr>
+    </table>
+
+    <hr noshade size="4" width="100%" />
+
+    <br />
+
+    <table border="0" cellspacing="0" cellpadding="4">
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" /> <a href="../base">base</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>SDK Base</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" /> <a href="../bin">bin</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>SDK Binaries</b>
+                (like PluginTestHost installers)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/mac.gif" /> <a href="../bin/Mac OS X" target="_blank">Mac OS X</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Tools for MacOS X platform (32 &amp; 64 bit)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/win.gif" />
+                <a href="../bin/Windows 32 bit" target="_blank">Windows 32 bit</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Tools for Windows 32Bit platform
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/win.gif" />
+                <a href="../bin/Windows 64 bit" target="_blank">Windows 64 bit</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Tools for Windows 64Bit platform
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" /> <a href="sdk.firstpage.html">doc</a>
+            </td>
+            <td width=50>
+                &nbsp;
+            </td>
+            <td>
+                <a href="sdk.firstpage.html"><b>VST SDK Documentation</b></a> and <a href="VST3_License_Agreement.html"><b>Licensing Agreement</b> (HTML format)</a>, <a href="VST3_License_Agreement.rtf"><b>Licensing Agreement</b> (RTF format)</a>, <a href="VST3_License_Agreement.pdf"><b>Licensing Agreement</b> (PDF format)</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" /> <a href="./artwork">artwork</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST Logo Artwork
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" /> <a href="../pluginterfaces" target="_blank">pluginterfaces</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>Interface Files</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../pluginterfaces/base" target="_blank">base</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Basic Interfaces
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../pluginterfaces/gui" target="_blank">gui</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                GUI Interfaces
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../pluginterfaces/test" target="_blank">test</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Test Interfaces
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../pluginterfaces/vst" target="_blank">vst</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 3 Interfaces
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../pluginterfaces/vst2.x" target="_blank">vst2.x</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 2.x Interfaces
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" /> <a href="../public.sdk" target="_blank">public.sdk</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>SDK Source Files</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" /> <a href="../public.sdk/samples" target="_blank">samples</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" /> <a href="../public.sdk/samples/vst" target="_blank">
+                    vst
+                </a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 3 Plug-in samples
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/adelay" target="_blank">adelay</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                ADelay sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/again" target="_blank">again</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                AGain sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/channelcontext" target="_blank">channelcontext</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Channel Context Info sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/common" target="_blank">common</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                common stuff for multiple Plug-ins
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/hostchecker" target="_blank">hostChecker</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 3 HostChecker sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/InterAppAudio" target="_blank">InterAppAudio</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 3 InterAppAudio sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/mac.gif" />
+                <a href="../public.sdk/samples/vst/mac" target="_blank">mac</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                MacOS X platform samples project (Xcode 3.x, Xcode 4.x)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/mda-vst3" target="_blank">mda-vst3</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                mda VST 3 samples
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/note_expression_synth" target="_blank">note_expression_synth</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Note Expression Synth sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/note_expression_text" target="_blank">note_expression_text</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Note Expression Text sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/pitchnames" target="_blank">pitchnames</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Pitchnames sample
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/prefetchablesupport" target="_blank">prefetchablesupport</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Prefetchable Support sample
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 27px">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/samples/vst/validator" target="_blank">validator</a>
+            </td>
+            <td style="height: 27px">
+                &nbsp;
+            </td>
+            <td style="height: 27px">
+                Validator Console Application using unity tests
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+                <img src="gfx/win.gif" />
+                <a href="../public.sdk/samples/vst/win" target="_blank">win</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Windows platform samples (Win32 and x64, requires Visual C++ 2013, 2012, 2010 or 2008)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/source" target="_blank">source</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/source/vst/common" target="_blank">common</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Base Classes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/source/main" target="_blank">main</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Base Classes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/source/vst" target="_blank">vst</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 3.x Base Classes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../public.sdk/source/vst2.x" target="_blank">vst2.x</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VST 2.x Base Classes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf" target="_blank">vstgui.sf</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>VSTGUI Library</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/drawtest" target="_blank">drawtest</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Project files (Windows and Mac)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/ligpng" target="_blank">libpng</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                libpng library
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/vstgui" target="_blank">vstgui</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VSTGUI source code (stable 3.6 branch from Sourceforge.net)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/vstgui/Documentation/index.html">Documentation</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <a href="../vstgui.sf/vstgui/Documentation/index.html"><b>VSTGUI Documentation</b></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/vstgui/Tutorial" target="_blank">Tutorial</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Tutorial
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui.sf/zlib" target="_blank">zlib</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                zlib library
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui4" target="_blank">vstgui4</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <b>VSTGUI 4.x Library Version</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui4/vstgui" target="_blank">vstgui</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                VSTGUI source code (from Sourceforge.net)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui4/vstgui/Documentation/index.html">Documentation</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <a href="../vstgui4/vstgui/Documentation/index.html"><b>VSTGUI Documentation</b></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="gfx/folder.gif" />
+                <a href="../vstgui4/vstgui/Tutorial" target="_blank">Tutorial</a>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                Tutorial
+            </td>
+        </tr>
+    </table>
+
+    <div>
+    </div>
+    <br />
+    <hr size="2" width="100%">
+    <div align="left">
+        Copyright &copy;2015 <a href="http://www.steinberg.net" target="_blank"><u>Steinberg Media Technologies GmbH</u></a>.
+        All Rights Reserved.
+    </div>
+    <br />
+    <!---------------------------------------------------------------------------------------------->
+
+</body>
+
+</html>

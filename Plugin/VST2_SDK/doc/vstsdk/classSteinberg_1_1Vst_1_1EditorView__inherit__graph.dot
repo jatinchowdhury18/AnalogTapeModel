@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{EditorView\n|# controller\l|+ EditorView()\l+ ~EditorView()\l+ getController()\l+ attachedToParent()\l+ removedFromParent()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{CPluginView\n|+ systemWindow\l+ plugFrame\l|+ CPluginView()\l+ ~CPluginView()\l+ getRect()\l+ setRect()\l+ isAttached()\l+ attachedToParent()\l+ removedFromParent()\l+ isPlatformTypeSupported()\l+ attached()\l+ removed()\l+ onWheel()\l+ onKeyDown()\l+ onKeyUp()\l+ getSize()\l+ onSize()\l+ onFocus()\l+ setFrame()\l+ canResize()\l+ checkSizeConstraint()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1CPluginView.html",tooltip="Plug-In view default implementation."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{IPlugView\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPlugView.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{VSTGUIEditor\n|- timer\l|+ VSTGUIEditor()\l+ ~VSTGUIEditor()\l+ open()\l+ close()\l+ setIdleRate()\l+ notify()\l+ forget()\l+ remember()\l+ getNbReference()\l+ isPlatformTypeSupported()\l+ onSize()\l+ beginEdit()\l+ endEdit()\l+ getKnobMode()\l- attached()\l- removed()\l- onKeyDown()\l- onKeyUp()\l- onWheel()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VSTGUIEditor.html",tooltip="Base class for an edit view using VSTGUI."];
+}

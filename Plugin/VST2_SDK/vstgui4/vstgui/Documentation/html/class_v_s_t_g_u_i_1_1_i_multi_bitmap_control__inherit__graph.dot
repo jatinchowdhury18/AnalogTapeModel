@@ -1,0 +1,24 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="IMultiBitmapControl",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CAnimKnob",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_anim_knob.html",tooltip="a bitmap knob control"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CAutoAnimation",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_auto_animation.html"];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="CHorizontalSwitch",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_horizontal_switch.html",tooltip="a horizontal switch control"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="CKickButton",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_kick_button.html"];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="CMovieBitmap",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_movie_bitmap.html",tooltip="a bitmap view that displays different bitmaps according to its current value"];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 [label="CMovieButton",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_movie_button.html",tooltip="a bi-states button with 2 subbitmaps"];
+  Node1 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node8 [label="CRockerSwitch",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_rocker_switch.html",tooltip="a switch control with 3 sub bitmaps"];
+  Node1 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node9 [label="CVerticalSwitch",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_vertical_switch.html",tooltip="a vertical switch control"];
+}

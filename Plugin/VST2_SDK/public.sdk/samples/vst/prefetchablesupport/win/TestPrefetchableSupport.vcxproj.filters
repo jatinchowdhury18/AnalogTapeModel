@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{63095215-D8A8-492D-3A31-49C8F636CFE6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{26D65320-41C3-1A61-26C0-583D658C7F16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\pluginterfaces">
+      <UniqueIdentifier>{B38C3663-454A-F754-294F-777A0611D95B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\pluginterfaces\base">
+      <UniqueIdentifier>{DBBAC0A6-BB0A-CA51-45CC-DA4574B671E6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\pluginterfaces\gui">
+      <UniqueIdentifier>{B7830B15-77AB-F870-F0D0-CEEB601876DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\pluginterfaces\vst">
+      <UniqueIdentifier>{9733BF7C-8B46-6CD4-A28E-0B3B3E1901DF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\public.sdk">
+      <UniqueIdentifier>{2B9F1CB0-B1B2-5EBC-A997-972BCCFDFCD5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\public.sdk\common">
+      <UniqueIdentifier>{2F5FD094-EF52-77F7-7AA8-4327A01BF747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\public.sdk\main">
+      <UniqueIdentifier>{4ECC9921-7D4B-15DC-E268-546157B2659F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\public.sdk\vst">
+      <UniqueIdentifier>{9733BF7C-8B46-6CD4-A28E-0B3B3E1901DF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(ProjectDir)..\resource\plug.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+    <ClCompile Include="..\source\plug.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClInclude Include="..\source\plug.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\plugcids.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClCompile Include="..\source\plugcontroller.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClInclude Include="..\source\plugcontroller.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClCompile Include="..\source\plugentry.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClInclude Include="..\source\plugparamids.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\version.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpop.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpush.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\fplatform.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ftypes.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\funknown.cpp">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\funknown.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ipluginbase.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\keycodes.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\ustring.cpp">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ustring.h">
+      <Filter>Source\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\gui\iplugview.h">
+      <Filter>Source\pluginterfaces\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstattributes.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstaudioprocessor.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstcomponent.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsteditcontroller.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstevents.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsthostapplication.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmessage.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmidicontrollers.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstparameterchanges.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstprocesscontext.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstunits.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vstpresetkeys.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vsttypes.h">
+      <Filter>Source\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\common\pluginview.cpp">
+      <Filter>Source\public.sdk\common</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\common\pluginview.h">
+      <Filter>Source\public.sdk\common</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\main\pluginfactoryvst3.cpp">
+      <Filter>Source\public.sdk\main</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\main\pluginfactoryvst3.h">
+      <Filter>Source\public.sdk\main</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\main\dllmain.cpp">
+      <Filter>Source\public.sdk\main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstaudioeffect.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstaudioeffect.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstbus.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstbus.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstcomponent.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstcomponent.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstcomponentbase.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstcomponentbase.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vsteditcontroller.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vsteditcontroller.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstinitiids.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\public.sdk\source\vst\vstparameters.cpp">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\..\..\public.sdk\source\vst\vstparameters.h">
+      <Filter>Source\public.sdk\vst</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+digraph structs
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="Animation",height=0.2,width=0.4,color="black",URL="$group__animation.html"];
+  Node2 [label="Version 4.0",height=0.2,width=0.4,color="black",URL="$group__new__in__4__0.html"];
+  Node0 [label="Animation Targets",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1->Node0 [shape=plaintext, color="midnightblue", dir="back", style="solid"];
+  Node0->Node2 [shape=plaintext, label="VSTGUI::Animation::AlphaValueAnimation\nVSTGUI::Animation::ViewSizeAnimation\nVSTGUI::Animation::ExchangeViewAnimation\nVSTGUI::Animation::ControlValueAnimation", color="orange", dir="none", style="dashed"];
+}

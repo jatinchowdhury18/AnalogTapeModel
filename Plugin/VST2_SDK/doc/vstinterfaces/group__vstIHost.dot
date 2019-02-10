@@ -1,0 +1,20 @@
+digraph structs
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node0 [label="VST 3 Interfaces to be implemented by Host",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node5 [label="VST 3 Interfaces to be implemented by Plug-in",height=0.2,width=0.4,color="black",URL="$group__vstIPlug.html"];
+  Node1 [label="VST 3 Interfaces defined in version 3.0.0",height=0.2,width=0.4,color="black",URL="$group__vst300.html"];
+  Node6 [label="VST 3 Interfaces defined in version 3.1.0",height=0.2,width=0.4,color="black",URL="$group__vst310.html"];
+  Node4 [label="VST 3 Interfaces defined in version 3.5.0",height=0.2,width=0.4,color="black",URL="$group__vst350.html"];
+  Node2 [label="VST 3 Interfaces defined in version 3.6.0",height=0.2,width=0.4,color="black",URL="$group__vst360.html"];
+  Node3 [label="VST 3 Interfaces defined in version 3.6.5",height=0.2,width=0.4,color="black",URL="$group__vst365.html"];
+  Node0->Node1 [shape=plaintext, label="Steinberg::Vst::IAttributeList\nSteinberg::Vst::IComponentHandler\nSteinberg::Vst::IEventList\nSteinberg::Vst::IHostApplication\nSteinberg::Vst::IMessage\nSteinberg::Vst::IParamValueQueue\nSteinberg::Vst::IParameterChanges\nSteinberg::Vst::IUnitHandler", color="orange", dir="none", style="dashed"];
+  Node0->Node2 [shape=plaintext, label="Steinberg::Vst::IStreamAttributes\nSteinberg::Vst::IInterAppAudioHost", color="orange", dir="none", style="dashed"];
+  Node0->Node3 [shape=plaintext, label="Steinberg::Vst::ChannelContext::IInfoListener\nSteinberg::Vst::IUnitHandler2", color="orange", dir="none", style="dashed"];
+  Node0->Node4 [shape=plaintext, label="Steinberg::Vst::IComponentHandler3\nSteinberg::Vst::IContextMenuTarget\nSteinberg::Vst::IContextMenu", color="orange", dir="none", style="dashed"];
+  Node0->Node5 [shape=plaintext, label="Steinberg::Vst::IContextMenuTarget", color="orange", dir="none", style="dashed"];
+  Node0->Node6 [shape=plaintext, label="Steinberg::Vst::IComponentHandler2\nSteinberg::Vst::IVst3ToVst2Wrapper\nSteinberg::Vst::IVst3ToAUWrapper", color="orange", dir="none", style="dashed"];
+}

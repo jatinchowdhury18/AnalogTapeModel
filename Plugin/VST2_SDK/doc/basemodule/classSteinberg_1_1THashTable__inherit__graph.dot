@@ -1,0 +1,13 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{THashTable\< T \>\n|- _hFunc\l- _total\l- _buckets\l|+ THashTable()\l+ THashTable()\l+ THashTable()\l+ ~THashTable()\l+ operator=()\l+ setHashFunction()\l+ resize()\l+ newInstance()\l+ total()\l+ isEmpty()\l+ add()\l+ remove()\l+ remove()\l+ removeAt()\l+ removeAll()\l+ lookup()\l+ contains()\l+ occurrences()\l+ newIterator()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{TContainer\< T \>\n|# errorObject\l# _size\l|+ TContainer()\l+ TContainer()\l+ ~TContainer()\l+ operator==()\l+ operator!=()\l+ newInstance()\l+ operator[]()\l+ total()\l+ isEmpty()\l+ size()\l+ add()\l+ remove()\l+ remove()\l+ removeAt()\l+ removeAll()\l+ at()\l+ lookup()\l+ contains()\l+ occurrences()\l+ newIterator()\l+ lookupAll()\l+ addAllFrom()\l+ addNewFrom()\l+ error()\l# copy()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TContainer.html",tooltip="Template container base class (abstract)."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{TBag\< T \>\n||+ TBag()\l+ TBag()\l+ TBag()\l+ TBag()\l+ operator=()\l+ add()\l+ add()\l+ remove()\l+ remove()\l+ removeAll()\l+ removeAll()\l+ getCount()\l+ createUniqueSet()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TBag.html",tooltip="Bag template."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{THashSet\< T \>\n||+ THashSet()\l+ THashSet()\l+ THashSet()\l+ THashSet()\l+ ~THashSet()\l+ operator=()\l+ operator-()\l+ operator&()\l+ operator\|()\l+ add()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1THashSet.html",tooltip="A hash set is a collection of items, without any particular order and without repetitions..."];
+}

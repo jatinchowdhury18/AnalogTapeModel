@@ -1,0 +1,10 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="BitSet",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1BitSet.html",tooltip="Bitset - A collection of bits."];
+  Node1 -> Node2 [dir=back,color="firebrick4",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="IDSet",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1IDSet.html",tooltip="IDSet is a BitSet allowing to generate/release IDs starting with a given start offset..."];
+}

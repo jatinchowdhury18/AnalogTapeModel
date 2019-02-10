@@ -1,0 +1,40 @@
+#define stringEffectName  __OUTPUT_FILENAME__
+#define stringVersion	"1.0.0.0"
+#define stringCopyright   "© Arne Scheffler 2004"
+
+
+#ifndef stringEffectName
+#error "You need to set stringEffectName"
+#endif
+#ifndef stringVersion
+#error "You need to set stringVersion"
+#endif
+#ifndef stringCopyright
+#error "You need to set stringCopyright"
+#endif
+
+#define BUNDLE_NAME			stringEffectName
+#define BUNDLE_COPYRIGHT	stringCopyright
+#define BUNDLE_VERSION		stringVersion
+#define BUNDLE_IDENTIFIER	"com.steinberg." BUNDLE_NAME
+#define BUNDLE_ICON			"commonIcon"
+
+
+plist
+{
+	dictionary
+	{
+		key "CFBundleInfoDictionaryVersion" value string "6.0"
+		key "CFBundleDevelopmentRegion" value string "English"
+		key "CFBundleName" value string BUNDLE_NAME
+		key "CFBundleIdentifier" value string BUNDLE_IDENTIFIER
+		key "CFBundleGetInfoString" value string BUNDLE_NAME " " BUNDLE_VERSION ", " BUNDLE_COPYRIGHT
+		key "CFBundleShortVersionString" value string BUNDLE_VERSION
+		key "CFBundleExecutable" value string __OUTPUT_FILENAME__
+		key "CFBundlePackageType" value string __OUTPUT_TYPE__
+		key "CFBundleSignature" value string __OUTPUT_CREATOR__
+		key "CFBundleBuildDate" value string __DATE__
+		key "CFBundleIconFile" value string BUNDLE_ICON
+		key "VSTWindowCompositing" value boolean true
+	}
+}

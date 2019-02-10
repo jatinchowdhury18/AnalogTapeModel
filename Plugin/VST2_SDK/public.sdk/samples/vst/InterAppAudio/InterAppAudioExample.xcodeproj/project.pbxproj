@@ -1,0 +1,1028 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F402DB3617A7B5CD00698A6A /* adelaycontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3017A7B5CD00698A6A /* adelaycontroller.cpp */; };
+		F402DB3717A7B5CD00698A6A /* adelayprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3317A7B5CD00698A6A /* adelayprocessor.cpp */; };
+		F402DB3B17A7B60C00698A6A /* funknown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3917A7B60C00698A6A /* funknown.cpp */; };
+		F402DB3D17A7B62F00698A6A /* factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3C17A7B62F00698A6A /* factory.cpp */; };
+		F402DB3F17A7B71900698A6A /* vst3stdsdk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3E17A7B71900698A6A /* vst3stdsdk.cpp */; };
+		F402DB4217A7B73000698A6A /* ustring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4017A7B73000698A6A /* ustring.cpp */; };
+		F402DB4517A7B75900698A6A /* pluginfactoryvst3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4317A7B75900698A6A /* pluginfactoryvst3.cpp */; };
+		F402DB5017A7B79400698A6A /* baseiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4717A7B79400698A6A /* baseiids.cpp */; };
+		F402DB5117A7B79400698A6A /* fatomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4817A7B79400698A6A /* fatomic.cpp */; };
+		F402DB5217A7B79400698A6A /* fdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4A17A7B79400698A6A /* fdebug.cpp */; };
+		F402DB5317A7B79400698A6A /* fobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4C17A7B79400698A6A /* fobject.cpp */; };
+		F402DB5417A7B79400698A6A /* fstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4E17A7B79400698A6A /* fstring.cpp */; };
+		F402DB5617A7B7CB00698A6A /* vstinitiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB5517A7B7CB00698A6A /* vstinitiids.cpp */; };
+		F402DB5817A7B7F800698A6A /* macmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB5717A7B7F800698A6A /* macmain.cpp */; };
+		F402DB5B17A7B82600698A6A /* exampletest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB5917A7B82600698A6A /* exampletest.cpp */; };
+		F402DB6817A7C14600698A6A /* eventlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6017A7C14600698A6A /* eventlist.cpp */; };
+		F402DB6917A7C14600698A6A /* hostclasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6217A7C14600698A6A /* hostclasses.cpp */; };
+		F402DB6A17A7C14600698A6A /* parameterchanges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6417A7C14600698A6A /* parameterchanges.cpp */; };
+		F402DB6B17A7C14600698A6A /* processdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6617A7C14600698A6A /* processdata.cpp */; };
+		F402DB6E17A7C16C00698A6A /* NSDataIBStream.mm in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6D17A7C16C00698A6A /* NSDataIBStream.mm */; };
+		F402DB7117A7CC3E00698A6A /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6F17A7CC3E00698A6A /* timer.cpp */; };
+		F42BA34417A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F42BA34217A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm */; };
+		F42BA34517A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F42BA34317A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib */; };
+		F42D5F5717AFDEED00B85FE8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F42D5F5617AFDEED00B85FE8 /* MobileCoreServices.framework */; };
+		F42D5F5C17AFFB2800B85FE8 /* knob big.png in Resources */ = {isa = PBXBuildFile; fileRef = F42D5F5B17AFFB2800B85FE8 /* knob big.png */; };
+		F42D5F5F17B005A800B85FE8 /* fbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42D5F5D17B005A800B85FE8 /* fbuffer.cpp */; };
+		F42D5F6B17B01A7600B85FE8 /* vst3padcontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42D5F6917B019BA00B85FE8 /* vst3padcontroller.cpp */; };
+		F42D5F7217B02F1100B85FE8 /* note_touch_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42D5F7017B02F1100B85FE8 /* note_touch_controller.cpp */; };
+		F433213C17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = F433213B17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm */; };
+		F433213D17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = F433213B17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm */; };
+		F436D8681801912900515923 /* MidiIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D85C1801912900515923 /* MidiIO.mm */; };
+		F436D8691801912900515923 /* MidiIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D85C1801912900515923 /* MidiIO.mm */; };
+		F436D86A1801912900515923 /* PresetBrowserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D85D1801912900515923 /* PresetBrowserView.xib */; };
+		F436D86B1801912900515923 /* PresetBrowserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D85D1801912900515923 /* PresetBrowserView.xib */; };
+		F436D86C1801912900515923 /* PresetBrowserViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D85F1801912900515923 /* PresetBrowserViewController.mm */; };
+		F436D86D1801912900515923 /* PresetBrowserViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D85F1801912900515923 /* PresetBrowserViewController.mm */; };
+		F436D86E1801912900515923 /* PresetManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8611801912900515923 /* PresetManager.mm */; };
+		F436D86F1801912900515923 /* PresetManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8611801912900515923 /* PresetManager.mm */; };
+		F436D8701801912900515923 /* PresetSaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D8621801912900515923 /* PresetSaveView.xib */; };
+		F436D8711801912900515923 /* PresetSaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D8621801912900515923 /* PresetSaveView.xib */; };
+		F436D8721801912900515923 /* PresetSaveViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8641801912900515923 /* PresetSaveViewController.mm */; };
+		F436D8731801912900515923 /* PresetSaveViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8641801912900515923 /* PresetSaveViewController.mm */; };
+		F436D8741801912900515923 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D8651801912900515923 /* SettingsView.xib */; };
+		F436D8751801912900515923 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F436D8651801912900515923 /* SettingsView.xib */; };
+		F436D8761801912900515923 /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8671801912900515923 /* SettingsViewController.mm */; };
+		F436D8771801912900515923 /* SettingsViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F436D8671801912900515923 /* SettingsViewController.mm */; };
+		F436D87D1801918C00515923 /* vstpresetfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436D87B1801918C00515923 /* vstpresetfile.cpp */; };
+		F436D87E1801918C00515923 /* vstpresetfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F436D87B1801918C00515923 /* vstpresetfile.cpp */; };
+		F436D880180191A100515923 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F436D87F180191A100515923 /* CoreMIDI.framework */; };
+		F436D8811801920500515923 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F436D87F180191A100515923 /* CoreMIDI.framework */; };
+		F440F8D717A911FE00616683 /* fdebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4A17A7B79400698A6A /* fdebug.cpp */; };
+		F440F8D817A911FE00616683 /* fthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4A17A7FC9F00618A5D /* fthread.cpp */; };
+		F440F8DA17A911FE00616683 /* parameterchanges.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6417A7C14600698A6A /* parameterchanges.cpp */; };
+		F440F8DB17A911FE00616683 /* HostApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5117A8047400618A5D /* HostApp.mm */; };
+		F440F8DC17A911FE00616683 /* baseiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4717A7B79400698A6A /* baseiids.cpp */; };
+		F440F8DD17A911FE00616683 /* pluginfactoryvst3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4317A7B75900698A6A /* pluginfactoryvst3.cpp */; };
+		F440F8DF17A911FE00616683 /* fobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4C17A7B79400698A6A /* fobject.cpp */; };
+		F440F8E117A911FE00616683 /* macmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB5717A7B7F800698A6A /* macmain.cpp */; };
+		F440F8E217A911FE00616683 /* ustring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4017A7B73000698A6A /* ustring.cpp */; };
+		F440F8E417A911FE00616683 /* updatehandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4717A7FB7F00618A5D /* updatehandler.cpp */; };
+		F440F8E517A911FE00616683 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6F17A7CC3E00698A6A /* timer.cpp */; };
+		F440F8E617A911FE00616683 /* VSTInterAppAudioAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F459120017A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm */; };
+		F440F8E717A911FE00616683 /* hostclasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6217A7C14600698A6A /* hostclasses.cpp */; };
+		F440F8E817A911FE00616683 /* AudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4F17A8047400618A5D /* AudioIO.mm */; };
+		F440F8E917A911FE00616683 /* fstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4E17A7B79400698A6A /* fstring.cpp */; };
+		F440F8EB17A911FE00616683 /* eventlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6017A7C14600698A6A /* eventlist.cpp */; };
+		F440F8EC17A911FE00616683 /* processdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6617A7C14600698A6A /* processdata.cpp */; };
+		F440F8ED17A911FE00616683 /* VST3Editor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5317A8047400618A5D /* VST3Editor.mm */; };
+		F440F8EE17A911FE00616683 /* NSDataIBStream.mm in Sources */ = {isa = PBXBuildFile; fileRef = F402DB6D17A7C16C00698A6A /* NSDataIBStream.mm */; };
+		F440F8EF17A911FE00616683 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F45911FC17A65E5400451D65 /* main.m */; };
+		F440F8F017A911FE00616683 /* funknown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3917A7B60C00698A6A /* funknown.cpp */; };
+		F440F8F117A911FE00616683 /* conststringtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459123017A6796000451D65 /* conststringtable.cpp */; };
+		F440F8F217A911FE00616683 /* vstinitiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB5517A7B7CB00698A6A /* vstinitiids.cpp */; };
+		F440F8F317A911FE00616683 /* VSTInterAppAudioHostUIControllerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F42BA34217A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm */; };
+		F440F8F417A911FE00616683 /* fatomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB4817A7B79400698A6A /* fatomic.cpp */; };
+		F440F8F517A911FE00616683 /* vst3stdsdk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F402DB3E17A7B71900698A6A /* vst3stdsdk.cpp */; };
+		F440F8F617A911FE00616683 /* VST3Plugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5517A8047400618A5D /* VST3Plugin.mm */; };
+		F440F8F817A911FE00616683 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F459122E17A6783100451D65 /* AudioToolbox.framework */; };
+		F440F8F917A911FE00616683 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F459122A17A66AB800451D65 /* AVFoundation.framework */; };
+		F440F8FA17A911FE00616683 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45911F217A65E5400451D65 /* CoreGraphics.framework */; };
+		F440F8FB17A911FE00616683 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45911F017A65E5400451D65 /* Foundation.framework */; };
+		F440F8FD17A911FE00616683 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F45911F917A65E5400451D65 /* InfoPlist.strings */; };
+		F440F90017A911FE00616683 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F459120217A65E5400451D65 /* Images.xcassets */; };
+		F440F91417A9135F00616683 /* factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F90917A9135F00616683 /* factory.cpp */; };
+		F440F91517A9135F00616683 /* note_expression_synth_controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F90B17A9135F00616683 /* note_expression_synth_controller.cpp */; };
+		F440F91617A9135F00616683 /* note_expression_synth_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F90D17A9135F00616683 /* note_expression_synth_processor.cpp */; };
+		F440F91717A9135F00616683 /* note_expression_synth_ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F90F17A9135F00616683 /* note_expression_synth_ui.cpp */; };
+		F440F91817A9135F00616683 /* note_expression_synth_voice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F91117A9135F00616683 /* note_expression_synth_voice.cpp */; };
+		F440F92017A9139600616683 /* vst3editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F91E17A9139600616683 /* vst3editor.cpp */; };
+		F440F92417A9170500616683 /* vstnoteexpressiontypes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92217A9170500616683 /* vstnoteexpressiontypes.cpp */; };
+		F440F92717A9172800616683 /* vstguieditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92517A9172800616683 /* vstguieditor.cpp */; };
+		F440F92A17A9174900616683 /* pluginview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92817A9174900616683 /* pluginview.cpp */; };
+		F440F92C17A9176B00616683 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F440F92B17A9176B00616683 /* ImageIO.framework */; };
+		F440F92E17A9177300616683 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F440F92D17A9177300616683 /* Accelerate.framework */; };
+		F440F93117A917B700616683 /* fstreamer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92F17A917B700616683 /* fstreamer.cpp */; };
+		F440F93217A917B700616683 /* fstreamer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92F17A917B700616683 /* fstreamer.cpp */; };
+		F440F93B17A9187100616683 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93417A9187100616683 /* about.png */; };
+		F440F93C17A9187100616683 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93517A9187100616683 /* background.png */; };
+		F440F93D17A9187100616683 /* groupframe.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93617A9187100616683 /* groupframe.png */; };
+		F440F93E17A9187100616683 /* knob.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93717A9187100616683 /* knob.png */; };
+		F440F93F17A9187100616683 /* knob2.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93817A9187100616683 /* knob2.png */; };
+		F440F94017A9187100616683 /* note_expression_synth.uidesc in Resources */ = {isa = PBXBuildFile; fileRef = F440F93917A9187100616683 /* note_expression_synth.uidesc */; };
+		F440F94117A9187100616683 /* vst3_logo_small.png in Resources */ = {isa = PBXBuildFile; fileRef = F440F93A17A9187100616683 /* vst3_logo_small.png */; };
+		F440F94217A918B800616683 /* VSTInterAppAudioHostUIControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F42BA34317A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib */; };
+		F440F95A17A9247000616683 /* libvstgui-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F440F95117A9241800616683 /* libvstgui-ios.a */; };
+		F45911F117A65E5400451D65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45911F017A65E5400451D65 /* Foundation.framework */; };
+		F45911F317A65E5400451D65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45911F217A65E5400451D65 /* CoreGraphics.framework */; };
+		F45911FB17A65E5400451D65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F45911F917A65E5400451D65 /* InfoPlist.strings */; };
+		F45911FD17A65E5400451D65 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F45911FC17A65E5400451D65 /* main.m */; };
+		F459120117A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F459120017A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm */; };
+		F459120317A65E5400451D65 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F459120217A65E5400451D65 /* Images.xcassets */; };
+		F459122B17A66AB800451D65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F459122A17A66AB800451D65 /* AVFoundation.framework */; };
+		F459122F17A6783100451D65 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F459122E17A6783100451D65 /* AudioToolbox.framework */; };
+		F459123217A6796000451D65 /* conststringtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F459123017A6796000451D65 /* conststringtable.cpp */; };
+		F46AEE4917A7FB7F00618A5D /* updatehandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4717A7FB7F00618A5D /* updatehandler.cpp */; };
+		F46AEE4C17A7FC9F00618A5D /* fthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4A17A7FC9F00618A5D /* fthread.cpp */; };
+		F46AEE5617A8047400618A5D /* AudioIO.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE4F17A8047400618A5D /* AudioIO.mm */; };
+		F46AEE5717A8047400618A5D /* HostApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5117A8047400618A5D /* HostApp.mm */; };
+		F46AEE5817A8047400618A5D /* VST3Editor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5317A8047400618A5D /* VST3Editor.mm */; };
+		F46AEE5917A8047400618A5D /* VST3Plugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = F46AEE5517A8047400618A5D /* VST3Plugin.mm */; };
+		F470B15F17C21EA2002AF161 /* pluginview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F440F92817A9174900616683 /* pluginview.cpp */; };
+		F470B16317C21EAA002AF161 /* fbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F42D5F5D17B005A800B85FE8 /* fbuffer.cpp */; };
+		F470B16817C21F75002AF161 /* ADelayIPAD.xib in Resources */ = {isa = PBXBuildFile; fileRef = F470B16517C21F75002AF161 /* ADelayIPAD.xib */; };
+		F470B16917C21F75002AF161 /* iosEditor.mm in Sources */ = {isa = PBXBuildFile; fileRef = F470B16717C21F75002AF161 /* iosEditor.mm */; };
+		F4AF682917B1028B0083D7C1 /* vst3groupcontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4AF682717B1028B0083D7C1 /* vst3groupcontroller.cpp */; };
+		F4C3D7F317DF1D27005AE5BB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C3D7F217DF1D27005AE5BB /* GLKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F440F94A17A9241800616683 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F497F0AD1308094300F0A613;
+			remoteInfo = vstgui;
+		};
+		F440F94C17A9241800616683 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4F953F616510E61006EE1D1;
+			remoteInfo = "vstgui c++11";
+		};
+		F440F94E17A9241800616683 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4CC1E811709F2EC008F07FD;
+			remoteInfo = unittests;
+		};
+		F440F95017A9241800616683 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4E9C69317A8266200F42EF8;
+			remoteInfo = "vstgui-ios";
+		};
+		F440F95717A9243B00616683 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F4E9C69217A8266200F42EF8;
+			remoteInfo = "vstgui-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F402DB3017A7B5CD00698A6A /* adelaycontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = adelaycontroller.cpp; sourceTree = "<group>"; };
+		F402DB3117A7B5CD00698A6A /* adelaycontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adelaycontroller.h; sourceTree = "<group>"; };
+		F402DB3217A7B5CD00698A6A /* adelayids.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adelayids.h; sourceTree = "<group>"; };
+		F402DB3317A7B5CD00698A6A /* adelayprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = adelayprocessor.cpp; sourceTree = "<group>"; };
+		F402DB3417A7B5CD00698A6A /* adelayprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = adelayprocessor.h; sourceTree = "<group>"; };
+		F402DB3517A7B5CD00698A6A /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		F402DB3917A7B60C00698A6A /* funknown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = funknown.cpp; path = ../../../../../pluginterfaces/base/funknown.cpp; sourceTree = "<group>"; };
+		F402DB3A17A7B60C00698A6A /* funknown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = funknown.h; path = ../../../../../pluginterfaces/base/funknown.h; sourceTree = "<group>"; };
+		F402DB3C17A7B62F00698A6A /* factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = factory.cpp; sourceTree = "<group>"; };
+		F402DB3E17A7B71900698A6A /* vst3stdsdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vst3stdsdk.cpp; path = ../../../../source/vst3stdsdk.cpp; sourceTree = "<group>"; };
+		F402DB4017A7B73000698A6A /* ustring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ustring.cpp; path = ../../../../../pluginterfaces/base/ustring.cpp; sourceTree = "<group>"; };
+		F402DB4117A7B73000698A6A /* ustring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ustring.h; path = ../../../../../pluginterfaces/base/ustring.h; sourceTree = "<group>"; };
+		F402DB4317A7B75900698A6A /* pluginfactoryvst3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pluginfactoryvst3.cpp; path = ../../../../source/main/pluginfactoryvst3.cpp; sourceTree = "<group>"; };
+		F402DB4417A7B75900698A6A /* pluginfactoryvst3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pluginfactoryvst3.h; path = ../../../../source/main/pluginfactoryvst3.h; sourceTree = "<group>"; };
+		F402DB4717A7B79400698A6A /* baseiids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = baseiids.cpp; path = ../../../../../base/source/baseiids.cpp; sourceTree = "<group>"; };
+		F402DB4817A7B79400698A6A /* fatomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fatomic.cpp; path = ../../../../../base/source/fatomic.cpp; sourceTree = "<group>"; };
+		F402DB4917A7B79400698A6A /* fatomic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fatomic.h; path = ../../../../../base/source/fatomic.h; sourceTree = "<group>"; };
+		F402DB4A17A7B79400698A6A /* fdebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fdebug.cpp; path = ../../../../../base/source/fdebug.cpp; sourceTree = "<group>"; };
+		F402DB4B17A7B79400698A6A /* fdebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fdebug.h; path = ../../../../../base/source/fdebug.h; sourceTree = "<group>"; };
+		F402DB4C17A7B79400698A6A /* fobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fobject.cpp; path = ../../../../../base/source/fobject.cpp; sourceTree = "<group>"; };
+		F402DB4D17A7B79400698A6A /* fobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fobject.h; path = ../../../../../base/source/fobject.h; sourceTree = "<group>"; };
+		F402DB4E17A7B79400698A6A /* fstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fstring.cpp; path = ../../../../../base/source/fstring.cpp; sourceTree = "<group>"; };
+		F402DB4F17A7B79400698A6A /* fstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fstring.h; path = ../../../../../base/source/fstring.h; sourceTree = "<group>"; };
+		F402DB5517A7B7CB00698A6A /* vstinitiids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = vstinitiids.cpp; path = ../../../../source/vst/vstinitiids.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		F402DB5717A7B7F800698A6A /* macmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = macmain.cpp; path = ../../../../source/main/macmain.cpp; sourceTree = "<group>"; };
+		F402DB5917A7B82600698A6A /* exampletest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = exampletest.cpp; sourceTree = "<group>"; };
+		F402DB5A17A7B82600698A6A /* exampletest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exampletest.h; sourceTree = "<group>"; };
+		F402DB6017A7C14600698A6A /* eventlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventlist.cpp; path = ../../../../source/vst/hosting/eventlist.cpp; sourceTree = "<group>"; };
+		F402DB6117A7C14600698A6A /* eventlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = eventlist.h; path = ../../../../source/vst/hosting/eventlist.h; sourceTree = "<group>"; };
+		F402DB6217A7C14600698A6A /* hostclasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hostclasses.cpp; path = ../../../../source/vst/hosting/hostclasses.cpp; sourceTree = "<group>"; };
+		F402DB6317A7C14600698A6A /* hostclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hostclasses.h; path = ../../../../source/vst/hosting/hostclasses.h; sourceTree = "<group>"; };
+		F402DB6417A7C14600698A6A /* parameterchanges.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = parameterchanges.cpp; path = ../../../../source/vst/hosting/parameterchanges.cpp; sourceTree = "<group>"; };
+		F402DB6517A7C14600698A6A /* parameterchanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parameterchanges.h; path = ../../../../source/vst/hosting/parameterchanges.h; sourceTree = "<group>"; };
+		F402DB6617A7C14600698A6A /* processdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = processdata.cpp; path = ../../../../source/vst/hosting/processdata.cpp; sourceTree = "<group>"; };
+		F402DB6717A7C14600698A6A /* processdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processdata.h; path = ../../../../source/vst/hosting/processdata.h; sourceTree = "<group>"; };
+		F402DB6C17A7C16C00698A6A /* NSDataIBStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataIBStream.h; path = ../../../../source/vst/auwrapper/NSDataIBStream.h; sourceTree = "<group>"; };
+		F402DB6D17A7C16C00698A6A /* NSDataIBStream.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NSDataIBStream.mm; path = ../../../../source/vst/auwrapper/NSDataIBStream.mm; sourceTree = "<group>"; };
+		F402DB6F17A7CC3E00698A6A /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timer.cpp; path = ../../../../../base/source/timer.cpp; sourceTree = "<group>"; };
+		F402DB7017A7CC3E00698A6A /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = ../../../../../base/source/timer.h; sourceTree = "<group>"; };
+		F42BA34117A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSTInterAppAudioHostUIControllerViewController.h; sourceTree = "<group>"; };
+		F42BA34217A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VSTInterAppAudioHostUIControllerViewController.mm; sourceTree = "<group>"; };
+		F42BA34317A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VSTInterAppAudioHostUIControllerView.xib; sourceTree = "<group>"; };
+		F42D5F5617AFDEED00B85FE8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/MobileCoreServices.framework; sourceTree = DEVELOPER_DIR; };
+		F42D5F5B17AFFB2800B85FE8 /* knob big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "knob big.png"; path = "../../note_expression_synth/resources/knob big.png"; sourceTree = "<group>"; };
+		F42D5F5D17B005A800B85FE8 /* fbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fbuffer.cpp; path = ../../../../../base/source/fbuffer.cpp; sourceTree = "<group>"; };
+		F42D5F5E17B005A800B85FE8 /* fbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fbuffer.h; path = ../../../../../base/source/fbuffer.h; sourceTree = "<group>"; };
+		F42D5F6917B019BA00B85FE8 /* vst3padcontroller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = vst3padcontroller.cpp; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3padcontroller.cpp"; sourceTree = "<group>"; };
+		F42D5F6A17B019BA00B85FE8 /* vst3padcontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = vst3padcontroller.h; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3padcontroller.h"; sourceTree = "<group>"; };
+		F42D5F7017B02F1100B85FE8 /* note_touch_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = note_touch_controller.cpp; path = ../../note_expression_synth/source/note_touch_controller.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		F42D5F7117B02F1100B85FE8 /* note_touch_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = note_touch_controller.h; path = ../../note_expression_synth/source/note_touch_controller.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F433213A17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VSTInterAppAudioAppDelegateBase.h; path = ../../../../source/vst/interappaudio/VSTInterAppAudioAppDelegateBase.h; sourceTree = "<group>"; };
+		F433213B17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VSTInterAppAudioAppDelegateBase.mm; path = ../../../../source/vst/interappaudio/VSTInterAppAudioAppDelegateBase.mm; sourceTree = "<group>"; };
+		F436D85B1801912900515923 /* MidiIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiIO.h; path = ../../../../source/vst/interappaudio/MidiIO.h; sourceTree = "<group>"; };
+		F436D85C1801912900515923 /* MidiIO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MidiIO.mm; path = ../../../../source/vst/interappaudio/MidiIO.mm; sourceTree = "<group>"; };
+		F436D85D1801912900515923 /* PresetBrowserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PresetBrowserView.xib; path = ../../../../source/vst/interappaudio/PresetBrowserView.xib; sourceTree = "<group>"; };
+		F436D85E1801912900515923 /* PresetBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetBrowserViewController.h; path = ../../../../source/vst/interappaudio/PresetBrowserViewController.h; sourceTree = "<group>"; };
+		F436D85F1801912900515923 /* PresetBrowserViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PresetBrowserViewController.mm; path = ../../../../source/vst/interappaudio/PresetBrowserViewController.mm; sourceTree = "<group>"; };
+		F436D8601801912900515923 /* PresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetManager.h; path = ../../../../source/vst/interappaudio/PresetManager.h; sourceTree = "<group>"; };
+		F436D8611801912900515923 /* PresetManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PresetManager.mm; path = ../../../../source/vst/interappaudio/PresetManager.mm; sourceTree = "<group>"; };
+		F436D8621801912900515923 /* PresetSaveView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PresetSaveView.xib; path = ../../../../source/vst/interappaudio/PresetSaveView.xib; sourceTree = "<group>"; };
+		F436D8631801912900515923 /* PresetSaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetSaveViewController.h; path = ../../../../source/vst/interappaudio/PresetSaveViewController.h; sourceTree = "<group>"; };
+		F436D8641801912900515923 /* PresetSaveViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PresetSaveViewController.mm; path = ../../../../source/vst/interappaudio/PresetSaveViewController.mm; sourceTree = "<group>"; };
+		F436D8651801912900515923 /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsView.xib; path = ../../../../source/vst/interappaudio/SettingsView.xib; sourceTree = "<group>"; };
+		F436D8661801912900515923 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = ../../../../source/vst/interappaudio/SettingsViewController.h; sourceTree = "<group>"; };
+		F436D8671801912900515923 /* SettingsViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SettingsViewController.mm; path = ../../../../source/vst/interappaudio/SettingsViewController.mm; sourceTree = "<group>"; };
+		F436D87B1801918C00515923 /* vstpresetfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstpresetfile.cpp; path = ../../../../source/vst/vstpresetfile.cpp; sourceTree = "<group>"; };
+		F436D87C1801918C00515923 /* vstpresetfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstpresetfile.h; path = ../../../../source/vst/vstpresetfile.h; sourceTree = "<group>"; };
+		F436D87F180191A100515923 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMIDI.framework; sourceTree = DEVELOPER_DIR; };
+		F440F90417A911FE00616683 /* NoteExpressionSynthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteExpressionSynthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F440F90617A9126000616683 /* NoteExpressionSynthExample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = NoteExpressionSynthExample.plist; sourceTree = "<group>"; };
+		F440F90817A9135F00616683 /* brownnoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brownnoise.h; path = ../../note_expression_synth/source/brownnoise.h; sourceTree = "<group>"; };
+		F440F90917A9135F00616683 /* factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = factory.cpp; path = ../../note_expression_synth/source/factory.cpp; sourceTree = "<group>"; };
+		F440F90A17A9135F00616683 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filter.h; path = ../../note_expression_synth/source/filter.h; sourceTree = "<group>"; };
+		F440F90B17A9135F00616683 /* note_expression_synth_controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = note_expression_synth_controller.cpp; path = ../../note_expression_synth/source/note_expression_synth_controller.cpp; sourceTree = "<group>"; };
+		F440F90C17A9135F00616683 /* note_expression_synth_controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = note_expression_synth_controller.h; path = ../../note_expression_synth/source/note_expression_synth_controller.h; sourceTree = "<group>"; };
+		F440F90D17A9135F00616683 /* note_expression_synth_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = note_expression_synth_processor.cpp; path = ../../note_expression_synth/source/note_expression_synth_processor.cpp; sourceTree = "<group>"; };
+		F440F90E17A9135F00616683 /* note_expression_synth_processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = note_expression_synth_processor.h; path = ../../note_expression_synth/source/note_expression_synth_processor.h; sourceTree = "<group>"; };
+		F440F90F17A9135F00616683 /* note_expression_synth_ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = note_expression_synth_ui.cpp; path = ../../note_expression_synth/source/note_expression_synth_ui.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		F440F91017A9135F00616683 /* note_expression_synth_ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = note_expression_synth_ui.h; path = ../../note_expression_synth/source/note_expression_synth_ui.h; sourceTree = "<group>"; };
+		F440F91117A9135F00616683 /* note_expression_synth_voice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = note_expression_synth_voice.cpp; path = ../../note_expression_synth/source/note_expression_synth_voice.cpp; sourceTree = "<group>"; };
+		F440F91217A9135F00616683 /* note_expression_synth_voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = note_expression_synth_voice.h; path = ../../note_expression_synth/source/note_expression_synth_voice.h; sourceTree = "<group>"; };
+		F440F91317A9135F00616683 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../../note_expression_synth/source/version.h; sourceTree = "<group>"; };
+		F440F91A17A9138800616683 /* vstgui_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = vstgui_ios.mm; path = ../../../../../vstgui4/vstgui/vstgui_ios.mm; sourceTree = "<group>"; };
+		F440F91B17A9138800616683 /* vstgui_uidescription_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = vstgui_uidescription_ios.mm; path = ../../../../../vstgui4/vstgui/vstgui_uidescription_ios.mm; sourceTree = "<group>"; };
+		F440F91E17A9139600616683 /* vst3editor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vst3editor.cpp; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3editor.cpp"; sourceTree = "<group>"; };
+		F440F91F17A9139600616683 /* vst3editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vst3editor.h; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3editor.h"; sourceTree = "<group>"; };
+		F440F92217A9170500616683 /* vstnoteexpressiontypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstnoteexpressiontypes.cpp; path = ../../../../source/vst/vstnoteexpressiontypes.cpp; sourceTree = "<group>"; };
+		F440F92317A9170500616683 /* vstnoteexpressiontypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstnoteexpressiontypes.h; path = ../../../../source/vst/vstnoteexpressiontypes.h; sourceTree = "<group>"; };
+		F440F92517A9172800616683 /* vstguieditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstguieditor.cpp; path = ../../../../source/vst/vstguieditor.cpp; sourceTree = "<group>"; };
+		F440F92617A9172800616683 /* vstguieditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstguieditor.h; path = ../../../../source/vst/vstguieditor.h; sourceTree = "<group>"; };
+		F440F92817A9174900616683 /* pluginview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pluginview.cpp; path = ../../../../source/common/pluginview.cpp; sourceTree = "<group>"; };
+		F440F92917A9174900616683 /* pluginview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pluginview.h; path = ../../../../source/common/pluginview.h; sourceTree = "<group>"; };
+		F440F92B17A9176B00616683 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
+		F440F92D17A9177300616683 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		F440F92F17A917B700616683 /* fstreamer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fstreamer.cpp; path = ../../../../../base/source/fstreamer.cpp; sourceTree = "<group>"; };
+		F440F93017A917B700616683 /* fstreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fstreamer.h; path = ../../../../../base/source/fstreamer.h; sourceTree = "<group>"; };
+		F440F93417A9187100616683 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = about.png; path = ../../note_expression_synth/resources/about.png; sourceTree = "<group>"; };
+		F440F93517A9187100616683 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ../../note_expression_synth/resources/background.png; sourceTree = "<group>"; };
+		F440F93617A9187100616683 /* groupframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = groupframe.png; path = ../../note_expression_synth/resources/groupframe.png; sourceTree = "<group>"; };
+		F440F93717A9187100616683 /* knob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = knob.png; path = ../../note_expression_synth/resources/knob.png; sourceTree = "<group>"; };
+		F440F93817A9187100616683 /* knob2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = knob2.png; path = ../../note_expression_synth/resources/knob2.png; sourceTree = "<group>"; };
+		F440F93917A9187100616683 /* note_expression_synth.uidesc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = note_expression_synth.uidesc; path = ../../note_expression_synth/resources/note_expression_synth.uidesc; sourceTree = "<group>"; };
+		F440F93A17A9187100616683 /* vst3_logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = vst3_logo_small.png; path = ../../note_expression_synth/resources/vst3_logo_small.png; sourceTree = "<group>"; };
+		F440F94317A9241800616683 /* vstgui.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = vstgui.xcodeproj; path = ../../../../vstgui4/vstgui/ide/xcode4/vstgui.xcodeproj; sourceTree = "<group>"; };
+		F45911ED17A65E5400451D65 /* ADelayExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ADelayExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F45911F017A65E5400451D65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F45911F217A65E5400451D65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F45911F817A65E5400451D65 /* ADelayExample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ADelayExample.plist; sourceTree = "<group>"; };
+		F45911FA17A65E5400451D65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F45911FC17A65E5400451D65 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F45911FE17A65E5400451D65 /* InterAppAudioExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InterAppAudioExample-Prefix.pch"; sourceTree = "<group>"; };
+		F45911FF17A65E5400451D65 /* VSTInterAppAudioAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VSTInterAppAudioAppDelegate.h; sourceTree = "<group>"; };
+		F459120017A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VSTInterAppAudioAppDelegate.mm; sourceTree = "<group>"; };
+		F459120217A65E5400451D65 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = InterAppAudioExample/Images.xcassets; sourceTree = "<group>"; };
+		F459120917A65E5400451D65 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F459122217A660AB00451D65 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		F459122417A660E200451D65 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		F459122717A661BC00451D65 /* InterAppAudioExample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = InterAppAudioExample.xcconfig; sourceTree = "<group>"; };
+		F459122817A661E100451D65 /* InterAppAudioExample_Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = InterAppAudioExample_Debug.xcconfig; sourceTree = "<group>"; };
+		F459122917A661ED00451D65 /* InterAppAudioExample_Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = InterAppAudioExample_Release.xcconfig; sourceTree = "<group>"; };
+		F459122A17A66AB800451D65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		F459122C17A6781100451D65 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = DEVELOPER_DIR; };
+		F459122E17A6783100451D65 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		F459123017A6796000451D65 /* conststringtable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = conststringtable.cpp; path = ../../../../../pluginterfaces/base/conststringtable.cpp; sourceTree = "<group>"; };
+		F459123117A6796000451D65 /* conststringtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = conststringtable.h; path = ../../../../../pluginterfaces/base/conststringtable.h; sourceTree = "<group>"; };
+		F459123317A694D100451D65 /* InterAppAudioExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = InterAppAudioExample.entitlements; sourceTree = "<group>"; };
+		F46AEE4717A7FB7F00618A5D /* updatehandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = updatehandler.cpp; path = ../../../../../base/source/updatehandler.cpp; sourceTree = "<group>"; };
+		F46AEE4817A7FB7F00618A5D /* updatehandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = updatehandler.h; path = ../../../../../base/source/updatehandler.h; sourceTree = "<group>"; };
+		F46AEE4A17A7FC9F00618A5D /* fthread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fthread.cpp; path = ../../../../../base/source/fthread.cpp; sourceTree = "<group>"; };
+		F46AEE4B17A7FC9F00618A5D /* fthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fthread.h; path = ../../../../../base/source/fthread.h; sourceTree = "<group>"; };
+		F46AEE4E17A8047400618A5D /* AudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioIO.h; path = ../../../../source/vst/interappaudio/AudioIO.h; sourceTree = "<group>"; };
+		F46AEE4F17A8047400618A5D /* AudioIO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioIO.mm; path = ../../../../source/vst/interappaudio/AudioIO.mm; sourceTree = "<group>"; };
+		F46AEE5017A8047400618A5D /* HostApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = HostApp.h; path = ../../../../source/vst/interappaudio/HostApp.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		F46AEE5117A8047400618A5D /* HostApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = HostApp.mm; path = ../../../../source/vst/interappaudio/HostApp.mm; sourceTree = "<group>"; };
+		F46AEE5217A8047400618A5D /* VST3Editor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VST3Editor.h; path = ../../../../source/vst/interappaudio/VST3Editor.h; sourceTree = "<group>"; };
+		F46AEE5317A8047400618A5D /* VST3Editor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VST3Editor.mm; path = ../../../../source/vst/interappaudio/VST3Editor.mm; sourceTree = "<group>"; };
+		F46AEE5417A8047400618A5D /* VST3Plugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VST3Plugin.h; path = ../../../../source/vst/interappaudio/VST3Plugin.h; sourceTree = "<group>"; };
+		F46AEE5517A8047400618A5D /* VST3Plugin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VST3Plugin.mm; path = ../../../../source/vst/interappaudio/VST3Plugin.mm; sourceTree = "<group>"; };
+		F470B16517C21F75002AF161 /* ADelayIPAD.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ADelayIPAD.xib; sourceTree = "<group>"; };
+		F470B16617C21F75002AF161 /* iosEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosEditor.h; sourceTree = "<group>"; };
+		F470B16717C21F75002AF161 /* iosEditor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosEditor.mm; sourceTree = "<group>"; };
+		F4AF682717B1028B0083D7C1 /* vst3groupcontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vst3groupcontroller.cpp; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3groupcontroller.cpp"; sourceTree = "<group>"; };
+		F4AF682817B1028B0083D7C1 /* vst3groupcontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vst3groupcontroller.h; path = "../../../../../vstgui4/vstgui/plugin-bindings/vst3groupcontroller.h"; sourceTree = "<group>"; };
+		F4C3D7F217DF1D27005AE5BB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F440F8F717A911FE00616683 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F436D880180191A100515923 /* CoreMIDI.framework in Frameworks */,
+				F4C3D7F317DF1D27005AE5BB /* GLKit.framework in Frameworks */,
+				F42D5F5717AFDEED00B85FE8 /* MobileCoreServices.framework in Frameworks */,
+				F440F95A17A9247000616683 /* libvstgui-ios.a in Frameworks */,
+				F440F92E17A9177300616683 /* Accelerate.framework in Frameworks */,
+				F440F92C17A9176B00616683 /* ImageIO.framework in Frameworks */,
+				F440F8F817A911FE00616683 /* AudioToolbox.framework in Frameworks */,
+				F440F8F917A911FE00616683 /* AVFoundation.framework in Frameworks */,
+				F440F8FA17A911FE00616683 /* CoreGraphics.framework in Frameworks */,
+				F440F8FB17A911FE00616683 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F45911EA17A65E5400451D65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F436D8811801920500515923 /* CoreMIDI.framework in Frameworks */,
+				F459122F17A6783100451D65 /* AudioToolbox.framework in Frameworks */,
+				F459122B17A66AB800451D65 /* AVFoundation.framework in Frameworks */,
+				F45911F317A65E5400451D65 /* CoreGraphics.framework in Frameworks */,
+				F45911F117A65E5400451D65 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F402DB2F17A7B59600698A6A /* ADelay */ = {
+			isa = PBXGroup;
+			children = (
+				F470B16417C21F3B002AF161 /* interappaudio */,
+				F402DB3C17A7B62F00698A6A /* factory.cpp */,
+				F402DB3017A7B5CD00698A6A /* adelaycontroller.cpp */,
+				F402DB3117A7B5CD00698A6A /* adelaycontroller.h */,
+				F402DB3217A7B5CD00698A6A /* adelayids.h */,
+				F402DB3317A7B5CD00698A6A /* adelayprocessor.cpp */,
+				F402DB3417A7B5CD00698A6A /* adelayprocessor.h */,
+				F402DB5917A7B82600698A6A /* exampletest.cpp */,
+				F402DB5A17A7B82600698A6A /* exampletest.h */,
+				F402DB3517A7B5CD00698A6A /* version.h */,
+			);
+			name = ADelay;
+			path = ../../adelay/source;
+			sourceTree = "<group>";
+		};
+		F402DB3817A7B5F500698A6A /* vst sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F46AEE4D17A8046600618A5D /* interappaudio */,
+				F402DB5F17A7C13C00698A6A /* hosting */,
+				F402DB3917A7B60C00698A6A /* funknown.cpp */,
+				F402DB3A17A7B60C00698A6A /* funknown.h */,
+				F459123017A6796000451D65 /* conststringtable.cpp */,
+				F459123117A6796000451D65 /* conststringtable.h */,
+				F436D87B1801918C00515923 /* vstpresetfile.cpp */,
+				F436D87C1801918C00515923 /* vstpresetfile.h */,
+				F402DB3E17A7B71900698A6A /* vst3stdsdk.cpp */,
+				F440F92817A9174900616683 /* pluginview.cpp */,
+				F440F92917A9174900616683 /* pluginview.h */,
+				F440F92517A9172800616683 /* vstguieditor.cpp */,
+				F440F92617A9172800616683 /* vstguieditor.h */,
+				F440F92217A9170500616683 /* vstnoteexpressiontypes.cpp */,
+				F440F92317A9170500616683 /* vstnoteexpressiontypes.h */,
+				F402DB4317A7B75900698A6A /* pluginfactoryvst3.cpp */,
+				F402DB4417A7B75900698A6A /* pluginfactoryvst3.h */,
+				F402DB5517A7B7CB00698A6A /* vstinitiids.cpp */,
+				F402DB4017A7B73000698A6A /* ustring.cpp */,
+				F402DB4117A7B73000698A6A /* ustring.h */,
+				F402DB5717A7B7F800698A6A /* macmain.cpp */,
+			);
+			name = "vst sdk";
+			sourceTree = "<group>";
+		};
+		F402DB4617A7B77600698A6A /* base */ = {
+			isa = PBXGroup;
+			children = (
+				F402DB4717A7B79400698A6A /* baseiids.cpp */,
+				F402DB4817A7B79400698A6A /* fatomic.cpp */,
+				F402DB4917A7B79400698A6A /* fatomic.h */,
+				F42D5F5D17B005A800B85FE8 /* fbuffer.cpp */,
+				F42D5F5E17B005A800B85FE8 /* fbuffer.h */,
+				F402DB4A17A7B79400698A6A /* fdebug.cpp */,
+				F402DB4B17A7B79400698A6A /* fdebug.h */,
+				F402DB4C17A7B79400698A6A /* fobject.cpp */,
+				F402DB4D17A7B79400698A6A /* fobject.h */,
+				F440F92F17A917B700616683 /* fstreamer.cpp */,
+				F440F93017A917B700616683 /* fstreamer.h */,
+				F402DB4E17A7B79400698A6A /* fstring.cpp */,
+				F402DB4F17A7B79400698A6A /* fstring.h */,
+				F46AEE4A17A7FC9F00618A5D /* fthread.cpp */,
+				F46AEE4B17A7FC9F00618A5D /* fthread.h */,
+				F402DB6F17A7CC3E00698A6A /* timer.cpp */,
+				F402DB7017A7CC3E00698A6A /* timer.h */,
+				F46AEE4717A7FB7F00618A5D /* updatehandler.cpp */,
+				F46AEE4817A7FB7F00618A5D /* updatehandler.h */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
+		F402DB5F17A7C13C00698A6A /* hosting */ = {
+			isa = PBXGroup;
+			children = (
+				F402DB6017A7C14600698A6A /* eventlist.cpp */,
+				F402DB6117A7C14600698A6A /* eventlist.h */,
+				F402DB6217A7C14600698A6A /* hostclasses.cpp */,
+				F402DB6317A7C14600698A6A /* hostclasses.h */,
+				F402DB6417A7C14600698A6A /* parameterchanges.cpp */,
+				F402DB6517A7C14600698A6A /* parameterchanges.h */,
+				F402DB6617A7C14600698A6A /* processdata.cpp */,
+				F402DB6717A7C14600698A6A /* processdata.h */,
+				F402DB6C17A7C16C00698A6A /* NSDataIBStream.h */,
+				F402DB6D17A7C16C00698A6A /* NSDataIBStream.mm */,
+			);
+			name = hosting;
+			sourceTree = "<group>";
+		};
+		F440F90717A9131C00616683 /* NoteExpressionSynth */ = {
+			isa = PBXGroup;
+			children = (
+				F440F93317A9186500616683 /* resources */,
+				F440F90817A9135F00616683 /* brownnoise.h */,
+				F440F90917A9135F00616683 /* factory.cpp */,
+				F440F90A17A9135F00616683 /* filter.h */,
+				F440F90B17A9135F00616683 /* note_expression_synth_controller.cpp */,
+				F440F90C17A9135F00616683 /* note_expression_synth_controller.h */,
+				F440F90D17A9135F00616683 /* note_expression_synth_processor.cpp */,
+				F440F90E17A9135F00616683 /* note_expression_synth_processor.h */,
+				F440F90F17A9135F00616683 /* note_expression_synth_ui.cpp */,
+				F440F91017A9135F00616683 /* note_expression_synth_ui.h */,
+				F440F91117A9135F00616683 /* note_expression_synth_voice.cpp */,
+				F440F91217A9135F00616683 /* note_expression_synth_voice.h */,
+				F440F91317A9135F00616683 /* version.h */,
+				F42D5F7017B02F1100B85FE8 /* note_touch_controller.cpp */,
+				F42D5F7117B02F1100B85FE8 /* note_touch_controller.h */,
+			);
+			name = NoteExpressionSynth;
+			sourceTree = "<group>";
+		};
+		F440F91917A9137100616683 /* vstgui */ = {
+			isa = PBXGroup;
+			children = (
+				F4AF682717B1028B0083D7C1 /* vst3groupcontroller.cpp */,
+				F4AF682817B1028B0083D7C1 /* vst3groupcontroller.h */,
+				F42D5F6917B019BA00B85FE8 /* vst3padcontroller.cpp */,
+				F42D5F6A17B019BA00B85FE8 /* vst3padcontroller.h */,
+				F440F91E17A9139600616683 /* vst3editor.cpp */,
+				F440F91F17A9139600616683 /* vst3editor.h */,
+				F440F91A17A9138800616683 /* vstgui_ios.mm */,
+				F440F91B17A9138800616683 /* vstgui_uidescription_ios.mm */,
+			);
+			name = vstgui;
+			sourceTree = "<group>";
+		};
+		F440F93317A9186500616683 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F440F93417A9187100616683 /* about.png */,
+				F440F93517A9187100616683 /* background.png */,
+				F440F93617A9187100616683 /* groupframe.png */,
+				F42D5F5B17AFFB2800B85FE8 /* knob big.png */,
+				F440F93717A9187100616683 /* knob.png */,
+				F440F93817A9187100616683 /* knob2.png */,
+				F440F93917A9187100616683 /* note_expression_synth.uidesc */,
+				F440F93A17A9187100616683 /* vst3_logo_small.png */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		F440F94417A9241800616683 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F440F94B17A9241800616683 /* libvstgui.a */,
+				F440F94D17A9241800616683 /* libvstgui c++11.a */,
+				F440F94F17A9241800616683 /* unittests */,
+				F440F95117A9241800616683 /* libvstgui-ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F45911E417A65E5400451D65 = {
+			isa = PBXGroup;
+			children = (
+				F440F94317A9241800616683 /* vstgui.xcodeproj */,
+				F459122617A6619600451D65 /* config */,
+				F459120217A65E5400451D65 /* Images.xcassets */,
+				F45911F717A65E5400451D65 /* Supporting Files */,
+				F45911F617A65E5400451D65 /* InterAppAudioExample */,
+				F45911EF17A65E5400451D65 /* Frameworks */,
+				F45911EE17A65E5400451D65 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F45911EE17A65E5400451D65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F45911ED17A65E5400451D65 /* ADelayExample.app */,
+				F440F90417A911FE00616683 /* NoteExpressionSynthExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F45911EF17A65E5400451D65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F436D87F180191A100515923 /* CoreMIDI.framework */,
+				F4C3D7F217DF1D27005AE5BB /* GLKit.framework */,
+				F42D5F5617AFDEED00B85FE8 /* MobileCoreServices.framework */,
+				F440F92D17A9177300616683 /* Accelerate.framework */,
+				F440F92B17A9176B00616683 /* ImageIO.framework */,
+				F459122E17A6783100451D65 /* AudioToolbox.framework */,
+				F459122C17A6781100451D65 /* AudioUnit.framework */,
+				F459122A17A66AB800451D65 /* AVFoundation.framework */,
+				F459122417A660E200451D65 /* AudioUnit.framework */,
+				F459122217A660AB00451D65 /* CoreAudio.framework */,
+				F45911F017A65E5400451D65 /* Foundation.framework */,
+				F45911F217A65E5400451D65 /* CoreGraphics.framework */,
+				F459120917A65E5400451D65 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F45911F617A65E5400451D65 /* InterAppAudioExample */ = {
+			isa = PBXGroup;
+			children = (
+				F402DB4617A7B77600698A6A /* base */,
+				F402DB3817A7B5F500698A6A /* vst sdk */,
+				F402DB2F17A7B59600698A6A /* ADelay */,
+				F440F90717A9131C00616683 /* NoteExpressionSynth */,
+				F440F91917A9137100616683 /* vstgui */,
+				F459123317A694D100451D65 /* InterAppAudioExample.entitlements */,
+				F45911FF17A65E5400451D65 /* VSTInterAppAudioAppDelegate.h */,
+				F459120017A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm */,
+				F42BA34117A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.h */,
+				F42BA34217A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm */,
+				F42BA34317A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib */,
+			);
+			path = InterAppAudioExample;
+			sourceTree = "<group>";
+		};
+		F45911F717A65E5400451D65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F440F90617A9126000616683 /* NoteExpressionSynthExample.plist */,
+				F45911F817A65E5400451D65 /* ADelayExample.plist */,
+				F45911F917A65E5400451D65 /* InfoPlist.strings */,
+				F45911FC17A65E5400451D65 /* main.m */,
+				F45911FE17A65E5400451D65 /* InterAppAudioExample-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = InterAppAudioExample;
+			sourceTree = "<group>";
+		};
+		F459122617A6619600451D65 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				F459122717A661BC00451D65 /* InterAppAudioExample.xcconfig */,
+				F459122817A661E100451D65 /* InterAppAudioExample_Debug.xcconfig */,
+				F459122917A661ED00451D65 /* InterAppAudioExample_Release.xcconfig */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		F46AEE4D17A8046600618A5D /* interappaudio */ = {
+			isa = PBXGroup;
+			children = (
+				F46AEE4E17A8047400618A5D /* AudioIO.h */,
+				F46AEE4F17A8047400618A5D /* AudioIO.mm */,
+				F46AEE5017A8047400618A5D /* HostApp.h */,
+				F46AEE5117A8047400618A5D /* HostApp.mm */,
+				F436D85B1801912900515923 /* MidiIO.h */,
+				F436D85C1801912900515923 /* MidiIO.mm */,
+				F436D85D1801912900515923 /* PresetBrowserView.xib */,
+				F436D85E1801912900515923 /* PresetBrowserViewController.h */,
+				F436D85F1801912900515923 /* PresetBrowserViewController.mm */,
+				F436D8601801912900515923 /* PresetManager.h */,
+				F436D8611801912900515923 /* PresetManager.mm */,
+				F436D8621801912900515923 /* PresetSaveView.xib */,
+				F436D8631801912900515923 /* PresetSaveViewController.h */,
+				F436D8641801912900515923 /* PresetSaveViewController.mm */,
+				F436D8651801912900515923 /* SettingsView.xib */,
+				F436D8661801912900515923 /* SettingsViewController.h */,
+				F436D8671801912900515923 /* SettingsViewController.mm */,
+				F46AEE5217A8047400618A5D /* VST3Editor.h */,
+				F46AEE5317A8047400618A5D /* VST3Editor.mm */,
+				F46AEE5417A8047400618A5D /* VST3Plugin.h */,
+				F46AEE5517A8047400618A5D /* VST3Plugin.mm */,
+				F433213A17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.h */,
+				F433213B17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm */,
+			);
+			name = interappaudio;
+			sourceTree = "<group>";
+		};
+		F470B16417C21F3B002AF161 /* interappaudio */ = {
+			isa = PBXGroup;
+			children = (
+				F470B16517C21F75002AF161 /* ADelayIPAD.xib */,
+				F470B16617C21F75002AF161 /* iosEditor.h */,
+				F470B16717C21F75002AF161 /* iosEditor.mm */,
+			);
+			path = interappaudio;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F440F8D517A911FE00616683 /* NoteExpressionSynthExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F440F90117A911FE00616683 /* Build configuration list for PBXNativeTarget "NoteExpressionSynthExample" */;
+			buildPhases = (
+				F440F8D617A911FE00616683 /* Sources */,
+				F440F8F717A911FE00616683 /* Frameworks */,
+				F440F8FC17A911FE00616683 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F440F95817A9243B00616683 /* PBXTargetDependency */,
+			);
+			name = NoteExpressionSynthExample;
+			productName = InterAppAudioExample;
+			productReference = F440F90417A911FE00616683 /* NoteExpressionSynthExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F45911EC17A65E5400451D65 /* ADelayExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F459121917A65E5400451D65 /* Build configuration list for PBXNativeTarget "ADelayExample" */;
+			buildPhases = (
+				F45911E917A65E5400451D65 /* Sources */,
+				F45911EA17A65E5400451D65 /* Frameworks */,
+				F45911EB17A65E5400451D65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ADelayExample;
+			productName = InterAppAudioExample;
+			productReference = F45911ED17A65E5400451D65 /* ADelayExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F45911E517A65E5400451D65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = VSTInterAppAudio;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Steinberg;
+				TargetAttributes = {
+					F45911EC17A65E5400451D65 = {
+						DevelopmentTeam = 5PMY476BJ6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = F45911E817A65E5400451D65 /* Build configuration list for PBXProject "InterAppAudioExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F45911E417A65E5400451D65;
+			productRefGroup = F45911EE17A65E5400451D65 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F440F94417A9241800616683 /* Products */;
+					ProjectRef = F440F94317A9241800616683 /* vstgui.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				F45911EC17A65E5400451D65 /* ADelayExample */,
+				F440F8D517A911FE00616683 /* NoteExpressionSynthExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F440F94B17A9241800616683 /* libvstgui.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libvstgui.a;
+			remoteRef = F440F94A17A9241800616683 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F440F94D17A9241800616683 /* libvstgui c++11.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libvstgui c++11.a";
+			remoteRef = F440F94C17A9241800616683 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F440F94F17A9241800616683 /* unittests */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = unittests;
+			remoteRef = F440F94E17A9241800616683 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F440F95117A9241800616683 /* libvstgui-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libvstgui-ios.a";
+			remoteRef = F440F95017A9241800616683 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F440F8FC17A911FE00616683 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F440F94217A918B800616683 /* VSTInterAppAudioHostUIControllerView.xib in Resources */,
+				F440F93F17A9187100616683 /* knob2.png in Resources */,
+				F436D8711801912900515923 /* PresetSaveView.xib in Resources */,
+				F440F8FD17A911FE00616683 /* InfoPlist.strings in Resources */,
+				F42D5F5C17AFFB2800B85FE8 /* knob big.png in Resources */,
+				F440F93C17A9187100616683 /* background.png in Resources */,
+				F440F93E17A9187100616683 /* knob.png in Resources */,
+				F440F94117A9187100616683 /* vst3_logo_small.png in Resources */,
+				F440F94017A9187100616683 /* note_expression_synth.uidesc in Resources */,
+				F436D86B1801912900515923 /* PresetBrowserView.xib in Resources */,
+				F440F90017A911FE00616683 /* Images.xcassets in Resources */,
+				F440F93B17A9187100616683 /* about.png in Resources */,
+				F440F93D17A9187100616683 /* groupframe.png in Resources */,
+				F436D8751801912900515923 /* SettingsView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F45911EB17A65E5400451D65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F45911FB17A65E5400451D65 /* InfoPlist.strings in Resources */,
+				F470B16817C21F75002AF161 /* ADelayIPAD.xib in Resources */,
+				F436D8701801912900515923 /* PresetSaveView.xib in Resources */,
+				F42BA34517A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerView.xib in Resources */,
+				F436D86A1801912900515923 /* PresetBrowserView.xib in Resources */,
+				F459120317A65E5400451D65 /* Images.xcassets in Resources */,
+				F436D8741801912900515923 /* SettingsView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F440F8D617A911FE00616683 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F436D86D1801912900515923 /* PresetBrowserViewController.mm in Sources */,
+				F440F8D717A911FE00616683 /* fdebug.cpp in Sources */,
+				F436D87E1801918C00515923 /* vstpresetfile.cpp in Sources */,
+				F433213D17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm in Sources */,
+				F440F8D817A911FE00616683 /* fthread.cpp in Sources */,
+				F436D8691801912900515923 /* MidiIO.mm in Sources */,
+				F42D5F6B17B01A7600B85FE8 /* vst3padcontroller.cpp in Sources */,
+				F440F8DA17A911FE00616683 /* parameterchanges.cpp in Sources */,
+				F440F8DB17A911FE00616683 /* HostApp.mm in Sources */,
+				F440F8DC17A911FE00616683 /* baseiids.cpp in Sources */,
+				F440F8DD17A911FE00616683 /* pluginfactoryvst3.cpp in Sources */,
+				F440F8DF17A911FE00616683 /* fobject.cpp in Sources */,
+				F440F8E117A911FE00616683 /* macmain.cpp in Sources */,
+				F440F8E217A911FE00616683 /* ustring.cpp in Sources */,
+				F440F8E417A911FE00616683 /* updatehandler.cpp in Sources */,
+				F440F8E517A911FE00616683 /* timer.cpp in Sources */,
+				F440F8E617A911FE00616683 /* VSTInterAppAudioAppDelegate.mm in Sources */,
+				F440F92717A9172800616683 /* vstguieditor.cpp in Sources */,
+				F440F91417A9135F00616683 /* factory.cpp in Sources */,
+				F440F8E717A911FE00616683 /* hostclasses.cpp in Sources */,
+				F440F8E817A911FE00616683 /* AudioIO.mm in Sources */,
+				F440F8E917A911FE00616683 /* fstring.cpp in Sources */,
+				F440F92017A9139600616683 /* vst3editor.cpp in Sources */,
+				F440F8EB17A911FE00616683 /* eventlist.cpp in Sources */,
+				F440F92A17A9174900616683 /* pluginview.cpp in Sources */,
+				F42D5F7217B02F1100B85FE8 /* note_touch_controller.cpp in Sources */,
+				F436D8771801912900515923 /* SettingsViewController.mm in Sources */,
+				F440F8EC17A911FE00616683 /* processdata.cpp in Sources */,
+				F436D8731801912900515923 /* PresetSaveViewController.mm in Sources */,
+				F4AF682917B1028B0083D7C1 /* vst3groupcontroller.cpp in Sources */,
+				F440F8ED17A911FE00616683 /* VST3Editor.mm in Sources */,
+				F440F8EE17A911FE00616683 /* NSDataIBStream.mm in Sources */,
+				F440F92417A9170500616683 /* vstnoteexpressiontypes.cpp in Sources */,
+				F440F8EF17A911FE00616683 /* main.m in Sources */,
+				F440F8F017A911FE00616683 /* funknown.cpp in Sources */,
+				F42D5F5F17B005A800B85FE8 /* fbuffer.cpp in Sources */,
+				F440F8F117A911FE00616683 /* conststringtable.cpp in Sources */,
+				F440F8F217A911FE00616683 /* vstinitiids.cpp in Sources */,
+				F440F8F317A911FE00616683 /* VSTInterAppAudioHostUIControllerViewController.mm in Sources */,
+				F440F91717A9135F00616683 /* note_expression_synth_ui.cpp in Sources */,
+				F440F93217A917B700616683 /* fstreamer.cpp in Sources */,
+				F440F8F417A911FE00616683 /* fatomic.cpp in Sources */,
+				F440F8F517A911FE00616683 /* vst3stdsdk.cpp in Sources */,
+				F440F91517A9135F00616683 /* note_expression_synth_controller.cpp in Sources */,
+				F440F8F617A911FE00616683 /* VST3Plugin.mm in Sources */,
+				F440F91617A9135F00616683 /* note_expression_synth_processor.cpp in Sources */,
+				F440F91817A9135F00616683 /* note_expression_synth_voice.cpp in Sources */,
+				F436D86F1801912900515923 /* PresetManager.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F45911E917A65E5400451D65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F402DB5217A7B79400698A6A /* fdebug.cpp in Sources */,
+				F46AEE4C17A7FC9F00618A5D /* fthread.cpp in Sources */,
+				F436D86E1801912900515923 /* PresetManager.mm in Sources */,
+				F470B16317C21EAA002AF161 /* fbuffer.cpp in Sources */,
+				F436D8721801912900515923 /* PresetSaveViewController.mm in Sources */,
+				F402DB3717A7B5CD00698A6A /* adelayprocessor.cpp in Sources */,
+				F402DB6A17A7C14600698A6A /* parameterchanges.cpp in Sources */,
+				F46AEE5717A8047400618A5D /* HostApp.mm in Sources */,
+				F470B16917C21F75002AF161 /* iosEditor.mm in Sources */,
+				F402DB5017A7B79400698A6A /* baseiids.cpp in Sources */,
+				F402DB4517A7B75900698A6A /* pluginfactoryvst3.cpp in Sources */,
+				F402DB3617A7B5CD00698A6A /* adelaycontroller.cpp in Sources */,
+				F402DB5317A7B79400698A6A /* fobject.cpp in Sources */,
+				F402DB5817A7B7F800698A6A /* macmain.cpp in Sources */,
+				F402DB4217A7B73000698A6A /* ustring.cpp in Sources */,
+				F402DB5B17A7B82600698A6A /* exampletest.cpp in Sources */,
+				F46AEE4917A7FB7F00618A5D /* updatehandler.cpp in Sources */,
+				F402DB7117A7CC3E00698A6A /* timer.cpp in Sources */,
+				F459120117A65E5400451D65 /* VSTInterAppAudioAppDelegate.mm in Sources */,
+				F402DB6917A7C14600698A6A /* hostclasses.cpp in Sources */,
+				F46AEE5617A8047400618A5D /* AudioIO.mm in Sources */,
+				F433213C17C35144001DEC75 /* VSTInterAppAudioAppDelegateBase.mm in Sources */,
+				F402DB5417A7B79400698A6A /* fstring.cpp in Sources */,
+				F402DB3D17A7B62F00698A6A /* factory.cpp in Sources */,
+				F440F93117A917B700616683 /* fstreamer.cpp in Sources */,
+				F402DB6817A7C14600698A6A /* eventlist.cpp in Sources */,
+				F436D87D1801918C00515923 /* vstpresetfile.cpp in Sources */,
+				F402DB6B17A7C14600698A6A /* processdata.cpp in Sources */,
+				F470B15F17C21EA2002AF161 /* pluginview.cpp in Sources */,
+				F46AEE5817A8047400618A5D /* VST3Editor.mm in Sources */,
+				F402DB6E17A7C16C00698A6A /* NSDataIBStream.mm in Sources */,
+				F45911FD17A65E5400451D65 /* main.m in Sources */,
+				F402DB3B17A7B60C00698A6A /* funknown.cpp in Sources */,
+				F436D86C1801912900515923 /* PresetBrowserViewController.mm in Sources */,
+				F459123217A6796000451D65 /* conststringtable.cpp in Sources */,
+				F402DB5617A7B7CB00698A6A /* vstinitiids.cpp in Sources */,
+				F42BA34417A80C5500EF1EB5 /* VSTInterAppAudioHostUIControllerViewController.mm in Sources */,
+				F402DB5117A7B79400698A6A /* fatomic.cpp in Sources */,
+				F402DB3F17A7B71900698A6A /* vst3stdsdk.cpp in Sources */,
+				F436D8761801912900515923 /* SettingsViewController.mm in Sources */,
+				F46AEE5917A8047400618A5D /* VST3Plugin.mm in Sources */,
+				F436D8681801912900515923 /* MidiIO.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F440F95817A9243B00616683 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "vstgui-ios";
+			targetProxy = F440F95717A9243B00616683 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F45911F917A65E5400451D65 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F45911FA17A65E5400451D65 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F440F90217A911FE00616683 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F459122817A661E100451D65 /* InterAppAudioExample_Debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = InterAppAudioExample/InterAppAudioExample.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"DEVELOPMENT=1",
+					"$(inherited)",
+					"VOICEPROCESSOR_BLOCKSIZE=-1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InterAppAudioExample/NoteExpressionSynthExample.plist";
+			};
+			name = Debug;
+		};
+		F440F90317A911FE00616683 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F459122917A661ED00451D65 /* InterAppAudioExample_Release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = InterAppAudioExample/InterAppAudioExample.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"RELEASE=1",
+					"$(inherited)",
+					"VOICEPROCESSOR_BLOCKSIZE=-1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InterAppAudioExample/NoteExpressionSynthExample.plist";
+			};
+			name = Release;
+		};
+		F459121717A65E5400451D65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ONLY_ACTIVE_ARCH = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Debug;
+		};
+		F459121817A65E5400451D65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					arm64,
+					armv7,
+					armv7s,
+				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ONLY_ACTIVE_ARCH = NO;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s";
+			};
+			name = Release;
+		};
+		F459121A17A65E5400451D65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F459122817A661E100451D65 /* InterAppAudioExample_Debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = InterAppAudioExample/InterAppAudioExample.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/InterAppAudioExample/ADelayExample.plist";
+			};
+			name = Debug;
+		};
+		F459121B17A65E5400451D65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F459122917A661ED00451D65 /* InterAppAudioExample_Release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = InterAppAudioExample/InterAppAudioExample.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/InterAppAudioExample/ADelayExample.plist";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F440F90117A911FE00616683 /* Build configuration list for PBXNativeTarget "NoteExpressionSynthExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F440F90217A911FE00616683 /* Debug */,
+				F440F90317A911FE00616683 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F45911E817A65E5400451D65 /* Build configuration list for PBXProject "InterAppAudioExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F459121717A65E5400451D65 /* Debug */,
+				F459121817A65E5400451D65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F459121917A65E5400451D65 /* Build configuration list for PBXNativeTarget "ADelayExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F459121A17A65E5400451D65 /* Debug */,
+				F459121B17A65E5400451D65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F45911E517A65E5400451D65 /* Project object */;
+}

@@ -1,0 +1,32 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{Controller\n|+ cid\l|+ initialize()\l+ terminate()\l+ setComponentState()\l+ setParamNormalized()\l+ getMidiControllerAssignment()\l+ getNoteExpressionCount()\l+ getNoteExpressionInfo()\l+ getNoteExpressionStringByValue()\l+ getNoteExpressionValueByString()\l+ createInstance()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{EditController\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1EditController.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{ComponentBase\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1ComponentBase.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{IPluginBase\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginBase.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node6 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IConnectionPoint\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IConnectionPoint.html"];
+  Node5 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IEditController\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController.html"];
+  Node4 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{IEditController2\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController2.html"];
+  Node5 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 [label="{INoteExpressionController\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1INoteExpressionController.html"];
+  Node5 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 [label="{IMidiMapping\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IMidiMapping.html"];
+  Node5 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node1 -> Node11 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node11 [label="{ControllerWithUI\n|+ cid\l|+ createView()\l+ createSubController()\l+ createInstance()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1NoteExpressionSynth_1_1ControllerWithUI.html",tooltip="Example Note Expression Audio Controller + User Interface."];
+}

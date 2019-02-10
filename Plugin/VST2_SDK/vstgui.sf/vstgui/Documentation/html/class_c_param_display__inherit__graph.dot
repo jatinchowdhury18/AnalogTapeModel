@@ -1,0 +1,19 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="CParamDisplay",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CControl",height=0.2,width=0.4,color="black",URL="$class_c_control.html",tooltip="base class of all VSTGUI controls"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CView",height=0.2,width=0.4,color="black",URL="$class_c_view.html",tooltip="Base Class of all view objects."];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="COptionMenu",height=0.2,width=0.4,color="black",URL="$class_c_option_menu.html",tooltip="a popup menu control"];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="CTextEdit",height=0.2,width=0.4,color="black",URL="$class_c_text_edit.html",tooltip="a text edit control"];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 [label="CTextLabel",height=0.2,width=0.4,color="black",URL="$class_c_text_label.html",tooltip="a text label"];
+}

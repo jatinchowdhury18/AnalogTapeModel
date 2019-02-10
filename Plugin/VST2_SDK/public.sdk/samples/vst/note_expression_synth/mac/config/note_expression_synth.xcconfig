@@ -1,0 +1,13 @@
+#include "../../../../../../base/mac/config/libc++base"
+
+HEADER_SEARCH_PATHS = ../../../../../ ../../../../../vstgui4/
+INFOPLIST_FILE = Info.plist
+PRODUCT_NAME = Note Expression Synth
+WRAPPER_EXTENSION = vst3
+GENERATE_PKGINFO_FILE = YES
+GCC_ALTIVEC_EXTENSIONS = YES
+GCC_ENABLE_SSE3_EXTENSIONS = YES
+INFOPLIST_PREPROCESS = YES
+INFOPLIST_PREFIX_HEADER = ../source/version.h
+INFOPLIST_OTHER_PREPROCESSOR_FLAGS = -I../../../../../
+INSTALL_PATH = /Library/Audio/Plug-Ins/VST3/

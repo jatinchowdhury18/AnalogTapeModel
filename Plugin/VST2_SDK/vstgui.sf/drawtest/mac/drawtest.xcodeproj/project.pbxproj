@@ -1,0 +1,1141 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C01253807AC359F009EC388 /* cscrollview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252807AC359F009EC388 /* cscrollview.cpp */; };
+		0C01253A07AC359F009EC388 /* ctabview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252A07AC359F009EC388 /* ctabview.cpp */; };
+		0C01253C07AC359F009EC388 /* plugguieditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252C07AC359F009EC388 /* plugguieditor.cpp */; };
+		0C01253E07AC359F009EC388 /* vstcontrols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252E07AC359F009EC388 /* vstcontrols.cpp */; };
+		0C01254007AC359F009EC388 /* vstgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01253007AC359F009EC388 /* vstgui.cpp */; };
+		0C01262107AC3D21009EC388 /* audiounit.r in Rez */ = {isa = PBXBuildFile; fileRef = 0C01262007AC3D21009EC388 /* audiounit.r */; };
+		0C1C289A07AC2824007128C4 /* System.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1C289907AC2824007128C4 /* System.framework */; };
+		0C1C289C07AC283C007128C4 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1C289B07AC283C007128C4 /* QuickTime.framework */; };
+		0CF3555507B17126002BFE50 /* bmp00001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554207B17126002BFE50 /* bmp00001.png */; };
+		0CF3555607B17126002BFE50 /* bmp00100.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554307B17126002BFE50 /* bmp00100.png */; };
+		0CF3555707B17126002BFE50 /* bmp01000.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554407B17126002BFE50 /* bmp01000.png */; };
+		0CF3555807B17126002BFE50 /* bmp10001.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554507B17126002BFE50 /* bmp10001.bmp */; };
+		0CF3555907B17126002BFE50 /* bmp10002.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554607B17126002BFE50 /* bmp10002.bmp */; };
+		0CF3555A07B17126002BFE50 /* bmp10003.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554707B17126002BFE50 /* bmp10003.bmp */; };
+		0CF3555B07B17126002BFE50 /* bmp10004.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554807B17126002BFE50 /* bmp10004.bmp */; };
+		0CF3555C07B17126002BFE50 /* bmp10005.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554907B17126002BFE50 /* bmp10005.bmp */; };
+		0CF3555D07B17126002BFE50 /* bmp10006.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554A07B17126002BFE50 /* bmp10006.bmp */; };
+		0CF3555E07B17126002BFE50 /* bmp10007.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554B07B17126002BFE50 /* bmp10007.bmp */; };
+		0CF3555F07B17126002BFE50 /* bmp10008.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554C07B17126002BFE50 /* bmp10008.bmp */; };
+		0CF3556007B17126002BFE50 /* bmp10009.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554D07B17126002BFE50 /* bmp10009.bmp */; };
+		0CF3556107B17126002BFE50 /* bmp10010.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554E07B17126002BFE50 /* bmp10010.bmp */; };
+		0CF3556207B17126002BFE50 /* bmp10011.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554F07B17126002BFE50 /* bmp10011.bmp */; };
+		0CF3556307B17126002BFE50 /* bmp10012.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555007B17126002BFE50 /* bmp10012.bmp */; };
+		0CF3556407B17126002BFE50 /* bmp10013.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555107B17126002BFE50 /* bmp10013.bmp */; };
+		0CF3556507B17126002BFE50 /* bmp10014.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555207B17126002BFE50 /* bmp10014.bmp */; };
+		0CF3556607B17126002BFE50 /* bmp10015.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555307B17126002BFE50 /* bmp10015.bmp */; };
+		0CF3556707B17126002BFE50 /* bmp10016.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555407B17126002BFE50 /* bmp10016.bmp */; };
+		0CF355C607B173A3002BFE50 /* pdrawtesteditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355BE07B173A3002BFE50 /* pdrawtesteditor.cpp */; };
+		0CF355C707B173A3002BFE50 /* pdrawtesteditor.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CF355BF07B173A3002BFE50 /* pdrawtesteditor.h */; };
+		0CF355C807B173A3002BFE50 /* pdrawtesteffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C007B173A3002BFE50 /* pdrawtesteffect.cpp */; };
+		0CF355C907B173A3002BFE50 /* pdrawtesteffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CF355C107B173A3002BFE50 /* pdrawtesteffect.h */; };
+		0CF355CA07B173A3002BFE50 /* pdrawtestview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C207B173A3002BFE50 /* pdrawtestview.cpp */; };
+		0CF355CB07B173A3002BFE50 /* pdrawtestview.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CF355C307B173A3002BFE50 /* pdrawtestview.h */; };
+		0CF355CC07B173A3002BFE50 /* pprimitivesviews.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C407B173A3002BFE50 /* pprimitivesviews.cpp */; };
+		0CF355CD07B173A3002BFE50 /* pprimitivesviews.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CF355C507B173A3002BFE50 /* pprimitivesviews.h */; };
+		0CF355FD07B17600002BFE50 /* controlsgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355FB07B17600002BFE50 /* controlsgui.cpp */; };
+		0CF355FE07B17600002BFE50 /* controlsgui.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CF355FC07B17600002BFE50 /* controlsgui.h */; };
+		8BA05AAE072073D300365D66 /* AUBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A7F072073D200365D66 /* AUBase.cpp */; };
+		8BA05AAF072073D300365D66 /* AUBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A80072073D200365D66 /* AUBase.h */; };
+		8BA05AB0072073D300365D66 /* AUDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A81072073D200365D66 /* AUDispatch.cpp */; };
+		8BA05AB1072073D300365D66 /* AUDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A82072073D200365D66 /* AUDispatch.h */; };
+		8BA05AB2072073D300365D66 /* AUInputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A83072073D200365D66 /* AUInputElement.cpp */; };
+		8BA05AB3072073D300365D66 /* AUInputElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A84072073D200365D66 /* AUInputElement.h */; };
+		8BA05AB4072073D300365D66 /* AUOutputElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A85072073D200365D66 /* AUOutputElement.cpp */; };
+		8BA05AB5072073D300365D66 /* AUOutputElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A86072073D200365D66 /* AUOutputElement.h */; };
+		8BA05AB7072073D300365D66 /* AUScopeElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A88072073D200365D66 /* AUScopeElement.cpp */; };
+		8BA05AB8072073D300365D66 /* AUScopeElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A89072073D200365D66 /* AUScopeElement.h */; };
+		8BA05AB9072073D300365D66 /* ComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A8A072073D200365D66 /* ComponentBase.cpp */; };
+		8BA05ABA072073D300365D66 /* ComponentBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A8B072073D200365D66 /* ComponentBase.h */; };
+		8BA05ABB072073D300365D66 /* AUCarbonViewBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A8D072073D200365D66 /* AUCarbonViewBase.cpp */; };
+		8BA05ABC072073D300365D66 /* AUCarbonViewBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A8E072073D200365D66 /* AUCarbonViewBase.h */; };
+		8BA05ABD072073D300365D66 /* AUCarbonViewControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A8F072073D200365D66 /* AUCarbonViewControl.cpp */; };
+		8BA05ABE072073D300365D66 /* AUCarbonViewControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A90072073D200365D66 /* AUCarbonViewControl.h */; };
+		8BA05ABF072073D300365D66 /* AUCarbonViewDispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A91072073D200365D66 /* AUCarbonViewDispatch.cpp */; };
+		8BA05AC0072073D300365D66 /* AUControlGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A92072073D200365D66 /* AUControlGroup.cpp */; };
+		8BA05AC1072073D300365D66 /* AUControlGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A93072073D200365D66 /* AUControlGroup.h */; };
+		8BA05AC2072073D300365D66 /* CarbonEventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A94072073D200365D66 /* CarbonEventHandler.cpp */; };
+		8BA05AC3072073D300365D66 /* CarbonEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A95072073D200365D66 /* CarbonEventHandler.h */; };
+		8BA05AC5072073D300365D66 /* AUViewLocalizedStringKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A98072073D200365D66 /* AUViewLocalizedStringKeys.h */; };
+		8BA05AC6072073D300365D66 /* AUEffectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05A9A072073D200365D66 /* AUEffectBase.cpp */; };
+		8BA05AC7072073D300365D66 /* AUEffectBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05A9B072073D200365D66 /* AUEffectBase.h */; };
+		8BA05AD2072073D300365D66 /* AUBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AA7072073D200365D66 /* AUBuffer.cpp */; };
+		8BA05AD3072073D300365D66 /* AUBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AA8072073D200365D66 /* AUBuffer.h */; };
+		8BA05AD4072073D300365D66 /* AUDebugDispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AA9072073D200365D66 /* AUDebugDispatcher.cpp */; };
+		8BA05AD5072073D300365D66 /* AUDebugDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAA072073D200365D66 /* AUDebugDispatcher.h */; };
+		8BA05AD6072073D300365D66 /* AUInputFormatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAB072073D200365D66 /* AUInputFormatConverter.h */; };
+		8BA05AD7072073D300365D66 /* AUSilentTimeout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAC072073D200365D66 /* AUSilentTimeout.h */; };
+		8BA05AD8072073D300365D66 /* AUTimestampGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AAD072073D200365D66 /* AUTimestampGenerator.h */; };
+		8BA05AE50720742100365D66 /* CAAudioChannelLayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05ADF0720742100365D66 /* CAAudioChannelLayout.cpp */; };
+		8BA05AE60720742100365D66 /* CAAudioChannelLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE00720742100365D66 /* CAAudioChannelLayout.h */; };
+		8BA05AE70720742100365D66 /* CAMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AE10720742100365D66 /* CAMutex.cpp */; };
+		8BA05AE80720742100365D66 /* CAMutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE20720742100365D66 /* CAMutex.h */; };
+		8BA05AE90720742100365D66 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05AE30720742100365D66 /* CAStreamBasicDescription.cpp */; };
+		8BA05AEA0720742100365D66 /* CAStreamBasicDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05AE40720742100365D66 /* CAStreamBasicDescription.h */; };
+		8BA05AFC072074E100365D66 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA05AF9072074E100365D66 /* AudioToolbox.framework */; };
+		8BA05B02072074F900365D66 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA05B01072074F900365D66 /* CoreServices.framework */; };
+		8BA05B070720754400365D66 /* CAAUParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8BA05B050720754400365D66 /* CAAUParameter.cpp */; };
+		8BA05B080720754400365D66 /* CAAUParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BA05B060720754400365D66 /* CAAUParameter.h */; };
+		8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		F4381433099A587F0042610E /* CAVectorUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4381431099A587F0042610E /* CAVectorUnit.cpp */; };
+		F4381434099A587F0042610E /* CAVectorUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = F4381432099A587F0042610E /* CAVectorUnit.h */; };
+		F485AC4B086C15E700298D72 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F485AC4A086C15E700298D72 /* AudioUnit.framework */; };
+		F485AC51086C160100298D72 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B5C7F83076FB26000A15F61 /* CoreAudio.framework */; };
+		F4C9F1D607B232A100010DAD /* cscrollview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252807AC359F009EC388 /* cscrollview.cpp */; };
+		F4C9F1D807B232A300010DAD /* ctabview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252A07AC359F009EC388 /* ctabview.cpp */; };
+		F4C9F1DC07B232A500010DAD /* vstcontrols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01252E07AC359F009EC388 /* vstcontrols.cpp */; };
+		F4C9F1DE07B232A600010DAD /* vstgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C01253007AC359F009EC388 /* vstgui.cpp */; };
+		F4C9F1E707B232D600010DAD /* audioeffectx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C9F1E407B232D600010DAD /* audioeffectx.cpp */; };
+		F4C9F1EE07B2332100010DAD /* bmp00001.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554207B17126002BFE50 /* bmp00001.png */; };
+		F4C9F1EF07B2332200010DAD /* bmp00100.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554307B17126002BFE50 /* bmp00100.png */; };
+		F4C9F1F007B2332200010DAD /* bmp01000.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554407B17126002BFE50 /* bmp01000.png */; };
+		F4C9F1F107B2332300010DAD /* bmp10002.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554607B17126002BFE50 /* bmp10002.bmp */; };
+		F4C9F1F207B2332400010DAD /* bmp10001.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554507B17126002BFE50 /* bmp10001.bmp */; };
+		F4C9F1F307B2332400010DAD /* bmp10003.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554707B17126002BFE50 /* bmp10003.bmp */; };
+		F4C9F1F407B2332500010DAD /* bmp10004.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554807B17126002BFE50 /* bmp10004.bmp */; };
+		F4C9F1F507B2332500010DAD /* bmp10005.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554907B17126002BFE50 /* bmp10005.bmp */; };
+		F4C9F1F607B2332600010DAD /* bmp10006.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554A07B17126002BFE50 /* bmp10006.bmp */; };
+		F4C9F1F707B2332700010DAD /* bmp10007.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554B07B17126002BFE50 /* bmp10007.bmp */; };
+		F4C9F1F807B2332700010DAD /* bmp10008.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554C07B17126002BFE50 /* bmp10008.bmp */; };
+		F4C9F1F907B2332800010DAD /* bmp10009.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554D07B17126002BFE50 /* bmp10009.bmp */; };
+		F4C9F1FA07B2332900010DAD /* bmp10010.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554E07B17126002BFE50 /* bmp10010.bmp */; };
+		F4C9F1FB07B2332A00010DAD /* bmp10011.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3554F07B17126002BFE50 /* bmp10011.bmp */; };
+		F4C9F1FC07B2332B00010DAD /* bmp10012.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555007B17126002BFE50 /* bmp10012.bmp */; };
+		F4C9F1FD07B2332B00010DAD /* bmp10013.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555107B17126002BFE50 /* bmp10013.bmp */; };
+		F4C9F1FE07B2332C00010DAD /* bmp10014.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555207B17126002BFE50 /* bmp10014.bmp */; };
+		F4C9F1FF07B2332C00010DAD /* bmp10016.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555407B17126002BFE50 /* bmp10016.bmp */; };
+		F4C9F20007B2332D00010DAD /* bmp10015.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 0CF3555307B17126002BFE50 /* bmp10015.bmp */; };
+		F4C9F20607B2335F00010DAD /* aeffguieditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C9F20407B2335F00010DAD /* aeffguieditor.cpp */; };
+		F4C9F21C07B2339F00010DAD /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */; };
+		F4C9F21D07B233A100010DAD /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1C289B07AC283C007128C4 /* QuickTime.framework */; };
+		F4C9F21E07B233A100010DAD /* System.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1C289907AC2824007128C4 /* System.framework */; };
+		F4C9F46E07B2378600010DAD /* controlsgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355FB07B17600002BFE50 /* controlsgui.cpp */; };
+		F4C9F46F07B2378800010DAD /* pdrawtesteditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355BE07B173A3002BFE50 /* pdrawtesteditor.cpp */; };
+		F4C9F47007B2378900010DAD /* pdrawtesteffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C007B173A3002BFE50 /* pdrawtesteffect.cpp */; };
+		F4C9F47107B2378B00010DAD /* pdrawtestview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C207B173A3002BFE50 /* pdrawtestview.cpp */; };
+		F4C9F47207B2378D00010DAD /* pprimitivesviews.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CF355C407B173A3002BFE50 /* pprimitivesviews.cpp */; };
+		F4C9F47407B2379F00010DAD /* pdrawtestmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4C9F47307B2379F00010DAD /* pdrawtestmain.cpp */; };
+		F4FD4C6F08865DB400F20B72 /* cfileselector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FD4C6E08865DB400F20B72 /* cfileselector.cpp */; };
+		F4FD4C7008865DB400F20B72 /* cfileselector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FD4C6E08865DB400F20B72 /* cfileselector.cpp */; };
+		F4FF52580929FD9700DDED7A /* audioeffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FF52570929FD9700DDED7A /* audioeffect.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		4F9091AC011F3BD104CA0E50 /* Development */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				OPTIMIZATION_CFLAGS = "-O0";
+				ZERO_LINK = YES;
+			};
+			name = Development;
+		};
+		4F9091AD011F3BD104CA0E50 /* Deployment */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXFileReference section */
+		08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		0C01252807AC359F009EC388 /* cscrollview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = cscrollview.cpp; path = ../../vstgui/cscrollview.cpp; sourceTree = SOURCE_ROOT; };
+		0C01252A07AC359F009EC388 /* ctabview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ctabview.cpp; path = ../../vstgui/ctabview.cpp; sourceTree = SOURCE_ROOT; };
+		0C01252C07AC359F009EC388 /* plugguieditor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = plugguieditor.cpp; path = ../../vstgui/plugguieditor.cpp; sourceTree = SOURCE_ROOT; };
+		0C01252E07AC359F009EC388 /* vstcontrols.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = vstcontrols.cpp; path = ../../vstgui/vstcontrols.cpp; sourceTree = SOURCE_ROOT; };
+		0C01253007AC359F009EC388 /* vstgui.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = vstgui.cpp; path = ../../vstgui/vstgui.cpp; sourceTree = SOURCE_ROOT; };
+		0C01262007AC3D21009EC388 /* audiounit.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = audiounit.r; path = ../resources/audiounit.r; sourceTree = SOURCE_ROOT; };
+		0C01265607AC430A009EC388 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C1C289907AC2824007128C4 /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = /System/Library/Frameworks/System.framework; sourceTree = "<absolute>"; };
+		0C1C289B07AC283C007128C4 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
+		0CF3554207B17126002BFE50 /* bmp00001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bmp00001.png; path = ../resources/bmp00001.png; sourceTree = SOURCE_ROOT; };
+		0CF3554307B17126002BFE50 /* bmp00100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bmp00100.png; path = ../resources/bmp00100.png; sourceTree = SOURCE_ROOT; };
+		0CF3554407B17126002BFE50 /* bmp01000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bmp01000.png; path = ../resources/bmp01000.png; sourceTree = SOURCE_ROOT; };
+		0CF3554507B17126002BFE50 /* bmp10001.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10001.bmp; path = ../resources/bmp10001.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554607B17126002BFE50 /* bmp10002.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10002.bmp; path = ../resources/bmp10002.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554707B17126002BFE50 /* bmp10003.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10003.bmp; path = ../resources/bmp10003.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554807B17126002BFE50 /* bmp10004.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10004.bmp; path = ../resources/bmp10004.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554907B17126002BFE50 /* bmp10005.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10005.bmp; path = ../resources/bmp10005.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554A07B17126002BFE50 /* bmp10006.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10006.bmp; path = ../resources/bmp10006.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554B07B17126002BFE50 /* bmp10007.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10007.bmp; path = ../resources/bmp10007.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554C07B17126002BFE50 /* bmp10008.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10008.bmp; path = ../resources/bmp10008.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554D07B17126002BFE50 /* bmp10009.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10009.bmp; path = ../resources/bmp10009.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554E07B17126002BFE50 /* bmp10010.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10010.bmp; path = ../resources/bmp10010.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3554F07B17126002BFE50 /* bmp10011.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10011.bmp; path = ../resources/bmp10011.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3555007B17126002BFE50 /* bmp10012.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10012.bmp; path = ../resources/bmp10012.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3555107B17126002BFE50 /* bmp10013.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10013.bmp; path = ../resources/bmp10013.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3555207B17126002BFE50 /* bmp10014.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10014.bmp; path = ../resources/bmp10014.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3555307B17126002BFE50 /* bmp10015.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10015.bmp; path = ../resources/bmp10015.bmp; sourceTree = SOURCE_ROOT; };
+		0CF3555407B17126002BFE50 /* bmp10016.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = bmp10016.bmp; path = ../resources/bmp10016.bmp; sourceTree = SOURCE_ROOT; };
+		0CF355BE07B173A3002BFE50 /* pdrawtesteditor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = pdrawtesteditor.cpp; path = ../source/pdrawtesteditor.cpp; sourceTree = SOURCE_ROOT; };
+		0CF355BF07B173A3002BFE50 /* pdrawtesteditor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = pdrawtesteditor.h; path = ../source/pdrawtesteditor.h; sourceTree = SOURCE_ROOT; };
+		0CF355C007B173A3002BFE50 /* pdrawtesteffect.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = pdrawtesteffect.cpp; path = ../source/pdrawtesteffect.cpp; sourceTree = SOURCE_ROOT; };
+		0CF355C107B173A3002BFE50 /* pdrawtesteffect.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = pdrawtesteffect.h; path = ../source/pdrawtesteffect.h; sourceTree = SOURCE_ROOT; };
+		0CF355C207B173A3002BFE50 /* pdrawtestview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = pdrawtestview.cpp; path = ../source/pdrawtestview.cpp; sourceTree = SOURCE_ROOT; };
+		0CF355C307B173A3002BFE50 /* pdrawtestview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = pdrawtestview.h; path = ../source/pdrawtestview.h; sourceTree = SOURCE_ROOT; };
+		0CF355C407B173A3002BFE50 /* pprimitivesviews.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = pprimitivesviews.cpp; path = ../source/pprimitivesviews.cpp; sourceTree = SOURCE_ROOT; };
+		0CF355C507B173A3002BFE50 /* pprimitivesviews.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = pprimitivesviews.h; path = ../source/pprimitivesviews.h; sourceTree = SOURCE_ROOT; };
+		0CF355FB07B17600002BFE50 /* controlsgui.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = controlsgui.cpp; path = ../source/controlsgui.cpp; sourceTree = SOURCE_ROOT; };
+		0CF355FC07B17600002BFE50 /* controlsgui.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = controlsgui.h; path = ../source/controlsgui.h; sourceTree = SOURCE_ROOT; };
+		8B5C7F83076FB26000A15F61 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		8BA05A7F072073D200365D66 /* AUBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUBase.cpp; sourceTree = "<group>"; };
+		8BA05A80072073D200365D66 /* AUBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUBase.h; sourceTree = "<group>"; };
+		8BA05A81072073D200365D66 /* AUDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUDispatch.cpp; sourceTree = "<group>"; };
+		8BA05A82072073D200365D66 /* AUDispatch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUDispatch.h; sourceTree = "<group>"; };
+		8BA05A83072073D200365D66 /* AUInputElement.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUInputElement.cpp; sourceTree = "<group>"; };
+		8BA05A84072073D200365D66 /* AUInputElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUInputElement.h; sourceTree = "<group>"; };
+		8BA05A85072073D200365D66 /* AUOutputElement.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUOutputElement.cpp; sourceTree = "<group>"; };
+		8BA05A86072073D200365D66 /* AUOutputElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUOutputElement.h; sourceTree = "<group>"; };
+		8BA05A87072073D200365D66 /* AUResources.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = AUResources.r; sourceTree = "<group>"; };
+		8BA05A88072073D200365D66 /* AUScopeElement.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUScopeElement.cpp; sourceTree = "<group>"; };
+		8BA05A89072073D200365D66 /* AUScopeElement.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUScopeElement.h; sourceTree = "<group>"; };
+		8BA05A8A072073D200365D66 /* ComponentBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ComponentBase.cpp; sourceTree = "<group>"; };
+		8BA05A8B072073D200365D66 /* ComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ComponentBase.h; sourceTree = "<group>"; };
+		8BA05A8D072073D200365D66 /* AUCarbonViewBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUCarbonViewBase.cpp; sourceTree = "<group>"; };
+		8BA05A8E072073D200365D66 /* AUCarbonViewBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUCarbonViewBase.h; sourceTree = "<group>"; };
+		8BA05A8F072073D200365D66 /* AUCarbonViewControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUCarbonViewControl.cpp; sourceTree = "<group>"; };
+		8BA05A90072073D200365D66 /* AUCarbonViewControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUCarbonViewControl.h; sourceTree = "<group>"; };
+		8BA05A91072073D200365D66 /* AUCarbonViewDispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUCarbonViewDispatch.cpp; sourceTree = "<group>"; };
+		8BA05A92072073D200365D66 /* AUControlGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUControlGroup.cpp; sourceTree = "<group>"; };
+		8BA05A93072073D200365D66 /* AUControlGroup.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUControlGroup.h; sourceTree = "<group>"; };
+		8BA05A94072073D200365D66 /* CarbonEventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CarbonEventHandler.cpp; sourceTree = "<group>"; };
+		8BA05A95072073D200365D66 /* CarbonEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CarbonEventHandler.h; sourceTree = "<group>"; };
+		8BA05A98072073D200365D66 /* AUViewLocalizedStringKeys.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUViewLocalizedStringKeys.h; sourceTree = "<group>"; };
+		8BA05A9A072073D200365D66 /* AUEffectBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUEffectBase.cpp; sourceTree = "<group>"; };
+		8BA05A9B072073D200365D66 /* AUEffectBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUEffectBase.h; sourceTree = "<group>"; };
+		8BA05AA7072073D200365D66 /* AUBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUBuffer.cpp; sourceTree = "<group>"; };
+		8BA05AA8072073D200365D66 /* AUBuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUBuffer.h; sourceTree = "<group>"; };
+		8BA05AA9072073D200365D66 /* AUDebugDispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AUDebugDispatcher.cpp; sourceTree = "<group>"; };
+		8BA05AAA072073D200365D66 /* AUDebugDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUDebugDispatcher.h; sourceTree = "<group>"; };
+		8BA05AAB072073D200365D66 /* AUInputFormatConverter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUInputFormatConverter.h; sourceTree = "<group>"; };
+		8BA05AAC072073D200365D66 /* AUSilentTimeout.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUSilentTimeout.h; sourceTree = "<group>"; };
+		8BA05AAD072073D200365D66 /* AUTimestampGenerator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AUTimestampGenerator.h; sourceTree = "<group>"; };
+		8BA05ADF0720742100365D66 /* CAAudioChannelLayout.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CAAudioChannelLayout.cpp; path = /Developer/Examples/CoreAudio/PublicUtility/CAAudioChannelLayout.cpp; sourceTree = "<absolute>"; };
+		8BA05AE00720742100365D66 /* CAAudioChannelLayout.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CAAudioChannelLayout.h; path = /Developer/Examples/CoreAudio/PublicUtility/CAAudioChannelLayout.h; sourceTree = "<absolute>"; };
+		8BA05AE10720742100365D66 /* CAMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CAMutex.cpp; path = /Developer/Examples/CoreAudio/PublicUtility/CAMutex.cpp; sourceTree = "<absolute>"; };
+		8BA05AE20720742100365D66 /* CAMutex.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CAMutex.h; path = /Developer/Examples/CoreAudio/PublicUtility/CAMutex.h; sourceTree = "<absolute>"; };
+		8BA05AE30720742100365D66 /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CAStreamBasicDescription.cpp; path = /Developer/Examples/CoreAudio/PublicUtility/CAStreamBasicDescription.cpp; sourceTree = "<absolute>"; };
+		8BA05AE40720742100365D66 /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CAStreamBasicDescription.h; path = /Developer/Examples/CoreAudio/PublicUtility/CAStreamBasicDescription.h; sourceTree = "<absolute>"; };
+		8BA05AF9072074E100365D66 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		8BA05B01072074F900365D66 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		8BA05B050720754400365D66 /* CAAUParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CAAUParameter.cpp; path = /Developer/Examples/CoreAudio/PublicUtility/CAAUParameter.cpp; sourceTree = "<absolute>"; };
+		8BA05B060720754400365D66 /* CAAUParameter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CAAUParameter.h; path = /Developer/Examples/CoreAudio/PublicUtility/CAAUParameter.h; sourceTree = "<absolute>"; };
+		8D01CCD20486CAD60068D4B7 /* drawtest.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drawtest.component; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4381431099A587F0042610E /* CAVectorUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CAVectorUnit.cpp; path = /Developer/Examples/CoreAudio/PublicUtility/CAVectorUnit.cpp; sourceTree = "<absolute>"; };
+		F4381432099A587F0042610E /* CAVectorUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CAVectorUnit.h; path = /Developer/Examples/CoreAudio/PublicUtility/CAVectorUnit.h; sourceTree = "<absolute>"; };
+		F485AC4A086C15E700298D72 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		F4C9F1D407B2320800010DAD /* drawtest.vst */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drawtest.vst; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4C9F1E407B232D600010DAD /* audioeffectx.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = audioeffectx.cpp; path = ../../../public.sdk/source/vst2.x/audioeffectx.cpp; sourceTree = SOURCE_ROOT; };
+		F4C9F20407B2335F00010DAD /* aeffguieditor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = aeffguieditor.cpp; path = ../../vstgui/aeffguieditor.cpp; sourceTree = SOURCE_ROOT; };
+		F4C9F47307B2379F00010DAD /* pdrawtestmain.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = pdrawtestmain.cpp; path = ../source/pdrawtestmain.cpp; sourceTree = SOURCE_ROOT; };
+		F4FD4C6E08865DB400F20B72 /* cfileselector.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = cfileselector.cpp; path = ../../vstgui/cfileselector.cpp; sourceTree = SOURCE_ROOT; };
+		F4FF52570929FD9700DDED7A /* audioeffect.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = audioeffect.cpp; path = ../../../public.sdk/source/vst2.x/audioeffect.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D01CCCD0486CAD60068D4B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D01CCCE0486CAD60068D4B7 /* Carbon.framework in Frameworks */,
+				8BA05AFC072074E100365D66 /* AudioToolbox.framework in Frameworks */,
+				8BA05B02072074F900365D66 /* CoreServices.framework in Frameworks */,
+				0C1C289A07AC2824007128C4 /* System.framework in Frameworks */,
+				0C1C289C07AC283C007128C4 /* QuickTime.framework in Frameworks */,
+				F485AC4B086C15E700298D72 /* AudioUnit.framework in Frameworks */,
+				F485AC51086C160100298D72 /* CoreAudio.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C9F1D207B2320800010DAD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C9F21C07B2339F00010DAD /* Carbon.framework in Frameworks */,
+				F4C9F21D07B233A100010DAD /* QuickTime.framework in Frameworks */,
+				F4C9F21E07B233A100010DAD /* System.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* drawtest */ = {
+			isa = PBXGroup;
+			children = (
+				0C01265607AC430A009EC388 /* Info.plist */,
+				08FB77ADFE841716C02AAC07 /* Source */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* External Frameworks and Libraries */,
+				19C28FB4FE9D528D11CA2CBB /* Products */,
+			);
+			name = drawtest;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F485AC4A086C15E700298D72 /* AudioUnit.framework */,
+				0C1C289B07AC283C007128C4 /* QuickTime.framework */,
+				0C1C289907AC2824007128C4 /* System.framework */,
+				8B5C7F83076FB26000A15F61 /* CoreAudio.framework */,
+				8BA05B01072074F900365D66 /* CoreServices.framework */,
+				8BA05AF9072074E100365D66 /* AudioToolbox.framework */,
+				08EA7FFBFE8413EDC02AAC07 /* Carbon.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0CF3554207B17126002BFE50 /* bmp00001.png */,
+				0CF3554307B17126002BFE50 /* bmp00100.png */,
+				0CF3554407B17126002BFE50 /* bmp01000.png */,
+				0CF3554507B17126002BFE50 /* bmp10001.bmp */,
+				0CF3554607B17126002BFE50 /* bmp10002.bmp */,
+				0CF3554707B17126002BFE50 /* bmp10003.bmp */,
+				0CF3554807B17126002BFE50 /* bmp10004.bmp */,
+				0CF3554907B17126002BFE50 /* bmp10005.bmp */,
+				0CF3554A07B17126002BFE50 /* bmp10006.bmp */,
+				0CF3554B07B17126002BFE50 /* bmp10007.bmp */,
+				0CF3554C07B17126002BFE50 /* bmp10008.bmp */,
+				0CF3554D07B17126002BFE50 /* bmp10009.bmp */,
+				0CF3554E07B17126002BFE50 /* bmp10010.bmp */,
+				0CF3554F07B17126002BFE50 /* bmp10011.bmp */,
+				0CF3555007B17126002BFE50 /* bmp10012.bmp */,
+				0CF3555107B17126002BFE50 /* bmp10013.bmp */,
+				0CF3555207B17126002BFE50 /* bmp10014.bmp */,
+				0CF3555307B17126002BFE50 /* bmp10015.bmp */,
+				0CF3555407B17126002BFE50 /* bmp10016.bmp */,
+				0C01262007AC3D21009EC388 /* audiounit.r */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77ADFE841716C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4C9F1E107B232B900010DAD /* VST SDK 2.4 */,
+				0C1C269E07AB5DE8007128C4 /* VSTGUI */,
+				8BA05AEB0720742700365D66 /* Public Utility */,
+				8BA05A7D072073D200365D66 /* AUPublic */,
+				8BA05A56072072A900365D66 /* Source */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		0C1C269E07AB5DE8007128C4 /* VSTGUI */ = {
+			isa = PBXGroup;
+			children = (
+				F4C9F20407B2335F00010DAD /* aeffguieditor.cpp */,
+				F4FD4C6E08865DB400F20B72 /* cfileselector.cpp */,
+				0C01252807AC359F009EC388 /* cscrollview.cpp */,
+				0C01252A07AC359F009EC388 /* ctabview.cpp */,
+				0C01252C07AC359F009EC388 /* plugguieditor.cpp */,
+				0C01252E07AC359F009EC388 /* vstcontrols.cpp */,
+				0C01253007AC359F009EC388 /* vstgui.cpp */,
+			);
+			name = VSTGUI;
+			sourceTree = "<group>";
+		};
+		19C28FB4FE9D528D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D01CCD20486CAD60068D4B7 /* drawtest.component */,
+				F4C9F1D407B2320800010DAD /* drawtest.vst */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8BA05A56072072A900365D66 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F4C9F47307B2379F00010DAD /* pdrawtestmain.cpp */,
+				0CF355FB07B17600002BFE50 /* controlsgui.cpp */,
+				0CF355FC07B17600002BFE50 /* controlsgui.h */,
+				0CF355BE07B173A3002BFE50 /* pdrawtesteditor.cpp */,
+				0CF355BF07B173A3002BFE50 /* pdrawtesteditor.h */,
+				0CF355C007B173A3002BFE50 /* pdrawtesteffect.cpp */,
+				0CF355C107B173A3002BFE50 /* pdrawtesteffect.h */,
+				0CF355C207B173A3002BFE50 /* pdrawtestview.cpp */,
+				0CF355C307B173A3002BFE50 /* pdrawtestview.h */,
+				0CF355C407B173A3002BFE50 /* pprimitivesviews.cpp */,
+				0CF355C507B173A3002BFE50 /* pprimitivesviews.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		8BA05A7D072073D200365D66 /* AUPublic */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05A7E072073D200365D66 /* AUBase */,
+				8BA05A8C072073D200365D66 /* AUCarbonViewBase */,
+				8BA05A97072073D200365D66 /* AUViewBase */,
+				8BA05A99072073D200365D66 /* OtherBases */,
+				8BA05AA6072073D200365D66 /* Utility */,
+			);
+			name = AUPublic;
+			path = /Developer/Examples/CoreAudio/AudioUnits/AUPublic;
+			sourceTree = "<absolute>";
+		};
+		8BA05A7E072073D200365D66 /* AUBase */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05A7F072073D200365D66 /* AUBase.cpp */,
+				8BA05A80072073D200365D66 /* AUBase.h */,
+				8BA05A81072073D200365D66 /* AUDispatch.cpp */,
+				8BA05A82072073D200365D66 /* AUDispatch.h */,
+				8BA05A83072073D200365D66 /* AUInputElement.cpp */,
+				8BA05A84072073D200365D66 /* AUInputElement.h */,
+				8BA05A85072073D200365D66 /* AUOutputElement.cpp */,
+				8BA05A86072073D200365D66 /* AUOutputElement.h */,
+				8BA05A87072073D200365D66 /* AUResources.r */,
+				8BA05A88072073D200365D66 /* AUScopeElement.cpp */,
+				8BA05A89072073D200365D66 /* AUScopeElement.h */,
+				8BA05A8A072073D200365D66 /* ComponentBase.cpp */,
+				8BA05A8B072073D200365D66 /* ComponentBase.h */,
+			);
+			path = AUBase;
+			sourceTree = "<group>";
+		};
+		8BA05A8C072073D200365D66 /* AUCarbonViewBase */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05A8D072073D200365D66 /* AUCarbonViewBase.cpp */,
+				8BA05A8E072073D200365D66 /* AUCarbonViewBase.h */,
+				8BA05A8F072073D200365D66 /* AUCarbonViewControl.cpp */,
+				8BA05A90072073D200365D66 /* AUCarbonViewControl.h */,
+				8BA05A91072073D200365D66 /* AUCarbonViewDispatch.cpp */,
+				8BA05A92072073D200365D66 /* AUControlGroup.cpp */,
+				8BA05A93072073D200365D66 /* AUControlGroup.h */,
+				8BA05A94072073D200365D66 /* CarbonEventHandler.cpp */,
+				8BA05A95072073D200365D66 /* CarbonEventHandler.h */,
+			);
+			path = AUCarbonViewBase;
+			sourceTree = "<group>";
+		};
+		8BA05A97072073D200365D66 /* AUViewBase */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05A98072073D200365D66 /* AUViewLocalizedStringKeys.h */,
+			);
+			path = AUViewBase;
+			sourceTree = "<group>";
+		};
+		8BA05A99072073D200365D66 /* OtherBases */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05A9A072073D200365D66 /* AUEffectBase.cpp */,
+				8BA05A9B072073D200365D66 /* AUEffectBase.h */,
+			);
+			path = OtherBases;
+			sourceTree = "<group>";
+		};
+		8BA05AA6072073D200365D66 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05AA7072073D200365D66 /* AUBuffer.cpp */,
+				8BA05AA8072073D200365D66 /* AUBuffer.h */,
+				8BA05AA9072073D200365D66 /* AUDebugDispatcher.cpp */,
+				8BA05AAA072073D200365D66 /* AUDebugDispatcher.h */,
+				8BA05AAB072073D200365D66 /* AUInputFormatConverter.h */,
+				8BA05AAC072073D200365D66 /* AUSilentTimeout.h */,
+				8BA05AAD072073D200365D66 /* AUTimestampGenerator.h */,
+				F4381431099A587F0042610E /* CAVectorUnit.cpp */,
+				F4381432099A587F0042610E /* CAVectorUnit.h */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		8BA05AEB0720742700365D66 /* Public Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8BA05B050720754400365D66 /* CAAUParameter.cpp */,
+				8BA05B060720754400365D66 /* CAAUParameter.h */,
+				8BA05ADF0720742100365D66 /* CAAudioChannelLayout.cpp */,
+				8BA05AE00720742100365D66 /* CAAudioChannelLayout.h */,
+				8BA05AE10720742100365D66 /* CAMutex.cpp */,
+				8BA05AE20720742100365D66 /* CAMutex.h */,
+				8BA05AE30720742100365D66 /* CAStreamBasicDescription.cpp */,
+				8BA05AE40720742100365D66 /* CAStreamBasicDescription.h */,
+			);
+			name = "Public Utility";
+			sourceTree = "<group>";
+		};
+		F4C9F1E107B232B900010DAD /* VST SDK 2.4 */ = {
+			isa = PBXGroup;
+			children = (
+				F4FF52570929FD9700DDED7A /* audioeffect.cpp */,
+				F4C9F1E407B232D600010DAD /* audioeffectx.cpp */,
+			);
+			name = "VST SDK 2.4";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8D01CCC70486CAD60068D4B7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BA05AAF072073D300365D66 /* AUBase.h in Headers */,
+				8BA05AB1072073D300365D66 /* AUDispatch.h in Headers */,
+				8BA05AB3072073D300365D66 /* AUInputElement.h in Headers */,
+				8BA05AB5072073D300365D66 /* AUOutputElement.h in Headers */,
+				8BA05AB8072073D300365D66 /* AUScopeElement.h in Headers */,
+				8BA05ABA072073D300365D66 /* ComponentBase.h in Headers */,
+				8BA05ABC072073D300365D66 /* AUCarbonViewBase.h in Headers */,
+				8BA05ABE072073D300365D66 /* AUCarbonViewControl.h in Headers */,
+				8BA05AC1072073D300365D66 /* AUControlGroup.h in Headers */,
+				8BA05AC3072073D300365D66 /* CarbonEventHandler.h in Headers */,
+				8BA05AC5072073D300365D66 /* AUViewLocalizedStringKeys.h in Headers */,
+				8BA05AC7072073D300365D66 /* AUEffectBase.h in Headers */,
+				8BA05AD3072073D300365D66 /* AUBuffer.h in Headers */,
+				8BA05AD5072073D300365D66 /* AUDebugDispatcher.h in Headers */,
+				8BA05AD6072073D300365D66 /* AUInputFormatConverter.h in Headers */,
+				8BA05AD7072073D300365D66 /* AUSilentTimeout.h in Headers */,
+				8BA05AD8072073D300365D66 /* AUTimestampGenerator.h in Headers */,
+				8BA05AE60720742100365D66 /* CAAudioChannelLayout.h in Headers */,
+				8BA05AE80720742100365D66 /* CAMutex.h in Headers */,
+				8BA05AEA0720742100365D66 /* CAStreamBasicDescription.h in Headers */,
+				8BA05B080720754400365D66 /* CAAUParameter.h in Headers */,
+				0CF355C707B173A3002BFE50 /* pdrawtesteditor.h in Headers */,
+				0CF355C907B173A3002BFE50 /* pdrawtesteffect.h in Headers */,
+				0CF355CB07B173A3002BFE50 /* pdrawtestview.h in Headers */,
+				0CF355CD07B173A3002BFE50 /* pprimitivesviews.h in Headers */,
+				0CF355FE07B17600002BFE50 /* controlsgui.h in Headers */,
+				F4381434099A587F0042610E /* CAVectorUnit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8D01CCC60486CAD60068D4B7 /* AudioUnit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F485AB6F086C0BE900298D72 /* Build configuration list for PBXNativeTarget "AudioUnit" */;
+			buildPhases = (
+				8D01CCC70486CAD60068D4B7 /* Headers */,
+				8D01CCC90486CAD60068D4B7 /* Resources */,
+				8D01CCCB0486CAD60068D4B7 /* Sources */,
+				8D01CCCD0486CAD60068D4B7 /* Frameworks */,
+				8D01CCCF0486CAD60068D4B7 /* Rez */,
+				0C01261907AC3CE1009EC388 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				DEPLOYMENT_LOCATION = NO;
+				EXPORTED_SYMBOLS_FILE = audiounit.exp;
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/xcode_au_prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/resources",
+					"${SRCROOT}/mac",
+					"${SRCROOT}/source",
+					"${SRCROOT}/../../vstgui",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase";
+				PRODUCT_NAME = drawtest;
+				REZ_SEARCH_PATHS = (
+					/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers,
+					/Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase,
+				);
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = component;
+			};
+			dependencies = (
+			);
+			name = AudioUnit;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = drawtest;
+			productReference = 8D01CCD20486CAD60068D4B7 /* drawtest.component */;
+			productType = "com.apple.product-type.bundle";
+		};
+		F4C9F1D307B2320800010DAD /* VST */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F485AB73086C0BE900298D72 /* Build configuration list for PBXNativeTarget "VST" */;
+			buildPhases = (
+				F4C9F1D007B2320800010DAD /* Resources */,
+				F4C9F1D107B2320800010DAD /* Sources */,
+				F4C9F1D207B2320800010DAD /* Frameworks */,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xcode_vst_prefix.h;
+				GENERATE_PKGINFO_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Audio/Plug-Ins/VST";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = drawtest;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = vst;
+			};
+			dependencies = (
+			);
+			name = VST;
+			productName = "drawtest VST";
+			productReference = F4C9F1D407B2320800010DAD /* drawtest.vst */;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>drawtest VST</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.yourcompany.drawtest_VST</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CSResourcesFileMapped</key>
+	<string>yes</string>
+</dict>
+</plist>
+";
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = F485AB77086C0BE900298D72 /* Build configuration list for PBXProject "drawtest" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				4F9091AC011F3BD104CA0E50 /* Development */,
+				4F9091AD011F3BD104CA0E50 /* Deployment */,
+			);
+			hasScannedForEncodings = 1;
+			mainGroup = 089C166AFE841209C02AAC07 /* drawtest */;
+			projectDirPath = "";
+			targets = (
+				8D01CCC60486CAD60068D4B7 /* AudioUnit */,
+				F4C9F1D307B2320800010DAD /* VST */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D01CCC90486CAD60068D4B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CF3555507B17126002BFE50 /* bmp00001.png in Resources */,
+				0CF3555607B17126002BFE50 /* bmp00100.png in Resources */,
+				0CF3555707B17126002BFE50 /* bmp01000.png in Resources */,
+				0CF3555807B17126002BFE50 /* bmp10001.bmp in Resources */,
+				0CF3555907B17126002BFE50 /* bmp10002.bmp in Resources */,
+				0CF3555A07B17126002BFE50 /* bmp10003.bmp in Resources */,
+				0CF3555B07B17126002BFE50 /* bmp10004.bmp in Resources */,
+				0CF3555C07B17126002BFE50 /* bmp10005.bmp in Resources */,
+				0CF3555D07B17126002BFE50 /* bmp10006.bmp in Resources */,
+				0CF3555E07B17126002BFE50 /* bmp10007.bmp in Resources */,
+				0CF3555F07B17126002BFE50 /* bmp10008.bmp in Resources */,
+				0CF3556007B17126002BFE50 /* bmp10009.bmp in Resources */,
+				0CF3556107B17126002BFE50 /* bmp10010.bmp in Resources */,
+				0CF3556207B17126002BFE50 /* bmp10011.bmp in Resources */,
+				0CF3556307B17126002BFE50 /* bmp10012.bmp in Resources */,
+				0CF3556407B17126002BFE50 /* bmp10013.bmp in Resources */,
+				0CF3556507B17126002BFE50 /* bmp10014.bmp in Resources */,
+				0CF3556607B17126002BFE50 /* bmp10015.bmp in Resources */,
+				0CF3556707B17126002BFE50 /* bmp10016.bmp in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C9F1D007B2320800010DAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C9F1EE07B2332100010DAD /* bmp00001.png in Resources */,
+				F4C9F1EF07B2332200010DAD /* bmp00100.png in Resources */,
+				F4C9F1F007B2332200010DAD /* bmp01000.png in Resources */,
+				F4C9F1F107B2332300010DAD /* bmp10002.bmp in Resources */,
+				F4C9F1F207B2332400010DAD /* bmp10001.bmp in Resources */,
+				F4C9F1F307B2332400010DAD /* bmp10003.bmp in Resources */,
+				F4C9F1F407B2332500010DAD /* bmp10004.bmp in Resources */,
+				F4C9F1F507B2332500010DAD /* bmp10005.bmp in Resources */,
+				F4C9F1F607B2332600010DAD /* bmp10006.bmp in Resources */,
+				F4C9F1F707B2332700010DAD /* bmp10007.bmp in Resources */,
+				F4C9F1F807B2332700010DAD /* bmp10008.bmp in Resources */,
+				F4C9F1F907B2332800010DAD /* bmp10009.bmp in Resources */,
+				F4C9F1FA07B2332900010DAD /* bmp10010.bmp in Resources */,
+				F4C9F1FB07B2332A00010DAD /* bmp10011.bmp in Resources */,
+				F4C9F1FC07B2332B00010DAD /* bmp10012.bmp in Resources */,
+				F4C9F1FD07B2332B00010DAD /* bmp10013.bmp in Resources */,
+				F4C9F1FE07B2332C00010DAD /* bmp10014.bmp in Resources */,
+				F4C9F1FF07B2332C00010DAD /* bmp10016.bmp in Resources */,
+				F4C9F20007B2332D00010DAD /* bmp10015.bmp in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8D01CCCF0486CAD60068D4B7 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C01262107AC3D21009EC388 /* audiounit.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C01261907AC3CE1009EC388 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -p -r -f \"build/$CONFIGURATION/drawtest.component\" \"$HOME/Library/Audio/Plug-Ins/Components/\" \ntouch \"$HOME/Library/Audio/Plug-Ins/Components/drawtest.component\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D01CCCB0486CAD60068D4B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BA05AAE072073D300365D66 /* AUBase.cpp in Sources */,
+				8BA05AB0072073D300365D66 /* AUDispatch.cpp in Sources */,
+				8BA05AB2072073D300365D66 /* AUInputElement.cpp in Sources */,
+				8BA05AB4072073D300365D66 /* AUOutputElement.cpp in Sources */,
+				8BA05AB7072073D300365D66 /* AUScopeElement.cpp in Sources */,
+				8BA05AB9072073D300365D66 /* ComponentBase.cpp in Sources */,
+				8BA05ABB072073D300365D66 /* AUCarbonViewBase.cpp in Sources */,
+				8BA05ABD072073D300365D66 /* AUCarbonViewControl.cpp in Sources */,
+				8BA05ABF072073D300365D66 /* AUCarbonViewDispatch.cpp in Sources */,
+				8BA05AC0072073D300365D66 /* AUControlGroup.cpp in Sources */,
+				8BA05AC2072073D300365D66 /* CarbonEventHandler.cpp in Sources */,
+				8BA05AC6072073D300365D66 /* AUEffectBase.cpp in Sources */,
+				8BA05AD2072073D300365D66 /* AUBuffer.cpp in Sources */,
+				8BA05AD4072073D300365D66 /* AUDebugDispatcher.cpp in Sources */,
+				8BA05AE50720742100365D66 /* CAAudioChannelLayout.cpp in Sources */,
+				8BA05AE70720742100365D66 /* CAMutex.cpp in Sources */,
+				8BA05AE90720742100365D66 /* CAStreamBasicDescription.cpp in Sources */,
+				8BA05B070720754400365D66 /* CAAUParameter.cpp in Sources */,
+				0C01253807AC359F009EC388 /* cscrollview.cpp in Sources */,
+				0C01253A07AC359F009EC388 /* ctabview.cpp in Sources */,
+				0C01253C07AC359F009EC388 /* plugguieditor.cpp in Sources */,
+				0C01253E07AC359F009EC388 /* vstcontrols.cpp in Sources */,
+				0C01254007AC359F009EC388 /* vstgui.cpp in Sources */,
+				0CF355C607B173A3002BFE50 /* pdrawtesteditor.cpp in Sources */,
+				0CF355C807B173A3002BFE50 /* pdrawtesteffect.cpp in Sources */,
+				0CF355CA07B173A3002BFE50 /* pdrawtestview.cpp in Sources */,
+				0CF355CC07B173A3002BFE50 /* pprimitivesviews.cpp in Sources */,
+				0CF355FD07B17600002BFE50 /* controlsgui.cpp in Sources */,
+				F4FD4C7008865DB400F20B72 /* cfileselector.cpp in Sources */,
+				F4381433099A587F0042610E /* CAVectorUnit.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4C9F1D107B2320800010DAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4C9F1D607B232A100010DAD /* cscrollview.cpp in Sources */,
+				F4C9F1D807B232A300010DAD /* ctabview.cpp in Sources */,
+				F4C9F1DC07B232A500010DAD /* vstcontrols.cpp in Sources */,
+				F4C9F1DE07B232A600010DAD /* vstgui.cpp in Sources */,
+				F4C9F1E707B232D600010DAD /* audioeffectx.cpp in Sources */,
+				F4C9F20607B2335F00010DAD /* aeffguieditor.cpp in Sources */,
+				F4C9F46E07B2378600010DAD /* controlsgui.cpp in Sources */,
+				F4C9F46F07B2378800010DAD /* pdrawtesteditor.cpp in Sources */,
+				F4C9F47007B2378900010DAD /* pdrawtesteffect.cpp in Sources */,
+				F4C9F47107B2378B00010DAD /* pdrawtestview.cpp in Sources */,
+				F4C9F47207B2378D00010DAD /* pprimitivesviews.cpp in Sources */,
+				F4C9F47407B2379F00010DAD /* pdrawtestmain.cpp in Sources */,
+				F4FD4C6F08865DB400F20B72 /* cfileselector.cpp in Sources */,
+				F4FF52580929FD9700DDED7A /* audioeffect.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F485AB70086C0BE900298D72 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				DEPLOYMENT_LOCATION = NO;
+				EXPORTED_SYMBOLS_FILE = audiounit.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/xcode_au_prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/resources",
+					"${SRCROOT}/mac",
+					"${SRCROOT}/source",
+					"${SRCROOT}/../../vstgui",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase -D  TARGET_REZ_MAC_PPC=1";
+				PRODUCT_NAME = drawtest;
+				REZ_SEARCH_PATHS = (
+					/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers,
+					/Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase,
+				);
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = component;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		F485AB71086C0BE900298D72 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_LOCATION = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				EXPORTED_SYMBOLS_FILE = audiounit.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/xcode_au_prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_UNROLL_LOOPS = YES;
+				GCC_USE_GCC3_PFE_SUPPORT = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/resources",
+					"${SRCROOT}/mac",
+					"${SRCROOT}/source",
+					"${SRCROOT}/../../vstgui",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase -D  TARGET_REZ_MAC_PPC=1";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = drawtest;
+				REZ_SEARCH_PATHS = (
+					/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers,
+					/Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase,
+				);
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = component;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		F485AB72086C0BE900298D72 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEPLOYMENT_LOCATION = NO;
+				EXPORTED_SYMBOLS_FILE = audiounit.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_TRIGRAPHS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "${SRCROOT}/xcode_au_prefix.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
+				GCC_WARN_FOUR_CHARACTER_CONSTANTS = NO;
+				GCC_WARN_UNKNOWN_PRAGMAS = NO;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/resources",
+					"${SRCROOT}/mac",
+					"${SRCROOT}/source",
+					"${SRCROOT}/../../vstgui",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Audio/Plug-Ins/Components/";
+				LIBRARY_SEARCH_PATHS = "";
+				LIBRARY_STYLE = Bundle;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-bundle";
+				OTHER_REZFLAGS = "-I /System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers -I /Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase -D  TARGET_REZ_MAC_PPC=1";
+				PRODUCT_NAME = drawtest;
+				REZ_SEARCH_PATHS = (
+					/System/Library/Frameworks/CoreServices.framework/Frameworks/CarbonCore.framework/Versions/A/Headers,
+					/Developer/Examples/CoreAudio/AudioUnits/AUPublic/AUBase,
+				);
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = component;
+			};
+			name = Default;
+		};
+		F485AB74086C0BE900298D72 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xcode_vst_prefix.h;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../..",
+					"$(SRCROOT)/../../../public.sdk/source/vst2.x",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Audio/Plug-Ins/VST";
+				LIBRARY_STYLE = BUNDLE;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = drawtest;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = vst;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		F485AB75086C0BE900298D72 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xcode_vst_prefix.h;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_USE_GCC3_PFE_SUPPORT = YES;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../..",
+					"$(SRCROOT)/../../../public.sdk/source/vst2.x",
+				);
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Audio/Plug-Ins/VST";
+				LIBRARY_STYLE = BUNDLE;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				OTHER_REZFLAGS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = drawtest;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = vst;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		F485AB76086C0BE900298D72 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = xcode_vst_prefix.h;
+				GENERATE_PKGINFO_FILE = YES;
+				HEADER_SEARCH_PATHS = ../vstsdk2.3;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Audio/Plug-Ins/VST";
+				LIBRARY_STYLE = BUNDLE;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = drawtest;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = vst;
+			};
+			name = Default;
+		};
+		F485AB78086C0BE900298D72 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Development;
+		};
+		F485AB79086C0BE900298D72 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Deployment;
+		};
+		F485AB7A086C0BE900298D72 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F485AB6F086C0BE900298D72 /* Build configuration list for PBXNativeTarget "AudioUnit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F485AB70086C0BE900298D72 /* Development */,
+				F485AB71086C0BE900298D72 /* Deployment */,
+				F485AB72086C0BE900298D72 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		F485AB73086C0BE900298D72 /* Build configuration list for PBXNativeTarget "VST" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F485AB74086C0BE900298D72 /* Development */,
+				F485AB75086C0BE900298D72 /* Deployment */,
+				F485AB76086C0BE900298D72 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		F485AB77086C0BE900298D72 /* Build configuration list for PBXProject "drawtest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F485AB78086C0BE900298D72 /* Development */,
+				F485AB79086C0BE900298D72 /* Deployment */,
+				F485AB7A086C0BE900298D72 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}

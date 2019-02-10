@@ -1,0 +1,17 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="IController",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CControlListener",height=0.2,width=0.4,color="black",URL="$class_c_control_listener.html"];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="DelegationController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_delegation_controller.html"];
+  Node3 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="PadController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_pad_controller.html"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="GroupController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_group_controller.html"];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="VST3Editor",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_v_s_t3_editor.html",tooltip="VST3 Editor with automatic parameter binding."];
+}

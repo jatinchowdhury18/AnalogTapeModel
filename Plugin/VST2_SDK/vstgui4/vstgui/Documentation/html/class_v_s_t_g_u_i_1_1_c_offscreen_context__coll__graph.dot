@@ -1,0 +1,21 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="COffscreenContext",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CDrawContext",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_draw_context.html",tooltip="A drawing context encapsulates the drawing context of the underlying OS."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node4 -> Node2 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="drawStringHelper",fontname="Arial"];
+  Node4 [label="CString",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_string.html",tooltip="a string holder class"];
+  Node3 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 -> Node2 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="surfaceRect",fontname="Arial"];
+  Node5 [label="CRect",height=0.2,width=0.4,color="black",URL="$struct_v_s_t_g_u_i_1_1_c_rect.html",tooltip="Rect structure."];
+  Node6 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="bitmap",fontname="Arial"];
+  Node6 [label="CBitmap",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_bitmap.html",tooltip="Encapsulates various platform depended kinds of bitmaps."];
+  Node3 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 -> Node6 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="resourceDesc",fontname="Arial"];
+  Node7 [label="CResourceDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_resource_description.html",tooltip="Describes a resource by name or by ID."];
+}

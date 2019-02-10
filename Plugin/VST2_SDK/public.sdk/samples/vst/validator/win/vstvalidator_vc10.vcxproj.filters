@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\pluginterfaces">
+      <UniqueIdentifier>{c683ae34-f451-468c-955b-3e0df3797570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\public.sdk">
+      <UniqueIdentifier>{7c025ca0-cfe8-410a-87b4-78755bb5f20c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\usediids.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\validator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\funknown.cpp">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\ustring.cpp">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\hosting\hostclasses.cpp">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\hosting\processdata.cpp">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstinitiids.cpp">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\testsuite\vsttestsuite.cpp">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\validator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\funknown.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ipluginbase.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\test\itest.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstcomponent.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstunits.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ustring.h">
+      <Filter>Source Files\pluginterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\hosting\hostclasses.h">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\hosting\processdata.h">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\testsuite\vsttestsuite.h">
+      <Filter>Source Files\public.sdk</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

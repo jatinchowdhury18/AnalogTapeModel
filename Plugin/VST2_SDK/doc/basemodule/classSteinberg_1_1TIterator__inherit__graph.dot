@@ -1,0 +1,17 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{TIterator\< T \>\n|# _container\l|+ TIterator()\l+ ~TIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ next()\l+ previous()\l+ container()\l+ operator int32()\l+ operator++()\l+ operator++()\l+ operator+=()\l+ operator--()\l+ operator--()\l+ operator-=()\l+ operator()()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{TArrayIterator\< T \>\n|- _index\l|+ TArrayIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ array()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TArrayIterator.html",tooltip="Iterator for array template container."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{TBTreeIterator\< T \>\n|- _node\l- _index\l|+ TBTreeIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ tree()\l# setCurrent()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TBTreeIterator.html",tooltip="Iterator for the BTree template."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{TDLinkedListIterator\< T \>\n|- _link\l|+ TDLinkedListIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ list()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TDLinkedListIterator.html",tooltip="Iterator for doubly linked template list."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{THashTableIterator\< T \>\n|- _bucket\l- _node\l|+ THashTableIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ table()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1THashTableIterator.html",tooltip="Iterator for a THashTable."];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{TLinkedListIterator\< T \>\n|- _link\l|+ TLinkedListIterator()\l+ done()\l+ next()\l+ previous()\l+ current()\l+ first()\l+ last()\l+ list()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TLinkedListIterator.html",tooltip="Iterator for single linked template list."];
+}

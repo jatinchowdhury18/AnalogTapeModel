@@ -1,0 +1,23 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{AGainEditorView\n|+ obj\l# textEdit\l# gainSlider\l# gainTextEdit\l# vuMeter\l# background\l# lastVuMeterValue\l|+ AGainEditorView()\l+ open()\l+ close()\l+ notify()\l+ beginEdit()\l+ endEdit()\l+ valueChanged()\l+ controlModifierClicked()\l+ controlBeginEdit()\l+ controlEndEdit()\l+ onSize()\l+ canResize()\l+ checkSizeConstraint()\l+ findParameter()\l+ executeMenuItem()\l+ DELEGATE_REFCOUNT()\l+ update()\l+ messageTextChanged()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{VSTGUIEditor\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1VSTGUIEditor.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{EditorView\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1EditorView.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{CPluginView\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1CPluginView.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{IPlugView\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPlugView.html"];
+  Node6 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node7 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IParameterFinder\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IParameterFinder.html"];
+  Node6 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{IContextMenuTarget\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IContextMenuTarget.html"];
+  Node6 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+}

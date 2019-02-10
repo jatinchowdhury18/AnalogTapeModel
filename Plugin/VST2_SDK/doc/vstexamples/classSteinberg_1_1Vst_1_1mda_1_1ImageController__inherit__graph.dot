@@ -1,0 +1,27 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{ImageController\n|+ uid\l|+ ImageController()\l+ ~ImageController()\l+ initialize()\l+ terminate()\l+ createInstance()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{BaseController\n|+ obj\l+ kMicroSecondsString\l# midiCCParamID\l# sampleRate\l# addBypassParameter\l|+ BaseController()\l+ initialize()\l+ setComponentState()\l+ notify()\l+ getProgramListCount()\l+ getProgramListInfo()\l+ getProgramName()\l+ getMidiControllerAssignment()\l+ getParameters()\l+ DELEGATE_REFCOUNT()\l# getSampleRate()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1mda_1_1BaseController.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{EditControllerEx1\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1EditControllerEx1.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{EditController\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1EditController.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{ComponentBase\n||}",height=0.2,width=0.4,color="red",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1ComponentBase.html"];
+  Node6 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IEditController\n||}",height=0.2,width=0.4,color="red",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController.html"];
+  Node7 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IEditController2\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController2.html"];
+  Node8 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{FUnknown\n||}",height=0.2,width=0.4,color="red",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node9 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 [label="{IUnitInfo\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IUnitInfo.html"];
+  Node8 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 [label="{IMidiMapping\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IMidiMapping.html"];
+  Node8 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+}

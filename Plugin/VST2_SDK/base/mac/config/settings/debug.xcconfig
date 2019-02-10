@@ -1,0 +1,27 @@
+//------------------------------------------------------------------------
+//
+// Project     : base
+// Filename    : debug.xcconfig
+// Created by  : Steinberg, 9/2013
+// Copyright   : 2013 Steinberg Media Technologies GmbH. All rights reserved.
+// Description : Xcode Debug Configuration
+//
+//------------------------------------------------------------------------
+
+SMTG_BASE_PREPROCESSOR_DEFINITIONS = DEVELOPMENT=1
+
+// Deployment
+COPY_PHASE_STRIP = NO
+
+// Build Options
+DEBUG_INFORMATION_FORMAT = dwarf
+
+// GCC 4.X - Code Generation
+GCC_OPTIMIZATION_LEVEL = 0
+
+// GCC 4.X - Preprocessing
+GCC_PREPROCESSOR_DEFINITIONS = $(SMTG_BASE_PREPROCESSOR_DEFINITIONS)
+
+// Architecture
+ONLY_ACTIVE_ARCH = YES
+ARCHS = $(ARCHS_STANDARD_32_64_BIT)

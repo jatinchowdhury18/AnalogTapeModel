@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vstgui-ui-description version="1">
+	<fonts>
+	</fonts>
+	<colors>
+		<color name="Background" rgba="#414a4eff"/>
+		<color name="Focus" rgba="#6565ffff"/>
+	</colors>
+	<template autosize="left right top bottom " background-color="Background" class="CViewContainer" maxSize="700, 10000" minSize="200, 300" name="HostCheckerEditor" origin="0, 0" size="697, 704" transparent="false">
+		<view auto-drag-scrolling="false" autosize="left right top bottom " background-color="~ WhiteCColor" bordered="false" class="CScrollView" container-size="679, 2432" custom-view-name="HostCheckerDataBrowser" horizontal-scrollbar="false" origin="10, 40" scrollbar-background-color="~ TransparentCColor" scrollbar-frame-color="~ BlackCColor" scrollbar-scroller-color="Background" scrollbar-width="16" size="677, 654" transparent="false" vertical-scrollbar="true"/>
+		<view autosize="left right top " back-color="~ BlackCColor" background-offset="0, 0" class="CTextLabel" default-value="0.5" font="~ NormalFontBig" font-antialias="true" font-color="~ WhiteCColor" frame-color="~ BlackCColor" max-value="1" min-value="0" origin="30, 10" shadow-color="~ RedCColor" size="657, 20" style-3D-in="false" style-3D-out="false" style-no-draw="false" style-no-frame="false" style-no-text="false" style-shadow-text="false" text-alignment="center" text-inset="0, 0" title="VST3 HostChecker Example" transparent="true" wheel-inc-value="0.1"/>
+        <view angle-range="270" angle-start="135" background-offset="0, 0" bitmap="knob" circle-drawing="false" class="CAnimKnob" control-tag="Param1" corona-color="~ WhiteCColor" corona-dash-dot="false" corona-drawing="false" corona-from-center="false" corona-inset="0" corona-inverted="false" corona-outline="false" default-value="0.8" handle-color="~ WhiteCColor" handle-line-width="1" handle-shadow-color="~ GreyCColor" height-of-one-image="20" max-value="1" min-value="0" mouse-enabled="true" origin="5, 5" size="20, 20" sub-pixmaps="80" tooltip="Test ContextMenu" transparent="false" value-inset="0" wheel-inc-value="0.1" zoom-factor="1.5"/>
+    </template>
+	<custom>
+		<attributes name="UIViewInspector" windowSize="116, 251, 607, 836"/>
+		<attributes gridsize="10" name="UIEditFrame" uidescPath="/Volumes/maintrunk/maintrunk/public.sdk/samples/vst/hostchecker/resources/hostchecker.uidesc"/>
+		<attributes frame-enable-focus-drawing="true" frame-focus-color="Focus" frame-focus-width="2" name="VST3Editor"/>
+	</custom>
+    <bitmaps>
+        <bitmap name="knob" path="knob.png"/>
+    </bitmaps>
+    <control-tags>
+        <control-tag name="Param1" tag="0"/>
+        <control-tag name="Param2" tag="1"/>
+        <control-tag name="Param3" tag="2"/>
+        <control-tag name="Bypass" tag="3"/>
+	</control-tags>
+</vstgui-ui-description>

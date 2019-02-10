@@ -24,6 +24,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        )
 #endif
 {
+    overSample = new dsp::Oversampling<float> (2, 1, dsp::Oversampling<float>::FilterType::filterHalfBandFIREquiripple);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -97,8 +98,11 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    hProcs[0].setSampleRate ((float) sampleRate);
-    hProcs[1].setSampleRate ((float) sampleRate);
+    hProcs[0].setSampleRate ((float) (sampleRate * overSamplingFactor));
+    hProcs[1].setSampleRate ((float) (sampleRate * overSamplingFactor));
+
+    overSample->factorOversampling = overSamplingFactor;
+    overSample->initProcessing (samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
@@ -137,16 +141,23 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    dsp::AudioBlock<float> block (buffer);
+    dsp::AudioBlock<float> osBlock = overSample->processSamplesUp(block);
+
+    float* ptrArray[] = { osBlock.getChannelPointer(0), osBlock.getChannelPointer(1) };
+    AudioBuffer<float> osBuffer (ptrArray, 2, static_cast<int> (osBlock.getNumSamples()));
+
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
-        auto* x = buffer.getWritePointer (channel);
-        for (int n = 0; n < buffer.getNumSamples(); n++)
+        auto* x = osBuffer.getWritePointer (channel);
+        for (int n = 0; n < osBuffer.getNumSamples(); n++)
         {
-            //float x_in = ((float) 1e5) * std::sinf (MathConstants<float>::twoPi * 100 * n_t[channel] / getSampleRate());
             x[n] = hProcs[channel].process (((float) 1e5) * x[n]);
-            //n_t[channel]++;
         }
     }
+
+    overSample->processSamplesDown(block);
+    //osBlock.clear();
 }
 
 //==============================================================================

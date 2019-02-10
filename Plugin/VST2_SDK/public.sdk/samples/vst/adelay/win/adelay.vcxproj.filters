@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\public.sdk">
+      <UniqueIdentifier>{5120c935-083d-4593-ad03-2fe0df0e2663}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\public.sdk\common">
+      <UniqueIdentifier>{5b8e80fc-87d0-4d20-b9db-bd81b9bb5a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\public.sdk\vst">
+      <UniqueIdentifier>{bbb7defa-7c32-4d34-b75d-0d582c4d53a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pluginterfaces">
+      <UniqueIdentifier>{82b926ea-feac-4a83-b35f-2fcd8bcf926f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pluginterfaces\base">
+      <UniqueIdentifier>{e540de5c-5555-43dc-a110-2837c579eec3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pluginterfaces\vst">
+      <UniqueIdentifier>{7319300e-831a-4a87-83f2-78018a734a9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pluginterfaces\gui">
+      <UniqueIdentifier>{24ec7528-472f-490b-be0b-959317d025aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resources">
+      <UniqueIdentifier>{6196addf-bccc-421c-af31-ead050592bfe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\adelaycontroller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\adelayprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\exampletest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\dllmain.cpp">
+      <Filter>Source Files\public.sdk\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\main\pluginfactoryvst3.cpp">
+      <Filter>Source Files\public.sdk\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\common\pluginview.cpp">
+      <Filter>Source Files\public.sdk\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstaudioeffect.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstbus.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstcomponent.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstcomponentbase.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vsteditcontroller.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstinitiids.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\vst\vstparameters.cpp">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\conststringtable.cpp">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\funknown.cpp">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\pluginterfaces\base\ustring.cpp">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\adelaycontroller.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\adelayids.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\adelayprocessor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\exampletest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\version.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\main\pluginfactoryvst3.h">
+      <Filter>Source Files\public.sdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\common\pluginview.h">
+      <Filter>Source Files\public.sdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vstaudioeffect.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vstbus.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vstcomponent.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vstcomponentbase.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vsteditcontroller.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\source\vst\vstparameters.h">
+      <Filter>Source Files\public.sdk\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\conststringtable.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpop.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\falignpush.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\fplatform.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ftypes.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\funknown.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ipluginbase.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\keycodes.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\base\ustring.h">
+      <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstattributes.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstaudioprocessor.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstcomponent.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsteditcontroller.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstevents.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivsthostapplication.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmessage.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstmidicontrollers.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstparameterchanges.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstplugview.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstprocesscontext.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\ivstunits.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vstpresetkeys.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\vst\vsttypes.h">
+      <Filter>Source Files\pluginterfaces\vst</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\pluginterfaces\gui\iplugview.h">
+      <Filter>Source Files\pluginterfaces\gui</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="adelay.def">
+      <Filter>Source Files\resources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="adelay.rc">
+      <Filter>Source Files\resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

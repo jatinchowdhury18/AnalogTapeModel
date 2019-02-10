@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="CMemoryStream",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="OutputStream",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_output_stream.html"];
+  Node3 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="InputStream",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_input_stream.html"];
+  Node4 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="SeekableStream",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_seekable_stream.html"];
+  Node5 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_base_object.html",tooltip="Base Object with reference counter."];
+}
