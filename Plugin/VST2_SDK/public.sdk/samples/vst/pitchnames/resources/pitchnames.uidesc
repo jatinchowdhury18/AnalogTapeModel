@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vstgui-ui-description version="1">
+	<fonts>
+	</fonts>
+	<colors>
+		<color name="Background" rgba="#414a4eff"/>
+		<color name="Focus" rgba="#6565ffff"/>
+	</colors>
+	<template autosize="left right top bottom " background-color="Background" class="CViewContainer" maxSize="700, 10000" minSize="200, 300" name="PitchNamesEditor" origin="0, 0" size="697, 704" transparent="false">
+		<view auto-drag-scrolling="false" autosize="left right top bottom " background-color="~ WhiteCColor" bordered="false" class="CScrollView" container-size="679, 2432" custom-view-name="PitchNamesDataBrowser" horizontal-scrollbar="false" origin="10, 40" scrollbar-background-color="~ TransparentCColor" scrollbar-frame-color="~ BlackCColor" scrollbar-scroller-color="Background" scrollbar-width="16" size="677, 654" transparent="false" vertical-scrollbar="true"/>
+		<view autosize="left right top " back-color="~ BlackCColor" background-offset="0, 0" class="CTextLabel" default-value="0.5" font="~ NormalFontBig" font-antialias="true" font-color="~ WhiteCColor" frame-color="~ BlackCColor" max-value="1" min-value="0" origin="10, 10" shadow-color="~ RedCColor" size="677, 20" style-3D-in="false" style-3D-out="false" style-no-draw="false" style-no-frame="false" style-no-text="false" style-shadow-text="false" text-alignment="center" text-inset="0, 0" title="VST3 PitchNames Example" transparent="true" wheel-inc-value="0.1"/>
+	</template>
+	<custom>
+		<attributes name="UIViewInspector" windowSize="116, 251, 607, 836"/>
+		<attributes gridsize="10" name="UIEditFrame" uidescPath="/Volumes/maintrunk/maintrunk/public.sdk/samples/vst/pitchnames/resources/pitchnames.uidesc"/>
+		<attributes frame-enable-focus-drawing="true" frame-focus-color="Focus" frame-focus-width="2" name="VST3Editor"/>
+	</custom>
+	<bitmaps/>
+	<control-tags/>
+</vstgui-ui-description>

@@ -1,0 +1,12 @@
+digraph structs
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node2 [label="VST 3 Interfaces to be implemented by Host",height=0.2,width=0.4,color="black",URL="$group__vstIHost.html"];
+  Node1 [label="VST 3 Interfaces to be implemented by Plug-in",height=0.2,width=0.4,color="black",URL="$group__vstIPlug.html"];
+  Node0 [label="VST 3 Interfaces defined in version 3.6.5",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node0->Node1 [shape=plaintext, label="Steinberg::Vst::IAutomationState\nSteinberg::Vst::IPrefetchableSupport", color="orange", dir="none", style="dashed"];
+  Node0->Node2 [shape=plaintext, label="Steinberg::Vst::ChannelContext::IInfoListener\nSteinberg::Vst::IUnitHandler2", color="orange", dir="none", style="dashed"];
+}

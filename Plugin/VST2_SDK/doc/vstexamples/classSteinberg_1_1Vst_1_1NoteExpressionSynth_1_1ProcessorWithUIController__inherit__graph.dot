@@ -1,0 +1,21 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{ProcessorWithUIController\n|+ cid\l|+ ProcessorWithUIController()\l+ createInstance()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{Processor\n|+ cid\l# voiceProcessor\l# paramState\l|+ Processor()\l+ initialize()\l+ setBusArrangements()\l+ setState()\l+ getState()\l+ canProcessSampleSize()\l+ setActive()\l+ process()\l+ createInstance()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1NoteExpressionSynth_1_1Processor.html",tooltip="Example Note Expression Audio Processor."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{AudioEffect\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1AudioEffect.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{Component\n||}",height=0.2,width=0.4,color="black",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1Component.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{ComponentBase\n||}",height=0.2,width=0.4,color="red",URL="vstsdk.tag$classSteinberg_1_1Vst_1_1ComponentBase.html"];
+  Node6 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IComponent\n||}",height=0.2,width=0.4,color="red",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IComponent.html"];
+  Node7 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IAudioProcessor\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IAudioProcessor.html"];
+  Node8 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{FUnknown\n||}",height=0.2,width=0.4,color="red",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+}

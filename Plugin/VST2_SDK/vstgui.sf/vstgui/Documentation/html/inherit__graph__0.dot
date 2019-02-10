@@ -1,0 +1,8 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="CColor",height=0.2,width=0.4,color="black",URL="$struct_c_color.html",tooltip="Color structure."];
+}

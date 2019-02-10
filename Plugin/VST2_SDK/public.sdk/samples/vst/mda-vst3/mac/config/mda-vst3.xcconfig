@@ -1,0 +1,12 @@
+#include "../../../../../base/mac/config/libc++base"
+
+HEADER_SEARCH_PATHS = ../../../../../ ../../../../../vstgui4/
+INFOPLIST_FILE = mda-vst3-Info.plist
+PRODUCT_NAME = mda
+WRAPPER_EXTENSION = vst3
+GCC_PREFIX_HEADER = mda-vst3_Prefix.pch
+GCC_PRECOMPILE_PREFIX_HEADER = YES
+GENERATE_PKGINFO_FILE = YES
+GCC_ALTIVEC_EXTENSIONS = YES
+GCC_ENABLE_SSE3_EXTENSIONS = YES
+INSTALL_PATH = /Library/Audio/Plug-Ins/VST3/

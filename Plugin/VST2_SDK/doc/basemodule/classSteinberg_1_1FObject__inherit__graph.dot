@@ -1,0 +1,19 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{FObject\n|+ iid\l# refCount\l# gUpdateHandler\l|+ FObject()\l+ FObject()\l+ ~FObject()\l+ operator=()\l+ isA()\l+ isA()\l+ isTypeOf()\l+ getRefCount()\l+ unknownCast()\l+ queryInterface()\l+ addRef()\l+ release()\l+ update()\l+ addDependent()\l+ removeDependent()\l+ changed()\l+ deferUpdate()\l+ updateDone()\l+ isEqualInstance()\l+ getFClassID()\l+ setUpdateHandler()\l+ getUpdateHandler()\l+ classIDsEqual()\l+ unknownToObject()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{ClassFactory\n|- tables\l|+ ClassFactory()\l+ ~ClassFactory()\l+ getMetaClassByName()\l+ getMetaClassByID()\l+ getStorageID()\l+ createObjectByName()\l+ createObjectByID()\l+ createByName()\l+ OBJ_METHODS()\l+ unregisterMetaClass()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1ClassFactory.html",tooltip="Registry for meta classes."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{FDynLibrary\n|+ instance\l|+ FDynLibrary()\l+ ~FDynLibrary()\l+ init()\l+ getProcAddress()\l+ isLoaded()\l+ unload()\l+ getPlatformInstance()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1FDynLibrary.html",tooltip="Platform independent dynamic library loader."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{FLockObject\n||+ isA()\l+ isA()\l+ isTypeOf()\l+ getFClassID()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1FLockObject.html",tooltip="FLockObj declaration."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{StringObject\n||+ StringObject()\l+ StringObject()\l+ StringObject()\l+ StringObject()\l+ StringObject()\l+ StringObject()\l+ setText()\l+ setText8()\l+ setText16()\l+ getText8()\l+ getText16()\l+ take()\l+ isWideString()\l+ isA()\l+ isA()\l+ isTypeOf()\l+ queryInterface()\l+ addRef()\l+ release()\l+ getFClassID()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1StringObject.html",tooltip="StringObject implements IStringResult and IString methods."];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{Timer\n||+ stop()\l+ create()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Timer.html",tooltip="Timer is a class that allows you to receive triggers at regular intervals."];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{UpdateHandler\n|- lock\l- table\l|+ UpdateHandler()\l+ ~UpdateHandler()\l+ addDependent()\l+ removeDependent()\l+ triggerUpdates()\l+ deferUpdates()\l+ cancelUpdates()\l+ triggerDeferedUpdates()\l+ isA()\l+ isA()\l+ isTypeOf()\l+ queryInterface()\l+ addRef()\l+ release()\l+ getFClassID()\l+ instance()\l- doTriggerUpdates()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1UpdateHandler.html",tooltip="UpdateHandler implements IUpdateManager and IUpdateHandler to handle dependencies..."];
+}

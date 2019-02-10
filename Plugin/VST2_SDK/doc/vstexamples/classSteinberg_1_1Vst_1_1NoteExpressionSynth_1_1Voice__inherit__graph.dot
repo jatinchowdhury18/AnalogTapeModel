@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{Voice\< SamplePrecision \>\n|# n\l# noisePos\l# noiseStep\l# filter\l# trianglePhase\l# sinusPhase\l# currentTriangleF\l# currentSinusF\l# currentVolume\l# currentPanningLeft\l# currentPanningRight\l# currentNoiseVolume\l# currentSinusVolume\l# currentSinusDetune\l# currentSquareVolume\l# currentTriangleVolume\l# currentTriangleSlope\l# currentLPFreq\l# currentLPQ\l# levelFromVel\l# noteOffVolumeRamp\l|+ Voice()\l+ ~Voice()\l+ setSampleRate()\l+ noteOn()\l+ noteOff()\l+ process()\l+ reset()\l+ setNoteExpressionValue()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{VoiceBase\< kNumParameters, SamplePrecision, 2, GlobalParameterState \>\n|# globalParameters\l# noteId\l# pitch\l# noteOnSampleOffset\l# noteOffSampleOffset\l# tuning\l# sampleRate\l# noteOnVelocity\l# noteOffVelocity\l# values\l|+ getNoteId()\l+ setGlobalParameterStorage()\l+ setSampleRate()\l+ getSampleRate()\l+ setNoteExpressionValue()\l+ noteOn()\l+ noteOff()\l+ reset()\l# VoiceBase()\l# VoiceBase()\l# ~VoiceBase()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VoiceBase.html"];
+}

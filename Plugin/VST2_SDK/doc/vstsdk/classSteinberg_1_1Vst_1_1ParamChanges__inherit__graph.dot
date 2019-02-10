@@ -1,0 +1,11 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{ParamChanges\n|- id\l- numPoints\l- numUsedPoints\l- points\l- processedFrames\l|+ ParamChanges()\l+ ~ParamChanges()\l+ init()\l+ setPoint()\l+ resetPoints()\l+ getProcessedFrames()\l+ setProcessedFrames()\l+ havePointsBeenRead()\l+ getParameterId()\l+ getPointCount()\l+ getPoint()\l+ addPoint()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{IParamValueQueue\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IParamValueQueue.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+}

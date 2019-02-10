@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{IUpdateManager\n|+ iid\l|+ cancelUpdates()\l+ triggerDeferedUpdates()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{UpdateHandler\n|- lock\l- table\l|+ UpdateHandler()\l+ ~UpdateHandler()\l+ addDependent()\l+ removeDependent()\l+ triggerUpdates()\l+ deferUpdates()\l+ cancelUpdates()\l+ triggerDeferedUpdates()\l+ isA()\l+ isA()\l+ isTypeOf()\l+ queryInterface()\l+ addRef()\l+ release()\l+ getFClassID()\l+ instance()\l- doTriggerUpdates()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1UpdateHandler.html",tooltip="UpdateHandler implements IUpdateManager and IUpdateHandler to handle dependencies..."];
+}

@@ -1,0 +1,26 @@
+a:link    { text-decoration: none; color: darkblue; }
+a:visited { text-decoration: none; color: darkblue; }
+a:active  { text-decoration: underline; color: blue; }
+a:hover   { text-decoration: underline; color: blue; }
+td { font-size: 8pt; 
+	 font-weight: bold; 
+	}
+th { font-size: 9pt; 
+	 font-weight: bold; 
+	 text-align: left; 
+	 background: lightgrey;
+	 color: darkblue;
+	 background: lightgrey;
+	 }
+div {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	}
+BODY {
+	background: white;
+	color: black;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 0px;	
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+}

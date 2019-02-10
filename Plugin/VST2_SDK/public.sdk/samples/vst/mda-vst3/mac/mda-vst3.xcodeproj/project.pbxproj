@@ -1,0 +1,916 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5810B907108355A800EBDCF2 /* vstinitiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5810B906108355A800EBDCF2 /* vstinitiids.cpp */; };
+		F41CEB520EAA395000F30CDD /* macmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB4F0EAA395000F30CDD /* macmain.cpp */; };
+		F41CEB610EAA397600F30CDD /* vstaudioeffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB550EAA397600F30CDD /* vstaudioeffect.cpp */; };
+		F41CEB620EAA397600F30CDD /* vstbus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB570EAA397600F30CDD /* vstbus.cpp */; };
+		F41CEB630EAA397600F30CDD /* vstcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB590EAA397600F30CDD /* vstcomponent.cpp */; };
+		F41CEB640EAA397600F30CDD /* vstcomponentbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB5B0EAA397600F30CDD /* vstcomponentbase.cpp */; };
+		F41CEB650EAA397600F30CDD /* vsteditcontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB5D0EAA397600F30CDD /* vsteditcontroller.cpp */; };
+		F41CEB660EAA397600F30CDD /* vstparameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB5F0EAA397600F30CDD /* vstparameters.cpp */; };
+		F41CEB7B0EAA39C100F30CDD /* conststringtable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB750EAA39C100F30CDD /* conststringtable.cpp */; };
+		F41CEB7C0EAA39C100F30CDD /* funknown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB760EAA39C100F30CDD /* funknown.cpp */; };
+		F41CEB7D0EAA39C100F30CDD /* ustring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB790EAA39C100F30CDD /* ustring.cpp */; };
+		F41CEB840EAA39EB00F30CDD /* pluginview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F41CEB820EAA39EB00F30CDD /* pluginview.cpp */; };
+		F41CEBC40EAA3ACF00F30CDD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41CEBC30EAA3ACF00F30CDD /* CoreFoundation.framework */; };
+		F48F4C991855E3ED0094DC92 /* debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F48F4C961855E3ED0094DC92 /* debug.xcconfig */; };
+		F48F4C9A1855E3ED0094DC92 /* mda-vst3.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F48F4C971855E3ED0094DC92 /* mda-vst3.xcconfig */; };
+		F48F4C9B1855E3ED0094DC92 /* release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F48F4C981855E3ED0094DC92 /* release.xcconfig */; };
+		F48F4C9E1855E4AE0094DC92 /* libbase_libc++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F4C8F1855E3E30094DC92 /* libbase_libc++.a */; };
+		F49D89991074CC5E003EFE21 /* pluginfactoryvst3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49D89971074CC5E003EFE21 /* pluginfactoryvst3.cpp */; };
+		F4FABB600EAA34FA0032CABF /* mdaAmbienceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABACB0EAA34FA0032CABF /* mdaAmbienceController.cpp */; };
+		F4FABB610EAA34FA0032CABF /* mdaAmbienceProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABACD0EAA34FA0032CABF /* mdaAmbienceProcessor.cpp */; };
+		F4FABB620EAA34FA0032CABF /* mdaBandistoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABACF0EAA34FA0032CABF /* mdaBandistoController.cpp */; };
+		F4FABB630EAA34FA0032CABF /* mdaBandistoProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAD10EAA34FA0032CABF /* mdaBandistoProcessor.cpp */; };
+		F4FABB640EAA34FA0032CABF /* mdaBaseController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAD30EAA34FA0032CABF /* mdaBaseController.cpp */; };
+		F4FABB650EAA34FA0032CABF /* mdaBaseProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAD50EAA34FA0032CABF /* mdaBaseProcessor.cpp */; };
+		F4FABB660EAA34FA0032CABF /* mdaBeatBoxController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAD70EAA34FA0032CABF /* mdaBeatBoxController.cpp */; };
+		F4FABB670EAA34FA0032CABF /* mdaBeatBoxProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAD90EAA34FA0032CABF /* mdaBeatBoxProcessor.cpp */; };
+		F4FABB680EAA34FA0032CABF /* mdaComboController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABADB0EAA34FA0032CABF /* mdaComboController.cpp */; };
+		F4FABB690EAA34FA0032CABF /* mdaComboProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABADD0EAA34FA0032CABF /* mdaComboProcessor.cpp */; };
+		F4FABB6A0EAA34FA0032CABF /* mdaDeEsserController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABADF0EAA34FA0032CABF /* mdaDeEsserController.cpp */; };
+		F4FABB6B0EAA34FA0032CABF /* mdaDeEsserProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAE10EAA34FA0032CABF /* mdaDeEsserProcessor.cpp */; };
+		F4FABB6C0EAA34FA0032CABF /* mdaDegradeController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAE30EAA34FA0032CABF /* mdaDegradeController.cpp */; };
+		F4FABB6D0EAA34FA0032CABF /* mdaDegradeProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAE50EAA34FA0032CABF /* mdaDegradeProcessor.cpp */; };
+		F4FABB6E0EAA34FA0032CABF /* mdaDelayController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAE70EAA34FA0032CABF /* mdaDelayController.cpp */; };
+		F4FABB6F0EAA34FA0032CABF /* mdaDelayProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAE90EAA34FA0032CABF /* mdaDelayProcessor.cpp */; };
+		F4FABB700EAA34FA0032CABF /* mdaDetuneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAEB0EAA34FA0032CABF /* mdaDetuneController.cpp */; };
+		F4FABB710EAA34FA0032CABF /* mdaDetuneProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAED0EAA34FA0032CABF /* mdaDetuneProcessor.cpp */; };
+		F4FABB720EAA34FA0032CABF /* mdaDitherController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAEF0EAA34FA0032CABF /* mdaDitherController.cpp */; };
+		F4FABB730EAA34FA0032CABF /* mdaDitherProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAF10EAA34FA0032CABF /* mdaDitherProcessor.cpp */; };
+		F4FABB740EAA34FA0032CABF /* mdaDubDelayController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAF30EAA34FA0032CABF /* mdaDubDelayController.cpp */; };
+		F4FABB750EAA34FA0032CABF /* mdaDubDelayProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAF50EAA34FA0032CABF /* mdaDubDelayProcessor.cpp */; };
+		F4FABB760EAA34FA0032CABF /* mdaDX10Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAF70EAA34FA0032CABF /* mdaDX10Controller.cpp */; };
+		F4FABB770EAA34FA0032CABF /* mdaDX10Processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAF90EAA34FA0032CABF /* mdaDX10Processor.cpp */; };
+		F4FABB780EAA34FA0032CABF /* mdaDynamicsController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAFB0EAA34FA0032CABF /* mdaDynamicsController.cpp */; };
+		F4FABB790EAA34FA0032CABF /* mdaDynamicsProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAFD0EAA34FA0032CABF /* mdaDynamicsProcessor.cpp */; };
+		F4FABB7A0EAA34FA0032CABF /* mdaEPianoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABAFF0EAA34FA0032CABF /* mdaEPianoController.cpp */; };
+		F4FABB7B0EAA34FA0032CABF /* mdaEPianoProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB020EAA34FA0032CABF /* mdaEPianoProcessor.cpp */; };
+		F4FABB7C0EAA34FA0032CABF /* mdafactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB040EAA34FA0032CABF /* mdafactory.cpp */; };
+		F4FABB7D0EAA34FA0032CABF /* mdaImageController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB050EAA34FA0032CABF /* mdaImageController.cpp */; };
+		F4FABB7E0EAA34FA0032CABF /* mdaImageProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB070EAA34FA0032CABF /* mdaImageProcessor.cpp */; };
+		F4FABB7F0EAA34FA0032CABF /* mdaJX10Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB090EAA34FA0032CABF /* mdaJX10Controller.cpp */; };
+		F4FABB800EAA34FA0032CABF /* mdaJX10Processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB0B0EAA34FA0032CABF /* mdaJX10Processor.cpp */; };
+		F4FABB810EAA34FA0032CABF /* mdaLeslieController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB0D0EAA34FA0032CABF /* mdaLeslieController.cpp */; };
+		F4FABB820EAA34FA0032CABF /* mdaLeslieProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB0F0EAA34FA0032CABF /* mdaLeslieProcessor.cpp */; };
+		F4FABB830EAA34FA0032CABF /* mdaLimiterController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB110EAA34FA0032CABF /* mdaLimiterController.cpp */; };
+		F4FABB840EAA34FA0032CABF /* mdaLimiterProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB130EAA34FA0032CABF /* mdaLimiterProcessor.cpp */; };
+		F4FABB850EAA34FA0032CABF /* mdaLoudnessController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB150EAA34FA0032CABF /* mdaLoudnessController.cpp */; };
+		F4FABB860EAA34FA0032CABF /* mdaLoudnessProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB170EAA34FA0032CABF /* mdaLoudnessProcessor.cpp */; };
+		F4FABB870EAA34FA0032CABF /* mdaMultiBandController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB190EAA34FA0032CABF /* mdaMultiBandController.cpp */; };
+		F4FABB880EAA34FA0032CABF /* mdaMultiBandProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB1B0EAA34FA0032CABF /* mdaMultiBandProcessor.cpp */; };
+		F4FABB890EAA34FA0032CABF /* mdaOverdriveController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB1D0EAA34FA0032CABF /* mdaOverdriveController.cpp */; };
+		F4FABB8A0EAA34FA0032CABF /* mdaOverdriveProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB1F0EAA34FA0032CABF /* mdaOverdriveProcessor.cpp */; };
+		F4FABB8B0EAA34FA0032CABF /* mdaParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB210EAA34FA0032CABF /* mdaParameter.cpp */; };
+		F4FABB8C0EAA34FA0032CABF /* mdaPianoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB230EAA34FA0032CABF /* mdaPianoController.cpp */; };
+		F4FABB8D0EAA34FA0032CABF /* mdaPianoProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB260EAA34FA0032CABF /* mdaPianoProcessor.cpp */; };
+		F4FABB8E0EAA34FA0032CABF /* mdaRePsychoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB280EAA34FA0032CABF /* mdaRePsychoController.cpp */; };
+		F4FABB8F0EAA34FA0032CABF /* mdaRePsychoProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB2A0EAA34FA0032CABF /* mdaRePsychoProcessor.cpp */; };
+		F4FABB900EAA34FA0032CABF /* mdaRezFilterController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB2C0EAA34FA0032CABF /* mdaRezFilterController.cpp */; };
+		F4FABB910EAA34FA0032CABF /* mdaRezFilterProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB2E0EAA34FA0032CABF /* mdaRezFilterProcessor.cpp */; };
+		F4FABB920EAA34FA0032CABF /* mdaRingModController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB300EAA34FA0032CABF /* mdaRingModController.cpp */; };
+		F4FABB930EAA34FA0032CABF /* mdaRingModProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB320EAA34FA0032CABF /* mdaRingModProcessor.cpp */; };
+		F4FABB940EAA34FA0032CABF /* mdaRoundPanController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB340EAA34FA0032CABF /* mdaRoundPanController.cpp */; };
+		F4FABB950EAA34FA0032CABF /* mdaRoundPanProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB360EAA34FA0032CABF /* mdaRoundPanProcessor.cpp */; };
+		F4FABB960EAA34FA0032CABF /* mdaShepardController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB380EAA34FA0032CABF /* mdaShepardController.cpp */; };
+		F4FABB970EAA34FA0032CABF /* mdaShepardProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB3A0EAA34FA0032CABF /* mdaShepardProcessor.cpp */; };
+		F4FABB980EAA34FA0032CABF /* mdaSpecMeterController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB3C0EAA34FA0032CABF /* mdaSpecMeterController.cpp */; };
+		F4FABB9B0EAA34FA0032CABF /* mdaSpecMeterProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB420EAA34FA0032CABF /* mdaSpecMeterProcessor.cpp */; };
+		F4FABB9C0EAA34FA0032CABF /* mdaSplitterController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB440EAA34FA0032CABF /* mdaSplitterController.cpp */; };
+		F4FABB9D0EAA34FA0032CABF /* mdaSplitterProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB460EAA34FA0032CABF /* mdaSplitterProcessor.cpp */; };
+		F4FABB9E0EAA34FA0032CABF /* mdaStereoController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB480EAA34FA0032CABF /* mdaStereoController.cpp */; };
+		F4FABB9F0EAA34FA0032CABF /* mdaStereoProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB4A0EAA34FA0032CABF /* mdaStereoProcessor.cpp */; };
+		F4FABBA00EAA34FA0032CABF /* mdaSubSynthController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB4C0EAA34FA0032CABF /* mdaSubSynthController.cpp */; };
+		F4FABBA10EAA34FA0032CABF /* mdaSubSynthProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB4E0EAA34FA0032CABF /* mdaSubSynthProcessor.cpp */; };
+		F4FABBA20EAA34FA0032CABF /* mdaTalkBoxController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB500EAA34FA0032CABF /* mdaTalkBoxController.cpp */; };
+		F4FABBA30EAA34FA0032CABF /* mdaTalkBoxProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB520EAA34FA0032CABF /* mdaTalkBoxProcessor.cpp */; };
+		F4FABBA40EAA34FA0032CABF /* mdaTestToneController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB540EAA34FA0032CABF /* mdaTestToneController.cpp */; };
+		F4FABBA50EAA34FA0032CABF /* mdaTestToneProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB560EAA34FA0032CABF /* mdaTestToneProcessor.cpp */; };
+		F4FABBA60EAA34FA0032CABF /* mdaThruZeroController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB580EAA34FA0032CABF /* mdaThruZeroController.cpp */; };
+		F4FABBA70EAA34FA0032CABF /* mdaThruZeroProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB5A0EAA34FA0032CABF /* mdaThruZeroProcessor.cpp */; };
+		F4FABBA80EAA34FA0032CABF /* mdaTrackerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB5C0EAA34FA0032CABF /* mdaTrackerController.cpp */; };
+		F4FABBA90EAA34FA0032CABF /* mdaTrackerProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4FABB5E0EAA34FA0032CABF /* mdaTrackerProcessor.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F406620612D1D83C00372CDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = base;
+		};
+		F48F4C8E1855E3E30094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4306DEB17DDC8800075E8C4;
+			remoteInfo = "base_libc++";
+		};
+		F48F4C901855E3E30094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4128A5417EB4B0B00114E59;
+			remoteInfo = base_ios;
+		};
+		F48F4C921855E3E30094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F412026A14C41F68008F9C84;
+			remoteInfo = base_codecoverage;
+		};
+		F48F4C941855E3E30094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F41CC3ED180C210300D209D0;
+			remoteInfo = "base_codecoverage_libc++";
+		};
+		F48F4C9C1855E4AB0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F406620212D1D83C00372CDC /* base.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F4306DA817DDC8800075E8C4;
+			remoteInfo = "base_libc++";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		508817D409F0C9AD0071BF1A /* mda.vst3 */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mda.vst3; sourceTree = BUILT_PRODUCTS_DIR; };
+		508817D609F0C9AD0071BF1A /* mda-vst3-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; path = "mda-vst3-Info.plist"; sourceTree = "<group>"; };
+		5088181409F0CE7B0071BF1A /* mda-vst3_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mda-vst3_Prefix.pch"; sourceTree = "<group>"; };
+		5810B906108355A800EBDCF2 /* vstinitiids.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = vstinitiids.cpp; path = ../../../../source/vst/vstinitiids.cpp; sourceTree = SOURCE_ROOT; };
+		F406620212D1D83C00372CDC /* base.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = base.xcodeproj; path = ../../../../../base/mac/base.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F41CEB4F0EAA395000F30CDD /* macmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = macmain.cpp; path = ../../../../source/main/macmain.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB550EAA397600F30CDD /* vstaudioeffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstaudioeffect.cpp; path = ../../../../source/vst/vstaudioeffect.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB560EAA397600F30CDD /* vstaudioeffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstaudioeffect.h; path = ../../../../source/vst/vstaudioeffect.h; sourceTree = SOURCE_ROOT; };
+		F41CEB570EAA397600F30CDD /* vstbus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstbus.cpp; path = ../../../../source/vst/vstbus.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB580EAA397600F30CDD /* vstbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstbus.h; path = ../../../../source/vst/vstbus.h; sourceTree = SOURCE_ROOT; };
+		F41CEB590EAA397600F30CDD /* vstcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstcomponent.cpp; path = ../../../../source/vst/vstcomponent.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB5A0EAA397600F30CDD /* vstcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstcomponent.h; path = ../../../../source/vst/vstcomponent.h; sourceTree = SOURCE_ROOT; };
+		F41CEB5B0EAA397600F30CDD /* vstcomponentbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstcomponentbase.cpp; path = ../../../../source/vst/vstcomponentbase.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB5C0EAA397600F30CDD /* vstcomponentbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstcomponentbase.h; path = ../../../../source/vst/vstcomponentbase.h; sourceTree = SOURCE_ROOT; };
+		F41CEB5D0EAA397600F30CDD /* vsteditcontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vsteditcontroller.cpp; path = ../../../../source/vst/vsteditcontroller.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB5E0EAA397600F30CDD /* vsteditcontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vsteditcontroller.h; path = ../../../../source/vst/vsteditcontroller.h; sourceTree = SOURCE_ROOT; };
+		F41CEB5F0EAA397600F30CDD /* vstparameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vstparameters.cpp; path = ../../../../source/vst/vstparameters.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB600EAA397600F30CDD /* vstparameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vstparameters.h; path = ../../../../source/vst/vstparameters.h; sourceTree = SOURCE_ROOT; };
+		F41CEB750EAA39C100F30CDD /* conststringtable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = conststringtable.cpp; path = ../../../../../pluginterfaces/base/conststringtable.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB760EAA39C100F30CDD /* funknown.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = funknown.cpp; path = ../../../../../pluginterfaces/base/funknown.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB770EAA39C100F30CDD /* conststringtable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = conststringtable.h; path = ../../../../../pluginterfaces/base/conststringtable.h; sourceTree = SOURCE_ROOT; };
+		F41CEB780EAA39C100F30CDD /* funknown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = funknown.h; path = ../../../../../pluginterfaces/base/funknown.h; sourceTree = SOURCE_ROOT; };
+		F41CEB790EAA39C100F30CDD /* ustring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ustring.cpp; path = ../../../../../pluginterfaces/base/ustring.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB7A0EAA39C100F30CDD /* ustring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ustring.h; path = ../../../../../pluginterfaces/base/ustring.h; sourceTree = SOURCE_ROOT; };
+		F41CEB820EAA39EB00F30CDD /* pluginview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pluginview.cpp; path = ../../../../source/common/pluginview.cpp; sourceTree = SOURCE_ROOT; };
+		F41CEB830EAA39EB00F30CDD /* pluginview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pluginview.h; path = ../../../../source/common/pluginview.h; sourceTree = SOURCE_ROOT; };
+		F41CEBC30EAA3ACF00F30CDD /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		F41CEBEE0EAA3E8000F30CDD /* helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = helpers.h; path = ../source/helpers.h; sourceTree = SOURCE_ROOT; };
+		F48F4C961855E3ED0094DC92 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = config/debug.xcconfig; sourceTree = "<group>"; };
+		F48F4C971855E3ED0094DC92 /* mda-vst3.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "mda-vst3.xcconfig"; path = "config/mda-vst3.xcconfig"; sourceTree = "<group>"; };
+		F48F4C981855E3ED0094DC92 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = release.xcconfig; path = config/release.xcconfig; sourceTree = "<group>"; };
+		F49D89971074CC5E003EFE21 /* pluginfactoryvst3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pluginfactoryvst3.cpp; path = ../../../../source/main/pluginfactoryvst3.cpp; sourceTree = SOURCE_ROOT; };
+		F49D89981074CC5E003EFE21 /* pluginfactoryvst3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pluginfactoryvst3.h; path = ../../../../source/main/pluginfactoryvst3.h; sourceTree = SOURCE_ROOT; };
+		F4E6B282133A05AD005931D3 /* .bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = .bundle; path = build/Debug/.bundle; sourceTree = "<group>"; };
+		F4F4DD3D106A733200316C12 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = version.h; path = ../source/version.h; sourceTree = SOURCE_ROOT; };
+		F4FABACB0EAA34FA0032CABF /* mdaAmbienceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaAmbienceController.cpp; path = ../source/mdaAmbienceController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABACC0EAA34FA0032CABF /* mdaAmbienceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaAmbienceController.h; path = ../source/mdaAmbienceController.h; sourceTree = SOURCE_ROOT; };
+		F4FABACD0EAA34FA0032CABF /* mdaAmbienceProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaAmbienceProcessor.cpp; path = ../source/mdaAmbienceProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABACE0EAA34FA0032CABF /* mdaAmbienceProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaAmbienceProcessor.h; path = ../source/mdaAmbienceProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABACF0EAA34FA0032CABF /* mdaBandistoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBandistoController.cpp; path = ../source/mdaBandistoController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAD00EAA34FA0032CABF /* mdaBandistoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBandistoController.h; path = ../source/mdaBandistoController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAD10EAA34FA0032CABF /* mdaBandistoProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBandistoProcessor.cpp; path = ../source/mdaBandistoProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAD20EAA34FA0032CABF /* mdaBandistoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBandistoProcessor.h; path = ../source/mdaBandistoProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAD30EAA34FA0032CABF /* mdaBaseController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBaseController.cpp; path = ../source/mdaBaseController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAD40EAA34FA0032CABF /* mdaBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBaseController.h; path = ../source/mdaBaseController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAD50EAA34FA0032CABF /* mdaBaseProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBaseProcessor.cpp; path = ../source/mdaBaseProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAD60EAA34FA0032CABF /* mdaBaseProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBaseProcessor.h; path = ../source/mdaBaseProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAD70EAA34FA0032CABF /* mdaBeatBoxController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBeatBoxController.cpp; path = ../source/mdaBeatBoxController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAD80EAA34FA0032CABF /* mdaBeatBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBeatBoxController.h; path = ../source/mdaBeatBoxController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAD90EAA34FA0032CABF /* mdaBeatBoxProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaBeatBoxProcessor.cpp; path = ../source/mdaBeatBoxProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABADA0EAA34FA0032CABF /* mdaBeatBoxProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaBeatBoxProcessor.h; path = ../source/mdaBeatBoxProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABADB0EAA34FA0032CABF /* mdaComboController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaComboController.cpp; path = ../source/mdaComboController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABADC0EAA34FA0032CABF /* mdaComboController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaComboController.h; path = ../source/mdaComboController.h; sourceTree = SOURCE_ROOT; };
+		F4FABADD0EAA34FA0032CABF /* mdaComboProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaComboProcessor.cpp; path = ../source/mdaComboProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABADE0EAA34FA0032CABF /* mdaComboProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaComboProcessor.h; path = ../source/mdaComboProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABADF0EAA34FA0032CABF /* mdaDeEsserController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDeEsserController.cpp; path = ../source/mdaDeEsserController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAE00EAA34FA0032CABF /* mdaDeEsserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDeEsserController.h; path = ../source/mdaDeEsserController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAE10EAA34FA0032CABF /* mdaDeEsserProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDeEsserProcessor.cpp; path = ../source/mdaDeEsserProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAE20EAA34FA0032CABF /* mdaDeEsserProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDeEsserProcessor.h; path = ../source/mdaDeEsserProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAE30EAA34FA0032CABF /* mdaDegradeController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDegradeController.cpp; path = ../source/mdaDegradeController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAE40EAA34FA0032CABF /* mdaDegradeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDegradeController.h; path = ../source/mdaDegradeController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAE50EAA34FA0032CABF /* mdaDegradeProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDegradeProcessor.cpp; path = ../source/mdaDegradeProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAE60EAA34FA0032CABF /* mdaDegradeProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDegradeProcessor.h; path = ../source/mdaDegradeProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAE70EAA34FA0032CABF /* mdaDelayController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDelayController.cpp; path = ../source/mdaDelayController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAE80EAA34FA0032CABF /* mdaDelayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDelayController.h; path = ../source/mdaDelayController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAE90EAA34FA0032CABF /* mdaDelayProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDelayProcessor.cpp; path = ../source/mdaDelayProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAEA0EAA34FA0032CABF /* mdaDelayProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDelayProcessor.h; path = ../source/mdaDelayProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAEB0EAA34FA0032CABF /* mdaDetuneController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDetuneController.cpp; path = ../source/mdaDetuneController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAEC0EAA34FA0032CABF /* mdaDetuneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDetuneController.h; path = ../source/mdaDetuneController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAED0EAA34FA0032CABF /* mdaDetuneProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDetuneProcessor.cpp; path = ../source/mdaDetuneProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAEE0EAA34FA0032CABF /* mdaDetuneProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDetuneProcessor.h; path = ../source/mdaDetuneProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAEF0EAA34FA0032CABF /* mdaDitherController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDitherController.cpp; path = ../source/mdaDitherController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAF00EAA34FA0032CABF /* mdaDitherController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDitherController.h; path = ../source/mdaDitherController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAF10EAA34FA0032CABF /* mdaDitherProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDitherProcessor.cpp; path = ../source/mdaDitherProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAF20EAA34FA0032CABF /* mdaDitherProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDitherProcessor.h; path = ../source/mdaDitherProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAF30EAA34FA0032CABF /* mdaDubDelayController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDubDelayController.cpp; path = ../source/mdaDubDelayController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAF40EAA34FA0032CABF /* mdaDubDelayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDubDelayController.h; path = ../source/mdaDubDelayController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAF50EAA34FA0032CABF /* mdaDubDelayProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDubDelayProcessor.cpp; path = ../source/mdaDubDelayProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAF60EAA34FA0032CABF /* mdaDubDelayProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDubDelayProcessor.h; path = ../source/mdaDubDelayProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAF70EAA34FA0032CABF /* mdaDX10Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDX10Controller.cpp; path = ../source/mdaDX10Controller.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAF80EAA34FA0032CABF /* mdaDX10Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDX10Controller.h; path = ../source/mdaDX10Controller.h; sourceTree = SOURCE_ROOT; };
+		F4FABAF90EAA34FA0032CABF /* mdaDX10Processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDX10Processor.cpp; path = ../source/mdaDX10Processor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAFA0EAA34FA0032CABF /* mdaDX10Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDX10Processor.h; path = ../source/mdaDX10Processor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAFB0EAA34FA0032CABF /* mdaDynamicsController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDynamicsController.cpp; path = ../source/mdaDynamicsController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAFC0EAA34FA0032CABF /* mdaDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDynamicsController.h; path = ../source/mdaDynamicsController.h; sourceTree = SOURCE_ROOT; };
+		F4FABAFD0EAA34FA0032CABF /* mdaDynamicsProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaDynamicsProcessor.cpp; path = ../source/mdaDynamicsProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABAFE0EAA34FA0032CABF /* mdaDynamicsProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaDynamicsProcessor.h; path = ../source/mdaDynamicsProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABAFF0EAA34FA0032CABF /* mdaEPianoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaEPianoController.cpp; path = ../source/mdaEPianoController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB000EAA34FA0032CABF /* mdaEPianoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaEPianoController.h; path = ../source/mdaEPianoController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB010EAA34FA0032CABF /* mdaEPianoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaEPianoData.h; path = ../source/mdaEPianoData.h; sourceTree = SOURCE_ROOT; };
+		F4FABB020EAA34FA0032CABF /* mdaEPianoProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaEPianoProcessor.cpp; path = ../source/mdaEPianoProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB030EAA34FA0032CABF /* mdaEPianoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaEPianoProcessor.h; path = ../source/mdaEPianoProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB040EAA34FA0032CABF /* mdafactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdafactory.cpp; path = ../source/mdafactory.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB050EAA34FA0032CABF /* mdaImageController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaImageController.cpp; path = ../source/mdaImageController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB060EAA34FA0032CABF /* mdaImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaImageController.h; path = ../source/mdaImageController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB070EAA34FA0032CABF /* mdaImageProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaImageProcessor.cpp; path = ../source/mdaImageProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB080EAA34FA0032CABF /* mdaImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaImageProcessor.h; path = ../source/mdaImageProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB090EAA34FA0032CABF /* mdaJX10Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaJX10Controller.cpp; path = ../source/mdaJX10Controller.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB0A0EAA34FA0032CABF /* mdaJX10Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaJX10Controller.h; path = ../source/mdaJX10Controller.h; sourceTree = SOURCE_ROOT; };
+		F4FABB0B0EAA34FA0032CABF /* mdaJX10Processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaJX10Processor.cpp; path = ../source/mdaJX10Processor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB0C0EAA34FA0032CABF /* mdaJX10Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaJX10Processor.h; path = ../source/mdaJX10Processor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB0D0EAA34FA0032CABF /* mdaLeslieController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLeslieController.cpp; path = ../source/mdaLeslieController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB0E0EAA34FA0032CABF /* mdaLeslieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLeslieController.h; path = ../source/mdaLeslieController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB0F0EAA34FA0032CABF /* mdaLeslieProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLeslieProcessor.cpp; path = ../source/mdaLeslieProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB100EAA34FA0032CABF /* mdaLeslieProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLeslieProcessor.h; path = ../source/mdaLeslieProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB110EAA34FA0032CABF /* mdaLimiterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLimiterController.cpp; path = ../source/mdaLimiterController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB120EAA34FA0032CABF /* mdaLimiterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLimiterController.h; path = ../source/mdaLimiterController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB130EAA34FA0032CABF /* mdaLimiterProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLimiterProcessor.cpp; path = ../source/mdaLimiterProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB140EAA34FA0032CABF /* mdaLimiterProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLimiterProcessor.h; path = ../source/mdaLimiterProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB150EAA34FA0032CABF /* mdaLoudnessController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLoudnessController.cpp; path = ../source/mdaLoudnessController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB160EAA34FA0032CABF /* mdaLoudnessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLoudnessController.h; path = ../source/mdaLoudnessController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB170EAA34FA0032CABF /* mdaLoudnessProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaLoudnessProcessor.cpp; path = ../source/mdaLoudnessProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB180EAA34FA0032CABF /* mdaLoudnessProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaLoudnessProcessor.h; path = ../source/mdaLoudnessProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB190EAA34FA0032CABF /* mdaMultiBandController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaMultiBandController.cpp; path = ../source/mdaMultiBandController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB1A0EAA34FA0032CABF /* mdaMultiBandController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaMultiBandController.h; path = ../source/mdaMultiBandController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB1B0EAA34FA0032CABF /* mdaMultiBandProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaMultiBandProcessor.cpp; path = ../source/mdaMultiBandProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB1C0EAA34FA0032CABF /* mdaMultiBandProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaMultiBandProcessor.h; path = ../source/mdaMultiBandProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB1D0EAA34FA0032CABF /* mdaOverdriveController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaOverdriveController.cpp; path = ../source/mdaOverdriveController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB1E0EAA34FA0032CABF /* mdaOverdriveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaOverdriveController.h; path = ../source/mdaOverdriveController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB1F0EAA34FA0032CABF /* mdaOverdriveProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaOverdriveProcessor.cpp; path = ../source/mdaOverdriveProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB200EAA34FA0032CABF /* mdaOverdriveProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaOverdriveProcessor.h; path = ../source/mdaOverdriveProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB210EAA34FA0032CABF /* mdaParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaParameter.cpp; path = ../source/mdaParameter.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB220EAA34FA0032CABF /* mdaParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaParameter.h; path = ../source/mdaParameter.h; sourceTree = SOURCE_ROOT; };
+		F4FABB230EAA34FA0032CABF /* mdaPianoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaPianoController.cpp; path = ../source/mdaPianoController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB240EAA34FA0032CABF /* mdaPianoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaPianoController.h; path = ../source/mdaPianoController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB250EAA34FA0032CABF /* mdaPianoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaPianoData.h; path = ../source/mdaPianoData.h; sourceTree = SOURCE_ROOT; };
+		F4FABB260EAA34FA0032CABF /* mdaPianoProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaPianoProcessor.cpp; path = ../source/mdaPianoProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB270EAA34FA0032CABF /* mdaPianoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaPianoProcessor.h; path = ../source/mdaPianoProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB280EAA34FA0032CABF /* mdaRePsychoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRePsychoController.cpp; path = ../source/mdaRePsychoController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB290EAA34FA0032CABF /* mdaRePsychoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRePsychoController.h; path = ../source/mdaRePsychoController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB2A0EAA34FA0032CABF /* mdaRePsychoProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRePsychoProcessor.cpp; path = ../source/mdaRePsychoProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB2B0EAA34FA0032CABF /* mdaRePsychoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRePsychoProcessor.h; path = ../source/mdaRePsychoProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB2C0EAA34FA0032CABF /* mdaRezFilterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRezFilterController.cpp; path = ../source/mdaRezFilterController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB2D0EAA34FA0032CABF /* mdaRezFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRezFilterController.h; path = ../source/mdaRezFilterController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB2E0EAA34FA0032CABF /* mdaRezFilterProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRezFilterProcessor.cpp; path = ../source/mdaRezFilterProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB2F0EAA34FA0032CABF /* mdaRezFilterProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRezFilterProcessor.h; path = ../source/mdaRezFilterProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB300EAA34FA0032CABF /* mdaRingModController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRingModController.cpp; path = ../source/mdaRingModController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB310EAA34FA0032CABF /* mdaRingModController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRingModController.h; path = ../source/mdaRingModController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB320EAA34FA0032CABF /* mdaRingModProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRingModProcessor.cpp; path = ../source/mdaRingModProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB330EAA34FA0032CABF /* mdaRingModProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRingModProcessor.h; path = ../source/mdaRingModProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB340EAA34FA0032CABF /* mdaRoundPanController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRoundPanController.cpp; path = ../source/mdaRoundPanController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB350EAA34FA0032CABF /* mdaRoundPanController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRoundPanController.h; path = ../source/mdaRoundPanController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB360EAA34FA0032CABF /* mdaRoundPanProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaRoundPanProcessor.cpp; path = ../source/mdaRoundPanProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB370EAA34FA0032CABF /* mdaRoundPanProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaRoundPanProcessor.h; path = ../source/mdaRoundPanProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB380EAA34FA0032CABF /* mdaShepardController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaShepardController.cpp; path = ../source/mdaShepardController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB390EAA34FA0032CABF /* mdaShepardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaShepardController.h; path = ../source/mdaShepardController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB3A0EAA34FA0032CABF /* mdaShepardProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaShepardProcessor.cpp; path = ../source/mdaShepardProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB3B0EAA34FA0032CABF /* mdaShepardProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaShepardProcessor.h; path = ../source/mdaShepardProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB3C0EAA34FA0032CABF /* mdaSpecMeterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSpecMeterController.cpp; path = ../source/mdaSpecMeterController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB3D0EAA34FA0032CABF /* mdaSpecMeterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSpecMeterController.h; path = ../source/mdaSpecMeterController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB420EAA34FA0032CABF /* mdaSpecMeterProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSpecMeterProcessor.cpp; path = ../source/mdaSpecMeterProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB430EAA34FA0032CABF /* mdaSpecMeterProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSpecMeterProcessor.h; path = ../source/mdaSpecMeterProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB440EAA34FA0032CABF /* mdaSplitterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSplitterController.cpp; path = ../source/mdaSplitterController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB450EAA34FA0032CABF /* mdaSplitterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSplitterController.h; path = ../source/mdaSplitterController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB460EAA34FA0032CABF /* mdaSplitterProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSplitterProcessor.cpp; path = ../source/mdaSplitterProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB470EAA34FA0032CABF /* mdaSplitterProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSplitterProcessor.h; path = ../source/mdaSplitterProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB480EAA34FA0032CABF /* mdaStereoController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaStereoController.cpp; path = ../source/mdaStereoController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB490EAA34FA0032CABF /* mdaStereoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaStereoController.h; path = ../source/mdaStereoController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB4A0EAA34FA0032CABF /* mdaStereoProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaStereoProcessor.cpp; path = ../source/mdaStereoProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB4B0EAA34FA0032CABF /* mdaStereoProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaStereoProcessor.h; path = ../source/mdaStereoProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB4C0EAA34FA0032CABF /* mdaSubSynthController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSubSynthController.cpp; path = ../source/mdaSubSynthController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB4D0EAA34FA0032CABF /* mdaSubSynthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSubSynthController.h; path = ../source/mdaSubSynthController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB4E0EAA34FA0032CABF /* mdaSubSynthProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaSubSynthProcessor.cpp; path = ../source/mdaSubSynthProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB4F0EAA34FA0032CABF /* mdaSubSynthProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaSubSynthProcessor.h; path = ../source/mdaSubSynthProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB500EAA34FA0032CABF /* mdaTalkBoxController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTalkBoxController.cpp; path = ../source/mdaTalkBoxController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB510EAA34FA0032CABF /* mdaTalkBoxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTalkBoxController.h; path = ../source/mdaTalkBoxController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB520EAA34FA0032CABF /* mdaTalkBoxProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTalkBoxProcessor.cpp; path = ../source/mdaTalkBoxProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB530EAA34FA0032CABF /* mdaTalkBoxProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTalkBoxProcessor.h; path = ../source/mdaTalkBoxProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB540EAA34FA0032CABF /* mdaTestToneController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTestToneController.cpp; path = ../source/mdaTestToneController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB550EAA34FA0032CABF /* mdaTestToneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTestToneController.h; path = ../source/mdaTestToneController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB560EAA34FA0032CABF /* mdaTestToneProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTestToneProcessor.cpp; path = ../source/mdaTestToneProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB570EAA34FA0032CABF /* mdaTestToneProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTestToneProcessor.h; path = ../source/mdaTestToneProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB580EAA34FA0032CABF /* mdaThruZeroController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaThruZeroController.cpp; path = ../source/mdaThruZeroController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB590EAA34FA0032CABF /* mdaThruZeroController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaThruZeroController.h; path = ../source/mdaThruZeroController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB5A0EAA34FA0032CABF /* mdaThruZeroProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaThruZeroProcessor.cpp; path = ../source/mdaThruZeroProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB5B0EAA34FA0032CABF /* mdaThruZeroProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaThruZeroProcessor.h; path = ../source/mdaThruZeroProcessor.h; sourceTree = SOURCE_ROOT; };
+		F4FABB5C0EAA34FA0032CABF /* mdaTrackerController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTrackerController.cpp; path = ../source/mdaTrackerController.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB5D0EAA34FA0032CABF /* mdaTrackerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTrackerController.h; path = ../source/mdaTrackerController.h; sourceTree = SOURCE_ROOT; };
+		F4FABB5E0EAA34FA0032CABF /* mdaTrackerProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mdaTrackerProcessor.cpp; path = ../source/mdaTrackerProcessor.cpp; sourceTree = SOURCE_ROOT; };
+		F4FABB5F0EAA34FA0032CABF /* mdaTrackerProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mdaTrackerProcessor.h; path = ../source/mdaTrackerProcessor.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		508817D209F0C9AD0071BF1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48F4C9E1855E4AE0094DC92 /* libbase_libc++.a in Frameworks */,
+				F41CEBC40EAA3ACF00F30CDD /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		508817C209F0C9740071BF1A = {
+			isa = PBXGroup;
+			children = (
+				F406620212D1D83C00372CDC /* base.xcodeproj */,
+				508817D609F0C9AD0071BF1A /* mda-vst3-Info.plist */,
+				F4E6B283133A05AD005931D3 /* config */,
+				F41CEB3A0EAA391300F30CDD /* vst3 sdk */,
+				508817F509F0CAB50071BF1A /* Sources */,
+				5088180609F0CDD00071BF1A /* External Frameworks and Libraries */,
+				508817D509F0C9AD0071BF1A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		508817D509F0C9AD0071BF1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				508817D409F0C9AD0071BF1A /* mda.vst3 */,
+				F4E6B282133A05AD005931D3 /* .bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		508817F509F0CAB50071BF1A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F4F4DD3D106A733200316C12 /* version.h */,
+				F41CEBEE0EAA3E8000F30CDD /* helpers.h */,
+				5088181409F0CE7B0071BF1A /* mda-vst3_Prefix.pch */,
+				F4FABACB0EAA34FA0032CABF /* mdaAmbienceController.cpp */,
+				F4FABACC0EAA34FA0032CABF /* mdaAmbienceController.h */,
+				F4FABACD0EAA34FA0032CABF /* mdaAmbienceProcessor.cpp */,
+				F4FABACE0EAA34FA0032CABF /* mdaAmbienceProcessor.h */,
+				F4FABACF0EAA34FA0032CABF /* mdaBandistoController.cpp */,
+				F4FABAD00EAA34FA0032CABF /* mdaBandistoController.h */,
+				F4FABAD10EAA34FA0032CABF /* mdaBandistoProcessor.cpp */,
+				F4FABAD20EAA34FA0032CABF /* mdaBandistoProcessor.h */,
+				F4FABAD30EAA34FA0032CABF /* mdaBaseController.cpp */,
+				F4FABAD40EAA34FA0032CABF /* mdaBaseController.h */,
+				F4FABAD50EAA34FA0032CABF /* mdaBaseProcessor.cpp */,
+				F4FABAD60EAA34FA0032CABF /* mdaBaseProcessor.h */,
+				F4FABAD70EAA34FA0032CABF /* mdaBeatBoxController.cpp */,
+				F4FABAD80EAA34FA0032CABF /* mdaBeatBoxController.h */,
+				F4FABAD90EAA34FA0032CABF /* mdaBeatBoxProcessor.cpp */,
+				F4FABADA0EAA34FA0032CABF /* mdaBeatBoxProcessor.h */,
+				F4FABADB0EAA34FA0032CABF /* mdaComboController.cpp */,
+				F4FABADC0EAA34FA0032CABF /* mdaComboController.h */,
+				F4FABADD0EAA34FA0032CABF /* mdaComboProcessor.cpp */,
+				F4FABADE0EAA34FA0032CABF /* mdaComboProcessor.h */,
+				F4FABADF0EAA34FA0032CABF /* mdaDeEsserController.cpp */,
+				F4FABAE00EAA34FA0032CABF /* mdaDeEsserController.h */,
+				F4FABAE10EAA34FA0032CABF /* mdaDeEsserProcessor.cpp */,
+				F4FABAE20EAA34FA0032CABF /* mdaDeEsserProcessor.h */,
+				F4FABAE30EAA34FA0032CABF /* mdaDegradeController.cpp */,
+				F4FABAE40EAA34FA0032CABF /* mdaDegradeController.h */,
+				F4FABAE50EAA34FA0032CABF /* mdaDegradeProcessor.cpp */,
+				F4FABAE60EAA34FA0032CABF /* mdaDegradeProcessor.h */,
+				F4FABAE70EAA34FA0032CABF /* mdaDelayController.cpp */,
+				F4FABAE80EAA34FA0032CABF /* mdaDelayController.h */,
+				F4FABAE90EAA34FA0032CABF /* mdaDelayProcessor.cpp */,
+				F4FABAEA0EAA34FA0032CABF /* mdaDelayProcessor.h */,
+				F4FABAEB0EAA34FA0032CABF /* mdaDetuneController.cpp */,
+				F4FABAEC0EAA34FA0032CABF /* mdaDetuneController.h */,
+				F4FABAED0EAA34FA0032CABF /* mdaDetuneProcessor.cpp */,
+				F4FABAEE0EAA34FA0032CABF /* mdaDetuneProcessor.h */,
+				F4FABAEF0EAA34FA0032CABF /* mdaDitherController.cpp */,
+				F4FABAF00EAA34FA0032CABF /* mdaDitherController.h */,
+				F4FABAF10EAA34FA0032CABF /* mdaDitherProcessor.cpp */,
+				F4FABAF20EAA34FA0032CABF /* mdaDitherProcessor.h */,
+				F4FABAF30EAA34FA0032CABF /* mdaDubDelayController.cpp */,
+				F4FABAF40EAA34FA0032CABF /* mdaDubDelayController.h */,
+				F4FABAF50EAA34FA0032CABF /* mdaDubDelayProcessor.cpp */,
+				F4FABAF60EAA34FA0032CABF /* mdaDubDelayProcessor.h */,
+				F4FABAF70EAA34FA0032CABF /* mdaDX10Controller.cpp */,
+				F4FABAF80EAA34FA0032CABF /* mdaDX10Controller.h */,
+				F4FABAF90EAA34FA0032CABF /* mdaDX10Processor.cpp */,
+				F4FABAFA0EAA34FA0032CABF /* mdaDX10Processor.h */,
+				F4FABAFB0EAA34FA0032CABF /* mdaDynamicsController.cpp */,
+				F4FABAFC0EAA34FA0032CABF /* mdaDynamicsController.h */,
+				F4FABAFD0EAA34FA0032CABF /* mdaDynamicsProcessor.cpp */,
+				F4FABAFE0EAA34FA0032CABF /* mdaDynamicsProcessor.h */,
+				F4FABAFF0EAA34FA0032CABF /* mdaEPianoController.cpp */,
+				F4FABB000EAA34FA0032CABF /* mdaEPianoController.h */,
+				F4FABB010EAA34FA0032CABF /* mdaEPianoData.h */,
+				F4FABB020EAA34FA0032CABF /* mdaEPianoProcessor.cpp */,
+				F4FABB030EAA34FA0032CABF /* mdaEPianoProcessor.h */,
+				F4FABB040EAA34FA0032CABF /* mdafactory.cpp */,
+				F4FABB050EAA34FA0032CABF /* mdaImageController.cpp */,
+				F4FABB060EAA34FA0032CABF /* mdaImageController.h */,
+				F4FABB070EAA34FA0032CABF /* mdaImageProcessor.cpp */,
+				F4FABB080EAA34FA0032CABF /* mdaImageProcessor.h */,
+				F4FABB090EAA34FA0032CABF /* mdaJX10Controller.cpp */,
+				F4FABB0A0EAA34FA0032CABF /* mdaJX10Controller.h */,
+				F4FABB0B0EAA34FA0032CABF /* mdaJX10Processor.cpp */,
+				F4FABB0C0EAA34FA0032CABF /* mdaJX10Processor.h */,
+				F4FABB0D0EAA34FA0032CABF /* mdaLeslieController.cpp */,
+				F4FABB0E0EAA34FA0032CABF /* mdaLeslieController.h */,
+				F4FABB0F0EAA34FA0032CABF /* mdaLeslieProcessor.cpp */,
+				F4FABB100EAA34FA0032CABF /* mdaLeslieProcessor.h */,
+				F4FABB110EAA34FA0032CABF /* mdaLimiterController.cpp */,
+				F4FABB120EAA34FA0032CABF /* mdaLimiterController.h */,
+				F4FABB130EAA34FA0032CABF /* mdaLimiterProcessor.cpp */,
+				F4FABB140EAA34FA0032CABF /* mdaLimiterProcessor.h */,
+				F4FABB150EAA34FA0032CABF /* mdaLoudnessController.cpp */,
+				F4FABB160EAA34FA0032CABF /* mdaLoudnessController.h */,
+				F4FABB170EAA34FA0032CABF /* mdaLoudnessProcessor.cpp */,
+				F4FABB180EAA34FA0032CABF /* mdaLoudnessProcessor.h */,
+				F4FABB190EAA34FA0032CABF /* mdaMultiBandController.cpp */,
+				F4FABB1A0EAA34FA0032CABF /* mdaMultiBandController.h */,
+				F4FABB1B0EAA34FA0032CABF /* mdaMultiBandProcessor.cpp */,
+				F4FABB1C0EAA34FA0032CABF /* mdaMultiBandProcessor.h */,
+				F4FABB1D0EAA34FA0032CABF /* mdaOverdriveController.cpp */,
+				F4FABB1E0EAA34FA0032CABF /* mdaOverdriveController.h */,
+				F4FABB1F0EAA34FA0032CABF /* mdaOverdriveProcessor.cpp */,
+				F4FABB200EAA34FA0032CABF /* mdaOverdriveProcessor.h */,
+				F4FABB210EAA34FA0032CABF /* mdaParameter.cpp */,
+				F4FABB220EAA34FA0032CABF /* mdaParameter.h */,
+				F4FABB230EAA34FA0032CABF /* mdaPianoController.cpp */,
+				F4FABB240EAA34FA0032CABF /* mdaPianoController.h */,
+				F4FABB250EAA34FA0032CABF /* mdaPianoData.h */,
+				F4FABB260EAA34FA0032CABF /* mdaPianoProcessor.cpp */,
+				F4FABB270EAA34FA0032CABF /* mdaPianoProcessor.h */,
+				F4FABB280EAA34FA0032CABF /* mdaRePsychoController.cpp */,
+				F4FABB290EAA34FA0032CABF /* mdaRePsychoController.h */,
+				F4FABB2A0EAA34FA0032CABF /* mdaRePsychoProcessor.cpp */,
+				F4FABB2B0EAA34FA0032CABF /* mdaRePsychoProcessor.h */,
+				F4FABB2C0EAA34FA0032CABF /* mdaRezFilterController.cpp */,
+				F4FABB2D0EAA34FA0032CABF /* mdaRezFilterController.h */,
+				F4FABB2E0EAA34FA0032CABF /* mdaRezFilterProcessor.cpp */,
+				F4FABB2F0EAA34FA0032CABF /* mdaRezFilterProcessor.h */,
+				F4FABB300EAA34FA0032CABF /* mdaRingModController.cpp */,
+				F4FABB310EAA34FA0032CABF /* mdaRingModController.h */,
+				F4FABB320EAA34FA0032CABF /* mdaRingModProcessor.cpp */,
+				F4FABB330EAA34FA0032CABF /* mdaRingModProcessor.h */,
+				F4FABB340EAA34FA0032CABF /* mdaRoundPanController.cpp */,
+				F4FABB350EAA34FA0032CABF /* mdaRoundPanController.h */,
+				F4FABB360EAA34FA0032CABF /* mdaRoundPanProcessor.cpp */,
+				F4FABB370EAA34FA0032CABF /* mdaRoundPanProcessor.h */,
+				F4FABB380EAA34FA0032CABF /* mdaShepardController.cpp */,
+				F4FABB390EAA34FA0032CABF /* mdaShepardController.h */,
+				F4FABB3A0EAA34FA0032CABF /* mdaShepardProcessor.cpp */,
+				F4FABB3B0EAA34FA0032CABF /* mdaShepardProcessor.h */,
+				F4FABB3C0EAA34FA0032CABF /* mdaSpecMeterController.cpp */,
+				F4FABB3D0EAA34FA0032CABF /* mdaSpecMeterController.h */,
+				F4FABB420EAA34FA0032CABF /* mdaSpecMeterProcessor.cpp */,
+				F4FABB430EAA34FA0032CABF /* mdaSpecMeterProcessor.h */,
+				F4FABB440EAA34FA0032CABF /* mdaSplitterController.cpp */,
+				F4FABB450EAA34FA0032CABF /* mdaSplitterController.h */,
+				F4FABB460EAA34FA0032CABF /* mdaSplitterProcessor.cpp */,
+				F4FABB470EAA34FA0032CABF /* mdaSplitterProcessor.h */,
+				F4FABB480EAA34FA0032CABF /* mdaStereoController.cpp */,
+				F4FABB490EAA34FA0032CABF /* mdaStereoController.h */,
+				F4FABB4A0EAA34FA0032CABF /* mdaStereoProcessor.cpp */,
+				F4FABB4B0EAA34FA0032CABF /* mdaStereoProcessor.h */,
+				F4FABB4C0EAA34FA0032CABF /* mdaSubSynthController.cpp */,
+				F4FABB4D0EAA34FA0032CABF /* mdaSubSynthController.h */,
+				F4FABB4E0EAA34FA0032CABF /* mdaSubSynthProcessor.cpp */,
+				F4FABB4F0EAA34FA0032CABF /* mdaSubSynthProcessor.h */,
+				F4FABB500EAA34FA0032CABF /* mdaTalkBoxController.cpp */,
+				F4FABB510EAA34FA0032CABF /* mdaTalkBoxController.h */,
+				F4FABB520EAA34FA0032CABF /* mdaTalkBoxProcessor.cpp */,
+				F4FABB530EAA34FA0032CABF /* mdaTalkBoxProcessor.h */,
+				F4FABB540EAA34FA0032CABF /* mdaTestToneController.cpp */,
+				F4FABB550EAA34FA0032CABF /* mdaTestToneController.h */,
+				F4FABB560EAA34FA0032CABF /* mdaTestToneProcessor.cpp */,
+				F4FABB570EAA34FA0032CABF /* mdaTestToneProcessor.h */,
+				F4FABB580EAA34FA0032CABF /* mdaThruZeroController.cpp */,
+				F4FABB590EAA34FA0032CABF /* mdaThruZeroController.h */,
+				F4FABB5A0EAA34FA0032CABF /* mdaThruZeroProcessor.cpp */,
+				F4FABB5B0EAA34FA0032CABF /* mdaThruZeroProcessor.h */,
+				F4FABB5C0EAA34FA0032CABF /* mdaTrackerController.cpp */,
+				F4FABB5D0EAA34FA0032CABF /* mdaTrackerController.h */,
+				F4FABB5E0EAA34FA0032CABF /* mdaTrackerProcessor.cpp */,
+				F4FABB5F0EAA34FA0032CABF /* mdaTrackerProcessor.h */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		5088180609F0CDD00071BF1A /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEBC30EAA3ACF00F30CDD /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		F406620312D1D83C00372CDC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F406620712D1D83C00372CDC /* libbase_stdc++.a */,
+				F48F4C8F1855E3E30094DC92 /* libbase_libc++.a */,
+				F48F4C911855E3E30094DC92 /* libbase_ios.a */,
+				F48F4C931855E3E30094DC92 /* libbase_codecoverage_stdc++.a */,
+				F48F4C951855E3E30094DC92 /* libbase_codecoverage_libc++.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F41CEB3A0EAA391300F30CDD /* vst3 sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB3E0EAA392A00F30CDD /* public.sdk */,
+				F41CEB3D0EAA392200F30CDD /* pluginterfaces */,
+			);
+			name = "vst3 sdk";
+			sourceTree = "<group>";
+		};
+		F41CEB3D0EAA392200F30CDD /* pluginterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB7E0EAA39C500F30CDD /* base */,
+			);
+			name = pluginterfaces;
+			sourceTree = "<group>";
+		};
+		F41CEB3E0EAA392A00F30CDD /* public.sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB800EAA39D800F30CDD /* common */,
+				F41CEB400EAA393600F30CDD /* main */,
+				F41CEB3F0EAA393100F30CDD /* vst */,
+			);
+			name = public.sdk;
+			sourceTree = "<group>";
+		};
+		F41CEB3F0EAA393100F30CDD /* vst */ = {
+			isa = PBXGroup;
+			children = (
+				5810B906108355A800EBDCF2 /* vstinitiids.cpp */,
+				F41CEB550EAA397600F30CDD /* vstaudioeffect.cpp */,
+				F41CEB560EAA397600F30CDD /* vstaudioeffect.h */,
+				F41CEB570EAA397600F30CDD /* vstbus.cpp */,
+				F41CEB580EAA397600F30CDD /* vstbus.h */,
+				F41CEB590EAA397600F30CDD /* vstcomponent.cpp */,
+				F41CEB5A0EAA397600F30CDD /* vstcomponent.h */,
+				F41CEB5B0EAA397600F30CDD /* vstcomponentbase.cpp */,
+				F41CEB5C0EAA397600F30CDD /* vstcomponentbase.h */,
+				F41CEB5D0EAA397600F30CDD /* vsteditcontroller.cpp */,
+				F41CEB5E0EAA397600F30CDD /* vsteditcontroller.h */,
+				F41CEB5F0EAA397600F30CDD /* vstparameters.cpp */,
+				F41CEB600EAA397600F30CDD /* vstparameters.h */,
+			);
+			name = vst;
+			sourceTree = "<group>";
+		};
+		F41CEB400EAA393600F30CDD /* main */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB4F0EAA395000F30CDD /* macmain.cpp */,
+				F49D89971074CC5E003EFE21 /* pluginfactoryvst3.cpp */,
+				F49D89981074CC5E003EFE21 /* pluginfactoryvst3.h */,
+			);
+			name = main;
+			sourceTree = "<group>";
+		};
+		F41CEB7E0EAA39C500F30CDD /* base */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB750EAA39C100F30CDD /* conststringtable.cpp */,
+				F41CEB760EAA39C100F30CDD /* funknown.cpp */,
+				F41CEB770EAA39C100F30CDD /* conststringtable.h */,
+				F41CEB780EAA39C100F30CDD /* funknown.h */,
+				F41CEB790EAA39C100F30CDD /* ustring.cpp */,
+				F41CEB7A0EAA39C100F30CDD /* ustring.h */,
+			);
+			name = base;
+			sourceTree = "<group>";
+		};
+		F41CEB800EAA39D800F30CDD /* common */ = {
+			isa = PBXGroup;
+			children = (
+				F41CEB820EAA39EB00F30CDD /* pluginview.cpp */,
+				F41CEB830EAA39EB00F30CDD /* pluginview.h */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		F4E6B283133A05AD005931D3 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				F48F4C961855E3ED0094DC92 /* debug.xcconfig */,
+				F48F4C971855E3ED0094DC92 /* mda-vst3.xcconfig */,
+				F48F4C981855E3ED0094DC92 /* release.xcconfig */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		508817D309F0C9AD0071BF1A /* mda-vst3 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 508817D709F0C9AE0071BF1A /* Build configuration list for PBXNativeTarget "mda-vst3" */;
+			buildPhases = (
+				508817D009F0C9AD0071BF1A /* Resources */,
+				508817D109F0C9AD0071BF1A /* Sources */,
+				508817D209F0C9AD0071BF1A /* Frameworks */,
+				F48C29DC104D2AF7006C8226 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F48F4C9D1855E4AB0094DC92 /* PBXTargetDependency */,
+			);
+			name = "mda-vst3";
+			productName = "mda-vst3";
+			productReference = 508817D409F0C9AD0071BF1A /* mda.vst3 */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		508817C409F0C9740071BF1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 508817C509F0C9740071BF1A /* Build configuration list for PBXProject "mda-vst3" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 508817C209F0C9740071BF1A;
+			productRefGroup = 508817D509F0C9AD0071BF1A /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F406620312D1D83C00372CDC /* Products */;
+					ProjectRef = F406620212D1D83C00372CDC /* base.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				508817D309F0C9AD0071BF1A /* mda-vst3 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F406620712D1D83C00372CDC /* libbase_stdc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_stdc++.a";
+			remoteRef = F406620612D1D83C00372CDC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4C8F1855E3E30094DC92 /* libbase_libc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_libc++.a";
+			remoteRef = F48F4C8E1855E3E30094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4C911855E3E30094DC92 /* libbase_ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libbase_ios.a;
+			remoteRef = F48F4C901855E3E30094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4C931855E3E30094DC92 /* libbase_codecoverage_stdc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_codecoverage_stdc++.a";
+			remoteRef = F48F4C921855E3E30094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4C951855E3E30094DC92 /* libbase_codecoverage_libc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_codecoverage_libc++.a";
+			remoteRef = F48F4C941855E3E30094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		508817D009F0C9AD0071BF1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48F4C9B1855E3ED0094DC92 /* release.xcconfig in Resources */,
+				F48F4C991855E3ED0094DC92 /* debug.xcconfig in Resources */,
+				F48F4C9A1855E3ED0094DC92 /* mda-vst3.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F48C29DC104D2AF7006C8226 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "source ../../mac/make_vst3_symbolic_link.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		508817D109F0C9AD0071BF1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4FABB600EAA34FA0032CABF /* mdaAmbienceController.cpp in Sources */,
+				F4FABB610EAA34FA0032CABF /* mdaAmbienceProcessor.cpp in Sources */,
+				F4FABB620EAA34FA0032CABF /* mdaBandistoController.cpp in Sources */,
+				F4FABB630EAA34FA0032CABF /* mdaBandistoProcessor.cpp in Sources */,
+				F4FABB640EAA34FA0032CABF /* mdaBaseController.cpp in Sources */,
+				F4FABB650EAA34FA0032CABF /* mdaBaseProcessor.cpp in Sources */,
+				F4FABB660EAA34FA0032CABF /* mdaBeatBoxController.cpp in Sources */,
+				F4FABB670EAA34FA0032CABF /* mdaBeatBoxProcessor.cpp in Sources */,
+				F4FABB680EAA34FA0032CABF /* mdaComboController.cpp in Sources */,
+				F4FABB690EAA34FA0032CABF /* mdaComboProcessor.cpp in Sources */,
+				F4FABB6A0EAA34FA0032CABF /* mdaDeEsserController.cpp in Sources */,
+				F4FABB6B0EAA34FA0032CABF /* mdaDeEsserProcessor.cpp in Sources */,
+				F4FABB6C0EAA34FA0032CABF /* mdaDegradeController.cpp in Sources */,
+				F4FABB6D0EAA34FA0032CABF /* mdaDegradeProcessor.cpp in Sources */,
+				F4FABB6E0EAA34FA0032CABF /* mdaDelayController.cpp in Sources */,
+				F4FABB6F0EAA34FA0032CABF /* mdaDelayProcessor.cpp in Sources */,
+				F4FABB700EAA34FA0032CABF /* mdaDetuneController.cpp in Sources */,
+				F4FABB710EAA34FA0032CABF /* mdaDetuneProcessor.cpp in Sources */,
+				F4FABB720EAA34FA0032CABF /* mdaDitherController.cpp in Sources */,
+				F4FABB730EAA34FA0032CABF /* mdaDitherProcessor.cpp in Sources */,
+				F4FABB740EAA34FA0032CABF /* mdaDubDelayController.cpp in Sources */,
+				F4FABB750EAA34FA0032CABF /* mdaDubDelayProcessor.cpp in Sources */,
+				F4FABB760EAA34FA0032CABF /* mdaDX10Controller.cpp in Sources */,
+				F4FABB770EAA34FA0032CABF /* mdaDX10Processor.cpp in Sources */,
+				F4FABB780EAA34FA0032CABF /* mdaDynamicsController.cpp in Sources */,
+				F4FABB790EAA34FA0032CABF /* mdaDynamicsProcessor.cpp in Sources */,
+				F4FABB7A0EAA34FA0032CABF /* mdaEPianoController.cpp in Sources */,
+				F4FABB7B0EAA34FA0032CABF /* mdaEPianoProcessor.cpp in Sources */,
+				F4FABB7C0EAA34FA0032CABF /* mdafactory.cpp in Sources */,
+				F4FABB7D0EAA34FA0032CABF /* mdaImageController.cpp in Sources */,
+				F4FABB7E0EAA34FA0032CABF /* mdaImageProcessor.cpp in Sources */,
+				F4FABB7F0EAA34FA0032CABF /* mdaJX10Controller.cpp in Sources */,
+				F4FABB800EAA34FA0032CABF /* mdaJX10Processor.cpp in Sources */,
+				F4FABB810EAA34FA0032CABF /* mdaLeslieController.cpp in Sources */,
+				F4FABB820EAA34FA0032CABF /* mdaLeslieProcessor.cpp in Sources */,
+				F4FABB830EAA34FA0032CABF /* mdaLimiterController.cpp in Sources */,
+				F4FABB840EAA34FA0032CABF /* mdaLimiterProcessor.cpp in Sources */,
+				F4FABB850EAA34FA0032CABF /* mdaLoudnessController.cpp in Sources */,
+				F4FABB860EAA34FA0032CABF /* mdaLoudnessProcessor.cpp in Sources */,
+				F4FABB870EAA34FA0032CABF /* mdaMultiBandController.cpp in Sources */,
+				F4FABB880EAA34FA0032CABF /* mdaMultiBandProcessor.cpp in Sources */,
+				F4FABB890EAA34FA0032CABF /* mdaOverdriveController.cpp in Sources */,
+				F4FABB8A0EAA34FA0032CABF /* mdaOverdriveProcessor.cpp in Sources */,
+				F4FABB8B0EAA34FA0032CABF /* mdaParameter.cpp in Sources */,
+				F4FABB8C0EAA34FA0032CABF /* mdaPianoController.cpp in Sources */,
+				F4FABB8D0EAA34FA0032CABF /* mdaPianoProcessor.cpp in Sources */,
+				F4FABB8E0EAA34FA0032CABF /* mdaRePsychoController.cpp in Sources */,
+				F4FABB8F0EAA34FA0032CABF /* mdaRePsychoProcessor.cpp in Sources */,
+				F4FABB900EAA34FA0032CABF /* mdaRezFilterController.cpp in Sources */,
+				F4FABB910EAA34FA0032CABF /* mdaRezFilterProcessor.cpp in Sources */,
+				F4FABB920EAA34FA0032CABF /* mdaRingModController.cpp in Sources */,
+				F4FABB930EAA34FA0032CABF /* mdaRingModProcessor.cpp in Sources */,
+				F4FABB940EAA34FA0032CABF /* mdaRoundPanController.cpp in Sources */,
+				F4FABB950EAA34FA0032CABF /* mdaRoundPanProcessor.cpp in Sources */,
+				F4FABB960EAA34FA0032CABF /* mdaShepardController.cpp in Sources */,
+				F4FABB970EAA34FA0032CABF /* mdaShepardProcessor.cpp in Sources */,
+				F4FABB980EAA34FA0032CABF /* mdaSpecMeterController.cpp in Sources */,
+				F4FABB9B0EAA34FA0032CABF /* mdaSpecMeterProcessor.cpp in Sources */,
+				F4FABB9C0EAA34FA0032CABF /* mdaSplitterController.cpp in Sources */,
+				F4FABB9D0EAA34FA0032CABF /* mdaSplitterProcessor.cpp in Sources */,
+				F4FABB9E0EAA34FA0032CABF /* mdaStereoController.cpp in Sources */,
+				F4FABB9F0EAA34FA0032CABF /* mdaStereoProcessor.cpp in Sources */,
+				F4FABBA00EAA34FA0032CABF /* mdaSubSynthController.cpp in Sources */,
+				F4FABBA10EAA34FA0032CABF /* mdaSubSynthProcessor.cpp in Sources */,
+				F4FABBA20EAA34FA0032CABF /* mdaTalkBoxController.cpp in Sources */,
+				F4FABBA30EAA34FA0032CABF /* mdaTalkBoxProcessor.cpp in Sources */,
+				F4FABBA40EAA34FA0032CABF /* mdaTestToneController.cpp in Sources */,
+				F4FABBA50EAA34FA0032CABF /* mdaTestToneProcessor.cpp in Sources */,
+				F4FABBA60EAA34FA0032CABF /* mdaThruZeroController.cpp in Sources */,
+				F4FABBA70EAA34FA0032CABF /* mdaThruZeroProcessor.cpp in Sources */,
+				F4FABBA80EAA34FA0032CABF /* mdaTrackerController.cpp in Sources */,
+				F4FABBA90EAA34FA0032CABF /* mdaTrackerProcessor.cpp in Sources */,
+				F41CEB520EAA395000F30CDD /* macmain.cpp in Sources */,
+				F41CEB610EAA397600F30CDD /* vstaudioeffect.cpp in Sources */,
+				F41CEB620EAA397600F30CDD /* vstbus.cpp in Sources */,
+				F41CEB630EAA397600F30CDD /* vstcomponent.cpp in Sources */,
+				F41CEB640EAA397600F30CDD /* vstcomponentbase.cpp in Sources */,
+				F41CEB650EAA397600F30CDD /* vsteditcontroller.cpp in Sources */,
+				F41CEB660EAA397600F30CDD /* vstparameters.cpp in Sources */,
+				F41CEB7B0EAA39C100F30CDD /* conststringtable.cpp in Sources */,
+				F41CEB7C0EAA39C100F30CDD /* funknown.cpp in Sources */,
+				F41CEB7D0EAA39C100F30CDD /* ustring.cpp in Sources */,
+				F41CEB840EAA39EB00F30CDD /* pluginview.cpp in Sources */,
+				F49D89991074CC5E003EFE21 /* pluginfactoryvst3.cpp in Sources */,
+				5810B907108355A800EBDCF2 /* vstinitiids.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F48F4C9D1855E4AB0094DC92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "base_libc++";
+			targetProxy = F48F4C9C1855E4AB0094DC92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		508817C609F0C9740071BF1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4C961855E3ED0094DC92 /* debug.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../,
+					../../../../../,
+				);
+			};
+			name = Debug;
+		};
+		508817C709F0C9740071BF1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4C981855E3ED0094DC92 /* release.xcconfig */;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					../,
+					../../../../../,
+				);
+			};
+			name = Release;
+		};
+		508817D809F0C9AE0071BF1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4C971855E3ED0094DC92 /* mda-vst3.xcconfig */;
+			buildSettings = {
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+			};
+			name = Debug;
+		};
+		508817D909F0C9AE0071BF1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4C971855E3ED0094DC92 /* mda-vst3.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		508817C509F0C9740071BF1A /* Build configuration list for PBXProject "mda-vst3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508817C609F0C9740071BF1A /* Debug */,
+				508817C709F0C9740071BF1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		508817D709F0C9AE0071BF1A /* Build configuration list for PBXNativeTarget "mda-vst3" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508817D809F0C9AE0071BF1A /* Debug */,
+				508817D909F0C9AE0071BF1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 508817C409F0C9740071BF1A /* Project object */;
+}

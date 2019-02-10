@@ -1,0 +1,21 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{Component\n|+ audioInputs\l+ audioOutputs\l+ eventInputs\l+ eventOutputs\l|+ Component()\l+ setControllerClass()\l+ removeAudioBusses()\l+ removeEventBusses()\l+ renameBus()\l+ getControllerClassId()\l+ setIoMode()\l+ getBusCount()\l+ getBusInfo()\l+ getRoutingInfo()\l+ activateBus()\l+ setActive()\l+ setState()\l+ getState()\l+ initialize()\l+ terminate()\l+ getBusList()\l+ removeAllBusses()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{ComponentBase\n|+ peerConnection\l|+ ComponentBase()\l+ ~ComponentBase()\l+ getHostContext()\l+ getPeer()\l+ allocateMessage()\l+ sendMessage()\l+ sendTextMessage()\l+ receiveText()\l+ initialize()\l+ terminate()\l+ connect()\l+ disconnect()\l+ notify()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1ComponentBase.html",tooltip="Base class for VST 3 Component and Edit Controller."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{IPluginBase\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginBase.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node5 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{IConnectionPoint\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IConnectionPoint.html"];
+  Node4 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IComponent\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IComponent.html"];
+  Node3 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{AudioEffect\n||+ AudioEffect()\l+ addAudioInput()\l+ addAudioOutput()\l+ getAudioInput()\l+ getAudioOutput()\l+ addEventInput()\l+ addEventOutput()\l+ getEventInput()\l+ getEventOutput()\l+ setBusArrangements()\l+ getBusArrangement()\l+ canProcessSampleSize()\l+ getLatencySamples()\l+ setupProcessing()\l+ setProcessing()\l+ process()\l+ getTailSamples()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1AudioEffect.html",tooltip="Default implementation for a VST 3 audio effect."];
+}

@@ -1,0 +1,11 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{IPtr\< I \>\n|# ptr\l|+ IPtr()\l+ IPtr()\l+ IPtr()\l+ IPtr()\l+ ~IPtr()\l+ operator=()\l+ operator=()\l+ operator=()\l+ operator I *()\l+ operator-\>()\l+ get()\l+ IPtr()\l+ operator=()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{FUnknownPtr\< I \>\n||+ FUnknownPtr()\l+ FUnknownPtr()\l+ FUnknownPtr()\l+ operator=()\l+ operator=()\l+ getInterface()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1FUnknownPtr.html",tooltip="FUnknownPtr - automatic interface conversion and smart pointer in one."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{OPtr\< I \>\n||+ OPtr()\l+ OPtr()\l+ OPtr()\l+ OPtr()\l+ operator=()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1OPtr.html",tooltip="OPtr - &quot;owning&quot; smart pointer used for newly created FObjects."];
+}

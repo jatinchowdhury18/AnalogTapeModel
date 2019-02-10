@@ -1,0 +1,11 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{Parameter\n|+ valueNormalized\l+ precision\l|+ Parameter()\l+ Parameter()\l+ Parameter()\l+ ~Parameter()\l+ getInfo()\l+ getInfo()\l+ setUnitID()\l+ getUnitID()\l+ getNormalized()\l+ setNormalized()\l+ toString()\l+ fromString()\l+ toPlain()\l+ toNormalized()\l+ getPrecision()\l+ setPrecision()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{RangeParameter\n|+ minPlain\l+ maxPlain\l|+ RangeParameter()\l+ RangeParameter()\l+ getMin()\l+ setMin()\l+ getMax()\l+ setMax()\l+ toString()\l+ fromString()\l+ toPlain()\l+ toNormalized()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1RangeParameter.html",tooltip="Description of a RangeParameter."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{StringListParameter\n||+ StringListParameter()\l+ StringListParameter()\l+ ~StringListParameter()\l+ appendString()\l+ replaceString()\l+ toString()\l+ fromString()\l+ toPlain()\l+ toNormalized()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1StringListParameter.html",tooltip="Description of a StringListParameter."];
+}

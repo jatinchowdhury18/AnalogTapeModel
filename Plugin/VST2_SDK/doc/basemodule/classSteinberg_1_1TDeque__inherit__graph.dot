@@ -1,0 +1,11 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{TDeque\< T \>\n||+ TDeque()\l+ TDeque()\l+ ~TDeque()\l+ operator=()\l+ pushLeft()\l+ pushRight()\l+ popLeft()\l+ popRight()\l+ peekLeft()\l+ peekRight()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{TLinkedList\< T \>\n|- _first\l- _last\l|+ TLinkedList()\l+ TLinkedList()\l+ TLinkedList()\l+ ~TLinkedList()\l+ newInstance()\l+ operator=()\l+ add()\l+ append()\l+ prepend()\l+ insertAt()\l+ replaceAt()\l+ remove()\l+ remove()\l+ removeAt()\l+ removeAll()\l+ removeFirst()\l+ removeLast()\l+ insertAfter()\l+ insertBefore()\l+ first()\l+ last()\l+ index()\l+ at()\l+ lookup()\l+ contains()\l+ occurrences()\l+ newIterator()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TLinkedList.html",tooltip="Single linked list template definition."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{TContainer\< T \>\n|# errorObject\l# _size\l|+ TContainer()\l+ TContainer()\l+ ~TContainer()\l+ operator==()\l+ operator!=()\l+ newInstance()\l+ operator[]()\l+ total()\l+ isEmpty()\l+ size()\l+ add()\l+ remove()\l+ remove()\l+ removeAt()\l+ removeAll()\l+ at()\l+ lookup()\l+ contains()\l+ occurrences()\l+ newIterator()\l+ lookupAll()\l+ addAllFrom()\l+ addNewFrom()\l+ error()\l# copy()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1TContainer.html",tooltip="Template container base class (abstract)."];
+}

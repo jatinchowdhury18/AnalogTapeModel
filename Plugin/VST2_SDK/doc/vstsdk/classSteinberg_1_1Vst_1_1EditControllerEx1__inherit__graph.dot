@@ -1,0 +1,27 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{EditControllerEx1\n|+ programLists\l+ selectedUnit\l|+ EditControllerEx1()\l+ ~EditControllerEx1()\l+ addUnit()\l+ addProgramList()\l+ getProgramList()\l+ notifyPogramListChange()\l+ getUnitCount()\l+ getUnitInfo()\l+ getProgramListCount()\l+ getProgramListInfo()\l+ getProgramName()\l+ getProgramInfo()\l+ hasProgramPitchNames()\l+ getProgramPitchName()\l+ setProgramName()\l+ getSelectedUnit()\l+ selectUnit()\l+ getUnitByBus()\l+ setUnitProgramData()\l+ notifyUnitSelection()\l+ update()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{EditController\n|+ componentHandler2\l+ parameters\l+ hostKnobMode\l|+ EditController()\l+ setComponentState()\l+ setState()\l+ getState()\l+ getParameterCount()\l+ getParameterInfo()\l+ getParamStringByValue()\l+ getParamValueByString()\l+ normalizedParamToPlain()\l+ plainParamToNormalized()\l+ getParamNormalized()\l+ setParamNormalized()\l+ setComponentHandler()\l+ createView()\l+ setKnobMode()\l+ openHelp()\l+ openAboutBox()\l+ initialize()\l+ terminate()\l+ beginEdit()\l+ performEdit()\l+ endEdit()\l+ startGroupEdit()\l+ finishGroupEdit()\l+ editorDestroyed()\l+ editorAttached()\l+ editorRemoved()\l+ getParameterObject()\l+ getParameterInfoByTag()\l+ setDirty()\l+ requestOpenEditor()\l+ getComponentHandler()\l+ getHostKnobMode()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1EditController.html",tooltip="Default implementation for a VST 3 edit controller."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{ComponentBase\n|+ peerConnection\l|+ ComponentBase()\l+ ~ComponentBase()\l+ getHostContext()\l+ getPeer()\l+ allocateMessage()\l+ sendMessage()\l+ sendTextMessage()\l+ receiveText()\l+ initialize()\l+ terminate()\l+ connect()\l+ disconnect()\l+ notify()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1ComponentBase.html",tooltip="Base class for VST 3 Component and Edit Controller."];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{IPluginBase\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginBase.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+  Node6 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{IConnectionPoint\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IConnectionPoint.html"];
+  Node5 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{IEditController\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController.html"];
+  Node4 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{IEditController2\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IEditController2.html"];
+  Node5 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 [label="{IUnitInfo\n||}",height=0.2,width=0.4,color="black",URL="vstinterfaces.tag$classSteinberg_1_1Vst_1_1IUnitInfo.html"];
+  Node5 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+}

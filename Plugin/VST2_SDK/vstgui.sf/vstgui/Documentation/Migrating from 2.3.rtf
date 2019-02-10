@@ -1,0 +1,73 @@
+{\rtf1\mac\ansicpg10000\cocoartf824\cocoasubrtf100
+{\fonttbl\f0\fswiss\fcharset77 Helvetica-Bold;\f1\fswiss\fcharset77 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red255\green0\blue24;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww21420\viewh15340\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural
+
+\f0\b\fs38 \cf0 \ul \ulc0 Migrating from VSTGUI 2.3 to VSTGUI 3.0\
+
+\f1\b0\fs22 \ulnone \
+
+\f0\b\fs26 \ul Things you need to change in your code:\
+
+\f1\b0\fs22 \ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li560\fi-560\ql\qnatural
+
+\fs24 \cf0 - CFrame::removeView (CView *pView, const bool &withForget = true)	The second parameter (withForget) has changed its default parameter.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural
+\cf0 \
+- CDrawContext::getMouseLocation (CPoint &point)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li560\fi-560\ql\qnatural
+\cf0 	This call will always report the global frame coordinate of the mouse. If you need the mouse coordinates relative to a view, use view->getMouseLocation (context, point)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural
+\cf0 \
+- The following CView methods are deprecated :\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li560\fi-560\ql\qnatural
+\cf0 	virtual void setParentView (CView *pParentView);\
+	virtual void setFrame (CFrame *pParent);\
+	virtual void getFrameTopLeftPos (CPoint& topLeft) const;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li140\fi-140\ql\qnatural
+\cf0 - Don't call frame->beginEdit(..) and frame->endEdit(..) in your subclassed controls. Use the CControl methods beginEdit, endEdit.\
+\
+- Nearly all getter methods have changed to be const. Check all your subclasses, so that your methods don't hide the inherited virtual functions.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li140\fi20\ql\qnatural
+\cf0 This may be the most important methods from CView and CControl\
+- CView::checkUpdate ()\
+- CView::isDirty ()\
+- CControl::getValue ()\
+- CControl::getMin ()\
+- CControl::getMax ()\
+- CControl::getOldValue ()\
+- CControl::getDefaultValue ()\
+- CControl::getTag ()\
+- CControl::getWheelInc ()\
+- CControl::getListener ()\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li140\fi-140\ql\qnatural
+\cf0 \
+- Don't call CControl::update (..) anymore to force an control to redraw. Just call CControl::setDirty (true);\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural
+\cf0 \
+\pard\tx565\tx1133\tx1700\tx2266\tx2833\tx3401\tx3967\tx4535\tx5102\tx5669\tx6235\tx6802\ql\qnatural
+
+\f0\b\fs26 \cf0 \ul How to use PNG Images on Windows:\
+\
+\pard\tx565\tx1133\tx1700\tx2266\tx2833\tx3401\tx3967\tx4535\tx5102\tx5669\tx6235\tx6802\ql\qnatural
+
+\f1\b0\fs24 \cf0 \ulnone - Download libpng and zlib ({\field{\*\fldinst{HYPERLINK "http://libpng.sourceforge.net/"}}{\fldrslt \cf2 http://libpng.sourceforge.net/}}\cf2 , {\field{\*\fldinst{HYPERLINK "http://www.zlib.net/"}}{\fldrslt http://www.zlib.net/}}\cf0 )\
+- Add their sources to your project\
+- Define the preprocessor macro: USE_LIBPNG=1\
+- add your png images to your rc file like this: \
+	128	PNG		bmp00128.png\
+- rebuild ;-)\
+\
+\pard\tx565\tx1133\tx1700\tx2266\tx2832\tx3401\tx3967\tx4535\tx5102\tx5669\tx6235\tx6802\ql\qnatural
+
+\f0\b\fs26 \cf0 \ul Transparent Bitmaps with QUARTZ on Mac OS X:\
+\
+\pard\tx565\tx1133\tx1700\tx2266\tx2832\tx3401\tx3967\tx4535\tx5102\tx5669\tx6235\tx6802\ql\qnatural
+
+\f1\b0\fs24 \cf0 \ulnone Per default on Mac OS X if you need transparent bitmaps, you should use the alpha channel of a PNG Image. If you need the old behaviour and want to set bitmap->setTransparentColor (someColor) you need to call bitmap->setNoAlpha (true); (This actually is only necessary for PNG images, all other images will get the noAlpha state per default)\
+\
+}

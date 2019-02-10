@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{IStringResult\n|+ iid\l|+ setText()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{FUnknown\n|+ iid\l|+ queryInterface()\l+ addRef()\l+ release()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1FUnknown.html",tooltip="The basic interface of all interfaces."];
+}

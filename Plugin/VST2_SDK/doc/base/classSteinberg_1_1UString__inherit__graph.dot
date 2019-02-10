@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{UString\n|# thisBuffer\l# thisSize\l|+ UString()\l+ getSize()\l+ operator const char16 *()\l+ getLength()\l+ assign()\l+ append()\l+ copyTo()\l+ fromAscii()\l+ assign()\l+ toAscii()\l+ scanInt()\l+ printInt()\l+ scanFloat()\l+ printFloat()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{UStringBuffer\< maxSize \>\n|# data\l|+ UStringBuffer()\l+ UStringBuffer()\l+ UStringBuffer()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1UStringBuffer.html",tooltip="UTF-16 string with fixed buffer size."];
+}

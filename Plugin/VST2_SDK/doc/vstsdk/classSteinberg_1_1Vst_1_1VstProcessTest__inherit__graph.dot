@@ -1,0 +1,27 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{VstProcessTest\n|# processData\l|+ VstProcessTest()\l+ DECLARE_VSTTEST()\l+ run()\l+ teardown()\l# prepareProcessing()\l# unprepareProcessing()\l# preProcess()\l# postProcess()\l# setupBuffers()\l# setupBuffers()\l# freeBuffers()\l# canProcessSampleSize()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{VstTestEnh\n|# audioEffect\l# processSetup\l|+ VstTestEnh()\l+ ~VstTestEnh()\l+ setup()\l+ teardown()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstTestEnh.html",tooltip="Test Helper."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{VstTestBase\n|# plugProvider\l# vstPlug\l# controller\l|+ VstTestBase()\l+ ~VstTestBase()\l+ DECLARE_VSTTEST()\l+ run()\l+ teardown()\l- VstTestBase()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstTestBase.html",tooltip="Test Helper."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{VstAutomationTest\n|# bypassId\l# paramChanges\l# countParamChanges\l# everyNSamples\l# numParams\l# sampleAccuracy\l# onceExecuted\l|+ VstAutomationTest()\l+ ~VstAutomationTest()\l+ getName()\l+ setup()\l+ run()\l+ teardown()\l+ getParameterCount()\l+ getParameterData()\l+ addParameterData()\l# preProcess()\l# postProcess()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstAutomationTest.html",tooltip="Test Automation."];
+  Node4 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{VstFlushParamTest\n||+ VstFlushParamTest()\l+ run()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstFlushParamTest.html",tooltip="Test Parameters Flush (no Buffer)."];
+  Node1 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node6 [label="{VstProcessFormatTest\n||+ VstProcessFormatTest()\l+ run()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstProcessFormatTest.html",tooltip="Test Process Format."];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node7 [label="{VstProcessTailTest\n|- mTailSamples\l- mInTail\l- dataPtrFloat\l- dataPtrDouble\l- mInSilenceInput\l- mDontTest\l|+ VstProcessTailTest()\l+ ~VstProcessTailTest()\l+ DECLARE_VSTTEST()\l+ run()\l+ preProcess()\l+ postProcess()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstProcessTailTest.html",tooltip="Test ProcesTail."];
+  Node1 -> Node8 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node8 [label="{VstSilenceFlagsTest\n||+ VstSilenceFlagsTest()\l+ run()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstSilenceFlagsTest.html",tooltip="Test Silence Flags."];
+  Node1 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node9 [label="{VstSilenceProcessingTest\n||+ VstSilenceProcessingTest()\l+ run()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstSilenceProcessingTest.html",tooltip="Test Silence Processing."];
+  Node1 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node10 [label="{VstSpeakerArrangementTest\n|- inSpArr\l- outSpArr\l|+ VstSpeakerArrangementTest()\l+ getName()\l+ run()\l+ getSpeakerArrangementName()\l# prepareProcessing()\l# verifySA()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstSpeakerArrangementTest.html",tooltip="Test Speaker Arrangement."];
+  Node1 -> Node11 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node11 [label="{VstVariableBlockSizeTest\n||+ VstVariableBlockSizeTest()\l+ run()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1VstVariableBlockSizeTest.html",tooltip="Test Variable Block Size."];
+}

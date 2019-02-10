@@ -1,0 +1,363 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5088180A09F0CE0A0071BF1A /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5088180909F0CE0A0071BF1A /* CoreFoundation.framework */; };
+		705242CE1B624AEA00CB1108 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705242CD1B624AEA00CB1108 /* CoreMIDI.framework */; };
+		F49C1935156E353900AD946F /* libauwrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CE9C0012AE39E6007E91D2 /* libauwrapper.a */; };
+		F4F8519C0F1C90840076110E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F851980F1C90840076110E /* AudioToolbox.framework */; };
+		F4F8519D0F1C90840076110E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F851990F1C90840076110E /* AudioUnit.framework */; };
+		F4F8519E0F1C90840076110E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F8519A0F1C90840076110E /* Carbon.framework */; };
+		F4F8519F0F1C90840076110E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4F8519B0F1C90840076110E /* Cocoa.framework */; };
+		F4F851AD0F1C916D0076110E /* auresource.r in Rez */ = {isa = PBXBuildFile; fileRef = F4F851A90F1C90CA0076110E /* auresource.r */; };
+		F4F852040F1C94F70076110E /* doc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F852030F1C94F70076110E /* doc.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F4CE9BFF12AE39E6007E91D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CE9BF412AE39E6007E91D2 /* auwrapper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = auwrapper;
+		};
+		F4CE9C0C12AE39EA007E91D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CE9BF412AE39E6007E91D2 /* auwrapper.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC045055464E500DB518D;
+			remoteInfo = auwrapper;
+		};
+		F4CE9C4512AE3B4E007E91D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D01CCD20486CAD60068D4B7;
+			remoteInfo = again;
+		};
+		F4CE9C4712AE3B4E007E91D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4B195E710908B1D003BD204;
+			remoteInfo = "again single component";
+		};
+		F4CE9C4912AE3B55007E91D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D01CCC60486CAD60068D4B7;
+			remoteInfo = again;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		508817D609F0C9AD0071BF1A /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text; path = Info.plist; sourceTree = "<group>"; };
+		5088180909F0CE0A0071BF1A /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		705242CD1B624AEA00CB1108 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		F49C1928156E29F200AD946F /* ausdkpath.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ausdkpath.xcconfig; sourceTree = "<group>"; };
+		F49C1932156E2FF800AD946F /* again_debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = again_debug.xcconfig; path = config/again_debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		F49C1933156E2FF800AD946F /* again_release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = again_release.xcconfig; path = config/again_release.xcconfig; sourceTree = SOURCE_ROOT; };
+		F49C1934156E2FF800AD946F /* again.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = again.xcconfig; path = config/again.xcconfig; sourceTree = SOURCE_ROOT; };
+		F4CE9BF412AE39E6007E91D2 /* auwrapper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = auwrapper.xcodeproj; path = ../auwrapper.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = again.xcodeproj; path = ../../../../samples/vst/again/mac/again.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F4F851960F1C8FE00076110E /* again.component */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = again.component; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4F851980F1C90840076110E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
+		F4F851990F1C90840076110E /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = /System/Library/Frameworks/AudioUnit.framework; sourceTree = "<absolute>"; };
+		F4F8519A0F1C90840076110E /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		F4F8519B0F1C90840076110E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		F4F851A90F1C90CA0076110E /* auresource.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = auresource.r; path = ../auresource.r; sourceTree = SOURCE_ROOT; };
+		F4F851AA0F1C90DC0076110E /* audiounitconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audiounitconfig.h; sourceTree = "<group>"; };
+		F4F852030F1C94F70076110E /* doc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = doc.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		508817D209F0C9AD0071BF1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F49C1935156E353900AD946F /* libauwrapper.a in Frameworks */,
+				705242CE1B624AEA00CB1108 /* CoreMIDI.framework in Frameworks */,
+				5088180A09F0CE0A0071BF1A /* CoreFoundation.framework in Frameworks */,
+				F4F8519C0F1C90840076110E /* AudioToolbox.framework in Frameworks */,
+				F4F8519D0F1C90840076110E /* AudioUnit.framework in Frameworks */,
+				F4F8519E0F1C90840076110E /* Carbon.framework in Frameworks */,
+				F4F8519F0F1C90840076110E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		508817C209F0C9740071BF1A = {
+			isa = PBXGroup;
+			children = (
+				705242CD1B624AEA00CB1108 /* CoreMIDI.framework */,
+				F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */,
+				F4CE9BF412AE39E6007E91D2 /* auwrapper.xcodeproj */,
+				508817D609F0C9AD0071BF1A /* Info.plist */,
+				F4F851A90F1C90CA0076110E /* auresource.r */,
+				F4F851AA0F1C90DC0076110E /* audiounitconfig.h */,
+				F4F852030F1C94F70076110E /* doc.cpp */,
+				F49C1929156E2C2C00AD946F /* config */,
+				5088180609F0CDD00071BF1A /* External Frameworks and Libraries */,
+				508817D509F0C9AD0071BF1A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		508817D509F0C9AD0071BF1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F851960F1C8FE00076110E /* again.component */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5088180609F0CDD00071BF1A /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F4F851980F1C90840076110E /* AudioToolbox.framework */,
+				F4F851990F1C90840076110E /* AudioUnit.framework */,
+				F4F8519A0F1C90840076110E /* Carbon.framework */,
+				F4F8519B0F1C90840076110E /* Cocoa.framework */,
+				5088180909F0CE0A0071BF1A /* CoreFoundation.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		F49C1929156E2C2C00AD946F /* config */ = {
+			isa = PBXGroup;
+			children = (
+				F49C1928156E29F200AD946F /* ausdkpath.xcconfig */,
+				F49C1932156E2FF800AD946F /* again_debug.xcconfig */,
+				F49C1933156E2FF800AD946F /* again_release.xcconfig */,
+				F49C1934156E2FF800AD946F /* again.xcconfig */,
+			);
+			name = config;
+			path = ../config;
+			sourceTree = "<group>";
+		};
+		F4CE9BF512AE39E6007E91D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4CE9C0012AE39E6007E91D2 /* libauwrapper.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4CE9C3D12AE3B4E007E91D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4CE9C4612AE3B4E007E91D2 /* again.vst3 */,
+				F4CE9C4812AE3B4E007E91D2 /* again_single.vst3 */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		508817D309F0C9AD0071BF1A /* again */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 508817D709F0C9AE0071BF1A /* Build configuration list for PBXNativeTarget "again" */;
+			buildPhases = (
+				508817D009F0C9AD0071BF1A /* Resources */,
+				F4F851B80F1C91870076110E /* Rez */,
+				508817D109F0C9AD0071BF1A /* Sources */,
+				508817D209F0C9AD0071BF1A /* Frameworks */,
+				F4F852240F1C970E0076110E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4CE9C0D12AE39EA007E91D2 /* PBXTargetDependency */,
+				F4CE9C4A12AE3B55007E91D2 /* PBXTargetDependency */,
+			);
+			name = again;
+			productName = again;
+			productReference = F4F851960F1C8FE00076110E /* again.component */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		508817C409F0C9740071BF1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 508817C509F0C9740071BF1A /* Build configuration list for PBXProject "again" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 508817C209F0C9740071BF1A;
+			productRefGroup = 508817D509F0C9AD0071BF1A /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4CE9C3D12AE3B4E007E91D2 /* Products */;
+					ProjectRef = F4CE9C3C12AE3B4E007E91D2 /* again.xcodeproj */;
+				},
+				{
+					ProductGroup = F4CE9BF512AE39E6007E91D2 /* Products */;
+					ProjectRef = F4CE9BF412AE39E6007E91D2 /* auwrapper.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				508817D309F0C9AD0071BF1A /* again */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F4CE9C0012AE39E6007E91D2 /* libauwrapper.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libauwrapper.a;
+			remoteRef = F4CE9BFF12AE39E6007E91D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4CE9C4612AE3B4E007E91D2 /* again.vst3 */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = again.vst3;
+			remoteRef = F4CE9C4512AE3B4E007E91D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4CE9C4812AE3B4E007E91D2 /* again_single.vst3 */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = again_single.vst3;
+			remoteRef = F4CE9C4712AE3B4E007E91D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		508817D009F0C9AD0071BF1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		F4F851B80F1C91870076110E /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F851AD0F1C916D0076110E /* auresource.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F4F852240F1C970E0076110E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "RESOURCE_PATH=\"$CONFIGURATION_BUILD_DIR/$WRAPPER_NAME/Contents/Resources/\"\ncd \"$RESOURCE_PATH\"\nln -sf ../../../../../../../../../samples/vst/again/mac/build/Debug/again.vst3 plugin.vst3\ncd ~/Library/Audio/Plug-Ins/Components/\nln -sf \"$CONFIGURATION_BUILD_DIR/$WRAPPER_NAME\"\ntouch .\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		508817D109F0C9AD0071BF1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4F852040F1C94F70076110E /* doc.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F4CE9C0D12AE39EA007E91D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = auwrapper;
+			targetProxy = F4CE9C0C12AE39EA007E91D2 /* PBXContainerItemProxy */;
+		};
+		F4CE9C4A12AE3B55007E91D2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = again;
+			targetProxy = F4CE9C4912AE3B55007E91D2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		508817C609F0C9740071BF1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49C1932156E2FF800AD946F /* again_debug.xcconfig */;
+			buildSettings = {
+				PREBINDING = NO;
+			};
+			name = Debug;
+		};
+		508817C709F0C9740071BF1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49C1933156E2FF800AD946F /* again_release.xcconfig */;
+			buildSettings = {
+				PREBINDING = NO;
+			};
+			name = Release;
+		};
+		508817D809F0C9AE0071BF1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Info.plist;
+			};
+			name = Debug;
+		};
+		508817D909F0C9AE0071BF1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		508817C509F0C9740071BF1A /* Build configuration list for PBXProject "again" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508817C609F0C9740071BF1A /* Debug */,
+				508817C709F0C9740071BF1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		508817D709F0C9AE0071BF1A /* Build configuration list for PBXNativeTarget "again" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				508817D809F0C9AE0071BF1A /* Debug */,
+				508817D909F0C9AE0071BF1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 508817C409F0C9740071BF1A /* Project object */;
+}

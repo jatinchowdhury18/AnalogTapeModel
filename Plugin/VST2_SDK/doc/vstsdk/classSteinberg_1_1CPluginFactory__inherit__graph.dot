@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{CPluginFactory\n|# factoryInfo\l# classes\l# classCount\l# maxClassCount\l|+ CPluginFactory()\l+ ~CPluginFactory()\l+ registerClass()\l+ registerClass()\l+ registerClass()\l+ isClassRegistered()\l+ getFactoryInfo()\l+ countClasses()\l+ getClassInfo()\l+ createInstance()\l+ getClassInfo2()\l+ getClassInfoUnicode()\l+ setHostContext()\l# growClasses()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{IPluginFactory3\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginFactory3.html"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node3 [label="{IPluginFactory2\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginFactory2.html"];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node4 [label="{IPluginFactory\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1IPluginFactory.html"];
+  Node5 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node5 [label="{FUnknown\n||}",height=0.2,width=0.4,color="black",URL="base.tag$classSteinberg_1_1FUnknown.html"];
+}

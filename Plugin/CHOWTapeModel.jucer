@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.2"
-              pluginFormats="buildAU,buildStandalone,buildVST3">
+              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
   <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
     <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
@@ -40,6 +40,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -62,6 +63,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -84,6 +86,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
         <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -98,6 +101,7 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

@@ -1,0 +1,391 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 44;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5810B916108355C000EBDCF2 /* vstinitiids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5810B915108355C000EBDCF2 /* vstinitiids.cpp */; };
+		F473945B0C1EA02900B5D85D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47394580C1EA02900B5D85D /* main.cpp */; };
+		F473945C0C1EA02900B5D85D /* validator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47394590C1EA02900B5D85D /* validator.cpp */; };
+		F47394860C1EA0B500B5D85D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F47394850C1EA0B500B5D85D /* CoreFoundation.framework */; };
+		F473949E0C1EA0F500B5D85D /* vsttestsuite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F473949C0C1EA0F500B5D85D /* vsttestsuite.cpp */; };
+		F47394B40C1EA11300B5D85D /* ustring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F47394B10C1EA11300B5D85D /* ustring.cpp */; };
+		F47394BA0C1EA13200B5D85D /* libcurses.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F47394B90C1EA13200B5D85D /* libcurses.dylib */; };
+		F48F4CC31855E6DE0094DC92 /* libbase_libc++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F48F4CBA1855E64E0094DC92 /* libbase_libc++.a */; };
+		F49CD9D90EF9401400AEF436 /* usediids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F49CD9D80EF9401400AEF436 /* usediids.cpp */; };
+		F4BE26721067763D00F2C568 /* processdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4BE26701067763D00F2C568 /* processdata.cpp */; };
+		F4F3A5050E533D09007A8045 /* hostclasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F4F3A5030E533D09007A8045 /* hostclasses.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F48F4CB91855E64E0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4306DEB17DDC8800075E8C4;
+			remoteInfo = "base_libc++";
+		};
+		F48F4CBB1855E64E0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F4128A5417EB4B0B00114E59;
+			remoteInfo = base_ios;
+		};
+		F48F4CBD1855E64E0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F412026A14C41F68008F9C84;
+			remoteInfo = base_codecoverage;
+		};
+		F48F4CBF1855E64E0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F41CC3ED180C210300D209D0;
+			remoteInfo = "base_codecoverage_libc++";
+		};
+		F48F4CC11855E6DB0094DC92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F4306DA817DDC8800075E8C4;
+			remoteInfo = "base_libc++";
+		};
+		F4F3A4C80E533A98007A8045 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC046055464E500DB518D;
+			remoteInfo = base;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		5810B915108355C000EBDCF2 /* vstinitiids.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = vstinitiids.cpp; path = ../../../../source/vst/vstinitiids.cpp; sourceTree = SOURCE_ROOT; };
+		8DD76F6C0486A84900D96B5E /* vstvalidator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vstvalidator; sourceTree = BUILT_PRODUCTS_DIR; };
+		F47394580C1EA02900B5D85D /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../source/main.cpp; sourceTree = SOURCE_ROOT; };
+		F47394590C1EA02900B5D85D /* validator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = validator.cpp; path = ../source/validator.cpp; sourceTree = SOURCE_ROOT; };
+		F473945A0C1EA02900B5D85D /* validator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = validator.h; path = ../source/validator.h; sourceTree = SOURCE_ROOT; };
+		F47394850C1EA0B500B5D85D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		F473949C0C1EA0F500B5D85D /* vsttestsuite.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = vsttestsuite.cpp; path = ../../../../source/vst/testsuite/vsttestsuite.cpp; sourceTree = SOURCE_ROOT; };
+		F473949D0C1EA0F500B5D85D /* vsttestsuite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = vsttestsuite.h; path = ../../../../source/vst/testsuite/vsttestsuite.h; sourceTree = SOURCE_ROOT; };
+		F47394B10C1EA11300B5D85D /* ustring.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ustring.cpp; path = ../../../../../pluginterfaces/base/ustring.cpp; sourceTree = SOURCE_ROOT; };
+		F47394B20C1EA11300B5D85D /* ustring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ustring.h; path = ../../../../../pluginterfaces/base/ustring.h; sourceTree = SOURCE_ROOT; };
+		F47394B90C1EA13200B5D85D /* libcurses.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurses.dylib; path = /usr/lib/libcurses.dylib; sourceTree = "<absolute>"; };
+		F48F4CB41855E64E0094DC92 /* validator.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = validator.xcconfig; sourceTree = "<group>"; };
+		F49CD9D80EF9401400AEF436 /* usediids.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = usediids.cpp; path = ../source/usediids.cpp; sourceTree = SOURCE_ROOT; };
+		F4BE26701067763D00F2C568 /* processdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = processdata.cpp; path = ../../../../source/vst/hosting/processdata.cpp; sourceTree = SOURCE_ROOT; };
+		F4BE26711067763D00F2C568 /* processdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processdata.h; path = ../../../../source/vst/hosting/processdata.h; sourceTree = SOURCE_ROOT; };
+		F4F3A4C40E533A98007A8045 /* base.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = base.xcodeproj; path = ../../../../../base/mac/base.xcodeproj; sourceTree = SOURCE_ROOT; };
+		F4F3A4D50E533AB1007A8045 /* release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = release.xcconfig; path = ../../../../../base/mac/config/release.xcconfig; sourceTree = SOURCE_ROOT; };
+		F4F3A4D60E533AB1007A8045 /* debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = debug.xcconfig; path = ../../../../../base/mac/config/debug.xcconfig; sourceTree = SOURCE_ROOT; };
+		F4F3A5030E533D09007A8045 /* hostclasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hostclasses.cpp; path = ../../../../source/vst/hosting/hostclasses.cpp; sourceTree = SOURCE_ROOT; };
+		F4F3A5040E533D09007A8045 /* hostclasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hostclasses.h; path = ../../../../source/vst/hosting/hostclasses.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F48F4CC31855E6DE0094DC92 /* libbase_libc++.a in Frameworks */,
+				F47394860C1EA0B500B5D85D /* CoreFoundation.framework in Frameworks */,
+				F47394BA0C1EA13200B5D85D /* libcurses.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* validator */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3A4C40E533A98007A8045 /* base.xcodeproj */,
+				F4F3A4CA0E533AA1007A8045 /* config */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				F47394840C1EA0A300B5D85D /* Frameworks */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = validator;
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F47394700C1EA08500B5D85D /* pluginterfaces */,
+				F47394C00C1EA15000B5D85D /* public.sdk */,
+				F47394580C1EA02900B5D85D /* main.cpp */,
+				F49CD9D80EF9401400AEF436 /* usediids.cpp */,
+				F47394590C1EA02900B5D85D /* validator.cpp */,
+				F473945A0C1EA02900B5D85D /* validator.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* vstvalidator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F47394700C1EA08500B5D85D /* pluginterfaces */ = {
+			isa = PBXGroup;
+			children = (
+				F47394B10C1EA11300B5D85D /* ustring.cpp */,
+				F47394B20C1EA11300B5D85D /* ustring.h */,
+			);
+			name = pluginterfaces;
+			sourceTree = "<group>";
+		};
+		F47394840C1EA0A300B5D85D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F47394B90C1EA13200B5D85D /* libcurses.dylib */,
+				F47394850C1EA0B500B5D85D /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F47394BF0C1EA14B00B5D85D /* vst */ = {
+			isa = PBXGroup;
+			children = (
+				5810B915108355C000EBDCF2 /* vstinitiids.cpp */,
+				F4F3A4F70E533CFC007A8045 /* hosting */,
+				F473949C0C1EA0F500B5D85D /* vsttestsuite.cpp */,
+				F473949D0C1EA0F500B5D85D /* vsttestsuite.h */,
+			);
+			name = vst;
+			sourceTree = "<group>";
+		};
+		F47394C00C1EA15000B5D85D /* public.sdk */ = {
+			isa = PBXGroup;
+			children = (
+				F47394BF0C1EA14B00B5D85D /* vst */,
+			);
+			name = public.sdk;
+			sourceTree = "<group>";
+		};
+		F4F3A4C50E533A98007A8045 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4F3A4C90E533A98007A8045 /* libbase_stdc++.a */,
+				F48F4CBA1855E64E0094DC92 /* libbase_libc++.a */,
+				F48F4CBC1855E64E0094DC92 /* libbase_ios.a */,
+				F48F4CBE1855E64E0094DC92 /* libbase_codecoverage_stdc++.a */,
+				F48F4CC01855E64E0094DC92 /* libbase_codecoverage_libc++.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F4F3A4CA0E533AA1007A8045 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				F48F4CB41855E64E0094DC92 /* validator.xcconfig */,
+				F4F3A4D50E533AB1007A8045 /* release.xcconfig */,
+				F4F3A4D60E533AB1007A8045 /* debug.xcconfig */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		F4F3A4F70E533CFC007A8045 /* hosting */ = {
+			isa = PBXGroup;
+			children = (
+				F4BE26701067763D00F2C568 /* processdata.cpp */,
+				F4BE26711067763D00F2C568 /* processdata.h */,
+				F4F3A5030E533D09007A8045 /* hostclasses.cpp */,
+				F4F3A5040E533D09007A8045 /* hostclasses.h */,
+			);
+			name = hosting;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* vstvalidator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "vstvalidator" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F48F4CC21855E6DB0094DC92 /* PBXTargetDependency */,
+			);
+			name = vstvalidator;
+			productInstallPath = "$(HOME)/bin";
+			productName = validator;
+			productReference = 8DD76F6C0486A84900D96B5E /* vstvalidator */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "validator" */;
+			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 08FB7794FE84155DC02AAC07 /* validator */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F4F3A4C50E533A98007A8045 /* Products */;
+					ProjectRef = F4F3A4C40E533A98007A8045 /* base.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				8DD76F620486A84900D96B5E /* vstvalidator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F48F4CBA1855E64E0094DC92 /* libbase_libc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_libc++.a";
+			remoteRef = F48F4CB91855E64E0094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4CBC1855E64E0094DC92 /* libbase_ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libbase_ios.a;
+			remoteRef = F48F4CBB1855E64E0094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4CBE1855E64E0094DC92 /* libbase_codecoverage_stdc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_codecoverage_stdc++.a";
+			remoteRef = F48F4CBD1855E64E0094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F48F4CC01855E64E0094DC92 /* libbase_codecoverage_libc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_codecoverage_libc++.a";
+			remoteRef = F48F4CBF1855E64E0094DC92 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F4F3A4C90E533A98007A8045 /* libbase_stdc++.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libbase_stdc++.a";
+			remoteRef = F4F3A4C80E533A98007A8045 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F473945B0C1EA02900B5D85D /* main.cpp in Sources */,
+				F473945C0C1EA02900B5D85D /* validator.cpp in Sources */,
+				F473949E0C1EA0F500B5D85D /* vsttestsuite.cpp in Sources */,
+				F47394B40C1EA11300B5D85D /* ustring.cpp in Sources */,
+				F4F3A5050E533D09007A8045 /* hostclasses.cpp in Sources */,
+				F49CD9D90EF9401400AEF436 /* usediids.cpp in Sources */,
+				F4BE26721067763D00F2C568 /* processdata.cpp in Sources */,
+				5810B916108355C000EBDCF2 /* vstinitiids.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F48F4CC21855E6DB0094DC92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "base_libc++";
+			targetProxy = F48F4CC11855E6DB0094DC92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4CB41855E64E0094DC92 /* validator.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F48F4CB41855E64E0094DC92 /* validator.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F3A4D60E533AB1007A8045 /* debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F3A4D50E533AB1007A8045 /* release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "vstvalidator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "validator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

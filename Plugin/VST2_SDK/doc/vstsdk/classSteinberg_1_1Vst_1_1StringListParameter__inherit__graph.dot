@@ -1,0 +1,9 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="{StringListParameter\n||+ StringListParameter()\l+ StringListParameter()\l+ ~StringListParameter()\l+ appendString()\l+ replaceString()\l+ toString()\l+ fromString()\l+ toPlain()\l+ toNormalized()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",arrowtail="empty",fontname="Arial"];
+  Node2 [label="{Parameter\n|+ valueNormalized\l+ precision\l|+ Parameter()\l+ Parameter()\l+ Parameter()\l+ ~Parameter()\l+ getInfo()\l+ getInfo()\l+ setUnitID()\l+ getUnitID()\l+ getNormalized()\l+ setNormalized()\l+ toString()\l+ fromString()\l+ toPlain()\l+ toNormalized()\l+ getPrecision()\l+ setPrecision()\l}",height=0.2,width=0.4,color="black",URL="$classSteinberg_1_1Vst_1_1Parameter.html",tooltip="Description of a Parameter."];
+}

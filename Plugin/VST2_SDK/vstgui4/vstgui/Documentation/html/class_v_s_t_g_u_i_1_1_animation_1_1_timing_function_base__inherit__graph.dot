@@ -1,0 +1,15 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="TimingFunctionBase",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="ITimingFunction",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_i_timing_function.html",tooltip="Animation timing function interface."];
+  Node1 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="InterpolationTimingFunction",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_interpolation_timing_function.html"];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="LinearTimingFunction",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_linear_timing_function.html"];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="PowerTimingFunction",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_animation_1_1_power_timing_function.html"];
+}

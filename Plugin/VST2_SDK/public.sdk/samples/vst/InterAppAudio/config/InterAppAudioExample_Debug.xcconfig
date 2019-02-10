@@ -1,0 +1,14 @@
+//
+//  InterAppAudioExample_Debug.xcconfig
+//  InterAppAudioExample
+//
+//  Created by Arne Scheffler on 7/29/13.
+// (c) 2015, Steinberg Media Technologies GmbH, All Rights Reserved
+//
+
+#include "InterAppAudioExample"
+
+GCC_OPTIMIZATION_LEVEL = 0
+
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 DEVELOPMENT=1 $(inherited)
+ONLY_ACTIVE_ARCH = YES

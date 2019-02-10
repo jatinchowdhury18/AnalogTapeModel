@@ -1,0 +1,19 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="CRockerSwitch",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CControl",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_control.html",tooltip="base class of all VSTGUI controls"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CView",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_view.html",tooltip="Base Class of all view objects."];
+  Node4 -> Node3 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node5 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="IFocusDrawing",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_focus_drawing.html",tooltip="Custom focus drawing interface."];
+  Node6 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="IDependency",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_dependency.html",tooltip="simple dependency between objects."];
+  Node7 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 [label="IMultiBitmapControl",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_multi_bitmap_control.html",tooltip="interface for controls with sub images"];
+}

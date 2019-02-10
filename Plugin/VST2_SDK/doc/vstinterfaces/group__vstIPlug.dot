@@ -1,0 +1,22 @@
+digraph structs
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node4 [label="VST 3 Interfaces to be implemented by Host",height=0.2,width=0.4,color="black",URL="$group__vstIHost.html"];
+  Node0 [label="VST 3 Interfaces to be implemented by Plug-in",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 [label="VST 3 Interfaces defined in version 3.0.0",height=0.2,width=0.4,color="black",URL="$group__vst300.html"];
+  Node6 [label="VST 3 Interfaces defined in version 3.0.1",height=0.2,width=0.4,color="black",URL="$group__vst301.html"];
+  Node2 [label="VST 3 Interfaces defined in version 3.1.0",height=0.2,width=0.4,color="black",URL="$group__vst310.html"];
+  Node5 [label="VST 3 Interfaces defined in version 3.5.0",height=0.2,width=0.4,color="black",URL="$group__vst350.html"];
+  Node7 [label="VST 3 Interfaces defined in version 3.6.0",height=0.2,width=0.4,color="black",URL="$group__vst360.html"];
+  Node3 [label="VST 3 Interfaces defined in version 3.6.5",height=0.2,width=0.4,color="black",URL="$group__vst365.html"];
+  Node0->Node1 [shape=plaintext, label="Steinberg::Vst::IAudioProcessor\nSteinberg::Vst::IComponent\nSteinberg::Vst::IEditController\nSteinberg::Vst::IConnectionPoint\nSteinberg::Vst::IUnitInfo\nSteinberg::Vst::IProgramListData\nSteinberg::Vst::IUnitData", color="orange", dir="none", style="dashed"];
+  Node0->Node2 [shape=plaintext, label="Steinberg::Vst::IAudioPresentationLatency\nSteinberg::Vst::IEditController2", color="orange", dir="none", style="dashed"];
+  Node0->Node3 [shape=plaintext, label="Steinberg::Vst::IAutomationState\nSteinberg::Vst::IPrefetchableSupport", color="orange", dir="none", style="dashed"];
+  Node0->Node4 [shape=plaintext, label="Steinberg::Vst::IContextMenuTarget", color="orange", dir="none", style="dashed"];
+  Node0->Node5 [shape=plaintext, label="Steinberg::Vst::IContextMenuTarget\nSteinberg::Vst::IEditControllerHostEditing\nSteinberg::Vst::INoteExpressionController\nSteinberg::Vst::IKeyswitchController\nSteinberg::Vst::IXmlRepresentationController", color="orange", dir="none", style="dashed"];
+  Node0->Node6 [shape=plaintext, label="Steinberg::Vst::IMidiMapping", color="orange", dir="none", style="dashed"];
+  Node0->Node7 [shape=plaintext, label="Steinberg::Vst::IInterAppAudioConnectionNotification\nSteinberg::Vst::IInterAppAudioPresetManager", color="orange", dir="none", style="dashed"];
+}

@@ -1,0 +1,44 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  rankdir=LR;
+  Node1 [label="VST3Editor",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="IController",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_controller.html",tooltip="extension to CControlListener used by UIDescription"];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CControlListener",height=0.2,width=0.4,color="black",URL="$class_c_control_listener.html"];
+  Node4 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="IViewAddedRemovedObserver",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_view_added_removed_observer.html",tooltip="view added removed observer interface for CFrame"];
+  Node5 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="IMouseObserver",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_mouse_observer.html",tooltip="generic mouse observer interface for CFrame"];
+  Node6 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="IKeyboardHook",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_keyboard_hook.html",tooltip="generic keyboard hook interface for CFrame"];
+  Node7 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="description",fontname="Arial"];
+  Node7 [label="UIDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_u_i_description.html",tooltip="XML description parser and view creator."];
+  Node8 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node8 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node9 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node9 [label="IUIDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_u_i_description.html"];
+  Node10 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node10 [label="IHandler",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_xml_1_1_i_handler.html"];
+  Node11 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node11 [label="IDependency",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_dependency.html",tooltip="simple dependency between objects."];
+  Node12 -> Node7 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="xmlFile",fontname="Arial"];
+  Node12 [label="CResourceDescription",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_c_resource_description.html",tooltip="Describes a resource by name or by ID."];
+  Node13 -> Node7 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="xmlContentProvider",fontname="Arial"];
+  Node13 [label="IContentProvider",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_xml_1_1_i_content_provider.html"];
+  Node2 -> Node7 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="controller",fontname="Arial"];
+  Node14 -> Node7 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="viewFactory",fontname="Arial"];
+  Node14 [label="IViewFactory",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_view_factory.html"];
+  Node15 -> Node7 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="bitmapCreator",fontname="Arial"];
+  Node15 [label="IBitmapCreator",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_i_bitmap_creator.html"];
+  Node2 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="originalController",fontname="Arial"];
+  Node16 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="minSize\nmaxSize",fontname="Arial"];
+  Node16 [label="CPoint",height=0.2,width=0.4,color="black",URL="$struct_v_s_t_g_u_i_1_1_c_point.html",tooltip="Point structure."];
+  Node17 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="delegate",fontname="Arial"];
+  Node17 [label="VST3EditorDelegate",height=0.2,width=0.4,color="black",URL="$class_v_s_t_g_u_i_1_1_v_s_t3_editor_delegate.html",tooltip="delegate extension to Steinberg::Vst::EditController for a VST3 Editor"];
+  Node18 -> Node1 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="nonEditRect",fontname="Arial"];
+  Node18 [label="CRect",height=0.2,width=0.4,color="black",URL="$struct_v_s_t_g_u_i_1_1_c_rect.html",tooltip="Rect structure."];
+}

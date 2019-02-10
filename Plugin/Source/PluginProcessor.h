@@ -58,6 +58,10 @@ public:
 
 private:
     HysteresisProcessor hProcs[2];
+    dsp::Oversampling<float>* overSample;
+
+    int overSamplingFactor = 8;
+
     int n_t[2] = { 0, 0 };
 
     //==============================================================================

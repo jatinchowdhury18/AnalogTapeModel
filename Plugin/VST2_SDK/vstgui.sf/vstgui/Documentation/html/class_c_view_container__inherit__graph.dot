@@ -1,0 +1,19 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node1 [label="CViewContainer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node2 [label="CView",height=0.2,width=0.4,color="black",URL="$class_c_view.html",tooltip="Base Class of all view objects."];
+  Node3 -> Node2 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node3 [label="CBaseObject",height=0.2,width=0.4,color="black",URL="$class_c_base_object.html",tooltip="Base Object with reference counter."];
+  Node1 -> Node4 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node4 [label="CFrame",height=0.2,width=0.4,color="black",URL="$class_c_frame.html",tooltip="The CFrame is the parent container of all views."];
+  Node1 -> Node5 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node5 [label="CScrollView",height=0.2,width=0.4,color="black",URL="$class_c_scroll_view.html",tooltip="a scrollable container view with scrollbars"];
+  Node5 -> Node6 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node6 [label="CDataBrowser",height=0.2,width=0.4,color="black",URL="$class_c_data_browser.html",tooltip="DataBrowser view."];
+  Node1 -> Node7 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node7 [label="CTabView",height=0.2,width=0.4,color="black",URL="$class_c_tab_view.html",tooltip="a tab view"];
+}

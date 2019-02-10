@@ -1,0 +1,23 @@
+digraph G
+{
+  bgcolor="transparent";
+  edge [fontname="Arial",fontsize="9",labelfontname="Arial",labelfontsize="9"];
+  node [fontname="Arial",fontsize="9",shape=record];
+  Node9 [shape="box",label="Inherited",fontsize="9",height=0.2,width=0.4,fontname="Arial",fillcolor="grey75",style="filled" fontcolor="black"];
+  Node10 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node10 [shape="box",label="PublicBase",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classPublicBase.html"];
+  Node11 -> Node10 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node11 [shape="box",label="Truncated",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="red",URL="$classTruncated.html"];
+  Node13 -> Node9 [dir=back,color="darkgreen",fontsize="9",style="solid",fontname="Arial"];
+  Node13 [shape="box",label="ProtectedBase",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classProtectedBase.html"];
+  Node14 -> Node9 [dir=back,color="firebrick4",fontsize="9",style="solid",fontname="Arial"];
+  Node14 [shape="box",label="PrivateBase",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classPrivateBase.html"];
+  Node15 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node15 [shape="box",label="Undocumented",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="grey75"];
+  Node16 -> Node9 [dir=back,color="midnightblue",fontsize="9",style="solid",fontname="Arial"];
+  Node16 [shape="box",label="Templ< int >",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classTempl.html"];
+  Node17 -> Node16 [dir=back,color="orange",fontsize="9",style="dashed",label="< int >",fontname="Arial"];
+  Node17 [shape="box",label="Templ< T >",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classTempl.html"];
+  Node18 -> Node9 [dir=back,color="darkorchid3",fontsize="9",style="dashed",label="m_usedClass",fontname="Arial"];
+  Node18 [shape="box",label="Used",fontsize="9",height=0.2,width=0.4,fontname="Arial",color="black",URL="$classUsed.html"];
+}
