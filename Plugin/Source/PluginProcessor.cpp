@@ -20,10 +20,10 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     addParameter (outGain = new AudioParameterFloat (String ("outGain"), String ("Output Gain"), -30.0f, 30.0f, 0.0f));
     outGain->addListener (this);
 
-    addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Oversampling"),
+    addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Upsample"),
                                                            StringArray ({ "2x", "4x", "8x" }), 0));
 
-    addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Tape Speed"),
+    addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Speed"),
                                                         StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
 }
 

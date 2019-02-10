@@ -52,8 +52,14 @@ private:
     ComboBox oversampling;
     ComboBox tapeSpeed;
 
+    Label inGainLabel;
+    Label outGainLabel;
+    Label oversampleLabel;
+    Label speedLabel;
+
     void createSlider (ChowSlider& slide, AudioParameterFloat* param, String suffix = String(), float step = 0.1f);
     void createComboBox (ComboBox& box, AudioParameterChoice* choice);
+    void createLabel (Label& label, AudioProcessorParameterWithID* param);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessorEditor)
 };
