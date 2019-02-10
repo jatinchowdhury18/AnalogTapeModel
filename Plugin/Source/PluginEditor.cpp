@@ -11,8 +11,11 @@ enum
     xOffset = 2,
     yOffset = 5,
 
+    labelY = 15,
+    labelHeight = 20,
+
     sliderWidth = 110,
-    sliderY = 20,
+    sliderY = 25,
 
     overWidth = 65,
     tapeWidth = 90,
@@ -33,6 +36,11 @@ ChowtapeModelAudioProcessorEditor::ChowtapeModelAudioProcessorEditor (ChowtapeMo
 
     createComboBox (oversampling, processor.overSampling);
     createComboBox (tapeSpeed, processor.tapeSpeed);
+
+    createLabel (inGainLabel, processor.inGain);
+    createLabel (outGainLabel, processor.outGain);
+    createLabel (oversampleLabel, processor.overSampling);
+    createLabel (speedLabel, processor.tapeSpeed);
 }
 
 ChowtapeModelAudioProcessorEditor::~ChowtapeModelAudioProcessorEditor()
@@ -79,6 +87,15 @@ void ChowtapeModelAudioProcessorEditor::createComboBox (ComboBox& box, AudioPara
     addAndMakeVisible (box);
 }
 
+void ChowtapeModelAudioProcessorEditor::createLabel (Label& label, AudioProcessorParameterWithID* param)
+{
+    label.setText (param->name, dontSendNotification);
+    label.setJustificationType (Justification::centred);
+    label.setColour (Label::textColourId, Colours::antiquewhite);
+    label.setFont (17.0f);
+    addAndMakeVisible (label);
+}
+
 //==============================================================================
 void ChowtapeModelAudioProcessorEditor::paint (Graphics& g)
 {
@@ -91,11 +108,16 @@ void ChowtapeModelAudioProcessorEditor::paint (Graphics& g)
 
 void ChowtapeModelAudioProcessorEditor::resized()
 {
+    inGainLabel.setBounds (0, labelY, sliderWidth, labelHeight);
     gainInKnob.setBounds (0, sliderY, sliderWidth, sliderWidth);
 
+    oversampleLabel.setBounds (gainInKnob.getRight() - 7 * xOffset, 3 * labelY + yOffset, tapeWidth, labelHeight);
     oversampling.setBounds (gainInKnob.getRight(), boxY, overWidth, boxHeight);
+
+    speedLabel.setBounds (oversampling.getRight(), 3 * labelY + yOffset, tapeWidth, labelHeight);
     tapeSpeed.setBounds (oversampling.getRight() + 2 * xOffset, boxY, tapeWidth, boxHeight);
 
+    outGainLabel.setBounds (tapeSpeed.getRight(), labelY, sliderWidth, labelHeight);
     gainOutKnob.setBounds (tapeSpeed.getRight(), sliderY, sliderWidth, sliderWidth);
 }
 
