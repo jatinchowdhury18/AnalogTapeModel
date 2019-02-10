@@ -1,12 +1,12 @@
-#ifndef HYSTERESISPROCESSOR_H_INCLUDED
-#define HYSTERESISPROCESSOR_H_INCLUDED
+#ifndef HYSTERESISPROCESSING_H_INCLUDED
+#define HYSTERESISPROCESSING_H_INCLUDED
 
 #include "JuceHeader.h"
 
-class HysteresisProcessor
+class HysteresisProcessing
 {
 public:
-    HysteresisProcessor();
+    HysteresisProcessing();
 
     float process (float H);
 
@@ -32,7 +32,7 @@ private:
     float H_n1 = 0.0f;
     float H_d_n1 = 0.0f;
 
-    //JUCE_DECLARE_NONCOPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
+    //JUCE_DECLARE_NONCOPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)
 };
 
 #endif

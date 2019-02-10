@@ -28,8 +28,8 @@ ChowtapeModelAudioProcessorEditor::ChowtapeModelAudioProcessorEditor (ChowtapeMo
     // editor's size to whatever you need it to be.
     setSize (width, height);
 
-    createSlider (gainInKnob, processor.inGain);
-    createSlider (gainOutKnob, processor.outGain);
+    createSlider (gainInKnob, processor.inGain, String ("dB"));
+    createSlider (gainOutKnob, processor.outGain, String ("dB"));
 
     createComboBox (oversampling, processor.overSampling);
     createComboBox (tapeSpeed, processor.tapeSpeed);
@@ -39,19 +39,25 @@ ChowtapeModelAudioProcessorEditor::~ChowtapeModelAudioProcessorEditor()
 {
 }
 
-void ChowtapeModelAudioProcessorEditor::createSlider(Slider& slide, AudioParameterFloat* param, float step){
+void ChowtapeModelAudioProcessorEditor::createSlider (ChowSlider& slide, AudioParameterFloat* param, String suffix, float step){
     slide.setName(param->name);
     slide.setRange(param->range.start, param->range.end, step);
+    slide.setDefaultValue (param->convertFrom0to1 (dynamic_cast<AudioProcessorParameterWithID*> (param)->getDefaultValue()));
+    slide.setValue(*param);
+
+    slide.setLookAndFeel (&myLNF);
     slide.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    slide.setColour(Slider::rotarySliderFillColourId, Colours::darkred);
-    slide.setColour(Slider::rotarySliderOutlineColourId, Colours::black);
-    slide.setColour(Slider::thumbColourId, Colours::navajowhite);
+    slide.setColour(Slider::rotarySliderFillColourId, Colours::black);
+    slide.setColour(Slider::rotarySliderOutlineColourId, Colours::darkred);
+    slide.setColour(Slider::thumbColourId, Colours::antiquewhite);
     slide.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
     slide.setColour(Slider::textBoxTextColourId, Colours::antiquewhite);
     slide.setColour(Slider::textBoxOutlineColourId, Colours::antiquewhite);
-    slide.setValue(*param);
-    slide.addListener(this);
 
+    if (suffix.isNotEmpty())
+        slide.setTextValueSuffix (" " + suffix);
+
+    slide.addListener(this);
     addAndMakeVisible (slide);
 }
 
@@ -91,4 +97,34 @@ void ChowtapeModelAudioProcessorEditor::resized()
     tapeSpeed.setBounds (oversampling.getRight() + 2 * xOffset, boxY, tapeWidth, boxHeight);
 
     gainOutKnob.setBounds (tapeSpeed.getRight(), sliderY, sliderWidth, sliderWidth);
+}
+
+AudioParameterFloat* ChowtapeModelAudioProcessorEditor::getParamForSlider (Slider* slider)
+{
+    if (processor.inGain->name == slider->getName())
+        return processor.inGain;
+    else if (processor.outGain->name == slider->getName())
+        return processor.outGain;
+    else
+        return nullptr;
+}
+
+void ChowtapeModelAudioProcessorEditor::sliderValueChanged (Slider* slider)
+{
+    if (AudioParameterFloat* param = getParamForSlider(slider)){
+        *param = (float) slider->getValue();
+    }
+}
+
+void ChowtapeModelAudioProcessorEditor::sliderDragStarted(Slider* slider)
+{
+    if (AudioParameterFloat* param = getParamForSlider(slider))
+        param->beginChangeGesture();
+}
+
+void ChowtapeModelAudioProcessorEditor::sliderDragEnded(Slider* slider)
+{
+    if (AudioParameterFloat* param = getParamForSlider(slider))
+        param->endChangeGesture();
+
 }

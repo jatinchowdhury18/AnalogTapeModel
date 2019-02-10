@@ -4,11 +4,22 @@
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
   <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
     <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
+      <GROUP id="{7867F016-80C7-7749-B604-ED042C040FC7}" name="GUI Extras">
+        <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
+      </GROUP>
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
-        <FILE id="SSdMYR" name="HysteresisProcessing.cpp" compile="1" resource="0"
-              file="Source/Processors/HysteresisProcessing.cpp"/>
-        <FILE id="vvuNZS" name="HysteresisProcessing.h" compile="0" resource="0"
-              file="Source/Processors/HysteresisProcessing.h"/>
+        <GROUP id="{E8FF20D6-35DC-19EF-2A0D-F8363CDBE1AE}" name="Hysteresis">
+          <FILE id="sjUZ6l" name="HysteresisProcessing.cpp" compile="1" resource="0"
+                file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
+          <FILE id="DrklCU" name="HysteresisProcessing.h" compile="0" resource="0"
+                file="Source/Processors/Hysteresis/HysteresisProcessing.h"/>
+          <FILE id="S8e9Mq" name="HysteresisProcessor.cpp" compile="1" resource="0"
+                file="Source/Processors/Hysteresis/HysteresisProcessor.cpp"/>
+          <FILE id="zCtaDA" name="HysteresisProcessor.h" compile="0" resource="0"
+                file="Source/Processors/Hysteresis/HysteresisProcessor.h"/>
+        </GROUP>
+        <FILE id="kdFIkd" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
+        <FILE id="eGTZ2w" name="ProcessorBase.h" compile="0" resource="0" file="Source/Processors/ProcessorBase.h"/>
       </GROUP>
       <FILE id="y330sp" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
