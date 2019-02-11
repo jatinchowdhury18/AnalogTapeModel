@@ -8,6 +8,12 @@
         <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
+        <GROUP id="{E3FB6B88-F1C2-FAF4-BE48-F8C36FEC858A}" name="Speed Filters">
+          <FILE id="rJ6Je0" name="SpeedFilterProcessor.cpp" compile="1" resource="0"
+                file="Source/Processors/Speed Filters/SpeedFilterProcessor.cpp"/>
+          <FILE id="vidpxP" name="SpeedFilterProcessor.h" compile="0" resource="0"
+                file="Source/Processors/Speed Filters/SpeedFilterProcessor.h"/>
+        </GROUP>
         <GROUP id="{E8FF20D6-35DC-19EF-2A0D-F8363CDBE1AE}" name="Hysteresis">
           <FILE id="sjUZ6l" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
