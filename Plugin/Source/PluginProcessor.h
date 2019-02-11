@@ -3,6 +3,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/GainProcessor.h"
+#include "Processors/Speed Filters/SpeedFilterProcessor.h"
 
 //==============================================================================
 /**
@@ -57,6 +58,7 @@ public:
     void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
 
 private:
+    SpeedFilterProcessor speedFilter;
     HysteresisProcessor hysteresis;
 
     GainProcessor inGainProc;

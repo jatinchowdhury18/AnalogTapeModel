@@ -22,9 +22,14 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 
     addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Upsample"),
                                                            StringArray ({ "2x", "4x", "8x" }), 0));
+    overSampling->addListener (this);
 
     addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Speed"),
                                                         StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
+    tapeSpeed->addListener (this);
+
+    speedFilter.setSpeed (*tapeSpeed);
+    hysteresis.setOverSamplingFactor (*overSampling);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -39,6 +44,8 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
         outGainProc.setGain (Decibels::decibelsToGain (outGain->convertFrom0to1 (newValue)));
     else if (paramIndex == overSampling->getParameterIndex())
         hysteresis.setOverSamplingFactor (*overSampling);
+    else if (paramIndex == tapeSpeed->getParameterIndex())
+        speedFilter.setSpeed (*tapeSpeed);
 }
 
 //==============================================================================
@@ -107,6 +114,7 @@ void ChowtapeModelAudioProcessor::changeProgramName (int /*index*/, const String
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     inGainProc.prepareToPlay (sampleRate, samplesPerBlock);
+    speedFilter.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     outGainProc.prepareToPlay (sampleRate, samplesPerBlock);
 }
@@ -114,6 +122,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 void ChowtapeModelAudioProcessor::releaseResources()
 {
     inGainProc.releaseResources();
+    speedFilter.releaseResources();
     hysteresis.releaseResources();
     outGainProc.releaseResources();
 }
@@ -147,6 +156,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     ScopedNoDenormals noDenormals;
     
     inGainProc.processBlock (buffer, midiMessages);
+    speedFilter.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
 
     outGainProc.processBlock (buffer, midiMessages);
