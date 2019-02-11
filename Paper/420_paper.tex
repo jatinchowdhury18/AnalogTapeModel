@@ -387,16 +387,21 @@ $27$ kA/m \cite{jilesBook}.
 \end{itemize}
 
 \subsection{Tape Bias}
-A typical analog tape recorder modulates the input signal by a
-"bias" signal to avoid the "deadzone" effect whenever the input
-signal crosses zero \cite{Camras:1987:MRH:27189}. Thus, the
-input signal to the record head can be described by:
+A typical analog recorder adds a high-frequency "bias"
+current to the signal to avoid the "deadzone" effect when the input signal
+crosses zero, as well as to linearize the output. The input
+signal to the record head can be given by
+\cite{Camras:1987:MRH:27189}:
 \begin{equation}
-    \hat{V}_{head}(n) = \hat{V}_{in}(n) \cos(2 \pi f_{bias} n T)
+    \hat{V}_{head}(n) = \hat{V}_{in}(n) + B \cos(2 \pi f_{bias} n T)
 \end{equation}
 %
-An output signal in the audio frequency range can be recovered
-by a simple low-pass filter \cite{Camras:1987:MRH:27189}.
+Where the amplitude of the bias current $B$ is at least one order
+of magnitude larger than the input. The output signal can be
+recovered after the recording and playback processes
+by subtracting out the bias current.
+
+\subsection{Tape Speed}
 
 
 %\newpage
