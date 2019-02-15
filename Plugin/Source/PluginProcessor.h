@@ -4,6 +4,7 @@
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/GainProcessor.h"
 #include "Processors/Speed Filters/SpeedFilterProcessor.h"
+#include "Processors/Loss Effects/LossEffectsFilter.h"
 
 //==============================================================================
 /**
@@ -60,6 +61,7 @@ public:
 private:
     SpeedFilterProcessor speedFilter;
     HysteresisProcessor hysteresis;
+    LossEffectsFilter lossEffects;
 
     GainProcessor inGainProc;
     GainProcessor outGainProc;

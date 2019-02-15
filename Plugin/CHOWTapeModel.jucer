@@ -8,6 +8,14 @@
         <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
+        <GROUP id="{99069F32-1399-FF98-7C4A-19F8E855C2AA}" name="Loss Effects">
+          <FILE id="aEdcW7" name="LossEffects.cpp" compile="1" resource="0" file="Source/Processors/Loss Effects/LossEffects.cpp"/>
+          <FILE id="TFnfhT" name="LossEffects.h" compile="0" resource="0" file="Source/Processors/Loss Effects/LossEffects.h"/>
+          <FILE id="MSDyaq" name="LossEffectsFilter.cpp" compile="1" resource="0"
+                file="Source/Processors/Loss Effects/LossEffectsFilter.cpp"/>
+          <FILE id="C8T3dH" name="LossEffectsFilter.h" compile="0" resource="0"
+                file="Source/Processors/Loss Effects/LossEffectsFilter.h"/>
+        </GROUP>
         <GROUP id="{E3FB6B88-F1C2-FAF4-BE48-F8C36FEC858A}" name="Speed Filters">
           <FILE id="rJ6Je0" name="SpeedFilterProcessor.cpp" compile="1" resource="0"
                 file="Source/Processors/Speed Filters/SpeedFilterProcessor.cpp"/>
