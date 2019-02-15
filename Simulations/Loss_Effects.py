@@ -4,10 +4,10 @@ import scipy.signal as signal
 
 # Constants
 N = 100
-d = 20e-6 #Spacing between tape and head
-g = 5e-6 #Head gap width
+d = 1e-9 #Spacing between tape and head
+g = 2e-6 #Head gap width
 delta = 35e-6 #Tape thickness
-v = 15 * 0.0254
+v = 7.5 * 0.0254
 
 #f = np.linspace (0, 24000, N/2)
 f = np.linspace (0, 48000, N)
@@ -39,7 +39,9 @@ w, H_t = signal.freqz (h)
 # Plotting output
 #plt.plot(n, h)
 #plt.plot (w * 22000 / np.pi, abs (H_t))
-plt.semilogx (f[0:int (N/2)], 20 * np.log10 (H[0:int (N/2)]))
+plt.semilogx (f[0:int (N/2)], 10 * np.log10 (H[0:int (N/2)]))
+plt.axvline (x=15000)
+plt.axhline (y=-3)
 plt.title ("Tape Loss Effects vs. Frequency")
 plt.xlabel ("Frequency [Hz]")
 plt.ylabel ("Amplitude [dB]")

@@ -5,9 +5,9 @@
 
 namespace
 {
-    constexpr float spacing = (float) 20e-6;
-    constexpr float gap = (float) 5e-6;
-    constexpr float thickness = (float) 35e-6;
+    constexpr float spacing = (float) 1e-9;
+    constexpr float gap = (float) 2e-6;
+    constexpr float thickness = (float) 10e-6;
     constexpr float inchesToMeters = 0.0254f;
 
     enum
