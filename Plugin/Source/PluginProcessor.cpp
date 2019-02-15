@@ -156,8 +156,9 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     ScopedNoDenormals noDenormals;
     
     inGainProc.processBlock (buffer, midiMessages);
-    speedFilter.processBlock (buffer, midiMessages);
+
     hysteresis.processBlock (buffer, midiMessages);
+    speedFilter.processBlock (buffer, midiMessages);
 
     outGainProc.processBlock (buffer, midiMessages);
 }
