@@ -242,7 +242,14 @@ described as follows \cite{Kadis}:
 \end{equation}
 %
 for sinusoidal input, where $k$ = wave number, $d$ is the distance between the tape and the playhead,
-$g$ is the gap width of the play head, and $\delta$ is the thickness of the tape.
+$g$ is the gap width of the play head, and $\delta$ is the thickness of the tape. The wave number
+is given by:
+
+\begin{equation}
+    k = \frac {2 \pi f}{v}
+\end{equation}
+%
+where $f$ is the frequency and $v$ is the tape speed.
 
 \section{Digitizing the System}
 \subsection{Record Head}
@@ -332,7 +339,7 @@ meter, the following plot shows the Magnetisation output.
 \begin{figure}[ht]
     \center
     \includegraphics[width=3in]{../Simulations/Sim2-M_H.png}
-    \caption{\label{flowchart}{\it Digitized Hysteresis Loop Simulation}}
+    \caption{\label{HysteresisSim}{\it Digitized Hysteresis Loop Simulation}}
 \end{figure}
 %
 \subsection{Play Head}
@@ -346,8 +353,23 @@ or,
     \hat{V}(n) =  NWEv \mu_0  g \hat{M}(t)
 \end{equation}
 %
-The loss effects described in \cref{eq:lossEffects}
-can be modelled as a series of digital filters.
+\subsubsection{Loss Effects}
+In the real-time system, we model the playhead
+loss effects with an FIR filter, derived by
+taking the inverse DFT of the
+loss effects described in \cref{eq:lossEffects}.
+It is worth noting once again that the loss effects
+and therefore the FIR filter as well, are dependent
+on the tape speed.
+The following plot shows the frequency response of
+the loss effects for tape-head spacing of 20 microns,
+head gap width of 5 microns, tape thickness of 35 microns,
+and tape speed of 15 ips.
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=3in]{../Simulations/Loss_Effects.png}
+    \caption{\label{lossEffectsSim}{\it Frequency Response of Playhead Loss Effects}}
+\end{figure}
 
 \subsection{Oversampling}
 To reduce frequency aliasing caused by the hysteresis non-linearity,

@@ -29,6 +29,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     tapeSpeed->addListener (this);
 
     speedFilter.setSpeed (*tapeSpeed);
+    lossEffects.setSpeed (*tapeSpeed);
     hysteresis.setOverSamplingFactor (*overSampling);
 }
 
@@ -45,7 +46,10 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
     else if (paramIndex == overSampling->getParameterIndex())
         hysteresis.setOverSamplingFactor (*overSampling);
     else if (paramIndex == tapeSpeed->getParameterIndex())
+    {
         speedFilter.setSpeed (*tapeSpeed);
+        lossEffects.setSpeed (*tapeSpeed);
+    }
 }
 
 //==============================================================================
@@ -116,6 +120,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     inGainProc.prepareToPlay (sampleRate, samplesPerBlock);
     speedFilter.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    lossEffects.prepareToPlay (sampleRate, samplesPerBlock);
     outGainProc.prepareToPlay (sampleRate, samplesPerBlock);
 }
 
@@ -124,6 +129,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
     inGainProc.releaseResources();
     speedFilter.releaseResources();
     hysteresis.releaseResources();
+    lossEffects.releaseResources();
     outGainProc.releaseResources();
 }
 
@@ -158,6 +164,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     inGainProc.processBlock (buffer, midiMessages);
 
     hysteresis.processBlock (buffer, midiMessages);
+
+    lossEffects.processBlock (buffer, midiMessages);
     speedFilter.processBlock (buffer, midiMessages);
 
     outGainProc.processBlock (buffer, midiMessages);
