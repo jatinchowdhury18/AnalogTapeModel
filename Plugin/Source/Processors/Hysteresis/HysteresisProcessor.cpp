@@ -31,7 +31,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     float* ptrArray[] = { osBlock.getChannelPointer(0), osBlock.getChannelPointer(1) };
     AudioBuffer<float> osBuffer (ptrArray, 2, static_cast<int> (osBlock.getNumSamples()));
 
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
+    for (int channel = 0; channel < osBuffer.getNumChannels(); ++channel)
     {
         auto* x = osBuffer.getWritePointer (channel);
         for (int n = 0; n < osBuffer.getNumSamples(); n++)
