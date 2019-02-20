@@ -55,7 +55,7 @@ def M_n (M_n1, k1, k2, k3, k4):
 #input signal
 t = np.linspace (0, 1, fs)
 #t = 1
-H_in = (5e5) * np.sin (2 * np.pi * 20000 * t)
+H_in = (1e5) * np.sin (2 * np.pi * 2000 * t)
 freq = 2000
 #H_in = np.concatenate ((5e2 * np.sin (2 * np.pi * freq * t[0:fs*5]), 1e3 * np.sin (2 * np.pi * freq * t[fs*5:fs*10]), \
 #                        3e3 * np.sin (2 * np.pi * freq * t[fs*10:fs*15]), 5e3 * np.sin (2 * np.pi * freq * t[fs*15:fs*20]), \
