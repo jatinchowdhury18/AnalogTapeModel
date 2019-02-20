@@ -23,6 +23,16 @@
                 file="Source/Processors/Speed Filters/SpeedFilterProcessor.h"/>
         </GROUP>
         <GROUP id="{E8FF20D6-35DC-19EF-2A0D-F8363CDBE1AE}" name="Hysteresis">
+          <GROUP id="{06386EA3-C5F7-ED57-2B57-99637F9D3C99}" name="Bias Filter">
+            <FILE id="TRBzap" name="BiasFilter.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/Bias Filter/BiasFilter.cpp"/>
+            <FILE id="Wc9DkH" name="BiasFilter.h" compile="0" resource="0" file="Source/Processors/Hysteresis/Bias Filter/BiasFilter.h"/>
+            <FILE id="rudm34" name="DCBlocker.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/Bias Filter/DCBlocker.cpp"/>
+            <FILE id="jfYcuq" name="DCBlocker.h" compile="0" resource="0" file="Source/Processors/Hysteresis/Bias Filter/DCBlocker.h"/>
+            <FILE id="nHz7MQ" name="FilterProcessor.cpp" compile="1" resource="0"
+                  file="Source/Processors/Hysteresis/Bias Filter/FilterProcessor.cpp"/>
+            <FILE id="xwK1xF" name="FilterProcessor.h" compile="0" resource="0"
+                  file="Source/Processors/Hysteresis/Bias Filter/FilterProcessor.h"/>
+          </GROUP>
           <FILE id="sjUZ6l" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
           <FILE id="DrklCU" name="HysteresisProcessing.h" compile="0" resource="0"

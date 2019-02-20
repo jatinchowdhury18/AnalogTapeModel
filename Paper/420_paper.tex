@@ -111,7 +111,7 @@
 \section{Abstract}
 For decades, analog magnetic tape recording was the most popular
 method for recording music, but has been replaced over the past 30 years first by
-DAT tape, and then by DAWs \cite{Kadis}. Despite being replaced
+DAT tape, then by DAWs and audio interfaces \cite{Kadis}. Despite being replaced
 by higher quality technology,
 many have sought to recreate a "tape" sound through digital effects, despite
 the distortion, tape "hiss", and other oddities analog tape produced.
@@ -144,13 +144,13 @@ the tape 'y' (Karlqvist medium field approximation) \cite{1994tmr..book.....B}.
     \label{eq2}
 \end{equation}
 %
-where $g$ = head gap, and $H_0$ = deep gap field, given by:
+where $g$ is the head gap, and $H_0$ isthe deep gap field, given by:
 
 \begin{equation}
     H_0 = \frac{NEI}{g}
 \end{equation}
 %
-where $N$ = number of turns coils of wire around the head, and $E$ = head 
+where $N$ is the number of turns coils of wire around the head, and $E$ is the head 
 efficiency which can be calculated by:
 
 \begin{equation}
@@ -158,7 +158,7 @@ efficiency which can be calculated by:
 \end{equation}
 %
 where $A_g$ is the gap area, $\mu_r$ is the core permeability relative to 
-free space ($\mu_0$), $g$ if the gap width, and $A(l)$ is the cross-sectional 
+free space ($\mu_0$), and $A(l)$ is the cross-sectional 
 area of the core as a function of length.
 
 \subsection{Tape Magnetisation}
@@ -172,15 +172,15 @@ a hysteresis loop, as follows \cite{1994tmr..book.....B}:
 where $F_{Loop}$ is a generalized hysteresis function.
 \newline\newline
 Using the Jiles-Atherton magnetisation model, the following
-differential equation describes magnetisation 'M' as a function 
-of magnetic field 'H' \cite{Hysteresis}:
+differential equation describes magnetisation `M' as a function 
+of magnetic field `H' \cite{Hysteresis}:
 
 \begin{equation}
     \frac{dM}{dH} = \frac{(1-c) \delta_M (M_{an} - M)}{(1-c) \delta k - \alpha (M_{an} - M)} + c \frac{dM_{an}}{dH}
     \label{eq5}
 \end{equation}
 %
-where $c$ is the ration of normal and anhysteric initial susceptibilities,
+where $c$ is the ratio of normal and anhysteric initial susceptibilities,
 $k$ is a measure of the width of the hysteresis
 loop, $\alpha$ is a mean field parameter, representing inter-domain
 coupling, and
@@ -221,8 +221,8 @@ The ideal playback voltage as a function of tape magnetisation is given by
     \label{eq11}
 \end{equation}
 %
-where $N$ = number of turns of wire, $W$ = width of the playhead, $E$ = playhead
-efficiency, $v$ = tape speed, and $\mu_0$ is the permeability of free space.
+where $N$ is the number of turns of wire, $W$ is the width of the playhead, $E$ is the playhead
+efficiency, $v$ is the tape speed, and $\mu_0$ is the permeability of free space.
 Note that $V(x) = V(vt)$ for constant $v$. $\vec{h}(x, y)$ is defined as:
 
 \begin{equation}
@@ -241,12 +241,13 @@ described as follows \cite{Kadis}:
     \label{eq:lossEffects}
 \end{equation}
 %
-for sinusoidal input, where $k$ = wave number, $d$ is the distance between the tape and the playhead,
+for sinusoidal input, where $k$ is the wave number, $d$ is the distance between the tape and the playhead,
 $g$ is the gap width of the play head, and $\delta$ is the thickness of the tape. The wave number
 is given by:
 
 \begin{equation}
     k = \frac {2 \pi f}{v}
+    \label{eq:wavenumber}
 \end{equation}
 %
 where $f$ is the frequency and $v$ is the tape speed.
@@ -297,6 +298,7 @@ Using the trapezoidal rule for derivative approximation, we find:
 
 \begin{equation}
     \dot{\hat{H}}(n) = 2\frac{\hat{H}(n) - \hat{H}(n-1)}{T} - \dot{\hat{H}}(n-1)
+    \label{eq:hDeriv}
 \end{equation}
 %
 We can use the Runge-Kutta 4th order method \cite{Yeh} to find an explicit solution
@@ -358,22 +360,37 @@ In the real-time system, we model the playhead
 loss effects with an FIR filter, derived by
 taking the inverse DFT of the
 loss effects described in \cref{eq:lossEffects}.
-It is worth noting once again that the loss effects
-and therefore the FIR filter as well, are dependent
-on the tape speed.
-The following plot shows the frequency response of
-the loss effects for tape-head spacing of 20 microns,
-head gap width of 5 microns, tape thickness of 35 microns,
-and tape speed of 15 ips.
+It is worth noting that as in \cref{eq:wavenumber},
+the loss effects, and therefore the FIR filter
+as well are dependent on the tape speed.
+\newline\newline
+The loss effects filter was implemented and
+tested offline in \texttt{Python} with tape-head 
+spacing of 20 microns, head gap width of 5 microns, 
+tape thickness of 35 microns, and tape speed of 15 ips.
+The following plot shows the results of the simulation,
+with a filter order of 100.
 \begin{figure}[ht]
     \center
     \includegraphics[width=3in]{../Simulations/Loss_Effects.png}
     \caption{\label{lossEffectsSim}{\it Frequency Response of Playhead Loss Effects}}
 \end{figure}
-
-\subsection{Oversampling}
-To reduce frequency aliasing caused by the hysteresis non-linearity,
-we recommend oversampling by at least 4x.
+%
+\subsection{Oversampling} %@TODO; move this section somewhere else
+If no oversampling is used, the system will be unstable
+for input signal at the Nyquist frequency, due to limitations
+of the trapezoid rule derivate approximation used in \cref{eq:hDeriv}.
+To avoid this, a lowpass filter with cutoff frequency below Nyquist
+should suffice. However, due to aliasing caused by the nonlinearity
+of the tape hysteresis model, oversampling is necessary to mitigate
+aliasing artifacts \cite{Yeh}. Further, the system must be able to
+faithfully recreate not only the frequencies in the audible range
+but the bias frequencies as well. Since the minimum standard audio sampling
+rate is 44.1 kHz, and the minimum standard biasing frequency is approximately
+50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling factor of 3x is
+required. In the real-time implementation, we use a minimum
+oversampling factor of 4x, with options to oversample at 8x or 16x
+if the user desires.
 %
 %\section{Determining System Parameters}
 %\subsection {Tape Machine Parameters}
@@ -401,11 +418,11 @@ the magnetic saturation is $3.5e5$ (A/m) \cite{jilesBook}
 \item Hysteresis Loop Width ($k$): For soft materials, $k$ can be approximated
 as the coercivity, $H_c$ \cite{Jiles1992}. For Ferric Oxide, $H_c$ is approximately
 $27$ kA/m \cite{jilesBook}.
-\item a: Knowing the coercivity and remnance magnetism of Ferric Oxide
+\item Anhysteric magnetisataion ($a$): Knowing the coercivity and remnance magnetism of Ferric Oxide
 \cite{jilesBook}, we can calculate $a$ = 22  kA/m by the method described includegraphics
 \cite{Jiles1992}
-\item c: From \cite{Jiles1992}, $c$ = 1.7e-1.
-\item alpha: From \cite{Jiles1992}, alpha = 1.6e-3
+\item Ratio of normal and hysteris initial susceptibilities ($c$): From \cite{Jiles1992}, $c$ = 1.7e-1.
+\item Mean field parameter ($\alpha$): From \cite{Jiles1992}, alpha = 1.6e-3
 \end{itemize}
 
 \subsection{Tape Bias}
@@ -421,9 +438,24 @@ current to the record head can be given by
 Where the amplitude of the bias current $B$ is usually
 about one order of magnitude larger than the input,
 and the bias frequency $f_{bias}$ is well above the
-audible range. The output signal can be
-recovered after the recording and playback processes
-by subtracting out the bias current.
+audible range. The plot below shows a unit-amplitude,
+2 kHz sine wave biased by a 50 kHz sine wave with amplitude 5.
+To recover the correct output signal, tape machines use a
+lowpass filter, with a cutoff frequency well below the bias
+frequency, thought still above the audible range \cite{Kadis}.
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=3in]{../Simulations/BiasEx.png}
+    \caption{\label{Bias}{\it Example of a biased signal}}
+\end{figure}
+%
+
+\subsection{Wow and Flutter}
+@TODO
+
+
+\section{Results of Real-Time System}
+@TODO
 
 %\newpage
 \nocite{*}
