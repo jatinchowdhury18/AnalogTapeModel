@@ -1,30 +1,37 @@
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
 #include "GUI Extras/MyLNF.h"
+#include "GUI Extras/ChowSlider.h"
+#include "GUI Components/BiasControls.h"
+#include "GUI Components/MainControls.h"
+#include "GUI Components/LossControls.h"
 
-class ChowSlider : public Slider
+enum
 {
-public:
-    ChowSlider() {}
+    width = 375,
+    sectionHeight = 150,
+    height = 3 * sectionHeight,
 
-    void setDefaultValue (const float value) { defaultValue = value; }
+    nameHeight = 20,
 
-    void mouseDoubleClick (const MouseEvent&) override
-    {
-        setValue (defaultValue);
-    }
+    xOffset = 2,
+    yOffset = 5,
 
-private:
-    float defaultValue = 0.0f;
+    labelY = 15,
+    labelHeight = 20,
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowSlider)
+    sliderWidth = 110,
+    sliderY = 25,
+
+    overWidth = 65,
+    tapeWidth = 90,
+    typeWidth = 150,
+    speedWidth = 150,
+    boxHeight = 25,
 };
 
-class ChowtapeModelAudioProcessorEditor  : public AudioProcessorEditor,
-                                           public Slider::Listener,
-                                           public ComboBox::Listener
+class ChowtapeModelAudioProcessorEditor  : public AudioProcessorEditor
 {
 public:
     ChowtapeModelAudioProcessorEditor (ChowtapeModelAudioProcessor&);
@@ -34,33 +41,22 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-private:
-    AudioParameterFloat* getParamForSlider (Slider* slider);
-    void sliderValueChanged (Slider* slider) override;
-    void sliderDragStarted (Slider* slider) override;
-    void sliderDragEnded (Slider* slider) override;
+    static void createSlider (ChowSlider& slide, AudioParameterFloat* param, LookAndFeel& lnf,
+                              Component* comp, String suffix = String(), float step = 0.1f);
+    static void createComboBox (ComboBox& box, AudioParameterChoice* choice, Component* comp);
+    static void createLabel (Label& label, AudioProcessorParameterWithID* param, Component* comp);
 
-    AudioParameterChoice* getParamForBox (ComboBox* box);
-    void comboBoxChanged (ComboBox* box) override;
+    static AudioParameterFloat* getParamForSlider (Slider* slider, ChowtapeModelAudioProcessor& proc);
+    static AudioParameterChoice* getParamForBox (ComboBox* box, ChowtapeModelAudioProcessor& proc);
 
+private: 
     MyLNF myLNF;
 
     ChowtapeModelAudioProcessor& processor;
 
-    ChowSlider gainInKnob;
-    ChowSlider gainOutKnob;
-
-    ComboBox oversampling;
-    ComboBox tapeSpeed;
-
-    Label inGainLabel;
-    Label outGainLabel;
-    Label oversampleLabel;
-    Label speedLabel;
-
-    void createSlider (ChowSlider& slide, AudioParameterFloat* param, String suffix = String(), float step = 0.1f);
-    void createComboBox (ComboBox& box, AudioParameterChoice* choice);
-    void createLabel (Label& label, AudioProcessorParameterWithID* param);
+    std::unique_ptr<MainControls> mainControls;
+    std::unique_ptr<BiasControls> biasControls;
+    std::unique_ptr<LossControls> lossControls;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessorEditor)
 };

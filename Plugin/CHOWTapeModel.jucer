@@ -4,7 +4,19 @@
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
   <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
     <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
+      <GROUP id="{6EA40328-703D-5E93-4DC1-47040482016F}" name="GUI Components">
+        <FILE id="C8pGDO" name="BiasControls.cpp" compile="1" resource="0"
+              file="Source/GUI Components/BiasControls.cpp"/>
+        <FILE id="PORdVN" name="BiasControls.h" compile="0" resource="0" file="Source/GUI Components/BiasControls.h"/>
+        <FILE id="jubA6Z" name="LossControls.cpp" compile="1" resource="0"
+              file="Source/GUI Components/LossControls.cpp"/>
+        <FILE id="KrcGEd" name="LossControls.h" compile="0" resource="0" file="Source/GUI Components/LossControls.h"/>
+        <FILE id="S8Xybc" name="MainControls.cpp" compile="1" resource="0"
+              file="Source/GUI Components/MainControls.cpp"/>
+        <FILE id="zXwghi" name="MainControls.h" compile="0" resource="0" file="Source/GUI Components/MainControls.h"/>
+      </GROUP>
       <GROUP id="{7867F016-80C7-7749-B604-ED042C040FC7}" name="GUI Extras">
+        <FILE id="xd7cQs" name="ChowSlider.h" compile="0" resource="0" file="Source/GUI Extras/ChowSlider.h"/>
         <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">

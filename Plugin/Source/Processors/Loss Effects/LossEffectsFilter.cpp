@@ -4,8 +4,8 @@ void LossEffectsFilter::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
-    lossProcessors[0].init ((float) sampleRate, speed);
-    lossProcessors[1].init ((float) sampleRate, speed);
+    lossProcessors[0].init ((float) sampleRate, speed, spacing, thickness, gap);
+    lossProcessors[1].init ((float) sampleRate, speed, spacing, thickness, gap);
 }
 
 void LossEffectsFilter::releaseResources()
@@ -33,5 +33,23 @@ void LossEffectsFilter::setSpeed (String newSpeed)
     else if (newSpeed == "15 ips")
         speed = 15.0f;
 
+    prepareToPlay (getSampleRate(), getBlockSize());
+}
+
+void LossEffectsFilter::setSpacing (float newSpacingMicrons)
+{
+    spacing = newSpacingMicrons * (float) 1e-6;
+    prepareToPlay (getSampleRate(), getBlockSize());
+}
+
+void LossEffectsFilter::setThickness (float newThicknessMicrons)
+{
+    thickness = newThicknessMicrons * (float) 1e-6;
+    prepareToPlay (getSampleRate(), getBlockSize());
+}
+
+void LossEffectsFilter::setGap (float newGapMicrons)
+{
+    gap = newGapMicrons * (float) 1e-6;
     prepareToPlay (getSampleRate(), getBlockSize());
 }
