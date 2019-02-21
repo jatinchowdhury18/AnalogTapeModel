@@ -3,7 +3,7 @@
 LossEffects::LossEffects()
 {}
 
-void LossEffects::init (float sampleRate, float speed)
+void LossEffects::init (float sampleRate, float speed, float spacing, float thickness, float gap)
 {
     const auto numBins = sampleRate / (float) order;
     const auto binWidth = sampleRate / numBins;

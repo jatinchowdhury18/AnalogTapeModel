@@ -2,7 +2,6 @@
 
 namespace
 {
-    constexpr float fBias = 55000.0f;
     constexpr float biasFilterFreq = 24000.0f;
 }
 
@@ -42,17 +41,17 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     float* ptrArray[] = { osBlock.getChannelPointer(0), osBlock.getChannelPointer(1) };
     AudioBuffer<float> osBuffer (ptrArray, 2, static_cast<int> (osBlock.getNumSamples()));
 
-    const auto sineTerm = MathConstants<float>::twoPi * fBias / (float) (getSampleRate() * overSamplingFactor);
+    const auto sineTerm = MathConstants<float>::twoPi * biasFreq / (float) (getSampleRate() * overSamplingFactor);
 
     for (int channel = 0; channel < osBuffer.getNumChannels(); ++channel)
     {
         auto* x = osBuffer.getWritePointer (channel);
         for (int samp = 0; samp < osBuffer.getNumSamples(); samp++)
         {
-            x[samp] = 27.f * hProcs[channel].process ((float) 1e4 * (x[samp] + 5.0f * sinf (sineTerm * (float) n[channel])));
+            x[samp] = hProcs[channel].process ((float) 1e5 * (x[samp]));// + biasGain * sinf (sineTerm * (float) n[channel])));
             
             n[channel]++;
-            if ((float) (getSampleRate() * overSamplingFactor * n[channel]) >= 1.0f / fBias)
+            if ((float) (n[channel] / (getSampleRate() * overSamplingFactor)) >= 1.0f / biasFreq)
                 n[channel] = 0;
         }
     }
@@ -63,7 +62,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
 void HysteresisProcessor::setOverSamplingFactor (String osFactor)
 {
-    return;
+    osFactor = "4x";
     //@TODO: figure out how to change oversampling factor without breaking everything
 
     int factor = overSamplingFactor;
@@ -87,4 +86,14 @@ void HysteresisProcessor::setOverSamplingFactor (String osFactor)
     overSamplingFactor = factor;
     overSample->reset();
     overSample->initProcessing (getBlockSize());
+}
+
+void HysteresisProcessor::setBiasFreq (float newFreqKHz)
+{
+    biasFreq = newFreqKHz * 100.0f;
+}
+
+void HysteresisProcessor::setBiasGain (float newGainDB)
+{
+    biasGain = Decibels::decibelsToGain (newGainDB);
 }

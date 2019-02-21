@@ -9,6 +9,10 @@ public:
     MyLNF()
     {
         setColour (ComboBox::outlineColourId, Colours::darkorange);
+
+        setColour (PopupMenu::backgroundColourId, Colours::black);
+        setColour (PopupMenu::textColourId, Colours::antiquewhite);
+        setColour (PopupMenu::highlightedBackgroundColourId, Colours::darkgrey);
     }
 
     Font getTextButtonFont (TextButton& button, int buttonHeight) override

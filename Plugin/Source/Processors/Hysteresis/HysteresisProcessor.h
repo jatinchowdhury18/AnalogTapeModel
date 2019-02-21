@@ -17,6 +17,8 @@ public:
     double getTailLengthSeconds() const override { return overSample->getLatencyInSamples() * getSampleRate(); }
 
     void setOverSamplingFactor (String osFactor);
+    void setBiasFreq (float newFreqKHz);
+    void setBiasGain (float newGainDB);
 
 private:
     HysteresisProcessing hProcs[2];
@@ -24,6 +26,9 @@ private:
     BiasFilter biasFilter;
 
     int overSamplingFactor = 8;
+
+    float biasFreq = 0.0f;
+    float biasGain = 5.0f;
     int n[2] = { 0, 0 };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)

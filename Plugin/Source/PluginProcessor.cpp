@@ -14,6 +14,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        )
 #endif
 {
+    //Main Controls
     addParameter (inGain = new AudioParameterFloat (String ("inGain"), String ("Input Gain"), -30.0f, 30.0f, 0.0f));
     inGain->addListener (this);
 
@@ -28,8 +29,30 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                                                         StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
     tapeSpeed->addListener (this);
 
+    addParameter (tapeType = new AudioParameterChoice (String ("tapeType"), String ("Tape Type"),
+                                                       StringArray ({ "Iron Oxide", "Chromium Oxide" }), 0));
+    tapeType->addListener(this);
+
+    //Bias Controls
+    addParameter (biasFreq = new AudioParameterFloat (String ("biasFreq"), String ("Bias Frequency"), 30.0f, 80.0f, 55.0));
+    biasFreq->addListener (this);
+
+    addParameter (biasGain = new AudioParameterFloat (String ("biasGain"), String ("Bias Gain"), 0.0f, 20.0f, 14.0f));
+    biasGain->addListener (this);
+
+    //Loss Controls
+    addParameter (tapeSpacing = new AudioParameterFloat (String ("tapeSpacing"), String ("Spacing"), 0.0f, 50.0f, 0.001f));
+    tapeSpacing->addListener (this);
+
+    addParameter (tapeThickness = new AudioParameterFloat (String ("tapeThickness"), String ("Thickness"), 0.0f, 50.0f, 10.0f));
+    tapeThickness->addListener (this);
+
+    addParameter (gapWidth = new AudioParameterFloat (String ("gapWidth"), String ("Gap Width"), 2.5f, 12.0f, 3.0f));
+    gapWidth->addListener (this);
+
     lossEffects.setSpeed (*tapeSpeed);
     hysteresis.setOverSamplingFactor (*overSampling);
+    hysteresis.setBiasFreq (*biasFreq);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -46,6 +69,18 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
         hysteresis.setOverSamplingFactor (*overSampling);
     else if (paramIndex == tapeSpeed->getParameterIndex())
         lossEffects.setSpeed (*tapeSpeed);
+    else if (paramIndex == tapeType->getParameterIndex())
+        return; //@TODO
+    else if (paramIndex == biasFreq->getParameterIndex())
+        hysteresis.setBiasFreq (biasFreq->convertFrom0to1 (newValue));
+    else if (paramIndex == biasGain->getParameterIndex())
+        hysteresis.setBiasGain (biasGain->convertFrom0to1 (newValue));
+    else if (paramIndex == tapeSpacing->getParameterIndex())
+        lossEffects.setSpacing (tapeSpacing->convertFrom0to1 (newValue));
+    else if (paramIndex == tapeThickness->getParameterIndex())
+        lossEffects.setThickness (tapeThickness->convertFrom0to1 (newValue));
+    else if (paramIndex == gapWidth->getParameterIndex())
+        lossEffects.setGap (gapWidth->convertFrom0to1 (newValue));
 }
 
 //==============================================================================

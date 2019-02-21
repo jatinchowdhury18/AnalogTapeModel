@@ -5,9 +5,6 @@
 
 namespace
 {
-    constexpr float spacing = (float) 1e-9;
-    constexpr float gap = (float) 2e-6;
-    constexpr float thickness = (float) 10e-6;
     constexpr float inchesToMeters = 0.0254f;
 
     enum
@@ -21,7 +18,7 @@ class LossEffects
 public:
     LossEffects();
 
-    void init (float sampleRate, float speed);
+    void init (float sampleRate, float speed, float spacing, float thickness, float gap);
     float process (float in);
 
 private:

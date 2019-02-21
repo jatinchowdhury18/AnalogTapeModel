@@ -53,6 +53,14 @@ public:
     AudioParameterFloat* outGain;
     AudioParameterChoice* overSampling;
     AudioParameterChoice* tapeSpeed;
+    AudioParameterChoice* tapeType;
+
+    AudioParameterFloat* biasFreq;
+    AudioParameterFloat* biasGain;
+
+    AudioParameterFloat* tapeSpacing;
+    AudioParameterFloat* tapeThickness;
+    AudioParameterFloat* gapWidth;
 
     void parameterValueChanged (int paramIndex, float newValue) override;
     void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
