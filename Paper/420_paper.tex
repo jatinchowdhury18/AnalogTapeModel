@@ -112,12 +112,12 @@
 For decades, analog magnetic tape recording was the most popular
 method for recording music, but has been replaced over the past 30 years first by
 DAT tape, then by DAWs and audio interfaces \cite{Kadis}. Despite being replaced
-by higher quality technology,
-many have sought to recreate a "tape" sound through digital effects, despite
-the distortion, tape "hiss", and other oddities analog tape produced.
-The following describes
-a physical modelling process for an analog tape machine,
-starting from basic physical principles.
+by higher quality technology, many have sought to recreate a "tape" sound
+through digital effects, despite the distortion, tape "hiss", and other
+oddities analog tape produced. The following paper describes the general process
+of creating a physical model of an analog tape machine starting from basic
+physical principles, then discusses in-depth a real-time implementation
+of a physical model of a Sony TC-260 tape machine.
 \newline\newline
 "Whatever you now find weird, ugly, uncomfortable, and nasty
 about a new medium will surely become its signature. CD distortion, the jitteriness
@@ -131,12 +131,13 @@ head.
 
 \subsection{The Record Head}
 For an instantaneous input current $I(t)$, the magnetic field output of the record 
-head is given as a function of distance along the tape 'x', and depth into 
-the tape 'y' (Karlqvist medium field approximation) \cite{1994tmr..book.....B}.
+head is given as a function of distance along the tape ($x$), and depth into 
+the tape ($y$). Using the Karlqvist medium field approximation, we find
+\cite{1994tmr..book.....B}:
 
 \begin{multline}
-    H_x(x,y) = \frac{1}{\pi} H_0 \Big(\tan^{-1} \Big(\frac{(g/2) + x}{y} \Big) + \\
-    \tan^{-1} \Big(\frac{(g/2) - x}{y} \Big) \Big)
+    H_x(x,y) = \frac{1}{\pi} H_0 \Big(\tan^{-1} \Big(\frac{(g/2) + x}{y} \Big) \\
+    + \tan^{-1} \Big(\frac{(g/2) - x}{y} \Big) \Big)
     \label{eq1}
 \end{multline}
 \begin{equation}
@@ -144,7 +145,7 @@ the tape 'y' (Karlqvist medium field approximation) \cite{1994tmr..book.....B}.
     \label{eq2}
 \end{equation}
 %
-where $g$ is the head gap, and $H_0$ isthe deep gap field, given by:
+where $g$ is the head gap, and $H_0$ is the deep gap field, given by:
 
 \begin{equation}
     H_0 = \frac{NEI}{g}
@@ -172,8 +173,8 @@ a hysteresis loop, as follows \cite{1994tmr..book.....B}:
 where $F_{Loop}$ is a generalized hysteresis function.
 \newline\newline
 Using the Jiles-Atherton magnetisation model, the following
-differential equation describes magnetisation `M' as a function 
-of magnetic field `H' \cite{Hysteresis}:
+differential equation describes magnetisation ($M$) as a function 
+of magnetic field ($H$) \cite{Hysteresis}:
 
 \begin{equation}
     \frac{dM}{dH} = \frac{(1-c) \delta_M (M_{an} - M)}{(1-c) \delta k - \alpha (M_{an} - M)} + c \frac{dM_{an}}{dH}
@@ -183,7 +184,7 @@ of magnetic field `H' \cite{Hysteresis}:
 where $c$ is the ratio of normal and anhysteric initial susceptibilities,
 $k$ is a measure of the width of the hysteresis
 loop, $\alpha$ is a mean field parameter, representing inter-domain
-coupling, and
+coupling, and $\delta$ and $\delta_M$ are given by:
 
 \begin{equation}
     \delta = \begin{cases}
@@ -237,11 +238,11 @@ There are several frequency-dependent loss effects associated with playback,
 described as follows \cite{Kadis}:
 
 \begin{equation}
-    V(x) = V_0(x) [e^{-kd}] \Big[\frac{1 - e^{-k \delta}}{k \delta} \Big] \Big[\frac{\sin (kg /2)}{kg/2} \Big]
+    V(t) = V_0(t) [e^{-kd}] \Big[\frac{1 - e^{-k \delta}}{k \delta} \Big] \Big[\frac{\sin (kg /2)}{kg/2} \Big]
     \label{eq:lossEffects}
 \end{equation}
 %
-for sinusoidal input, where $k$ is the wave number, $d$ is the distance between the tape and the playhead,
+for sinusoidal input $V_0(t)$, where $k$ is the wave number, $d$ is the distance between the tape and the playhead,
 $g$ is the gap width of the play head, and $\delta$ is the thickness of the tape. The wave number
 is given by:
 
@@ -268,6 +269,7 @@ In this case $H_y \equiv 0$, and $H_x \equiv H_0$. Thus,
 or,
 \begin{equation}
     \hat{H}(n) = \frac{NE\hat{I}(n)}{g}
+    \label{eq:Hin}
 \end{equation}
 
 \subsection{Hysteresis}
@@ -340,7 +342,7 @@ meter, the following plot shows the Magnetisation output.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[width=3in]{../Simulations/Sim2-M_H.png}
+    \includegraphics[width=3in]{../Simulations/Hysteresis/Sim2-M_H.png}
     \caption{\label{HysteresisSim}{\it Digitized Hysteresis Loop Simulation}}
 \end{figure}
 %
@@ -352,7 +354,8 @@ By combining \cref{eq11} with \cref{eq12,eq15}, we get:
 %
 or,
 \begin{equation}
-    \hat{V}(n) =  NWEv \mu_0  g \hat{M}(t)
+    \hat{V}(n) =  NWEv \mu_0  g \hat{M}(n)
+    \label{eq:Vout}
 \end{equation}
 %
 \subsubsection{Loss Effects}
@@ -362,7 +365,7 @@ taking the inverse DFT of the
 loss effects described in \cref{eq:lossEffects}.
 It is worth noting that as in \cref{eq:wavenumber},
 the loss effects, and therefore the FIR filter
-as well are dependent on the tape speed.
+are dependent on the tape speed.
 \newline\newline
 The loss effects filter was implemented and
 tested offline in \texttt{Python} with tape-head 
@@ -372,57 +375,75 @@ The following plot shows the results of the simulation,
 with a filter order of 100.
 \begin{figure}[ht]
     \center
-    \includegraphics[width=3in]{../Simulations/Loss_Effects.png}
+    \includegraphics[width=3in]{../Simulations/LossEffects/Loss_Effects.png}
     \caption{\label{lossEffectsSim}{\it Frequency Response of Playhead Loss Effects}}
 \end{figure}
 %
-\subsection{Oversampling} %@TODO; move this section somewhere else
-If no oversampling is used, the system will be unstable
-for input signal at the Nyquist frequency, due to limitations
-of the trapezoid rule derivate approximation used in \cref{eq:hDeriv}.
-To avoid this, a lowpass filter with cutoff frequency below Nyquist
-should suffice. However, due to aliasing caused by the nonlinearity
-of the tape hysteresis model, oversampling is necessary to mitigate
-aliasing artifacts \cite{Yeh}. Further, the system must be able to
-faithfully recreate not only the frequencies in the audible range
-but the bias frequencies as well. Since the minimum standard audio sampling
-rate is 44.1 kHz, and the minimum standard biasing frequency is approximately
-50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling factor of 3x is
-required. In the real-time implementation, we use a minimum
-oversampling factor of 4x, with options to oversample at 8x or 16x
-if the user desires.
-%
-%\section{Determining System Parameters}
-%\subsection {Tape Machine Parameters}
-%%@TODO: Do I need this section?
-%\subsubsection {Record Head}
-%The input current to the record head is approximately 0.1 mA peak-to-peak
-%\cite{RefManual}. Plugging into equation (16)
-%
-%g = 20 microns, N = 100, E = 0.1
-%
-%gives a peak-to-peak field amplitude of 5E5 A/m
-%
-%\subsubsection{Play Head}
-%N = 100, W = 0.25in = 6.3e-3m, v = 7 ips = 0.18 m/s,
-%g = 20 microns, mu = 12.57e-7
-%
-%Gain of play head = 2.85e-14
-\section{System Parameters}
+
+\section{Tape and Tape Machine Parameters}
+In the following sections, we describe the implementation of
+a real-time model of a Sony TC-260 tape machine, while attempting
+to preserve generality so that the process can be repeated for any
+other similar reel-to-reel tape machine.
+
 \subsection {Tape Parameters}
-For the tape hysteresis \cref{eq:dmdt}, following parameters are necessary:
+A typical reel-to-reel tape such as the Sony TC-260 uses 
+Ferric Oxide ($\gamma F_2O_3$) magnetic tape. The following
+properties of the tape are necessary for the tape hysteresis
+process \cref{eq:dmdt}:
 \begin{itemize}
-\item Magnetic Saturation ($M_s$): For Ferric Oxide ($\gamma F_2O_3$)
-magnetic tape as would typically be used for a reel-to-reel machine,
+\item Magnetic Saturation ($M_s$): For Ferric Oxide tape
 the magnetic saturation is $3.5e5$ (A/m) \cite{jilesBook}
 \item Hysteresis Loop Width ($k$): For soft materials, $k$ can be approximated
 as the coercivity, $H_c$ \cite{Jiles1992}. For Ferric Oxide, $H_c$ is approximately
 $27$ kA/m \cite{jilesBook}.
 \item Anhysteric magnetisataion ($a$): Knowing the coercivity and remnance magnetism of Ferric Oxide
-\cite{jilesBook}, we can calculate $a$ = 22  kA/m by the method described includegraphics
+\cite{jilesBook}, we can calculate $a$ = 22  kA/m by the method described in
 \cite{Jiles1992}
 \item Ratio of normal and hysteris initial susceptibilities ($c$): From \cite{Jiles1992}, $c$ = 1.7e-1.
 \item Mean field parameter ($\alpha$): From \cite{Jiles1992}, alpha = 1.6e-3
+\end{itemize}
+
+\subsection{Tape Machine Parameters}
+\subsubsection {Record Head}
+To determine the magnetic field output of the
+record head using \cref{eq:Hin}, the following parameters 
+are necessary:
+\begin{itemize}
+\item Input Current ($\hat{I} (n)$): For the Sony TC-260
+the input current to the record head is approximately
+0.1 mA peak-to-peak \cite{RefManual}.
+\item Gap Width ($g$): The gap width for recording heads
+can range from 2.5 to 12 microns \cite{Kadis}.
+\item Turns of wire ($N$): The number of turns of wire
+is typically on the order of 100 \cite{1994tmr..book.....B}.
+\item Head Efficiency ($E$): The head efficiency is typically
+on the order of 0.1 \cite{1994tmr..book.....B}.
+\end{itemize}
+%
+These values result in a peak-to-peak magnetic field
+of approximately 5e5 A/m.
+
+\subsubsection{Play Head}
+Similar to the record head, the following parameters
+are needed to calculate the output voltage using
+\cref{eq:Vout,eq:lossEffects} (note that values are only included
+here if notably different from the record head):
+\begin{itemize}
+\item Gap Width ($g$): The play head gap width ranges from
+1.5 to 6 microns\cite{Kadis}.
+\item Head Width ($W$): For the Sony TC-260, the play head
+width is 0.125 inches (note that this is the same as the
+width of one track on the quarter-inch tape used by the 
+machine) \cite{RefManual}.
+\item Tape Speed ($v$): The Sony TC-260 can run at 3.75 inches
+per second (ips), or 7.5 ips \cite{RefManual}. Note that many
+ tape machines can run at 15 or 32 ips \cite{Kadis}.
+\item Tape Thickness ($\delta$): Typical tape that would be used
+with the TC-260 is on the order of 35 microns thick \cite{RefManual}.
+\item Spacing ($d$): The spacing between the tape and the play
+head is highly variable between tape machines. For a typical
+tape machine spacing can be as high as 20 microns \cite{Kadis}.
 \end{itemize}
 
 \subsection{Tape Bias}
@@ -445,17 +466,59 @@ lowpass filter, with a cutoff frequency well below the bias
 frequency, thought still above the audible range \cite{Kadis}.
 \begin{figure}[ht]
     \center
-    \includegraphics[width=3in]{../Simulations/BiasEx.png}
+    \includegraphics[width=3in]{../Simulations/Bias/BiasEx.png}
     \caption{\label{Bias}{\it Example of a biased signal}}
+\end{figure}
+\newline\newline
+For the Sony TC-260, the bias frequency is 55 kHz, with a gain
+of 5 relative to the input signal. The lowpass filter used to recover
+the audible signal has a cutoff at 24 kHz, though note that due to
+the frequency response of the playhead loss effects, the effects
+of this filter may be essentially neglible to the real time system.
+\cite{RefManual}
+
+\subsection{Wow and Flutter}
+Each tape machine has characteristic timing imperfections
+known as ``wow'' and/or ``flutter.'' These imperfections
+are caused by minor changes in speed from the motors
+driving the tape reels, and can cause fluctuations in
+the pitch of the output signal. To characterize these
+timing imperfections, we use a method similar to \cite{tapeDelay}:
+We recorded a pulse train of 1000 pulses through a TC-260,
+then recorded the pulses back from the tape. \Cref{timingSim}
+below shows a section of a superimposed plot of the original
+pulse train against the pulse train recorded from the tape
+machine. From this data, we were able to generate a periodic
+function that accurately models the timing imperfections of
+the TC-260. The process was performed at both 7.5 ips and 3.75
+ips. In the real-time system, the timing imperfection model
+is used to inform a modulating delay line, to achieve the
+signature "wow" effect of an analog tape machine.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=3in]{../Simulations/TimingEffects/timing_diff_7-5.png}
+    \caption{\label{timingSim}{\it Input pulse train superimposed with pulse train recorded from TC-260}}
 \end{figure}
 %
 
-\subsection{Wow and Flutter}
+\section{Real-Time Implementation}
 @TODO
-
-
-\section{Results of Real-Time System}
-@TODO
+\subsection{Oversampling} %@TODO; move this section somewhere else
+If no oversampling is used, the system will be unstable
+for input signal at the Nyquist frequency, due to limitations
+of the trapezoid rule derivate approximation used in \cref{eq:hDeriv}.
+To avoid this, a lowpass filter with cutoff frequency below Nyquist
+should suffice. However, due to aliasing caused by the nonlinearity
+of the tape hysteresis model, oversampling is necessary to mitigate
+aliasing artifacts \cite{Yeh}. Further, the system must be able to
+faithfully recreate not only the frequencies in the audible range
+but the bias frequencies as well. Since the minimum standard audio sampling
+rate is 44.1 kHz, and the minimum standard biasing frequency is approximately
+50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling factor of 3x is
+required. In the real-time implementation, we use a minimum
+oversampling factor of 4x, with options to oversample at 8x or 16x
+if the user desires.
 
 %\newpage
 \nocite{*}
