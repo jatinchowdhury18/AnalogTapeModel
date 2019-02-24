@@ -14,7 +14,7 @@ public:
     void releaseResources() override;
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiBuffer) override;
 
-    double getTailLengthSeconds() const override { return overSample->getLatencyInSamples() * getSampleRate(); }
+    double getTailLengthSeconds() const override;
 
     void setOverSamplingFactor (String osFactor);
     void setBiasFreq (float newFreqKHz);
@@ -22,14 +22,17 @@ public:
 
 private:
     HysteresisProcessing hProcs[2];
-    std::unique_ptr<dsp::Oversampling<float>> overSample;
-    BiasFilter biasFilter;
+    std::unique_ptr<dsp::Oversampling<float>> overSample2;
+    std::unique_ptr<dsp::Oversampling<float>> overSample4;
+    std::unique_ptr<dsp::Oversampling<float>> overSample8;
 
     int overSamplingFactor = 8;
 
     float biasFreq = 0.0f;
     float biasGain = 5.0f;
     int n[2] = { 0, 0 };
+
+    bool fadeIn = false;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
 };
