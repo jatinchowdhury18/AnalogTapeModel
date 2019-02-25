@@ -50,9 +50,14 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     addParameter (gapWidth = new AudioParameterFloat (String ("gapWidth"), String ("Gap Width"), 2.5f, 12.0f, 3.0f));
     gapWidth->addListener (this);
 
+    //Timing Controls
+    addParameter (flutterDepth = new AudioParameterFloat (String ("flutterDepth"), String ("Flutter Depth"), 0.0f, 5.0f, 1.0f));
+    flutterDepth->addListener (this);
+
     lossEffects.setSpeed (*tapeSpeed);
     hysteresis.setOverSamplingFactor (*overSampling);
     hysteresis.setBiasFreq (*biasFreq);
+    timingEffect.setDepth (*flutterDepth);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -68,7 +73,10 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
     else if (paramIndex == overSampling->getParameterIndex())
         hysteresis.setOverSamplingFactor (*overSampling);
     else if (paramIndex == tapeSpeed->getParameterIndex())
+    {
         lossEffects.setSpeed (*tapeSpeed);
+        timingEffect.setTapeSpeed (*tapeSpeed);
+    }
     else if (paramIndex == tapeType->getParameterIndex())
         return; //@TODO
     else if (paramIndex == biasFreq->getParameterIndex())
@@ -81,6 +89,8 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
         lossEffects.setThickness (tapeThickness->convertFrom0to1 (newValue));
     else if (paramIndex == gapWidth->getParameterIndex())
         lossEffects.setGap (gapWidth->convertFrom0to1 (newValue));
+    else if (paramIndex == flutterDepth->getParameterIndex())
+        timingEffect.setDepth (flutterDepth->convertFrom0to1 (newValue));
 }
 
 //==============================================================================
@@ -150,6 +160,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     inGainProc.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    timingEffect.prepareToPlay (sampleRate, samplesPerBlock);
     lossEffects.prepareToPlay (sampleRate, samplesPerBlock);
     outGainProc.prepareToPlay (sampleRate, samplesPerBlock);
 }
@@ -158,6 +169,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
 {
     inGainProc.releaseResources();
     hysteresis.releaseResources();
+    timingEffect.releaseResources();
     lossEffects.releaseResources();
     outGainProc.releaseResources();
 }
@@ -193,6 +205,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     inGainProc.processBlock (buffer, midiMessages);
 
     hysteresis.processBlock (buffer, midiMessages);
+
+    timingEffect.processBlock (buffer, midiMessages);
 
     lossEffects.processBlock (buffer, midiMessages);
 

@@ -14,12 +14,21 @@
         <FILE id="S8Xybc" name="MainControls.cpp" compile="1" resource="0"
               file="Source/GUI Components/MainControls.cpp"/>
         <FILE id="zXwghi" name="MainControls.h" compile="0" resource="0" file="Source/GUI Components/MainControls.h"/>
+        <FILE id="E0NC0D" name="TimingControls.cpp" compile="1" resource="0"
+              file="Source/GUI Components/TimingControls.cpp"/>
+        <FILE id="vA4R0k" name="TimingControls.h" compile="0" resource="0"
+              file="Source/GUI Components/TimingControls.h"/>
       </GROUP>
       <GROUP id="{7867F016-80C7-7749-B604-ED042C040FC7}" name="GUI Extras">
         <FILE id="xd7cQs" name="ChowSlider.h" compile="0" resource="0" file="Source/GUI Extras/ChowSlider.h"/>
         <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
       <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
+        <GROUP id="{6480D4F8-23CE-4932-1E51-CF3CF4FCC37F}" name="Timing Effects">
+          <FILE id="sF9JlS" name="TimingEffect.cpp" compile="1" resource="0"
+                file="Source/Processors/Timing Effects/TimingEffect.cpp"/>
+          <FILE id="vDhRoW" name="TimingEffect.h" compile="0" resource="0" file="Source/Processors/Timing Effects/TimingEffect.h"/>
+        </GROUP>
         <GROUP id="{99069F32-1399-FF98-7C4A-19F8E855C2AA}" name="Loss Effects">
           <FILE id="aEdcW7" name="LossEffects.cpp" compile="1" resource="0" file="Source/Processors/Loss Effects/LossEffects.cpp"/>
           <FILE id="TFnfhT" name="LossEffects.h" compile="0" resource="0" file="Source/Processors/Loss Effects/LossEffects.h"/>
