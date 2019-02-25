@@ -6,12 +6,13 @@
 #include "GUI Components/BiasControls.h"
 #include "GUI Components/MainControls.h"
 #include "GUI Components/LossControls.h"
+#include "GUI Components/TimingControls.h"
 
 enum
 {
     width = 375,
     sectionHeight = 150,
-    height = 3 * sectionHeight,
+    height = 4 * sectionHeight,
 
     nameHeight = 20,
 
@@ -57,6 +58,7 @@ private:
     std::unique_ptr<MainControls> mainControls;
     std::unique_ptr<BiasControls> biasControls;
     std::unique_ptr<LossControls> lossControls;
+    std::unique_ptr<TimingControls> timingControls;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessorEditor)
 };

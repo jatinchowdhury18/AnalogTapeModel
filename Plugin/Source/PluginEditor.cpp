@@ -14,6 +14,9 @@ ChowtapeModelAudioProcessorEditor::ChowtapeModelAudioProcessorEditor (ChowtapeMo
     lossControls.reset (new LossControls (processor));
     addAndMakeVisible (lossControls.get());
 
+    timingControls.reset (new TimingControls (processor));
+    addAndMakeVisible (timingControls.get());
+
     setSize (width, height);
 }
 
@@ -80,6 +83,7 @@ void ChowtapeModelAudioProcessorEditor::paint (Graphics& g)
 
     g.drawHorizontalLine (sectionHeight, 0, width);
     g.drawHorizontalLine (2 * sectionHeight, 0, width);
+    g.drawHorizontalLine (3 * sectionHeight, 0, width);
 }
 
 void ChowtapeModelAudioProcessorEditor::resized()
@@ -87,6 +91,7 @@ void ChowtapeModelAudioProcessorEditor::resized()
     mainControls->setBounds (0, 0, width, sectionHeight);
     biasControls->setBounds (0, sectionHeight, width, sectionHeight);
     lossControls->setBounds (0, 2 * sectionHeight, width, sectionHeight);
+    timingControls->setBounds (0, 3 * sectionHeight, width, sectionHeight);
 }
 
 AudioParameterFloat* ChowtapeModelAudioProcessorEditor::getParamForSlider (Slider* slider, ChowtapeModelAudioProcessor& proc)
@@ -105,6 +110,8 @@ AudioParameterFloat* ChowtapeModelAudioProcessorEditor::getParamForSlider (Slide
         return proc.tapeThickness;
     else if (proc.gapWidth->name == slider->getName())
         return proc.gapWidth;
+    else if (proc.flutterDepth->name == slider->getName())
+        return proc.flutterDepth;
     else
         return nullptr;
 }

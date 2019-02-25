@@ -104,6 +104,7 @@ t = np.arange (len (diffs_pos))
 p = np.polyfit (t, diffs_pos, 10)
 
 print (p)
+print (len (diffs_pos))
 
 y = np.poly1d (p)
 

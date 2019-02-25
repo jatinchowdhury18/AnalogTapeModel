@@ -4,6 +4,7 @@
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/GainProcessor.h"
 #include "Processors/Loss Effects/LossEffectsFilter.h"
+#include "Processors/Timing Effects/TimingEffect.h"
 
 //==============================================================================
 /**
@@ -62,12 +63,15 @@ public:
     AudioParameterFloat* tapeThickness;
     AudioParameterFloat* gapWidth;
 
+    AudioParameterFloat* flutterDepth;
+
     void parameterValueChanged (int paramIndex, float newValue) override;
     void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
 
 private:
     HysteresisProcessor hysteresis;
     LossEffectsFilter lossEffects;
+    TimingEffect timingEffect;
 
     GainProcessor inGainProc;
     GainProcessor outGainProc;
