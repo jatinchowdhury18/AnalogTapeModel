@@ -1,0 +1,238 @@
+% -------------------------------------------------------------------------
+% This library for block diagrams and signal flow graphs was inspired by
+% the library "signalflow" of Dr. Karlheinz Ochs, Ruhr-University of Bochum,
+% Germany. Furthermore, some ideas were taken from the library "circuitikz"
+% of Massimo A. Redaelli and from the PGF library itself.
+%
+% Copyright 2012 by Matthias Hotz
+%
+% This work is licensed under the Creative Commons Attribution 2.5 Generic
+% License. To view a copy of this license, visit
+%          http://creativecommons.org/licenses/by/2.5/
+% or send a letter to Creative Commons, 444 Castro Street, Suite 900,
+% Mountain View, California, 94041, USA.
+% -------------------------------------------------------------------------
+
+\usetikzlibrary{arrows, calc, positioning, decorations.markings}
+
+% -------------------------------------------------------------------------
+% Parameters for the library
+
+\newcommand{\dsplinewidth}{0.25mm}           % Line width for connections
+\newcommand{\dspblocklinewidth}{0.3mm}       % Line width for blocks
+\newcommand{\dspoperatordiameter}{4mm}       % Diameter for adder, multiplier, mixer
+\newcommand{\dspoperatorlabelspacing}{2mm}   % Distance from symbol to label for adder, multiplier, mixer
+\newcommand{\dspnoderadius}{1mm}             % Filled and empty node
+\newcommand{\dspsquareblocksize}{8mm}        % Size for square blocks, e.g. for delay elements, decimator, expander
+\newcommand{\dspfilterwidth}{14mm}           % Width of a filter block
+
+% -------------------------------------------------------------------------
+% Define new arrow heads
+
+\pgfarrowsdeclare{dsparrow}{dsparrow}
+{
+	\arrowsize=0.25pt
+	\advance\arrowsize by .5\pgflinewidth
+	\pgfarrowsleftextend{-4\arrowsize}
+	\pgfarrowsrightextend{4\arrowsize}
+}
+{
+	\arrowsize=0.25pt
+	\advance\arrowsize by .5\pgflinewidth
+	\pgfsetdash{}{0pt} % Solid line (do not dash)
+	\pgfsetmiterjoin	 % Fixed miter join of line
+	\pgfsetbuttcap		 % Fixed butt cap of line
+	\pgfpathmoveto{\pgfpoint{-4\arrowsize}{2.5\arrowsize}}
+	\pgfpathlineto{\pgfpoint{4\arrowsize}{0pt}}
+	\pgfpathlineto{\pgfpoint{-4\arrowsize}{-2.5\arrowsize}}
+	\pgfpathclose
+	\pgfusepathqfill
+}
+
+\pgfarrowsdeclare{dsparrowmid}{dsparrowmid}
+{
+	\arrowsize=0.25pt
+	\advance\arrowsize by .5\pgflinewidth
+	\pgfarrowsleftextend{-4\arrowsize}
+	\pgfarrowsrightextend{4\arrowsize}
+}
+{
+	\arrowsize=0.25pt
+	\advance\arrowsize by .5\pgflinewidth
+	\pgfsetdash{}{0pt}
+	\pgfsetmiterjoin
+	\pgfsetbuttcap
+	\pgfpathmoveto{\pgfpoint{0}{2.5\arrowsize}}
+	\pgfpathlineto{\pgfpoint{8\arrowsize}{0pt}}
+	\pgfpathlineto{\pgfpoint{0}{-2.5\arrowsize}}
+	\pgfpathclose
+	\pgfusepathqfill
+}
+
+% -------------------------------------------------------------------------
+% Define new node shapes
+
+\makeatletter
+
+\pgfkeys{/tikz/dsp/label/.initial=above}
+
+% Generic shape generator for operators, i.e. nodes with a circular
+% shape with an additional customizable drawing and a text label
+\long\def\dspdeclareoperator#1#2{
+	\pgfdeclareshape{#1}
+	{
+		% Saved anchors, macros and dimensions
+		\savedanchor\centerpoint{\pgfpointorigin}
+		\savedmacro\label{\def\label{\pgfkeysvalueof{/tikz/dsp/label}}}
+	  \saveddimen\radius
+	  {
+		  \pgfmathsetlength\pgf@xa{\pgfshapeminwidth}
+		  \pgfmathsetlength\pgf@ya{\pgfshapeminheight}
+	    \ifdim\pgf@xa>\pgf@ya
+	      \pgf@x=.5\pgf@xa
+	    \else
+	      \pgf@x=.5\pgf@ya
+	    \fi
+	  }
+	  
+	  % Inherit all anchors from the 'circle'-shape:
+	  \inheritanchor[from={circle}]{center}
+	  \inheritanchor[from={circle}]{mid}
+	  \inheritanchor[from={circle}]{base}
+	  \inheritanchor[from={circle}]{north}
+	  \inheritanchor[from={circle}]{south}
+	  \inheritanchor[from={circle}]{west}
+	  \inheritanchor[from={circle}]{east}
+	  \inheritanchor[from={circle}]{mid west}
+	  \inheritanchor[from={circle}]{mid east}
+	  \inheritanchor[from={circle}]{base west}
+	  \inheritanchor[from={circle}]{base east}
+	  \inheritanchor[from={circle}]{north west}
+	  \inheritanchor[from={circle}]{south west}
+	  \inheritanchor[from={circle}]{north east}
+	  \inheritanchor[from={circle}]{south east}
+	  \inheritanchorborder[from={circle}]
+	  
+	  % Draw circle and embed additional code
+	  \backgroundpath
+	  {
+	    % Draw circle
+	    \pgfpathcircle{\centerpoint}{\radius}
+	    
+	    % Embed additional code
+	    % (Note that this code must call e.g. \pgfusepathqstroke
+	    #2
+	  }
+	
+		% Define anchor parametrized by the PGF key /tikz/dsp/label
+	  \anchor{text}
+	  {
+			\centerpoint
+			%
+	    \def\templabelabove{above}
+	    \def\templabelbelow{below}
+	    \def\templabelleft{left}
+	    \def\templabelright{right}
+	    \pgfutil@tempdima=\dspoperatorlabelspacing
+	    %
+	    \ifx\label\templabelabove
+				\advance\pgf@x by -0.5\wd\pgfnodeparttextbox
+				\advance\pgf@y by \radius
+				\advance\pgf@y by \pgfutil@tempdima
+	    \fi
+	    %
+	    \ifx\label\templabelbelow
+				\advance\pgf@x by -0.5\wd\pgfnodeparttextbox
+				\advance\pgf@y by -\radius
+				\advance\pgf@y by -\pgfutil@tempdima
+				\advance\pgf@y by -\ht\pgfnodeparttextbox
+	    \fi
+	    %
+	    \ifx\label\templabelleft
+				\advance\pgf@x by -\radius
+				\advance\pgf@x by -\pgfutil@tempdima
+				\advance\pgf@x by -\wd\pgfnodeparttextbox
+				\advance\pgf@y by -0.5\ht\pgfnodeparttextbox
+				\advance\pgf@y by +0.5\dp\pgfnodeparttextbox
+	    \fi
+	    %
+	    \ifx\label\templabelright
+				\advance\pgf@x by \radius
+				\advance\pgf@x by \pgfutil@tempdima
+				\advance\pgf@y by -0.5\ht\pgfnodeparttextbox
+				\advance\pgf@y by +0.5\dp\pgfnodeparttextbox
+	    \fi
+	  }
+	}
+}
+
+\dspdeclareoperator{dspshapecircle}{\pgfusepathqstroke}
+
+\dspdeclareoperator{dspshapecirclefull}{\pgfusepathqfillstroke}
+
+\dspdeclareoperator{dspshapeadder}{
+	% Coordinate offset for the plus
+	\pgfutil@tempdima=\radius
+	\pgfutil@tempdima=0.55\pgfutil@tempdima
+	
+	% Draw plus
+	\pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{0pt}{-\pgfutil@tempdima}}}
+	\pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{0pt}{ \pgfutil@tempdima}}}
+	
+	\pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{-\pgfutil@tempdima}{0pt}}}
+	\pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{ \pgfutil@tempdima}{0pt}}}
+	
+	\pgfusepathqstroke
+}
+
+\dspdeclareoperator{dspshapemixer}{
+	% Coordinate offset for the cross
+	\pgfutil@tempdima=\radius
+	\pgfutil@tempdima=0.707106781\pgfutil@tempdima
+	
+	% Draw cross
+	\pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{-\pgfutil@tempdima}{-\pgfutil@tempdima}}}
+	\pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{ \pgfutil@tempdima}{ \pgfutil@tempdima}}}
+	
+	\pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{-\pgfutil@tempdima}{ \pgfutil@tempdima}}}
+	\pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{ \pgfutil@tempdima}{-\pgfutil@tempdima}}}
+	
+	\pgfusepathqstroke
+}
+
+\makeatother
+
+% -------------------------------------------------------------------------
+% Define node styles
+
+\tikzset{dspadder/.style={shape=dspshapeadder,line cap=rect,line join=rect,
+	line width=\dspblocklinewidth,minimum size=\dspoperatordiameter}}
+\tikzset{dspmultiplier/.style={shape=dspshapecircle,line cap=rect,line join=rect,
+	line width=\dspblocklinewidth,minimum size=\dspoperatordiameter}}
+\tikzset{dspmixer/.style={shape=dspshapemixer,line cap=rect,line join=rect,
+	line width=\dspblocklinewidth,minimum size=\dspoperatordiameter}}
+
+\tikzset{dspnodeopen/.style={shape=dspshapecircle,line width=\dsplinewidth,minimum size=\dspnoderadius}}
+\tikzset{dspnodefull/.style={shape=dspshapecirclefull,line width=\dsplinewidth,fill,minimum size=\dspnoderadius}}
+
+% The fixed specification of text height and text depth is the somewhat
+% unaesthetic workaround to align the text in different node at the same
+% baseline. See the PGF/TikZ manual, ch. 5.1.
+\tikzset{dspsquare/.style={shape=rectangle,draw,align=center,text depth=0.3em,text height=1em,inner sep=0pt,
+	line cap=round,line join=round,line width=\dsplinewidth,minimum size=\dspsquareblocksize}}
+\tikzset{dspfilter/.style={shape=rectangle,draw,align=center,text depth=0.3em,text height=1em,inner sep=0pt,
+	line cap=round,line join=round,line width=\dsplinewidth,minimum height=\dspsquareblocksize,minimum width=\dspfilterwidth}}
+
+% -------------------------------------------------------------------------
+% Define "signal flow" lines
+
+\tikzset{dspline/.style={line width=\dsplinewidth},line cap=round,line join=round}
+\tikzset{dspconn/.style={->,>=dsparrow,line width=\dsplinewidth},line cap=round,line join=round}%line cap=rect,line join=miter}
+\tikzset{dspflow/.style={line width=\dsplinewidth,line cap=round,line join=round,
+  decoration={markings,mark=at position 0.5 with {\arrow{dsparrowmid}}},postaction={decorate}}}
+
+% -------------------------------------------------------------------------
+% Define various utility macros
+
+\newcommand{\downsamplertext}[1]{\raisebox{0.1em}{$\big\downarrow$}#1}
+\newcommand{\upsamplertext}[1]{\raisebox{0.1em}{$\big\uparrow$}#1}

@@ -91,6 +91,11 @@
   \usepackage[figure,table]{hypcap}
 \fi
 \usepackage{cleveref}
+\usepackage{tikz}
+\usetikzlibrary{dsp,chains}
+
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\newcommand{\z}{\mathpzc{z}}
 
 \title{\papertitle}
 
@@ -138,11 +143,11 @@ the tape ($y$). Using the Karlqvist medium field approximation, we find
 \begin{multline}
     H_x(x,y) = \frac{1}{\pi} H_0 \Big(\tan^{-1} \Big(\frac{(g/2) + x}{y} \Big) \\
     + \tan^{-1} \Big(\frac{(g/2) - x}{y} \Big) \Big)
-    \label{eq1}
+    \label{eq:H_x}
 \end{multline}
 \begin{equation}
     H_y(x,y) = \frac{1}{2 \pi} H_0 \ln \Big(\frac{((g/2) - x)^2 + y^2}{((g/2) + x)^2 + y^2} \Big)
-    \label{eq2}
+    \label{eq:H_y}
 \end{equation}
 %
 where $g$ is the head gap, and $H_0$ is the deep gap field, given by:
@@ -219,7 +224,7 @@ The ideal playback voltage as a function of tape magnetisation is given by
 
 \begin{equation}
     V(x) =  NWEv \mu_0 \int_{-\infty}^{\infty} dx' \int_{-\delta/2}^{\delta/2} dy' \vec{h}(x' + x, y') \cdot \frac{\vec{M}(x', y')}{dx}
-    \label{eq11}
+    \label{eq:Vx}
 \end{equation}
 %
 where $N$ is the number of turns of wire, $W$ is the width of the playhead, $E$ is the playhead
@@ -231,7 +236,7 @@ Note that $V(x) = V(vt)$ for constant $v$. $\vec{h}(x, y)$ is defined as:
     \label{eq12}
 \end{equation}
 %
-where $\vec{H} (x, y)$ can be calculated by \cref{eq1,eq2}.
+where $\vec{H} (x, y)$ can be calculated by \cref{eq:H_x,eq:H_y}.
 
 \subsubsection{Loss Effects}
 There are several frequency-dependent loss effects associated with playback,
@@ -258,6 +263,7 @@ where $f$ is the frequency and $v$ is the tape speed.
 For simplicity, let us assume,
 \begin{equation}
     \vec{H}(x,y,t) = \vec{H}(0,0,t)
+    \label{eq:spatialApprox}
 \end{equation}
 %
 In this case $H_y \equiv 0$, and $H_x \equiv H_0$. Thus,
@@ -312,6 +318,7 @@ for $\hat{M}(n)$:
     k_3 &= T f \Big(n- \frac{1}{2}, \hat{M}(n-1) + \frac{k_2}{2}, \hat{\vec{u}} \Big(n-\frac{1}{2} \Big) \Big)\\
     k_4 &= T f \Big(n, \hat{M}(n-1) + k_3, \hat{\vec{u}}(n) \Big)\\
     \hat{M}(n) &= \hat{M}(n-1) + \frac{k_1}{6} + \frac{k_2}{3} + \frac{k_3}{3} + \frac{k_4}{6}
+    \label{eq:Mn}
 \end{split}
 \end{align}
 %
@@ -347,7 +354,7 @@ meter, the following plot shows the Magnetisation output.
 \end{figure}
 %
 \subsection{Play Head}
-By combining \cref{eq11} with \cref{eq12,eq15}, we get:
+By combining \cref{eq:Vx} with \cref{eq12,eq15}, we get:
 \begin{equation}
     V(t) =  NWEv \mu_0  g M(t)
 \end{equation}
@@ -486,7 +493,7 @@ the pitch of the output signal. To characterize these
 timing imperfections, we use a method similar to \cite{tapeDelay}:
 We recorded a pulse train of 1000 pulses through a TC-260,
 then recorded the pulses back from the tape. \Cref{timingSim}
-below shows a section of a superimposed plot of the original
+shows a section of a superimposed plot of the original
 pulse train against the pulse train recorded from the tape
 machine. From this data, we were able to generate a periodic
 function that accurately models the timing imperfections of
@@ -503,22 +510,122 @@ signature "wow" effect of an analog tape machine.
 %
 
 \section{Real-Time Implementation}
-@TODO
-\subsection{Oversampling} %@TODO; move this section somewhere else
+We implemented our physical model of the Sony TC-260 as a
+VST audio plugin using the JUCE framework. \Cref{flowchart}
+shows the signal flow of the system in detail. We allow the user
+to control ``normal'' parameters including the tape speed,
+oversampling factor, bias frequency and bias gain.
+Other ``unrealistic'' parameters were added, including
+real-time control of gap width, tape thickness, tape spacing,
+and flutter depth. C/C++ code for the real-time implementation
+is available on GitHub
+\footnote{\url{https://github.com/jatinchowdhury18/AnalogTapeModel}}.
+
+\begin{figure*}[ht]
+    \center
+    \begin{tikzpicture}
+        \matrix (m1) [row sep=10mm, column sep=7.5mm]
+        {
+                                                                                &
+                                                                                &
+            \node[dspnodeopen,dsp/label=above]   (b0) {Bias Signal};            &
+                                                                                &
+                                                                                &
+                                                                                &
+                                                                                &
+            \node[dspnodeopen,dsp/label=above]   (b1) {Flutter ($\tau$)};       &
+            \node[dspnodeopen,dsp/label=above]   (b2) {Tape Speed ($v$)};       \\
+            %---------------------------------------------------------------
+            \node[dspnodeopen,dsp/label=left]    (x0) {$x[n]$};              &
+            \node[dspsquare]                     (x1) {\upsamplertext{M}};   &
+            \node[dspadder]                      (x2) {};                    &
+            \node[dspfilter]                     (x3) {$H_{record}$};        &
+            \node[dspfilter]                     (x4) {Hysteresis};          &
+            \node[dspfilter]                     (x5) {De-bias};             &
+            \node[dspsquare]                     (x6) {\downsamplertext{M}}; &
+            \node[dspsquare]                     (x7) {$z^{-\tau}$};         &
+            \node[dspfilter]                     (x8) {$H_{play}(v)$};       &
+            \node[dspnodeopen,dsp/label=right]   (x9) {$y[n]$};              \\
+        };
+        \draw[dspconn] (b0) -- (x2);
+        \draw[dspconn] (b1) -- (x7);
+        \draw[dspconn] (b2) -- (x8);
+        \foreach \i [evaluate = \i as \j using int(\i+1)] in {0,1,...,8}
+            \draw[dspconn] (x\i) -- (x\j);
+    \end{tikzpicture}
+    \caption{\label{flowchart}{\it Flowchart of realtime system: 
+                                   M is the oversampling factor,
+                                   $H_{record}$
+                                   is the transfer function of the record
+                                   head, and
+                                   $H_{play}$ is the play head transfer
+                                   function including loss effects, and a 
+                                   de-biasing filter.}}
+\end{figure*}
+%
+\subsection{Oversampling}
 If no oversampling is used, the system will be unstable
 for input signal at the Nyquist frequency, due to limitations
 of the trapezoid rule derivate approximation used in \cref{eq:hDeriv}.
-To avoid this, a lowpass filter with cutoff frequency below Nyquist
-should suffice. However, due to aliasing caused by the nonlinearity
-of the tape hysteresis model, oversampling is necessary to mitigate
-aliasing artifacts \cite{Yeh}. Further, the system must be able to
-faithfully recreate not only the frequencies in the audible range
-but the bias frequencies as well. Since the minimum standard audio sampling
-rate is 44.1 kHz, and the minimum standard biasing frequency is approximately
-50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling factor of 3x is
-required. In the real-time implementation, we use a minimum
-oversampling factor of 4x, with options to oversample at 8x or 16x
-if the user desires.
+To avoid this instability, early versions of the real-time
+implementation used a lowpass filter with cutoff frequency
+just below Nyquist. However, due to aliasing caused by the
+nonlinearity of the tape hysteresis model, oversampling is
+necessary to mitigate aliasing artifacts \cite{Yeh}. Further,
+the system must be able to faithfully recreate not only the
+frequencies in the audible range but the bias frequencies as
+well. Since the minimum standard audio sampling rate is 44.1
+kHz, and the minimum standard biasing frequency is approximately
+50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling
+factor of 3x is required. In the real-time implementation,
+we use a minimum oversampling factor of 4x, with options to
+oversample at 8x or 16x if the user desires.
+
+\subsection{Performance}
+The performance of the real time system is heavily
+dependent on the oversampling factor. At an oversampling
+factor of 2x or 4x, the system operates with a reasonable
+CPU cost. At higher oversampling rates, the CPU cost quickly
+becomes unreasonably large compared to a typical VST plugin.
+
+\subsection{Results}
+In subjective testing, our physical model sounds quite convincing,
+with warm, tape-like distortion, and realistic sounding
+flutter. The high-frequency loss and low-frequency
+``head bump'' change correctly at different tape speeds,
+and are approximately within the frequency response
+specifications of the TC-260 service manual \cite{RefManual}.
+The distortion and frequency response characteristics
+of our model are subjectivelyvery close when compared to
+the output of an actual TC-260.
+The largest difference between the model and the physical
+machine is the subtle electrical and mechanical noises
+and dropouts present in the physical machine, presumably
+caused by the age and wear-and-tear of the machine, which
+we did not attempt to characterize in our model.
+\newline\newline
+% TODO: Generate plots and sound examples from real-time system
+
+\section{Future Improvements}
+\subsection{Spatial Magnetic Effects}
+The most obvious improvement to be made for the physical model
+is the inclusion of spatial effects of the tape. In particular,
+the approximation made in \cref{eq:spatialApprox}, negate any
+effects caused by magnetisation along the longitudinal length
+of the tape, and into the depth of the tape. Including spatial
+effects would involve deriving digital analogues for
+\cref{eq:H_x,eq:H_y,eq:Vx}, and re-deriving \cref{eq:Mn}
+to take an 2-dimensional magnetic field input per timestep,
+rather than the zero-dimensional input. This change
+would greatly increase the computational complexity of the system,
+since solving \cref{eq:Mn} currently dominates the computational
+complexity part of the system. Using an oversampling rate of 4x,
+with just 100 spatial samples, would be 400x more
+computationally complex than the current system.
+
+\section{Acknowledgements}
+Many thanks to Julius Smith for guidance and support, and
+thanks to Irene Abosch for kindly donating her Sony TC-260.
 
 %\newpage
 \nocite{*}
