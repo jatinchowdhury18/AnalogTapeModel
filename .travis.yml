@@ -44,7 +44,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/Plugin/
   - export PROJUCER=$PROJUCER_EXPORT
   - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/JUCE/modules
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME vstLegacyPath $TRAVIS_BUILD_DIR/Plugin/VST2_SDK
+  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME vstLegacyPath $TRAVIS_BUILD_DIR/Plugin/JUCE/VST2_SDK
   - $PROJUCER --resave CHOWTapeModel.jucer
   - cd $TRAVIS_BUILD_DIR/Plugin/Builds/$BUILD_FOLDER/
 

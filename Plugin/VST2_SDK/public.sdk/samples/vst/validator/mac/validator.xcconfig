@@ -1,4 +1,0 @@
-#include "../../../../../base/mac/config/libc++base"
-
-HEADER_SEARCH_PATHS = ../../../../../
-PRODUCT_NAME = vstvalidator
