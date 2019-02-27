@@ -5,10 +5,11 @@ BiasControls::BiasControls (ChowtapeModelAudioProcessor& proc) :
     processor (proc)
 {
     ChowtapeModelAudioProcessorEditor::createSlider (biasFreqSlide, processor.biasFreq, myLNF, this, String ("kHz"), 1.0f);
-    biasFreqSlide.setSkewFactorFromMidPoint (55.0);
+    biasFreqSlide.setEnabled (false);
+    //biasFreqSlide.setSkewFactorFromMidPoint (55.0);
 
-    ChowtapeModelAudioProcessorEditor::createSlider (biasGainSlide, processor.biasGain, myLNF, this, String ("dB"));
-    biasGainSlide.setSkewFactorFromMidPoint (14.0);
+    ChowtapeModelAudioProcessorEditor::createSlider (biasGainSlide, processor.biasGain, myLNF, this);
+    //biasGainSlide.setSkewFactorFromMidPoint (14.0);
 
     ChowtapeModelAudioProcessorEditor::createLabel (biasFreqLabel, processor.biasFreq, this);
     ChowtapeModelAudioProcessorEditor::createLabel (biasGainLabel, processor.biasGain, this);

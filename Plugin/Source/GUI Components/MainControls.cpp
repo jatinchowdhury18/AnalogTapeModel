@@ -8,13 +8,13 @@ MainControls::MainControls (ChowtapeModelAudioProcessor& proc) :
     ChowtapeModelAudioProcessorEditor::createSlider (gainOutKnob, processor.outGain, myLNF, this, String ("dB"));
     ChowtapeModelAudioProcessorEditor::createComboBox (oversampling, processor.overSampling, this);
     ChowtapeModelAudioProcessorEditor::createComboBox (tapeSpeed, processor.tapeSpeed, this);
-    ChowtapeModelAudioProcessorEditor::createComboBox (tapeType, processor.tapeType, this);
+    //ChowtapeModelAudioProcessorEditor::createComboBox (tapeType, processor.tapeType, this);
 
     ChowtapeModelAudioProcessorEditor::createLabel (inGainLabel, processor.inGain, this);
     ChowtapeModelAudioProcessorEditor::createLabel (outGainLabel, processor.outGain, this);
     ChowtapeModelAudioProcessorEditor::createLabel (oversampleLabel, processor.overSampling, this);
     ChowtapeModelAudioProcessorEditor::createLabel (speedLabel, processor.tapeSpeed, this);
-    ChowtapeModelAudioProcessorEditor::createLabel (typeLabel, processor.tapeType, this);
+    //ChowtapeModelAudioProcessorEditor::createLabel (typeLabel, processor.tapeType, this);
 }
 
 void MainControls::paint (Graphics&) {}

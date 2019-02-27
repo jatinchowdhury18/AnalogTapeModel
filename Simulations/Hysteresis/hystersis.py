@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
-fs = 48000 * 8
+fs = 48000 * 16
 T = 1/fs # sample interval
 M_s = 350000 # Jiles book
 a = 2.2e4 #adjustable parameter
@@ -55,7 +55,7 @@ def M_n (M_n1, k1, k2, k3, k4):
 #input signal
 t = np.linspace (0, 1, fs)
 #t = 1
-H_in = (1e5) * np.sin (2 * np.pi * 2000 * t)
+H_in = (1e5) * np.sin (2 * np.pi * 30000 * t)
 freq = 2000
 #H_in = np.concatenate ((5e2 * np.sin (2 * np.pi * freq * t[0:fs*5]), 1e3 * np.sin (2 * np.pi * freq * t[fs*5:fs*10]), \
 #                        3e3 * np.sin (2 * np.pi * freq * t[fs*10:fs*15]), 5e3 * np.sin (2 * np.pi * freq * t[fs*15:fs*20]), \
@@ -106,8 +106,8 @@ plt.plot (H_in[0:20000] / 1000, M_out[0:20000] / M_s)
 plt.xlabel ("Magnetic Field (A/m)")
 plt.ylabel ("Tape Magnetisation (A/m)")
 plt.title ("Simulated Ditigal Tape Magnetization Hysteresis Loop")
-MH.show()
+#MH.show()
 
-Mt = plt.figure (2)
-plt.plot (t[0:20000], M_out[0:20000] / M_s)
+#Mt = plt.figure (2)
+#plt.plot (t[0:20000], M_out[0:20000] / M_s)
 plt.show()

@@ -22,7 +22,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     outGain->addListener (this);
 
     addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Upsample"),
-                                                           StringArray ({ "2x", "4x", "8x" }), 0));
+                                                           StringArray ({ "2x", "4x", "8x", "16x" }), 3));
     overSampling->addListener (this);
 
     addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Speed"),
@@ -34,10 +34,10 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     tapeType->addListener(this);
 
     //Bias Controls
-    addParameter (biasFreq = new AudioParameterFloat (String ("biasFreq"), String ("Bias Frequency"), 30.0f, 80.0f, 55.0));
+    addParameter (biasFreq = new AudioParameterFloat (String ("biasFreq"), String ("Bias Frequency"), 45.0f, 55.0f, 50.0));
     biasFreq->addListener (this);
 
-    addParameter (biasGain = new AudioParameterFloat (String ("biasGain"), String ("Bias Gain"), 0.0f, 20.0f, 14.0f));
+    addParameter (biasGain = new AudioParameterFloat (String ("biasGain"), String ("Bias Gain"), 0.0f, 10.0f, 5.0f));
     biasGain->addListener (this);
 
     //Loss Controls
@@ -77,8 +77,8 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
         lossEffects.setSpeed (*tapeSpeed);
         timingEffect.setTapeSpeed (*tapeSpeed);
     }
-    else if (paramIndex == tapeType->getParameterIndex())
-        return; //@TODO
+    //else if (paramIndex == tapeType->getParameterIndex())
+    //    return; //@TODO
     else if (paramIndex == biasFreq->getParameterIndex())
         hysteresis.setBiasFreq (biasFreq->convertFrom0to1 (newValue));
     else if (paramIndex == biasGain->getParameterIndex())
