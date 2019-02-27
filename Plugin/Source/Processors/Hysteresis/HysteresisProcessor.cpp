@@ -67,8 +67,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         for (int samp = 0; samp < osBuffer.getNumSamples(); samp++)
         {
             //x[samp] = hProcs[channel].process ((float) 5e4 * (x[samp]));
-            
-            x[samp] = 10.0f * hProcs[channel].process ((float) 5e3 * (x[samp] + biasGain * sinf (currentAngle[channel])));
+            x[samp] = hProcs[channel].process ((float) 5e3 * (x[samp] + biasGain * sinf (currentAngle[channel])));
             //x[samp] = biasGain * sinf (currentAngle[channel]);
 
             currentAngle[channel] += angleDelta;
@@ -85,6 +84,8 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         overSample4->processSamplesDown (block);
     else
         overSample2->processSamplesDown (block);
+
+    buffer.applyGain (10.0f);
 }
 
 void HysteresisProcessor::updateAngleDelta()
