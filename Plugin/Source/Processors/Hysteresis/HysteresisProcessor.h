@@ -25,12 +25,21 @@ private:
     std::unique_ptr<dsp::Oversampling<float>> overSample2;
     std::unique_ptr<dsp::Oversampling<float>> overSample4;
     std::unique_ptr<dsp::Oversampling<float>> overSample8;
+    std::unique_ptr<dsp::Oversampling<float>> overSample16;
 
     int overSamplingFactor = 8;
 
+
+    //////////////////////////////
     float biasFreq = 0.0f;
     float biasGain = 5.0f;
-    int n[2] = { 0, 0 };
+    float currentSampleRate = 0.0f;
+    float angleDelta = 0.0f;
+    float currentAngle[2] = { 0.0f, 0.0f };
+
+    void updateAngleDelta();
+
+    //int n[2] = { 0, 0 };
 
     bool fadeIn = false;
 
