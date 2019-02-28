@@ -13,7 +13,7 @@ public:
     void setSampleRate (float newSR) { fs = newSR; T = 1.0f / fs; }
 
 private:
-    float tanhApprox (float x);
+    float cothApprox (float x);
 
     float langevin (float x);
     float langevinD (float x);
@@ -34,8 +34,9 @@ private:
     float H_n1 = 0.0f;
     float H_d_n1 = 0.0f;
 
-    float tanHyp = 0.0f;
-    float tanhRecip = 0.0f;
+    float coth = 0.0f;
+    // float tanHyp = 0.0f;
+    // float tanhRecip = 0.0f;
     bool nearZero = false;
 
     //JUCE_DECLARE_NONCOPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)

@@ -23,7 +23,8 @@ double TimingEffect::getTailLengthSeconds() const
 
 void TimingEffect::setLength (int channel, int lengthSamples)
 {
-    int newLength = jmax (0, jmin (lengthSamples, (int) maxDelaySamples));
+    auto corrLength = roundToInt ((double) lengthSamples * getSampleRate() / fs_calc);
+    int newLength = jmax (0, jmin (corrLength, (int) maxDelaySamples));
     dChannels[channel].length.setValue ((float) newLength);
 }
 

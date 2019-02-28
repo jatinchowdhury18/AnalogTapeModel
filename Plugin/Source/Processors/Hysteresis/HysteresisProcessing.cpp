@@ -6,17 +6,17 @@ HysteresisProcessing::HysteresisProcessing()
 
 }
 
-float HysteresisProcessing::tanhApprox (float x)
+float HysteresisProcessing::cothApprox (float x)
 {
     const auto xSquare = x * x;
 
-    return x / (1.0f + (xSquare / (3.0f + (xSquare / (5.0f + (xSquare / (7.0f)))))));
+    return (1.0f + (xSquare / (3.0f + (xSquare / (5.0f + (xSquare / (7.0f))))))) / x;
 }
 
 float HysteresisProcessing::langevin (float x)
 {
     if (nearZero)
-        return (tanhRecip) - (1.0f / x);
+        return (coth) - (1.0f / x);
     else
         return (x / 3.0f);
 }
@@ -24,7 +24,7 @@ float HysteresisProcessing::langevin (float x)
 float HysteresisProcessing::langevinD (float x)
 {
     if (nearZero)
-        return (1.0f / (x * x)) - (tanhRecip * tanhRecip) + 1.0f;
+        return (1.0f / (x * x)) - (coth * coth) + 1.0f;
     else
         return (1.0f / 3.0f);
 }
@@ -37,8 +37,7 @@ float HysteresisProcessing::deriv (float x_n, float x_n1, float x_d_n1)
 float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
 {
     const float Q = (H + alpha * M) / a;
-    tanHyp = (float) tanhApprox (Q);
-    tanhRecip = 1.0f / tanHyp;
+    coth = cothApprox (Q);
     nearZero = std::abs (Q) > (float) (10e-4);
 
     const float M_diff = M_s * langevin (Q) - M;
