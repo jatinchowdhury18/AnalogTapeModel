@@ -23,10 +23,11 @@ public:
 private:
     enum
     {
-        maxDelaySamples = 600 * 10,
+        maxDelaySamples = 600 *25,
         polyOrder = 10,
         periodLen = 490,
     };
+    static constexpr double fs_calc = 44100.0; //Flutter calculations originally done at this sample rate
 
     struct DelayChannel
     {

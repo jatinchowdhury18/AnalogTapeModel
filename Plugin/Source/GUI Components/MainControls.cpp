@@ -9,6 +9,7 @@ MainControls::MainControls (ChowtapeModelAudioProcessor& proc) :
     ChowtapeModelAudioProcessorEditor::createComboBox (oversampling, processor.overSampling, this);
     ChowtapeModelAudioProcessorEditor::createComboBox (tapeSpeed, processor.tapeSpeed, this);
     //ChowtapeModelAudioProcessorEditor::createComboBox (tapeType, processor.tapeType, this);
+    oversampling.setEnabled (false);
 
     ChowtapeModelAudioProcessorEditor::createLabel (inGainLabel, processor.inGain, this);
     ChowtapeModelAudioProcessorEditor::createLabel (outGainLabel, processor.outGain, this);

@@ -113,7 +113,7 @@
 
 \maketitle
 
-\section{Abstract}
+\begin{abstract}
 For decades, analog magnetic tape recording was the most popular
 method for recording music, but has been replaced over the past 30 years first by
 DAT tape, then by DAWs and audio interfaces \cite{Kadis}. Despite being replaced
@@ -128,6 +128,7 @@ of a physical model of a Sony TC-260 tape machine.
 about a new medium will surely become its signature. CD distortion, the jitteriness
 of digital video, the crap sound of 8-bit - all of these will be cherished
 and emulated as soon as they can be avoided." -Brian Eno \cite{Eno}.
+\end{abstract}
 
 \section{Continuous Time System}
 Audio recorded to and played back from a tape machine can be thought of as going
@@ -309,7 +310,7 @@ Using the trapezoidal rule for derivative approximation, we find:
     \label{eq:hDeriv}
 \end{equation}
 %
-We can use the Runge-Kutta 4th order method \cite{Yeh} to find an explicit solution
+We can use the Runge-Kutta 4th-order method \cite{Yeh} to find an explicit solution
 for $\hat{M}(n)$:
 \begin{align}
 \begin{split}
@@ -324,7 +325,7 @@ for $\hat{M}(n)$:
 %
 We use linear interpolation to find the half-sample values used to calculate $k_2$ and $k_3$.
 
-\subsubsection{Numerical Considerations}
+\subsubsection{Numerical Considerations} \label{numerical}
 To account for rounding errors in the Langevin function for values close to 
 zero, we use the following approximation about zero, as in \cite{Hysteresis}:
 \begin{equation}
@@ -339,13 +340,16 @@ zero, we use the following approximation about zero, as in \cite{Hysteresis}:
         \frac{1}{3} & \text{otherwise}
     \end{cases}
 \end{equation}
-
-\subsubsection{Simulation}
-The digitized hysteresis loop was implemented and tested offline
-in \texttt{Python}, using the constants $M_s$, $a$, $\alpha$, $k$,
-and $c$ from \cite{JilesAtherton1986}. For a sinusoidal input signal
-with frequency 2kHz, and varying amplitude from 800 - 2000 Amperes per
-meter, the following plot shows the Magnetisation output.
+%
+Additionally, $\tanh(x)$, and by extension $\coth(x)$ is a
+rather computationally expensive operation. With this in mind,
+for real-time implementation, we approximate $\coth(x)$ as the
+reciprocal of a Gaussian continued fraction for $\tanh(x)$
+\cite{MATH}, namely
+\begin{equation}
+    \tanh(x) = \frac{x}{1 + \frac{x^2}{3 + \frac{x^2}{5 + \frac{x^2}{7}}}}
+    \label{eq:continuedFrac}
+\end{equation}
 
 \begin{figure}[ht]
     \center
@@ -353,6 +357,13 @@ meter, the following plot shows the Magnetisation output.
     \caption{\label{HysteresisSim}{\it Digitized Hysteresis Loop Simulation}}
 \end{figure}
 %
+\subsubsection{Simulation}
+The digitized hysteresis loop was implemented and tested offline
+in \texttt{Python}, using the constants $M_s$, $a$, $\alpha$, $k$,
+and $c$ from \cite{JilesAtherton1986}. For a sinusoidal input signal
+with frequency 2kHz, and varying amplitude from 800 - 2000 Amperes per
+meter, \cref{HysteresisSim} shows the Magnetisation output.
+
 \subsection{Play Head}
 By combining \cref{eq:Vx} with \cref{eq12,eq15}, we get:
 \begin{equation}
@@ -408,7 +419,7 @@ $27$ kA/m \cite{jilesBook}.
 \cite{jilesBook}, we can calculate $a$ = 22  kA/m by the method described in
 \cite{Jiles1992}
 \item Ratio of normal and hysteris initial susceptibilities ($c$): From \cite{Jiles1992}, $c$ = 1.7e-1.
-\item Mean field parameter ($\alpha$): From \cite{Jiles1992}, alpha = 1.6e-3
+\item Mean field parameter ($\alpha$): From \cite{Jiles1992}, $\alpha$ = 1.6e-3
 \end{itemize}
 
 \subsection{Tape Machine Parameters}
@@ -453,6 +464,12 @@ head is highly variable between tape machines. For a typical
 tape machine spacing can be as high as 20 microns \cite{Kadis}.
 \end{itemize}
 
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=3in]{../Simulations/Bias/BiasEx.png}
+    \caption{\label{Bias}{\it Example of a biased signal}}
+\end{figure}
+%
 \subsection{Tape Bias}
 A typical analog recorder adds a high-frequency "bias"
 current to the signal to avoid the "deadzone" effect when the input signal
@@ -466,16 +483,11 @@ current to the record head can be given by
 Where the amplitude of the bias current $B$ is usually
 about one order of magnitude larger than the input,
 and the bias frequency $f_{bias}$ is well above the
-audible range. The plot below shows a unit-amplitude,
+audible range. \Cref{Bias} shows a unit-amplitude,
 2 kHz sine wave biased by a 50 kHz sine wave with amplitude 5.
 To recover the correct output signal, tape machines use a
 lowpass filter, with a cutoff frequency well below the bias
 frequency, thought still above the audible range \cite{Kadis}.
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=3in]{../Simulations/Bias/BiasEx.png}
-    \caption{\label{Bias}{\it Example of a biased signal}}
-\end{figure}
 \newline\newline
 For the Sony TC-260, the bias frequency is 55 kHz, with a gain
 of 5 relative to the input signal. The lowpass filter used to recover
@@ -508,28 +520,14 @@ signature "wow" effect of an analog tape machine.
     \caption{\label{timingSim}{\it Input pulse train superimposed with pulse train recorded from TC-260}}
 \end{figure}
 %
-
-\section{Real-Time Implementation}
-We implemented our physical model of the Sony TC-260 as a
-VST audio plugin using the JUCE framework. \Cref{flowchart}
-shows the signal flow of the system in detail. We allow the user
-to control ``normal'' parameters including the tape speed,
-oversampling factor, bias frequency and bias gain.
-Other ``unrealistic'' parameters were added, including
-real-time control of gap width, tape thickness, tape spacing,
-and flutter depth. C/C++ code for the real-time implementation
-is available on GitHub
-\footnote{\url{https://github.com/jatinchowdhury18/AnalogTapeModel}}.
-
 \begin{figure*}[ht]
     \center
     \begin{tikzpicture}
-        \matrix (m1) [row sep=10mm, column sep=7.5mm]
+        \matrix (m1) [row sep=10mm, column sep=8mm]
         {
                                                                                 &
                                                                                 &
             \node[dspnodeopen,dsp/label=above]   (b0) {Bias Signal};            &
-                                                                                &
                                                                                 &
                                                                                 &
                                                                                 &
@@ -541,16 +539,15 @@ is available on GitHub
             \node[dspadder]                      (x2) {};                    &
             \node[dspfilter]                     (x3) {$H_{record}$};        &
             \node[dspfilter]                     (x4) {Hysteresis};          &
-            \node[dspfilter]                     (x5) {De-bias};             &
-            \node[dspsquare]                     (x6) {\downsamplertext{M}}; &
-            \node[dspsquare]                     (x7) {$z^{-\tau}$};         &
-            \node[dspfilter]                     (x8) {$H_{play}(v)$};       &
-            \node[dspnodeopen,dsp/label=right]   (x9) {$y[n]$};              \\
+            \node[dspsquare]                     (x5) {\downsamplertext{M}}; &
+            \node[dspsquare]                     (x6) {$z^{-\tau}$};         &
+            \node[dspfilter]                     (x7) {$H_{play}(v)$};       &
+            \node[dspnodeopen,dsp/label=right]   (x8) {$y[n]$};              \\
         };
         \draw[dspconn] (b0) -- (x2);
-        \draw[dspconn] (b1) -- (x7);
-        \draw[dspconn] (b2) -- (x8);
-        \foreach \i [evaluate = \i as \j using int(\i+1)] in {0,1,...,8}
+        \draw[dspconn] (b1) -- (x6);
+        \draw[dspconn] (b2) -- (x7);
+        \foreach \i [evaluate = \i as \j using int(\i+1)] in {0,1,...,7}
             \draw[dspconn] (x\i) -- (x\j);
     \end{tikzpicture}
     \caption{\label{flowchart}{\it Flowchart of realtime system: 
@@ -563,6 +560,16 @@ is available on GitHub
                                    de-biasing filter.}}
 \end{figure*}
 %
+\section{Real-Time Implementation}
+We implemented our physical model of the Sony TC-260 as a
+VST audio plugin using the JUCE framework. \Cref{flowchart}
+shows the signal flow of the system in detail. We allow the user
+to control parameters in real-time including the tape speed, bias gain, gap
+width, tape thickness, tape spacing, and flutter depth. 
+% C/C++ code for the real-time implementation is available on GitHub
+% \footnote{\url{https://github.com/jatinchowdhury18/AnalogTapeModel}}.
+
+%
 \subsection{Oversampling}
 If no oversampling is used, the system will be unstable
 for input signal at the Nyquist frequency, due to limitations
@@ -573,21 +580,31 @@ just below Nyquist. However, due to aliasing caused by the
 nonlinearity of the tape hysteresis model, oversampling is
 necessary to mitigate aliasing artifacts \cite{Yeh}. Further,
 the system must be able to faithfully recreate not only the
-frequencies in the audible range but the bias frequencies as
-well. Since the minimum standard audio sampling rate is 44.1
-kHz, and the minimum standard biasing frequency is approximately
-50 kHz \cite{Camras:1987:MRH:27189}, a minimum oversampling
-factor of 3x is required. In the real-time implementation,
-we use a minimum oversampling factor of 4x, with options to
-oversample at 8x or 16x if the user desires.
+frequencies in the audible range but the bias frequency as
+well. Since the TC-260 uses a bias frequency of 55 kHz \cite{RefManual}
+and the minimum standard audio sampling rate is 44.1 kHz,
+a minimum oversampling factor of 3x is required. However,
+since the biased signal is then fed into the hystersis model,
+even more oversampling is required to avoid aliasing. With these
+considerations in mind, our system uses an oversampling
+factor of 16x.
 
-\subsection{Performance}
-The performance of the real time system is heavily
-dependent on the oversampling factor. At an oversampling
-factor of 2x or 4x, the system operates with a reasonable
-CPU cost. At higher oversampling rates, the CPU cost quickly
-becomes unreasonably large compared to a typical VST plugin.
+% \subsection{Performance}
+% At 16x oversampling, even with the various numerical optimizations
+% described in \Cref{numerical}, the CPU load is fairly high.
 
+\begin{figure*}[!ht]
+    % \center
+    \includegraphics[width=2.4in]{../Testing/HysteresisTest.png}
+    \includegraphics[width=2.4in]{../Testing/DeadzoneTest.png}
+    \includegraphics[width=2.4in]{../Testing/FlutterTest.png}
+    \caption{\label{tests}{\it Testing results for real-time system:
+                                    input vs. output amplitude for variable
+                                    frequency sine wave (left), sine wave output
+                                    with no biasing (center), input vs. output
+                                    pulse train comparison (right).}}
+\end{figure*}
+%
 \subsection{Results}
 In subjective testing, our physical model sounds quite convincing,
 with warm, tape-like distortion, and realistic sounding
@@ -596,31 +613,37 @@ flutter. The high-frequency loss and low-frequency
 and are approximately within the frequency response
 specifications of the TC-260 service manual \cite{RefManual}.
 The distortion and frequency response characteristics
-of our model are subjectivelyvery close when compared to
-the output of an actual TC-260.
+of our model are subjectively very close when compared to
+the output of an actual TC-260, though not nearly close enough to 
+``fool'' the listener. Additionally, as the bias
+gain is lowered, the ``deadzone'' effect appears exactly
+as expected \cite{Camras:1987:MRH:27189}.
 The largest difference between the model and the physical
 machine is the subtle electrical and mechanical noises
 and dropouts present in the physical machine, presumably
 caused by the age and wear-and-tear of the machine, which
 we did not attempt to characterize in our model.
-\newline\newline
-% TODO: Generate plots and sound examples from real-time system
+\Cref{tests} shows the results
+of tests performed on the real-time system. In particular,
+note the successfully modelled hysteresis function (left),
+the ``deadzone'' effect (center), and the timing imperfections
+or flutter (right). Audio examples from the real-time
+system can be found online\footnote{\url{https://ccrma.stanford.edu/~jatin/420/tape/}}.
 
 \section{Future Improvements}
 \subsection{Spatial Magnetic Effects}
 The most obvious improvement to be made for the physical model
 is the inclusion of spatial effects of the tape. In particular,
-the approximation made in \cref{eq:spatialApprox}, negate any
+the approximations made in \cref{eq:spatialApprox}, negate any
 effects caused by magnetisation along the longitudinal length
 of the tape, and into the depth of the tape. Including spatial
 effects would involve deriving digital analogues for
 \cref{eq:H_x,eq:H_y,eq:Vx}, and re-deriving \cref{eq:Mn}
-to take an 2-dimensional magnetic field input per timestep,
-rather than the zero-dimensional input. This change
-would greatly increase the computational complexity of the system,
-since solving \cref{eq:Mn} currently dominates the computational
-complexity part of the system. Using an oversampling rate of 4x,
-with just 100 spatial samples, would be 400x more
+to take an 2-dimensional magnetic field input at every timestep,
+rather than the zero-dimensional input it currently takes. This change
+would greatly increase the computational complexity of the system.
+At an oversampling rate of 16x,
+using just 100 spatial samples would be 1600x more
 computationally complex than the current system.
 
 \section{Acknowledgements}

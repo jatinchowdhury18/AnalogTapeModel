@@ -64,14 +64,14 @@ ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
 {
 }
 
-void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float newValue)
+void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float /*newValue*/)
 {
     if (paramIndex == inGain->getParameterIndex())
-        inGainProc.setGain (Decibels::decibelsToGain (inGain->convertFrom0to1 (newValue)));
+        inGainProc.setGain (Decibels::decibelsToGain ((float) *inGain));
     else if (paramIndex == outGain->getParameterIndex())
-        outGainProc.setGain (Decibels::decibelsToGain (outGain->convertFrom0to1 (newValue)));
-    else if (paramIndex == overSampling->getParameterIndex())
-        hysteresis.setOverSamplingFactor (*overSampling);
+        outGainProc.setGain (Decibels::decibelsToGain ((float) *outGain));
+    //else if (paramIndex == overSampling->getParameterIndex())
+    //    hysteresis.setOverSamplingFactor (*overSampling);
     else if (paramIndex == tapeSpeed->getParameterIndex())
     {
         lossEffects.setSpeed (*tapeSpeed);
@@ -79,18 +79,18 @@ void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float n
     }
     //else if (paramIndex == tapeType->getParameterIndex())
     //    return; //@TODO
-    else if (paramIndex == biasFreq->getParameterIndex())
-        hysteresis.setBiasFreq (biasFreq->convertFrom0to1 (newValue));
+    //else if (paramIndex == biasFreq->getParameterIndex())
+    //    hysteresis.setBiasFreq (*biasFreq);
     else if (paramIndex == biasGain->getParameterIndex())
-        hysteresis.setBiasGain (biasGain->convertFrom0to1 (newValue));
+        hysteresis.setBiasGain (*biasGain);
     else if (paramIndex == tapeSpacing->getParameterIndex())
-        lossEffects.setSpacing (tapeSpacing->convertFrom0to1 (newValue));
+        lossEffects.setSpacing (*tapeSpacing);
     else if (paramIndex == tapeThickness->getParameterIndex())
-        lossEffects.setThickness (tapeThickness->convertFrom0to1 (newValue));
+        lossEffects.setThickness (*tapeThickness);
     else if (paramIndex == gapWidth->getParameterIndex())
-        lossEffects.setGap (gapWidth->convertFrom0to1 (newValue));
+        lossEffects.setGap (*gapWidth);
     else if (paramIndex == flutterDepth->getParameterIndex())
-        timingEffect.setDepth (flutterDepth->convertFrom0to1 (newValue));
+        timingEffect.setDepth (*flutterDepth);
 }
 
 //==============================================================================

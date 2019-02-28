@@ -65,7 +65,7 @@ public:
 
     AudioParameterFloat* flutterDepth;
 
-    void parameterValueChanged (int paramIndex, float newValue) override;
+    void parameterValueChanged (int paramIndex, float /*newValue*/) override;
     void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
 
 private:

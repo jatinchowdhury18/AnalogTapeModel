@@ -3,7 +3,6 @@
 
 #include "../ProcessorBase.h"
 #include "HysteresisProcessing.h"
-#include "Bias Filter/BiasFilter.h"
 
 class HysteresisProcessor : public ProcessorBase
 {
