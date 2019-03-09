@@ -77,7 +77,7 @@ after_success: # upload mac bins
 
       echo "Committing Files..."
       git checkout -b builds
-      git add Bin/Mac/
+      git add $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
       git commit -m "Travis build- $TRAVIS_BUILD_NUMBER"
 
       echo "Pushing to branch..."
