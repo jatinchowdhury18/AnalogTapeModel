@@ -20,7 +20,7 @@ matrix:
       env:
         - BUILD_FOLDER="MacOSX"
         - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
-        - secure: EWeaPVOC8rWVkV1Rb6kf90BMr+QGtsC9YN+c+XJ0rIftndY5CSKnBZxU9iwZEQXaRxjdlMcDl95F8IeKlY7yIpN793+SLcx4h6XpijUhqqwWgybhy4jdO23fjefAThExDWzuAg7xfB1LyOC/BO9HRS8qFbCcvVdwCzETtItSW05nxHWICQl6c25Otdduh33EPORYBRUxB3MdPMvcpaYwAslGvSJ2AP7fQsnx3sMwxJLj1J5tiYkdvfm2xy1kv7/C8CF1Zp4Zg9ds+9qAG64v7I8VciuZ1tjmd01TUkal3sWu/78Jyk5avp2fzFR803QeLlcK2ivislZkc+vmMg7yXfjX5zTcgHfrrXlbKame/4xGuxbd6lYqUICeijZdv53d61f1lvvIbNKwzrH74vji5QMJkhjSzWyJt6IL6AriKCETCguKgXNOChbmqqSaTvA/OSwHu9JHH6byk229uQWjIAmj0egCr5WC+fk6LmSrbSG+iPkorSYlilxuGrRZWptVjTkqfbixuloNuwWLw69iHTM//T99E16I5ASN/T2KpQPJyrcPGz+R2ooL5OAb2LAZON58wIKLwaw0Wf6WCLYMmXxNm2vFbS1LsuHEbIMKDIlsMhiZYeCaYfvr942mJond1C2k2WYHwhS14R1sgnJFZGqPJLGzzl7rpxurf0MuOI4=
+        - secure: VjjlWj4TxFpDrbKDKkhkbsAMZs8sf3QAhD5BcPZAyYkaTmP7RdW77z56c5hpucK01hGNZxLhrlc/0ziNOJqGNwO0tJwR4KYSfZ7xhgljC4NKdTfb5vlBseqvWXNQfIurfYjh2m95/XbAYM+v42i7N+Htf+G/DBmjVgsLGDILt4pV2BojAXVxywrenzlM4khcG8g3Q+TxuaVop5zgT6vmF4F0/HOFRIlOiancDHXHKMeyC9ms6+M/k2FjTW6k96n2JRtI3y7Gzhbs1o3BG+dtN6le3pmSaGmRjqzMuwiC2TZg612tb9FA7+2XdsRavjkKzEHmHvYPrlu7OwwQJ9v2Am6PNn7oPnIk6a8EIUnaj3PXOvE99SdF7xNUN40IR5dqoan0p7hecZGktMeoWkWRnMNGrGRR2X827NnxFTEE2N87djRJ9UT2I4kCfRjqHNePQEl1RVGajLJGiZL2ZiHY7SRYv2apv2e8ovSEZhbQs9euZXhkujCVFtsKep5139WHVXuB+iGDKrYRfkTiAZeRs5aZ4os2C2CHH6rffHZTGXl2e4NW23PEejueXuJof6svVL0Jc50MnVY/F1Hl5Tcp471VOFTM5SXQm3ApL655rdKr07RKIf9YzE3eb1VrHmiL0CH7LxN09Z63/M0s+RlkEvxHlQFsy5Ph66FfuPW24bc=
     - name: "win"
       os: windows
       env:
@@ -61,25 +61,25 @@ script:
 
   - echo "SUCCESS"
 
-# after_success: # upload mac bins
-#   - |
-#     if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
-#       echo "Copying Files..."
-#       cd $TRAVIS_BUILD_DIR/
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
-# 
-#       echo "Setting Up Git..."
-#       git config --global user.email "travis@travis-ci.org"
-#       git config --global user.name "Travis CI"
-# 
-#       echo "Committing Files..."
-#       git checkout -b builds
-#       git add Bin/Mac/
-#       git commit -m "Travis build- $TRAVIS_BUILD_NUMBER"
-# 
-#       echo "Pushing to branch..."
-#       git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
-#     fi
+after_success: # upload mac bins
+  - |
+    if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
+      echo "Copying Files..."
+      cd $TRAVIS_BUILD_DIR/
+      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
+      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
+      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
+      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
+
+      echo "Setting Up Git..."
+      git config --global user.email "travis@travis-ci.org"
+      git config --global user.name "Travis CI"
+
+      echo "Committing Files..."
+      git checkout -b builds
+      git add $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
+      git commit -m "Travis build- $TRAVIS_BUILD_NUMBER"
+
+      echo "Pushing to branch..."
+      git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
+    fi
