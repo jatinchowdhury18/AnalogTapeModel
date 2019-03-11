@@ -225,17 +225,39 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& /*destData*/)
+void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    std::unique_ptr<XmlElement> xml (new XmlElement ("ChowTapeXmlData"));
+
+    xml->setAttribute ("inGain", (double) *inGain);
+    xml->setAttribute ("outGain", (double) *outGain);
+    xml->setAttribute ("tapeSpeed", tapeSpeed->getIndex());
+    xml->setAttribute ("biasGain", (double) *biasGain);
+    xml->setAttribute ("tapeSpacing", (double) *tapeSpacing);
+    xml->setAttribute ("tapeThickness", (double) *tapeThickness);
+    xml->setAttribute ("gapWidth", (double) *gapWidth);
+    xml->setAttribute ("flutterDepth", (double) *flutterDepth);
+
+    copyXmlToBinary (*xml, destData);
 }
 
-void ChowtapeModelAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
+void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    if (xmlState.get() != nullptr)
+    {
+        if (xmlState->hasTagName ("ChowTapeXmlData"))
+        {
+            *inGain = (float) xmlState->getDoubleAttribute ("inGain", 0.0);
+            *outGain = (float) xmlState->getDoubleAttribute ("outGain", 0.0);
+            *tapeSpeed = xmlState->getIntAttribute ("tapeSpeed", 0);
+            *biasGain= (float) xmlState->getDoubleAttribute ("biasGain", 0.0);
+            *tapeSpacing = (float) xmlState->getDoubleAttribute ("tapeSpacing", 0.0);
+            *tapeThickness = (float) xmlState->getDoubleAttribute ("tapeThickness", 0.0);
+            *gapWidth= (float) xmlState->getDoubleAttribute ("gapWidth", 0.0);
+            *flutterDepth= (float) xmlState->getDoubleAttribute ("flutterDepth", 0.0);
+        }
+    }
 }
 
 //==============================================================================
