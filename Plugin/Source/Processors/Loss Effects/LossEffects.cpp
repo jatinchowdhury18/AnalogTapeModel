@@ -14,7 +14,7 @@ void LossEffects::init (float sampleRate, float speed, float spacing, float thic
     for (int k = 0; k < order / 2; k++)
     {
         const auto freq = ((float) k * binWidth) + (binWidth / 2.0f);
-        const auto waveNumber = MathConstants<float>::twoPi * freq / speed;
+        const auto waveNumber = MathConstants<float>::twoPi * freq / speedMetric;
 
         const auto spacingLoss = std::expf (-1.0f * waveNumber * spacing);
         const auto gapLoss = std::sinf (waveNumber * gap / 2.0f) / (waveNumber * gap / 2.0f);
