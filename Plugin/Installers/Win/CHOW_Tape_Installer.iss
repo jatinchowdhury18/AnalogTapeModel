@@ -3,7 +3,6 @@ AppName=CHOWTapeModel
 AppVersion=1.0.0
 DisableWelcomePage=no
 DisableDirPage=yes
-LicenseFile=..\Chowdhury_DSP_License.rtf
 DefaultDirName={cf}
 DefaultGroupName=CHOWTapeModel
 OutputBaseFilename=CHOWTapeModel-Win-1.0.0
