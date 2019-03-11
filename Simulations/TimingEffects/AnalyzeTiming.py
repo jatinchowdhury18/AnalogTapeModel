@@ -109,4 +109,7 @@ print (len (diffs_pos))
 y = np.poly1d (p)
 
 plt.plot (t, diffs_pos, t, y(t))
+plt.xlabel("Time [samples]")
+plt.ylabel("Delay [samples]")
+plt.title("Tape Delay vs Time")
 plt.show()
