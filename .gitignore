@@ -26,3 +26,4 @@ BinaryData2.cpp
 
 #Visual Studio Code files
 .vscode/
+*.asd
