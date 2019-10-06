@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.2"
+<JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.4"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
   <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
     <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
