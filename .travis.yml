@@ -58,7 +58,7 @@ matrix:
         - xvfb
       env:
         - BUILD_FOLDER="LinuxMakefile"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
 
 before_install:
   # mac installs
@@ -68,7 +68,7 @@ before_install:
   - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then export PATH=$MSBUILD_PATH:$PATH; fi
 
   # Build Projucer
-  - cd $TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/$BUILD_FOLDER
+  - cd $TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/$BUILD_FOLDER
   - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project Projucer.xcodeproj > /dev/null; fi
   - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then msbuild.exe -v:quiet Projucer.sln; fi
   - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make; fi
@@ -76,8 +76,8 @@ before_install:
 script:
   - cd $TRAVIS_BUILD_DIR/Plugin/
   - export PROJUCER=$PROJUCER_EXPORT
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/JUCE/modules
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME vstLegacyPath $TRAVIS_BUILD_DIR/Plugin/JUCE/VST2_SDK
+  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/Juce/modules
+  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME vstLegacyPath $TRAVIS_BUILD_DIR/Plugin/Juce/VST2_SDK
   - $PROJUCER --resave CHOWTapeModel.jucer
   - cd $TRAVIS_BUILD_DIR/Plugin/Builds/$BUILD_FOLDER/
 
