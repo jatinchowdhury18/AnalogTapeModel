@@ -28,7 +28,6 @@ def L_d (x):
 
 # trapezoidal rule derivative
 def deriv (x_n, x_n1, xDeriv_n1):
-    #return (1 / T) * (x_n - x_n1)
     return ((2 / T) * (x_n - x_n1)) - xDeriv_n1
 
 # dM/dt or "non-linear function"
