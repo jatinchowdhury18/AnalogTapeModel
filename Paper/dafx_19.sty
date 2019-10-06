@@ -140,7 +140,10 @@
  \if@twocolumn
  \twocolumn[\@maketitle]
  \else \newpage
- \global\@topnum\z@ \@maketitle \fi\@thanks
+ \global\@topnum\z@ \@maketitle \fi
+
+  \permission
+ \@thanks
  \endgroup
  \setcounter{footnote}{0}
  \let\maketitle\relax
@@ -162,6 +165,16 @@
  \end{center}
  \par
  \vskip 1.4em}
+ 
+ 
+ \newcommand{\permission}{
+\begin{figure}[b]
+  \vspace{-0.6cm}
+%  \ContinuedFloat
+{\scriptsize{\it Copyright:~\copyright \hspace*{1 pt} 2019 \paperauthorA  \hspace*{1 pt} et al. This is an open-access article distributed under the terms of the \href{http://creativecommons.org/licenses/by/3.0/}{Creative Commons Attribution 3.0 Unported License}, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.}}
+%{\copyright~Copyright notice here}
+%\caption*{}
+\end{figure}}
 
 \def\title#1{\gdef\@title{\MakeUppercase{#1}}}
 \gdef\@title{\uppercase{title of paper}}

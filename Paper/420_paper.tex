@@ -79,7 +79,7 @@
   ]{hyperref}
   \pdfcompresslevel=9
   \usepackage[pdftex]{graphicx}
-  \usepackage[figure,table]{hypcap}
+%  \usepackage[figure,table,hypcap=true]{caption}
 \else % compiling with latex
   \usepackage[dvips]{epsfig,graphicx}
   \usepackage[dvips,
@@ -88,8 +88,9 @@
     pdfstartview=XYZ % start with zoom=100% instead of full screen
   ]{hyperref}
   % hyperrefs are active in the pdf file after conversion
-  \usepackage[figure,table]{hypcap}
+%  \usepackage[figure,table,hypcap=true]{caption}
 \fi
+  \usepackage[hypcap=true]{caption}
 \usepackage{cleveref}
 \usepackage{tikz}
 \usetikzlibrary{dsp,chains}
