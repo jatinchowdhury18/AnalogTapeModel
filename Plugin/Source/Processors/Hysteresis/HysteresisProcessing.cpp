@@ -43,7 +43,7 @@ float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
     const float M_diff = M_s * langevin (Q) - M;
 
     const float delta = H_d > 0 ? 1.0f : -1.0f;
-    const float delta_M = signbit (delta) == signbit (M_diff) ? 1.0f : 0.0f;
+    const float delta_M = std::signbit (delta) == std::signbit (M_diff) ? 1.0f : 0.0f;
 
     const float L_prime = langevinD (Q);
 
