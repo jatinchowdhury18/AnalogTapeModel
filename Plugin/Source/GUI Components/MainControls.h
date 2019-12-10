@@ -5,9 +5,10 @@
 #include "../GUI Extras/ChowSlider.h"
 #include "../GUI Extras/MyLNF.h"
 
-class MainControls : public Component,
-                     public Slider::Listener,
-                     public ComboBox::Listener
+using SliderAttachment = AudioProcessorValueTreeState::SliderAttachment;
+using ComboBoxAttachment = AudioProcessorValueTreeState::ComboBoxAttachment;
+
+class MainControls : public Component
 {
 public:
     MainControls (ChowtapeModelAudioProcessor& proc);
@@ -16,27 +17,27 @@ public:
     void resized() override;
 
 private:
-    void comboBoxChanged (ComboBox* box) override;
-    void sliderValueChanged (Slider* slider) override;
-    void sliderDragStarted (Slider* slider) override;
-    void sliderDragEnded (Slider* slider) override;
-
     MyLNF myLNF;
 
     ChowtapeModelAudioProcessor& processor;
 
-    ChowSlider gainInKnob;
-    ChowSlider gainOutKnob;
+    Slider gainInKnob;
+    Slider gainOutKnob;
+
+    std::unique_ptr<SliderAttachment> gainInAttach;
+    std::unique_ptr<SliderAttachment> gainOutAttach;
 
     ComboBox oversampling;
-    ComboBox tapeSpeed;
-    ComboBox tapeType;
+    std::unique_ptr<ComboBoxAttachment> osAttach;
+
+    // ComboBox tapeSpeed;
+    // ComboBox tapeType;
 
     Label inGainLabel;
     Label outGainLabel;
     Label oversampleLabel;
-    Label speedLabel;
-    Label typeLabel;
+    // Label speedLabel;
+    // Label typeLabel;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainControls)
 };
