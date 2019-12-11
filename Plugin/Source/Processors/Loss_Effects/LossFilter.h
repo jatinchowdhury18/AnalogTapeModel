@@ -28,7 +28,7 @@ public:
         NormalisableRange<float> spaceRange ((float) 1.0e-9, 0.01f);
         spaceRange.setSkewForCentre ((float) 1.0e-6);
 
-        NormalisableRange thickRange ((float) 1.0e-9, 0.0001f);
+        NormalisableRange<float> thickRange ((float) 1.0e-9, 0.0001f);
         thickRange.setSkewForCentre (0.0000001f);
 
         NormalisableRange<float> gapRange ((float) 1.0e-9, 0.01f);
@@ -47,13 +47,15 @@ public:
         fadeBuffer.resize (samplesPerBlock);
 
         fsFactor = (int) (fs / 44100.0f);
+        const int curOrder = order * fsFactor;
         filters.clear();
-        filters.add (new FIRFilter (order * fsFactor));
-        filters.add (new FIRFilter (order * fsFactor));
-
+        filters.add (new FIRFilter (curOrder));
+        filters.add (new FIRFilter (curOrder));
+        currentCoefs.resize (curOrder);
+        
         filters[0]->reset();
         filters[1]->reset();
-
+        
         calcCoefs();
         filters[0]->setCoefs (currentCoefs.getRawDataPointer());
         filters[1]->setCoefs (currentCoefs.getRawDataPointer());
@@ -75,13 +77,13 @@ public:
             const auto waveNumber = MathConstants<float>::twoPi * jmax (freq, 20.0f) / (*speed * 0.0254f);
             const auto thickTimesK = waveNumber * *thickness;
             const auto kGapOverTwo = waveNumber * *gap / 2.0f;
-
+        
             H[k] = expf (-1.0f * waveNumber * *spacing); // Spacing loss formula
             H[k] *= (1.0f - expf (-thickTimesK)) / thickTimesK;
             H[k] *= sinf (kGapOverTwo) / kGapOverTwo;
             H[curOrder - k - 1] = H[k];
         }
-
+        
         // Create time domain filter signals
         auto h = currentCoefs.getRawDataPointer();
         for (int n = 0; n < curOrder; n++)
@@ -92,11 +94,6 @@ public:
             h[n] /= (float) curOrder;
         }
     }
-
-    // void setSpeed (float newSpeed) { speed = newSpeed; }
-    // void setSpacing (float newSpacing) { spacing = newSpacing; }
-    // void setThickness (float newThick) { thickness = newThick; }
-    // void setGap (float newGap) { gap = newGap; }
 
     inline void processBlock (float* buffer, int numSamples)
     {

@@ -12,7 +12,7 @@ Flutter::Flutter (AudioProcessorValueTreeState& vts)
 void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
     params.push_back (std::make_unique<AudioParameterFloat> ("rate",  "Rate",  0.0f, 1.0f, 0.3f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.3f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.0f));
 }
 
 void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -46,8 +46,8 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     ScopedNoDenormals noDenormals;
 
     auto curDepth = powf (*depth * 81.0f / 625.0f, 0.5f);
-    depthSlew[0].setTargetValue (curDepth);
-    depthSlew[1].setTargetValue (curDepth);
+    depthSlew[0].setTargetValue (jmax ((float) 1.0e-12, curDepth));
+    depthSlew[1].setTargetValue (jmax ((float) 1.0e-12, curDepth));
 
     auto freq = 0.1f * powf (1000.0f, *rate);
     auto angleDelta1 = MathConstants<float>::twoPi * 1.0f * freq / fs;

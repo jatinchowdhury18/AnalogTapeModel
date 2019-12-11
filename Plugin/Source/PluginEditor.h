@@ -51,8 +51,6 @@ public:
     static void createLabel (Label& label, String name, Component* comp);
 
 private: 
-    MyLNF myLNF;
-
     ChowtapeModelAudioProcessor& processor;
 
     std::unique_ptr<MainControls> mainControls;

@@ -123,7 +123,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 {
     setDrive (*driveParam);
     setSaturation (*satParam);
-    setWidth (*widthParam);
+    setWidth (1.0f - *widthParam);
 
     if ((int) *osParam != prevOS)
     {

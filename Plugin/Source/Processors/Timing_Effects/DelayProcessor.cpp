@@ -33,9 +33,9 @@ float DelayProcessor::getFeedback() const
     return feedback;
 }
 
-void DelayProcessor::prepareToPlay (double sr, int maximumExpectedSamplesPerBlock)
+void DelayProcessor::prepareToPlay (double sr, int /*maximumExpectedSamplesPerBlock*/)
 {
-    sampleRate = (float) sampleRate;
+    sampleRate = (float) sr;
     bufferSize = (int) sampleRate * maxDelaySeconds;
     delayBuffer.setSize (1, bufferSize);
     delayBuffer.clear();
