@@ -4,9 +4,11 @@
 #include "../PluginProcessor.h"
 #include "../GUI Extras/ChowSlider.h"
 #include "../GUI Extras/MyLNF.h"
+#include "HysteresisControls.h"
 
-class LossControls : public Component,
-                     public Slider::Listener
+using SliderAttachment = AudioProcessorValueTreeState::SliderAttachment;
+
+class LossControls : public Component
 {
 public:
     LossControls (ChowtapeModelAudioProcessor& proc);
@@ -15,21 +17,14 @@ public:
     void resized() override;
 
 private:
-    void sliderValueChanged (Slider* slider) override;
-    void sliderDragStarted (Slider* slider) override;
-    void sliderDragEnded (Slider* slider) override;
-
     MyLNF myLNF;
 
     ChowtapeModelAudioProcessor& processor;
 
-    ChowSlider spacingSlider;
-    ChowSlider thicknessSlider;
-    ChowSlider gapSlider;
-
-    Label spacingLabel;
-    Label thicknessLabel;
-    Label gapLabel;
+    FullSlider speedSlider;
+    FullSlider spacingSlider;
+    FullSlider thicknessSlider;
+    FullSlider gapSlider;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LossControls)
 };

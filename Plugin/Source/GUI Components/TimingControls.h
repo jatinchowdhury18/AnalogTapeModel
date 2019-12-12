@@ -4,9 +4,9 @@
 #include "../PluginProcessor.h"
 #include "../GUI Extras/ChowSlider.h"
 #include "../GUI Extras/MyLNF.h"
+#include "HysteresisControls.h"
 
-class TimingControls : public Component,
-    public Slider::Listener
+class TimingControls : public Component
 {
 public:
     TimingControls (ChowtapeModelAudioProcessor& proc);
@@ -15,16 +15,12 @@ public:
     void resized() override;
 
 private:
-    void sliderValueChanged (Slider* slider) override;
-    void sliderDragStarted (Slider* slider) override;
-    void sliderDragEnded (Slider* slider) override;
-
     MyLNF myLNF;
 
     ChowtapeModelAudioProcessor& processor;
 
-    ChowSlider flutterDepthSlide;
-    Label flutterDepthLabel;
+    FullSlider rateSlide;
+    FullSlider depthSlide;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TimingControls)
 };

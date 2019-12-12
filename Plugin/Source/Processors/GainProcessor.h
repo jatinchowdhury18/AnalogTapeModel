@@ -1,21 +1,19 @@
 #ifndef GAINPROCESSOR_H_INCLUDED
 #define GAINPROCESSOR_H_INCLUDED
 
-#include "ProcessorBase.h"
+#include "JuceHeader.h"
 
-class GainProcessor : public ProcessorBase
+class GainProcessor
 {
 public:
-    GainProcessor() : ProcessorBase (String ("Gain Processor")) {}
+    GainProcessor() {}
 
-    void prepareToPlay (double sampleRate, int maximumExpectedSamplesPerBlock) override
+    void prepareToPlay (double /*sampleRate*/, int /*maximumExpectedSamplesPerBlock*/)
     { 
-        setRateAndBufferSizeDetails (sampleRate, maximumExpectedSamplesPerBlock);
         oldGain = 0.0f;
     }
 
-    void releaseResources() override {}
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/) override
+    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
     {
         if (curGain != oldGain)
         {

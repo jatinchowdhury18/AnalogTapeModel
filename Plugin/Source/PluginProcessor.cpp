@@ -1,3 +1,13 @@
+/*
+  ==============================================================================
+
+    This file was auto-generated!
+
+    It contains the basic framework code for a JUCE plugin processor.
+
+  ==============================================================================
+*/
+
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
@@ -11,86 +21,32 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
 #endif
+    vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+    hysteresis (vts),
+    flutter (vts)
 {
-    //Main Controls
-    addParameter (inGain = new AudioParameterFloat (String ("inGain"), String ("Input Gain"), -30.0f, 30.0f, 0.0f));
-    inGain->addListener (this);
-
-    addParameter (outGain = new AudioParameterFloat (String ("outGain"), String ("Output Gain"), -30.0f, 30.0f, 0.0f));
-    outGain->addListener (this);
-
-    addParameter (overSampling = new AudioParameterChoice (String ("overSampling"), String ("Upsample"),
-                                                           StringArray ({ "2x", "4x", "8x", "16x" }), 3));
-    overSampling->addListener (this);
-
-    addParameter (tapeSpeed = new AudioParameterChoice (String ("tapeSpeed"), String ("Speed"),
-                                                        StringArray ({ "3.75 ips", "7.5 ips", "15 ips" }), 1));
-    tapeSpeed->addListener (this);
-
-    addParameter (tapeType = new AudioParameterChoice (String ("tapeType"), String ("Tape Type"),
-                                                       StringArray ({ "Iron Oxide", "Chromium Oxide" }), 0));
-    tapeType->addListener(this);
-
-    //Bias Controls
-    addParameter (biasFreq = new AudioParameterFloat (String ("biasFreq"), String ("Bias Frequency"), 45.0f, 55.0f, 50.0));
-    biasFreq->addListener (this);
-
-    addParameter (biasGain = new AudioParameterFloat (String ("biasGain"), String ("Bias Gain"), 0.0f, 10.0f, 5.0f));
-    biasGain->addListener (this);
-
-    //Loss Controls
-    addParameter (tapeSpacing = new AudioParameterFloat (String ("tapeSpacing"), String ("Spacing"), 0.0f, 50.0f, 0.001f));
-    tapeSpacing->addListener (this);
-
-    addParameter (tapeThickness = new AudioParameterFloat (String ("tapeThickness"), String ("Thickness"), 0.0f, 50.0f, 10.0f));
-    tapeThickness->addListener (this);
-
-    addParameter (gapWidth = new AudioParameterFloat (String ("gapWidth"), String ("Gap Width"), 2.5f, 12.0f, 3.0f));
-    gapWidth->addListener (this);
-
-    //Timing Controls
-    addParameter (flutterDepth = new AudioParameterFloat (String ("flutterDepth"), String ("Flutter Depth"), 0.0f, 5.0f, 1.0f));
-    flutterDepth->addListener (this);
-
-    lossEffects.setSpeed (*tapeSpeed);
-    hysteresis.setOverSamplingFactor (*overSampling);
-    hysteresis.setBiasFreq (*biasFreq);
-    timingEffect.setDepth (*flutterDepth);
+    for (int ch = 0; ch < 2; ++ch)
+        lossFilter[ch].reset (new LossFilter (vts));
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
 {
 }
 
-void ChowtapeModelAudioProcessor::parameterValueChanged (int paramIndex, float /*newValue*/)
+AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::createParameterLayout()
 {
-    if (paramIndex == inGain->getParameterIndex())
-        inGainProc.setGain (Decibels::decibelsToGain ((float) *inGain));
-    else if (paramIndex == outGain->getParameterIndex())
-        outGainProc.setGain (Decibels::decibelsToGain ((float) *outGain));
-    //else if (paramIndex == overSampling->getParameterIndex())
-    //    hysteresis.setOverSamplingFactor (*overSampling);
-    else if (paramIndex == tapeSpeed->getParameterIndex())
-    {
-        lossEffects.setSpeed (*tapeSpeed);
-        timingEffect.setTapeSpeed (*tapeSpeed);
-    }
-    //else if (paramIndex == tapeType->getParameterIndex())
-    //    return; //@TODO
-    //else if (paramIndex == biasFreq->getParameterIndex())
-    //    hysteresis.setBiasFreq (*biasFreq);
-    else if (paramIndex == biasGain->getParameterIndex())
-        hysteresis.setBiasGain (*biasGain);
-    else if (paramIndex == tapeSpacing->getParameterIndex())
-        lossEffects.setSpacing (*tapeSpacing);
-    else if (paramIndex == tapeThickness->getParameterIndex())
-        lossEffects.setThickness (*tapeThickness);
-    else if (paramIndex == gapWidth->getParameterIndex())
-        lossEffects.setGap (*gapWidth);
-    else if (paramIndex == flutterDepth->getParameterIndex())
-        timingEffect.setDepth (*flutterDepth);
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+
+    params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain",  -30.0f, 6.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain", -30.0f, 6.0f, 0.0f));
+
+    HysteresisProcessor::createParameterLayout (params);
+    LossFilter::createParameterLayout (params);
+    Flutter::createParameterLayout (params);
+
+    return { params.begin(), params.end() };
 }
 
 //==============================================================================
@@ -142,36 +98,35 @@ int ChowtapeModelAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-void ChowtapeModelAudioProcessor::setCurrentProgram (int /*index*/)
+void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String ChowtapeModelAudioProcessor::getProgramName (int /*index*/)
+const String ChowtapeModelAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void ChowtapeModelAudioProcessor::changeProgramName (int /*index*/, const String& /*newName*/)
+void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    inGainProc.prepareToPlay (sampleRate, samplesPerBlock);
+    inGain.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
-    timingEffect.prepareToPlay (sampleRate, samplesPerBlock);
-    lossEffects.prepareToPlay (sampleRate, samplesPerBlock);
-    outGainProc.prepareToPlay (sampleRate, samplesPerBlock);
+
+    for (int ch = 0; ch < 2; ++ch)
+        lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+
+    flutter.prepareToPlay (sampleRate, samplesPerBlock);
+    outGain.prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
 {
-    inGainProc.releaseResources();
     hysteresis.releaseResources();
-    timingEffect.releaseResources();
-    lossEffects.releaseResources();
-    outGainProc.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -202,15 +157,18 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 {
     ScopedNoDenormals noDenormals;
     
-    inGainProc.processBlock (buffer, midiMessages);
+    inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
+    outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
 
+    inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
+    
+    flutter.processBlock (buffer, midiMessages);
 
-    timingEffect.processBlock (buffer, midiMessages);
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
-    lossEffects.processBlock (buffer, midiMessages);
-
-    outGainProc.processBlock (buffer, midiMessages);
+    outGain.processBlock (buffer, midiMessages);
 }
 
 //==============================================================================
@@ -227,37 +185,18 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 //==============================================================================
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    std::unique_ptr<XmlElement> xml (new XmlElement ("ChowTapeXmlData"));
-
-    xml->setAttribute ("inGain", (double) *inGain);
-    xml->setAttribute ("outGain", (double) *outGain);
-    xml->setAttribute ("tapeSpeed", tapeSpeed->getIndex());
-    xml->setAttribute ("biasGain", (double) *biasGain);
-    xml->setAttribute ("tapeSpacing", (double) *tapeSpacing);
-    xml->setAttribute ("tapeThickness", (double) *tapeThickness);
-    xml->setAttribute ("gapWidth", (double) *gapWidth);
-    xml->setAttribute ("flutterDepth", (double) *flutterDepth);
-
+    auto state = vts.copyState();
+    std::unique_ptr<XmlElement> xml (state.createXml());
     copyXmlToBinary (*xml, destData);
 }
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     std::unique_ptr<XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+
     if (xmlState.get() != nullptr)
-    {
-        if (xmlState->hasTagName ("ChowTapeXmlData"))
-        {
-            *inGain = (float) xmlState->getDoubleAttribute ("inGain", 0.0);
-            *outGain = (float) xmlState->getDoubleAttribute ("outGain", 0.0);
-            *tapeSpeed = xmlState->getIntAttribute ("tapeSpeed", 0);
-            *biasGain= (float) xmlState->getDoubleAttribute ("biasGain", 0.0);
-            *tapeSpacing = (float) xmlState->getDoubleAttribute ("tapeSpacing", 0.0);
-            *tapeThickness = (float) xmlState->getDoubleAttribute ("tapeThickness", 0.0);
-            *gapWidth= (float) xmlState->getDoubleAttribute ("gapWidth", 0.0);
-            *flutterDepth= (float) xmlState->getDoubleAttribute ("flutterDepth", 0.0);
-        }
-    }
+        if (xmlState->hasTagName (vts.state.getType()))
+            vts.replaceState (ValueTree::fromXml (*xmlState));
 }
 
 //==============================================================================

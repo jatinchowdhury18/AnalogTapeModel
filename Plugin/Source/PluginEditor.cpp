@@ -8,7 +8,7 @@ ChowtapeModelAudioProcessorEditor::ChowtapeModelAudioProcessorEditor (ChowtapeMo
     mainControls.reset (new MainControls (processor));
     addAndMakeVisible (mainControls.get());
 
-    biasControls.reset (new BiasControls (processor));
+    biasControls.reset (new HysteresisControls (processor));
     addAndMakeVisible (biasControls.get());
 
     lossControls.reset (new LossControls (processor));
@@ -24,47 +24,52 @@ ChowtapeModelAudioProcessorEditor::~ChowtapeModelAudioProcessorEditor()
 {
 }
 
-void ChowtapeModelAudioProcessorEditor::createSlider (ChowSlider& slide, AudioParameterFloat* param, LookAndFeel& lnf,
-                                                      Component* comp, String suffix, float step){
-    slide.setName(param->name);
-    slide.setRange(param->range.start, param->range.end, step);
-    slide.setDefaultValue (param->convertFrom0to1 (dynamic_cast<AudioProcessorParameterWithID*> (param)->getDefaultValue()));
-    slide.setValue(*param);
+void ChowtapeModelAudioProcessorEditor::createSlider (Slider& slider, AudioProcessorValueTreeState& vts, String paramID,
+                                                      std::unique_ptr<SliderAttachment>& attachment, Component& comp, LookAndFeel& myLNF,
+                                                      String suffix, std::function<void()> onValueChange,
+                                                      std::function<String (double)> textFromValue, std::function<double (String)> valueFromText)
+{
+    comp.addAndMakeVisible (slider);
+    attachment.reset (new SliderAttachment (vts, paramID, slider));
 
-    slide.setLookAndFeel (&lnf);
-    slide.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    slide.setColour(Slider::rotarySliderFillColourId, Colours::black);
-    slide.setColour(Slider::rotarySliderOutlineColourId, Colours::darkred);
-    slide.setColour(Slider::thumbColourId, Colours::antiquewhite);
-    slide.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
-    slide.setColour(Slider::textBoxTextColourId, Colours::antiquewhite);
-    slide.setColour(Slider::textBoxOutlineColourId, Colours::antiquewhite);
+    slider.setName (vts.getParameter (paramID)->name);
+    slider.textFromValueFunction = textFromValue;
+    slider.valueFromTextFunction = valueFromText;
+    slider.setNumDecimalPlacesToDisplay (2);
+    slider.setTextValueSuffix (suffix);
+    slider.onValueChange = onValueChange;
 
-    if (suffix.isNotEmpty())
-        slide.setTextValueSuffix (" " + suffix);
-
-    slide.addListener (dynamic_cast<Slider::Listener*> (comp));
-    comp->addAndMakeVisible (slide);
+    slider.setLookAndFeel (&myLNF);
+    slider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    slider.setColour(Slider::rotarySliderFillColourId, Colours::black);
+    slider.setColour(Slider::rotarySliderOutlineColourId, Colours::darkred);
+    slider.setColour(Slider::thumbColourId, Colours::antiquewhite);
+    slider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 20);
+    slider.setColour(Slider::textBoxTextColourId, Colours::antiquewhite);
+    slider.setColour(Slider::textBoxOutlineColourId, Colours::antiquewhite);
 }
 
-void ChowtapeModelAudioProcessorEditor::createComboBox (ComboBox& box, AudioParameterChoice* choice, Component* comp)
+void ChowtapeModelAudioProcessorEditor::createComboBox (ComboBox& box, AudioProcessorValueTreeState& vts, String paramID,
+                                                        std::unique_ptr<ComboBoxAttachment>& attachment, Component* comp,
+                                                        StringArray choices)
 {
-    box.setName (choice->name);
-    box.addItemList (choice->getAllValueStrings(), 1);
-    box.setSelectedItemIndex (*choice);
+    attachment.reset (new ComboBoxAttachment (vts, paramID, box));
+
+    box.setName (vts.getParameter (paramID)->name);
+    box.addItemList (choices, 1);
+    box.setSelectedItemIndex ((int) *vts.getRawParameterValue (paramID), dontSendNotification);
 
     box.setColour (ComboBox::backgroundColourId, Colours::black);
     box.setColour (ComboBox::outlineColourId, Colours::saddlebrown);
     box.setColour (ComboBox::textColourId, Colours::antiquewhite);
     box.setColour (ComboBox::arrowColourId, Colours::antiquewhite);
 
-    box.addListener (dynamic_cast<ComboBox::Listener*> (comp));
     comp->addAndMakeVisible (box);
 }
 
-void ChowtapeModelAudioProcessorEditor::createLabel (Label& label, AudioProcessorParameterWithID* param, Component* comp)
+void ChowtapeModelAudioProcessorEditor::createLabel (Label& label, String name, Component* comp)
 {
-    label.setText (param->name, dontSendNotification);
+    label.setText (name, dontSendNotification);
     label.setJustificationType (Justification::centred);
     label.setColour (Label::textColourId, Colours::antiquewhite);
     label.setFont (17.0f);
@@ -92,38 +97,4 @@ void ChowtapeModelAudioProcessorEditor::resized()
     biasControls->setBounds (0, sectionHeight, width, sectionHeight);
     lossControls->setBounds (0, 2 * sectionHeight, width, sectionHeight);
     timingControls->setBounds (0, 3 * sectionHeight, width, sectionHeight);
-}
-
-AudioParameterFloat* ChowtapeModelAudioProcessorEditor::getParamForSlider (Slider* slider, ChowtapeModelAudioProcessor& proc)
-{
-    if (proc.inGain->name == slider->getName())
-        return proc.inGain;
-    else if (proc.outGain->name == slider->getName())
-        return proc.outGain;
-    else if (proc.biasFreq->name == slider->getName())
-        return proc.biasFreq;
-    else if (proc.biasGain->name == slider->getName())
-        return proc.biasGain;
-    else if (proc.tapeSpacing->name == slider->getName())
-        return proc.tapeSpacing;
-    else if (proc.tapeThickness->name == slider->getName())
-        return proc.tapeThickness;
-    else if (proc.gapWidth->name == slider->getName())
-        return proc.gapWidth;
-    else if (proc.flutterDepth->name == slider->getName())
-        return proc.flutterDepth;
-    else
-        return nullptr;
-}
-
-AudioParameterChoice* ChowtapeModelAudioProcessorEditor::getParamForBox (ComboBox* box, ChowtapeModelAudioProcessor& proc)
-{
-    if (proc.overSampling->name == box->getName())
-        return proc.overSampling;
-    else if (proc.tapeSpeed->name == box->getName())
-        return proc.tapeSpeed;
-    else if (proc.tapeType->name == box->getName())
-        return proc.tapeType;
-    else
-        return nullptr;
 }

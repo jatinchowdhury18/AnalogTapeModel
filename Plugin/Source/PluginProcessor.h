@@ -1,16 +1,25 @@
+/*
+  ==============================================================================
+
+    This file was auto-generated!
+
+    It contains the basic framework code for a JUCE plugin processor.
+
+  ==============================================================================
+*/
+
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/GainProcessor.h"
-#include "Processors/Loss Effects/LossEffectsFilter.h"
-#include "Processors/Timing Effects/TimingEffect.h"
+#include "Processors/Hysteresis/HysteresisProcessor.h"
+#include "Processors/Loss_Effects/LossFilter.h"
+#include "Processors/Timing_Effects/Flutter.h"
 
 //==============================================================================
 /**
 */
-class ChowtapeModelAudioProcessor  : public AudioProcessor,
-                                     public AudioProcessorParameter::Listener
+class ChowtapeModelAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
@@ -50,31 +59,17 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    AudioParameterFloat* inGain;
-    AudioParameterFloat* outGain;
-    AudioParameterChoice* overSampling;
-    AudioParameterChoice* tapeSpeed;
-    AudioParameterChoice* tapeType;
-
-    AudioParameterFloat* biasFreq;
-    AudioParameterFloat* biasGain;
-
-    AudioParameterFloat* tapeSpacing;
-    AudioParameterFloat* tapeThickness;
-    AudioParameterFloat* gapWidth;
-
-    AudioParameterFloat* flutterDepth;
-
-    void parameterValueChanged (int paramIndex, float /*newValue*/) override;
-    void parameterGestureChanged (int /*paramIndex*/, bool /*gestureIsStarting*/) override {}
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    AudioProcessorValueTreeState& getVTS() { return vts; }
 
 private:
-    HysteresisProcessor hysteresis;
-    LossEffectsFilter lossEffects;
-    TimingEffect timingEffect;
+    AudioProcessorValueTreeState vts;
 
-    GainProcessor inGainProc;
-    GainProcessor outGainProc;
+    GainProcessor inGain;
+    HysteresisProcessor hysteresis;
+    std::unique_ptr<LossFilter> lossFilter[2];
+    Flutter flutter;
+    GainProcessor outGain;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)

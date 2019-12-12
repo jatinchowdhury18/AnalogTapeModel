@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="uS0OjK" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.4"
-              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3">
-  <MAINGROUP id="oKBSK1" name="CHOWTapeModel">
-    <GROUP id="{7659EE80-6477-48A0-C7B6-CD8900735F10}" name="Source">
-      <GROUP id="{6EA40328-703D-5E93-4DC1-47040482016F}" name="GUI Components">
-        <FILE id="C8pGDO" name="BiasControls.cpp" compile="1" resource="0"
-              file="Source/GUI Components/BiasControls.cpp"/>
-        <FILE id="PORdVN" name="BiasControls.h" compile="0" resource="0" file="Source/GUI Components/BiasControls.h"/>
-        <FILE id="jubA6Z" name="LossControls.cpp" compile="1" resource="0"
+<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.4"
+              version="2.0.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
+              cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com">
+  <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
+    <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
+      <GROUP id="{95079A80-7AE7-EAEE-9302-0BC2E901D700}" name="GUI Components">
+        <FILE id="U6ldtW" name="HysteresisControls.cpp" compile="1" resource="0"
+              file="Source/GUI Components/HysteresisControls.cpp"/>
+        <FILE id="pgwXn0" name="HysteresisControls.h" compile="0" resource="0"
+              file="Source/GUI Components/HysteresisControls.h"/>
+        <FILE id="yCHTFN" name="LossControls.cpp" compile="1" resource="0"
               file="Source/GUI Components/LossControls.cpp"/>
-        <FILE id="KrcGEd" name="LossControls.h" compile="0" resource="0" file="Source/GUI Components/LossControls.h"/>
-        <FILE id="S8Xybc" name="MainControls.cpp" compile="1" resource="0"
+        <FILE id="qv9Pbi" name="LossControls.h" compile="0" resource="0" file="Source/GUI Components/LossControls.h"/>
+        <FILE id="mpMg4X" name="MainControls.cpp" compile="1" resource="0"
               file="Source/GUI Components/MainControls.cpp"/>
-        <FILE id="zXwghi" name="MainControls.h" compile="0" resource="0" file="Source/GUI Components/MainControls.h"/>
-        <FILE id="E0NC0D" name="TimingControls.cpp" compile="1" resource="0"
+        <FILE id="A4qTd6" name="MainControls.h" compile="0" resource="0" file="Source/GUI Components/MainControls.h"/>
+        <FILE id="mSX91i" name="TimingControls.cpp" compile="1" resource="0"
               file="Source/GUI Components/TimingControls.cpp"/>
-        <FILE id="vA4R0k" name="TimingControls.h" compile="0" resource="0"
+        <FILE id="Gd9QVZ" name="TimingControls.h" compile="0" resource="0"
               file="Source/GUI Components/TimingControls.h"/>
       </GROUP>
-      <GROUP id="{7867F016-80C7-7749-B604-ED042C040FC7}" name="GUI Extras">
-        <FILE id="xd7cQs" name="ChowSlider.h" compile="0" resource="0" file="Source/GUI Extras/ChowSlider.h"/>
-        <FILE id="mQFlPP" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
+      <GROUP id="{25D57C01-20AB-46DC-E9B3-80021429D612}" name="GUI Extras">
+        <FILE id="ddmwEV" name="ChowSlider.h" compile="0" resource="0" file="Source/GUI Extras/ChowSlider.h"/>
+        <FILE id="gFXfuJ" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
-      <GROUP id="{D2422983-A0E9-6A14-2092-2381CB1F3E7F}" name="Processors">
-        <GROUP id="{6480D4F8-23CE-4932-1E51-CF3CF4FCC37F}" name="Timing Effects">
-          <FILE id="sF9JlS" name="TimingEffect.cpp" compile="1" resource="0"
-                file="Source/Processors/Timing Effects/TimingEffect.cpp"/>
-          <FILE id="vDhRoW" name="TimingEffect.h" compile="0" resource="0" file="Source/Processors/Timing Effects/TimingEffect.h"/>
-        </GROUP>
-        <GROUP id="{99069F32-1399-FF98-7C4A-19F8E855C2AA}" name="Loss Effects">
-          <FILE id="aEdcW7" name="LossEffects.cpp" compile="1" resource="0" file="Source/Processors/Loss Effects/LossEffects.cpp"/>
-          <FILE id="TFnfhT" name="LossEffects.h" compile="0" resource="0" file="Source/Processors/Loss Effects/LossEffects.h"/>
-          <FILE id="MSDyaq" name="LossEffectsFilter.cpp" compile="1" resource="0"
-                file="Source/Processors/Loss Effects/LossEffectsFilter.cpp"/>
-          <FILE id="C8T3dH" name="LossEffectsFilter.h" compile="0" resource="0"
-                file="Source/Processors/Loss Effects/LossEffectsFilter.h"/>
-        </GROUP>
-        <GROUP id="{E8FF20D6-35DC-19EF-2A0D-F8363CDBE1AE}" name="Hysteresis">
-          <FILE id="sjUZ6l" name="HysteresisProcessing.cpp" compile="1" resource="0"
+      <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
+        <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
+          <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
-          <FILE id="DrklCU" name="HysteresisProcessing.h" compile="0" resource="0"
+          <FILE id="OYS18C" name="HysteresisProcessing.h" compile="0" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.h"/>
-          <FILE id="S8e9Mq" name="HysteresisProcessor.cpp" compile="1" resource="0"
+          <FILE id="Afas5v" name="HysteresisProcessor.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessor.cpp"/>
-          <FILE id="zCtaDA" name="HysteresisProcessor.h" compile="0" resource="0"
+          <FILE id="TRDp2E" name="HysteresisProcessor.h" compile="0" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessor.h"/>
         </GROUP>
-        <FILE id="kdFIkd" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
-        <FILE id="eGTZ2w" name="ProcessorBase.h" compile="0" resource="0" file="Source/Processors/ProcessorBase.h"/>
+        <GROUP id="{37F4BCFA-28D3-CD4D-17AF-3C696E7EC8DA}" name="Loss_Effects">
+          <FILE id="gJA2Gi" name="FIRFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/FIRFilter.h"/>
+          <FILE id="ZNErgZ" name="LossFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/LossFilter.h"/>
+        </GROUP>
+        <GROUP id="{0C000F30-53FD-3EFB-FAEA-6321B08AE56A}" name="Timing_Effects">
+          <FILE id="kv0dir" name="DelayProcessor.cpp" compile="1" resource="0"
+                file="Source/Processors/Timing_Effects/DelayProcessor.cpp"/>
+          <FILE id="ZrrIc3" name="DelayProcessor.h" compile="0" resource="0"
+                file="Source/Processors/Timing_Effects/DelayProcessor.h"/>
+          <FILE id="cVSIAR" name="Flutter.cpp" compile="1" resource="0" file="Source/Processors/Timing_Effects/Flutter.cpp"/>
+          <FILE id="Wz3lz6" name="Flutter.h" compile="0" resource="0" file="Source/Processors/Timing_Effects/Flutter.h"/>
+        </GROUP>
+        <FILE id="zwLvQ9" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
       </GROUP>
-      <FILE id="y330sp" name="PluginProcessor.cpp" compile="1" resource="0"
+      <FILE id="zPJjtw" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
-      <FILE id="FvqAFZ" name="PluginProcessor.h" compile="0" resource="0"
+      <FILE id="JDgaoP" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="Z0ozGS" name="PluginEditor.cpp" compile="1" resource="0"
+      <FILE id="pmhzjP" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
-      <FILE id="IAaXYH" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="HqaJqZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
@@ -66,20 +66,20 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_core" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_events" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
@@ -87,23 +87,22 @@
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug"/>
         <CONFIGURATION isDebug="0" name="Release"/>
-        <CONFIGURATION isDebug="0" name="Release (win32)" winArchitecture="Win32"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_core" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_events" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2017>
@@ -113,41 +112,41 @@
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_audio_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_plugin_client" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_processors" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_audio_utils" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_core" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_events" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../../ShiftyLoop/juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="../../../ShiftyLoop/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
+        <MODULEPATH id="juce_core" path="Juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
+        <MODULEPATH id="juce_events" path="Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="1"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>
