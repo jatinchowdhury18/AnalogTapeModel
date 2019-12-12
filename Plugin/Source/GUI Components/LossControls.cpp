@@ -4,13 +4,18 @@
 LossControls::LossControls (ChowtapeModelAudioProcessor& proc) :
     processor (proc)
 {
-    ChowtapeModelAudioProcessorEditor::createSlider (spacingSlider, processor.tapeSpacing, myLNF, this, String ("um"));
-    ChowtapeModelAudioProcessorEditor::createSlider (thicknessSlider, processor.tapeThickness, myLNF, this, String ("um"));
-    ChowtapeModelAudioProcessorEditor::createSlider (gapSlider, processor.gapWidth, myLNF, this, String ("um"));
+    std::function<String (double)> mmFunc = [] (double value) { return String (value * 1000.0f, 2, true) + " mm"; };
 
-    ChowtapeModelAudioProcessorEditor::createLabel (spacingLabel, processor.tapeSpacing, this);
-    ChowtapeModelAudioProcessorEditor::createLabel (thicknessLabel, processor.tapeThickness, this);
-    ChowtapeModelAudioProcessorEditor::createLabel (gapLabel, processor.gapWidth, this);
+    auto createSliderAndLabel = [=, &proc] (FullSlider& slider, String id, String suffix= {}, std::function<String (double)> textFromValue = {})
+    {
+        ChowtapeModelAudioProcessorEditor::createSlider (slider.slider, proc.getVTS(), id, slider.attach, *this, myLNF, suffix, {}, textFromValue);
+        ChowtapeModelAudioProcessorEditor::createLabel (slider.label, slider.slider.getName(), this);
+    };
+
+    createSliderAndLabel (speedSlider,     "speed",   " ips");
+    createSliderAndLabel (spacingSlider,   "spacing", "", mmFunc);
+    createSliderAndLabel (thicknessSlider, "thick",   "", mmFunc);
+    createSliderAndLabel (gapSlider,       "gap",     "", mmFunc);
 }
 
 void LossControls::paint (Graphics& g)
@@ -18,36 +23,23 @@ void LossControls::paint (Graphics& g)
     g.setColour (Colours::antiquewhite);
     g.setFont (Font ((float) nameHeight).boldened());
 
-    g.drawFittedText ("Loss Parameters:", Rectangle<int> (xOffset, yOffset, width, labelHeight),
+    g.drawFittedText ("Playhead Parameters:", Rectangle<int> (xOffset, yOffset, width, labelHeight),
                       Justification::centredLeft, 1);
 }
 
 void LossControls::resized()
 {
-    spacingLabel.setBounds (0, 2 * yOffset + labelY, sliderWidth, labelHeight);
-    spacingSlider.setBounds (0, 2 * yOffset + sliderY, sliderWidth, sliderWidth);
+    const int smallSliderWidth = 90;
 
-    thicknessLabel.setBounds (spacingSlider.getRight(), 2 * yOffset + labelY, sliderWidth, labelHeight);
-    thicknessSlider.setBounds (spacingSlider.getRight(), 2 * yOffset + sliderY, sliderWidth, sliderWidth);
+    spacingSlider.label.setBounds  (0, 2 * yOffset + labelY,  smallSliderWidth, labelHeight);
+    spacingSlider.slider.setBounds (0, 2 * yOffset + sliderY, smallSliderWidth, sliderWidth);
 
-    gapLabel.setBounds (thicknessSlider.getRight(), 2 * yOffset + labelY, sliderWidth, labelHeight);
-    gapSlider.setBounds (thicknessSlider.getRight(), 2 * yOffset + sliderY, sliderWidth, sliderWidth);
-}
+    thicknessSlider.label.setBounds  (spacingSlider.slider.getRight(), 2 * yOffset + labelY,  smallSliderWidth, labelHeight);
+    thicknessSlider.slider.setBounds (spacingSlider.slider.getRight(), 2 * yOffset + sliderY, smallSliderWidth, sliderWidth);
 
-void LossControls::sliderValueChanged (Slider* slider)
-{
-    if (AudioParameterFloat* param = ChowtapeModelAudioProcessorEditor::getParamForSlider (slider, processor))
-        *param = (float) slider->getValue();
-}
+    gapSlider.label.setBounds  (thicknessSlider.slider.getRight(), 2 * yOffset + labelY,  smallSliderWidth, labelHeight);
+    gapSlider.slider.setBounds (thicknessSlider.slider.getRight(), 2 * yOffset + sliderY, smallSliderWidth, sliderWidth);
 
-void LossControls::sliderDragStarted(Slider* slider)
-{
-    if (AudioParameterFloat* param = ChowtapeModelAudioProcessorEditor::getParamForSlider (slider, processor))
-        param->beginChangeGesture();
-}
-
-void LossControls::sliderDragEnded(Slider* slider)
-{
-    if (AudioParameterFloat* param = ChowtapeModelAudioProcessorEditor::getParamForSlider (slider, processor))
-        param->endChangeGesture();
+    speedSlider.label.setBounds  (gapSlider.slider.getRight(), 2 * yOffset + labelY,  smallSliderWidth, labelHeight);
+    speedSlider.slider.setBounds (gapSlider.slider.getRight(), 2 * yOffset + sliderY, smallSliderWidth, sliderWidth);
 }

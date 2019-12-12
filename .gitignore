@@ -12,8 +12,8 @@ Refs
 #JUCE generated content
 Builds
 BinaryData.h
-BinaryData.cpp
-BinaryData2.cpp
+BinaryData*.cpp
+JuceLibraryCode
 
 #Windows Temp Cache Files
 [Tt]humbs.db

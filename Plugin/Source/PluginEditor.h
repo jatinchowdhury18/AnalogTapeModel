@@ -3,7 +3,7 @@
 #include "PluginProcessor.h"
 #include "GUI Extras/MyLNF.h"
 #include "GUI Extras/ChowSlider.h"
-#include "GUI Components/BiasControls.h"
+#include "GUI Components/HysteresisControls.h"
 #include "GUI Components/MainControls.h"
 #include "GUI Components/LossControls.h"
 #include "GUI Components/TimingControls.h"
@@ -25,7 +25,7 @@ enum
     sliderWidth = 110,
     sliderY = 25,
 
-    overWidth = 65,
+    overWidth = 90,
     tapeWidth = 90,
     typeWidth = 150,
     speedWidth = 150,
@@ -42,21 +42,19 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    static void createSlider (ChowSlider& slide, AudioParameterFloat* param, LookAndFeel& lnf,
-                              Component* comp, String suffix = String(), float step = 0.1f);
-    static void createComboBox (ComboBox& box, AudioParameterChoice* choice, Component* comp);
-    static void createLabel (Label& label, AudioProcessorParameterWithID* param, Component* comp);
-
-    static AudioParameterFloat* getParamForSlider (Slider* slider, ChowtapeModelAudioProcessor& proc);
-    static AudioParameterChoice* getParamForBox (ComboBox* box, ChowtapeModelAudioProcessor& proc);
+    static void createSlider (Slider& slider, AudioProcessorValueTreeState& vts, String paramID,
+                              std::unique_ptr<SliderAttachment>& attachment, Component& comp, LookAndFeel& myLNF,
+                              String suffix =  "", std::function<void()> onValueChange = {},
+                              std::function<String (double)> textFromValue = {}, std::function<double (String)> valueFromText = {});
+    static void createComboBox (ComboBox& box, AudioProcessorValueTreeState& vts, String paramID,
+                                std::unique_ptr<ComboBoxAttachment>& attachment, Component* comp, StringArray choices);
+    static void createLabel (Label& label, String name, Component* comp);
 
 private: 
-    MyLNF myLNF;
-
     ChowtapeModelAudioProcessor& processor;
 
     std::unique_ptr<MainControls> mainControls;
-    std::unique_ptr<BiasControls> biasControls;
+    std::unique_ptr<HysteresisControls> biasControls;
     std::unique_ptr<LossControls> lossControls;
     std::unique_ptr<TimingControls> timingControls;
 
