@@ -67,6 +67,24 @@ void ChowtapeModelAudioProcessorEditor::createComboBox (ComboBox& box, AudioProc
     comp->addAndMakeVisible (box);
 }
 
+void ChowtapeModelAudioProcessorEditor::createButton (TextButton& button, AudioProcessorValueTreeState& vts, String paramID,
+                                                      std::unique_ptr<ButtonAttachment>& attachment, Component* comp, String text, Colour onColour)
+{
+    attachment.reset (new ButtonAttachment (vts, paramID, button));
+
+    button.setName (vts.getParameter (paramID)->name);
+    button.setButtonText (text);
+    button.setClickingTogglesState (true);
+
+    button.setColour (TextButton::buttonOnColourId, onColour);
+    button.setColour (TextButton::buttonColourId, Colours::transparentWhite);
+    button.setColour (TextButton::textColourOnId, Colours::antiquewhite);
+    button.setColour (TextButton::textColourOffId, Colours::antiquewhite);
+    button.setColour (ComboBox::outlineColourId, Colours::antiquewhite);
+
+    comp->addAndMakeVisible (button);
+}
+
 void ChowtapeModelAudioProcessorEditor::createLabel (Label& label, String name, Component* comp)
 {
     label.setText (name, dontSendNotification);
