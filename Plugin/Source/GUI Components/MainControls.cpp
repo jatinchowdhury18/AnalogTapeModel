@@ -6,7 +6,7 @@ MainControls::MainControls (ChowtapeModelAudioProcessor& proc) :
 {
     ChowtapeModelAudioProcessorEditor::createSlider (gainInKnob,  proc.getVTS(), "ingain",  gainInAttach,  *this, myLNF, " dB");
     ChowtapeModelAudioProcessorEditor::createSlider (gainOutKnob, proc.getVTS(), "outgain", gainOutAttach, *this, myLNF, " dB");
-    ChowtapeModelAudioProcessorEditor::createComboBox (oversampling, proc.getVTS(), "os", osAttach, this, StringArray ({"2x", "4x", "8x"}));
+    ChowtapeModelAudioProcessorEditor::createComboBox (oversampling, proc.getVTS(), "os", osAttach, this, StringArray ({"2x", "4x", "8x", "16x"}));
     // ChowtapeModelAudioProcessorEditor::createComboBox (oversampling, processor.overSampling, this);
     // ChowtapeModelAudioProcessorEditor::createComboBox (tapeSpeed, processor.tapeSpeed, this);
     // //ChowtapeModelAudioProcessorEditor::createComboBox (tapeType, processor.tapeType, this);
