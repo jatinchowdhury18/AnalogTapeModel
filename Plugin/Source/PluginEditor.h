@@ -48,6 +48,8 @@ public:
                               std::function<String (double)> textFromValue = {}, std::function<double (String)> valueFromText = {});
     static void createComboBox (ComboBox& box, AudioProcessorValueTreeState& vts, String paramID,
                                 std::unique_ptr<ComboBoxAttachment>& attachment, Component* comp, StringArray choices);
+    static void createButton (TextButton& button, AudioProcessorValueTreeState& vts, String paramID,
+                              std::unique_ptr<ButtonAttachment>& attachment, Component* comp, String text, Colour onColour);
     static void createLabel (Label& label, String name, Component* comp);
 
 private: 

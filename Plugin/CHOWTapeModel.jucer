@@ -26,6 +26,11 @@
         <FILE id="gFXfuJ" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
       </GROUP>
       <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
+        <GROUP id="{344B63D7-2DBC-F9D2-ACD7-1B0671D4D024}" name="PrePostEQ">
+          <FILE id="wOFjAX" name="EQFilters.h" compile="0" resource="0" file="Source/Processors/PrePostEQ/EQFilters.h"/>
+          <FILE id="YHmS1B" name="PrePostEQ.cpp" compile="1" resource="0" file="Source/Processors/PrePostEQ/PrePostEQ.cpp"/>
+          <FILE id="nI7wZD" name="PrePostEQ.h" compile="0" resource="0" file="Source/Processors/PrePostEQ/PrePostEQ.h"/>
+        </GROUP>
         <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
           <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>

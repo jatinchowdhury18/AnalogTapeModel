@@ -7,6 +7,7 @@
 
 using SliderAttachment = AudioProcessorValueTreeState::SliderAttachment;
 using ComboBoxAttachment = AudioProcessorValueTreeState::ComboBoxAttachment;
+using ButtonAttachment = AudioProcessorValueTreeState::ButtonAttachment;
 
 class MainControls : public Component
 {
@@ -30,12 +31,16 @@ private:
     ComboBox oversampling;
     std::unique_ptr<ComboBoxAttachment> osAttach;
 
+    TextButton prePostEQButton;
+    std::unique_ptr<ButtonAttachment> prePostAttach;
+
     // ComboBox tapeSpeed;
     // ComboBox tapeType;
 
     Label inGainLabel;
     Label outGainLabel;
     Label oversampleLabel;
+    Label prePostEQLabel;
     // Label speedLabel;
     // Label typeLabel;
 

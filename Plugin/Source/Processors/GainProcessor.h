@@ -13,7 +13,8 @@ public:
         oldGain = 0.0f;
     }
 
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
+    template <class FloatType>
+    void processBlock (AudioBuffer<FloatType>& buffer, MidiBuffer& /*midiMessages*/)
     {
         if (curGain != oldGain)
         {
