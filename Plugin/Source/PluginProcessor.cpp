@@ -39,9 +39,8 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain",  -30.0f, 30.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain", -30.0f, 30.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool> ("prepost", "Pre/Post EQ", true));
 
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -116,7 +115,6 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
-    prePostEQ.prepare (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
 
     for (int ch = 0; ch < 2; ++ch)
@@ -159,23 +157,14 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 {
     ScopedNoDenormals noDenormals;
     
-    bool usePrePost = (bool) *vts.getRawParameterValue ("prepost");
-
     inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
     outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
 
     inGain.processBlock (buffer, midiMessages);
-
-    if (usePrePost)
-        prePostEQ.processPreBlock (buffer, midiMessages);
-
     hysteresis.processBlock (buffer, midiMessages);
-
-    if (usePrePost)
-        prePostEQ.processPostBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
-    
+
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 

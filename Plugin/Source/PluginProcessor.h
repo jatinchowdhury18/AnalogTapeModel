@@ -15,7 +15,6 @@
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/Flutter.h"
-#include "Processors/PrePostEQ/PrePostEQ.h"
 
 //==============================================================================
 /**
@@ -67,7 +66,6 @@ private:
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
-    PrePostEQ prePostEQ;
     HysteresisProcessor hysteresis;
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
