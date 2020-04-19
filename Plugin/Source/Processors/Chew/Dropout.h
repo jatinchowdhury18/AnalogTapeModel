@@ -59,7 +59,7 @@ public:
         else if (x > 0.0f)
             sign = 1.0f;
 
-        return std::powf (abs (x), power) * sign / power;
+        return powf (abs (x), power) * sign / power;
     }
 
 private:
