@@ -2,29 +2,11 @@
 
 <JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.4"
               version="2.0.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
-              cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com">
+              cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com"
+              defines="FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
-      <GROUP id="{95079A80-7AE7-EAEE-9302-0BC2E901D700}" name="GUI Components">
-        <FILE id="U6ldtW" name="HysteresisControls.cpp" compile="1" resource="0"
-              file="Source/GUI Components/HysteresisControls.cpp"/>
-        <FILE id="pgwXn0" name="HysteresisControls.h" compile="0" resource="0"
-              file="Source/GUI Components/HysteresisControls.h"/>
-        <FILE id="yCHTFN" name="LossControls.cpp" compile="1" resource="0"
-              file="Source/GUI Components/LossControls.cpp"/>
-        <FILE id="qv9Pbi" name="LossControls.h" compile="0" resource="0" file="Source/GUI Components/LossControls.h"/>
-        <FILE id="mpMg4X" name="MainControls.cpp" compile="1" resource="0"
-              file="Source/GUI Components/MainControls.cpp"/>
-        <FILE id="A4qTd6" name="MainControls.h" compile="0" resource="0" file="Source/GUI Components/MainControls.h"/>
-        <FILE id="mSX91i" name="TimingControls.cpp" compile="1" resource="0"
-              file="Source/GUI Components/TimingControls.cpp"/>
-        <FILE id="Gd9QVZ" name="TimingControls.h" compile="0" resource="0"
-              file="Source/GUI Components/TimingControls.h"/>
-      </GROUP>
-      <GROUP id="{25D57C01-20AB-46DC-E9B3-80021429D612}" name="GUI Extras">
-        <FILE id="ddmwEV" name="ChowSlider.h" compile="0" resource="0" file="Source/GUI Extras/ChowSlider.h"/>
-        <FILE id="gFXfuJ" name="MyLNF.h" compile="0" resource="0" file="Source/GUI Extras/MyLNF.h"/>
-      </GROUP>
+      <FILE id="Xn3V5v" name="gui.xml" compile="0" resource="1" file="Source/gui.xml"/>
       <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
         <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
           <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
@@ -54,9 +36,6 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="JDgaoP" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
-      <FILE id="pmhzjP" name="PluginEditor.cpp" compile="1" resource="0"
-            file="Source/PluginEditor.cpp"/>
-      <FILE id="HqaJqZ" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
@@ -73,14 +52,13 @@
         <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
         <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
         <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
         <MODULEPATH id="juce_events" path="Juce/modules"/>
         <MODULEPATH id="juce_graphics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
+        <MODULEPATH id="foleys_gui_magic" path="."/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -96,14 +74,13 @@
         <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
         <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
         <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
         <MODULEPATH id="juce_events" path="Juce/modules"/>
         <MODULEPATH id="juce_graphics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
+        <MODULEPATH id="foleys_gui_magic" path="."/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -119,18 +96,18 @@
         <MODULEPATH id="juce_audio_processors" path="Juce/modules"/>
         <MODULEPATH id="juce_audio_utils" path="Juce/modules"/>
         <MODULEPATH id="juce_core" path="Juce/modules"/>
-        <MODULEPATH id="juce_cryptography" path="Juce/modules"/>
         <MODULEPATH id="juce_data_structures" path="Juce/modules"/>
         <MODULEPATH id="juce_events" path="Juce/modules"/>
         <MODULEPATH id="juce_graphics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_basics" path="Juce/modules"/>
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
-        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
+        <MODULEPATH id="foleys_gui_magic" path="."/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
+    <MODULE id="foleys_gui_magic" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
@@ -139,14 +116,12 @@
     <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>

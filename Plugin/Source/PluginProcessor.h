@@ -71,6 +71,8 @@ private:
     Flutter flutter;
     GainProcessor outGain;
 
+    foleys::MagicProcessorState magicState { *this, vts };
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
 };

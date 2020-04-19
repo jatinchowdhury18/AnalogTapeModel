@@ -25,18 +25,18 @@ public:
         NormalisableRange<float> speedRange (1.0f, 100.0f); // meters per second
         speedRange.setSkewForCentre (15.0f);
 
-        NormalisableRange<float> spaceRange ((float) 1.0e-9, 0.01f);
-        spaceRange.setSkewForCentre ((float) 1.0e-6);
+        NormalisableRange<float> spaceRange ((float) 1.0e-6, 100.0f);
+        spaceRange.setSkewForCentre ((float) 1.0);
 
-        NormalisableRange<float> thickRange ((float) 1.0e-9, 0.0001f);
-        thickRange.setSkewForCentre (0.0000001f);
+        NormalisableRange<float> thickRange ((float) 1.0e-6, 10.0f);
+        thickRange.setSkewForCentre (0.0001f);
 
-        NormalisableRange<float> gapRange ((float) 1.0e-9, 0.01f);
-        gapRange.setSkewForCentre ((float) 1.0e-6);
+        NormalisableRange<float> gapRange ((float) 1.0e-6, 100.0f);
+        gapRange.setSkewForCentre ((float) 1.0e-3);
 
-        params.push_back (std::make_unique<AudioParameterFloat> ("speed",   "Speed",     speedRange, 15.0f));
-        params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Spacing",   spaceRange, (float) 1.0e-9));
-        params.push_back (std::make_unique<AudioParameterFloat> ("thick",   "Thickness", thickRange, (float) 1.0e-9));
+        params.push_back (std::make_unique<AudioParameterFloat> ("speed",   "Speed [ips]",     speedRange, 15.0f));
+        params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Spacing [mm]", spaceRange, (float) 1.0e-9));
+        params.push_back (std::make_unique<AudioParameterFloat> ("thick",   "Thickness [mm]", thickRange, (float) 1.0e-9));
         params.push_back (std::make_unique<AudioParameterFloat> ("gap",     "Gap",       gapRange,   (float) 1.0e-9));
     }
 
@@ -75,10 +75,10 @@ public:
         {
             const auto freq = ((float) k * binWidth); // + (binWidth / 2.0f);
             const auto waveNumber = MathConstants<float>::twoPi * jmax (freq, 20.0f) / (*speed * 0.0254f);
-            const auto thickTimesK = waveNumber * *thickness;
-            const auto kGapOverTwo = waveNumber * *gap / 2.0f;
+            const auto thickTimesK = waveNumber * (*thickness * (float) 1.0e-3);
+            const auto kGapOverTwo = waveNumber * (*gap * (float) 1.0e-3) / 2.0f;
         
-            H[k] = expf (-1.0f * waveNumber * *spacing); // Spacing loss formula
+            H[k] = expf (-1.0f * waveNumber * (*spacing * (float) 1.0e-3)); // Spacing loss formula
             H[k] *= (1.0f - expf (-thickTimesK)) / thickTimesK;
             H[k] *= sinf (kGapOverTwo) / kGapOverTwo;
             H[curOrder - k - 1] = H[k];

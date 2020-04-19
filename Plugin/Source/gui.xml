@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<magic>
+  <Styles>
+    <Style name="default">
+      <Nodes/>
+      <Classes>
+        <plot-view border="2" background-color="black" border-color="silver" display="contents"/>
+        <nomargin margin="0" padding="0" border="0"/>
+        <group margin="5" padding="5" border="2" flex-direction="column"/>
+      </Classes>
+      <Types>
+        <Slider border="0" slider-type="rotary" slider-textbox="textbox-below"/>
+        <ToggleButton border="0" max-height="50" caption-size="0" text="Active"/>
+        <TextButton border="0" max-height="50" caption-size="0"/>
+        <ComboBox border="0" max-height="50" caption-size="0"/>
+        <Plot border="0" margin="0" padding="0" background-color="00000000"
+              radius="0"/>
+        <XYDragComponent border="0" margin="0" padding="0" background-color="00000000"
+                         radius="0"/>
+      </Types>
+    </Style>
+  </Styles>
+  <View id="root" resizable="1" resize-corner="1" flex-direction="column"
+        background-color="FF7D2C2C" padding="0">
+    <View max-height="40" padding="0" background-color="FF7D2C2C">
+      <Label text="CHOW Tape Model" font-size="20" padding="0" background-color="FF7D2C2C"
+             border=""/>
+    </View>
+    <View background-color="FF7D2C2C" padding="0">
+      <View flex-direction="column">
+        <Label max-height="40"/>
+        <Slider caption="Output Gain [dB]" parameter="outgain" slider-textbox="textbox-below"
+                slider-type="rotary" max-height="200"/>
+        <ComboBox caption="Oversampling" parameter="os" max-height="80"/>
+        <Slider caption="Input Gain [dB]" parameter="ingain" slider-textbox="textbox-below"
+                slider-type="rotary" max-height="200"/>
+      </View>
+      <View flex-direction="column" tab-color="">
+        <Label max-height="40" text="Hysteresis" font-size="18" justification="centred"/>
+        <Slider caption="Bias" parameter="width" slider-type="rotary" slider-textbox="textbox-below"/>
+        <Slider caption="Saturation" parameter="sat" slider-textbox="textbox-below"
+                slider-type="rotary"/>
+        <Slider caption="Drive" parameter="drive" slider-type="rotary" slider-textbox="textbox-below"/>
+      </View>
+      <View display="tabbed" padding="0">
+        <View flex-direction="column" tab-caption="0" tab-color="" background-color=""
+              padding="0">
+          <Label max-height="40" text="Loss" justification="centred" font-size="18"
+                 padding="0"/>
+          <Slider caption="Gap [mm]" parameter="gap" slider-type="rotary" slider-textbox="textbox-below"
+                  background-color=""/>
+          <Slider caption="Thickness [mm]" parameter="thick" slider-textbox="textbox-below"
+                  slider-type="rotary"/>
+          <Slider caption="Spacing [mm]" parameter="spacing" slider-type="rotary"
+                  slider-textbox="textbox-below" lookAndFeel="LookAndFeel_V4"/>
+          <Slider caption="Speed [ips]" parameter="speed" slider-type="rotary"
+                  slider-textbox="textbox-below"/>
+        </View>
+        <View tab-caption="1" padding="0">
+          <Label text="Degrade" justification="centred" font-size="18" max-height="40"/>
+        </View>
+        <View tab-caption="2" padding="0">
+          <Label text="CHEW" justification="centred" font-size="18" max-height="40"/>
+        </View>
+      </View>
+      <View flex-direction="column">
+        <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
+        <Slider caption="Depth" parameter="depth" slider-type="rotary" slider-textbox="textbox-below"
+                max-height="200"/>
+        <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
+                slider-type="rotary" max-height="200"/>
+      </View>
+    </View>
+  </View>
+</magic>
