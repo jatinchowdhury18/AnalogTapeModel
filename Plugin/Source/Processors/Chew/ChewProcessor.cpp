@@ -25,9 +25,6 @@ void ChewProcessor::prepare (double sr, int samplesPerBlock)
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 {
-    if (*depth == 0.0f)
-        return;
-
     if (sampleCounter >= samplesUntilChange)
     {
         sampleCounter = 0;
@@ -36,7 +33,7 @@ void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
         if (isCrinkled) // start crinkle
         {
             mix = 1.0f;
-            power = 0.5f; //depth->control->get();
+            power = *depth;
             samplesUntilChange = getWetTime();
         }
         else            // end crinkle
