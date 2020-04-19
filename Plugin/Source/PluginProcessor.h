@@ -72,6 +72,7 @@ private:
     GainProcessor outGain;
 
     foleys::MagicProcessorState magicState { *this, vts };
+    foleys::MagicPlotSource* scope = nullptr;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
