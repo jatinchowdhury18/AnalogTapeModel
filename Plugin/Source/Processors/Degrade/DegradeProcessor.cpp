@@ -30,7 +30,7 @@ void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& mid
     if (*amtParam == 0.0f || *depthParam == 0.0f)
         return;
 
-    float freqHz = 200.0f * std::powf (20000.0f / 200.0f, 1.0f - *amtParam);
+    float freqHz = 200.0f * powf (20000.0f / 200.0f, 1.0f - *amtParam);
     float gainDB = -24.0f * *depthParam;
 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
