@@ -16,6 +16,7 @@
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/Flutter.h"
 #include "Processors/Degrade/DegradeProcessor.h"
+#include "Processors/Chew/ChewProcessor.h"
 
 //==============================================================================
 /**
@@ -69,6 +70,7 @@ private:
     GainProcessor inGain;
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
+    ChewProcessor chewer;
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     GainProcessor outGain;
