@@ -28,6 +28,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 {
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
+
+    scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -121,6 +123,8 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
+
+    scope->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
@@ -168,6 +172,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
     outGain.processBlock (buffer, midiMessages);
+
+    scope->pushSamples (buffer);
 }
 
 //==============================================================================
