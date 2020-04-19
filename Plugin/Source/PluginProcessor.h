@@ -15,6 +15,7 @@
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/Flutter.h"
+#include "Processors/Degrade/DegradeProcessor.h"
 
 //==============================================================================
 /**
@@ -67,6 +68,7 @@ private:
 
     GainProcessor inGain;
     HysteresisProcessor hysteresis;
+    DegradeProcessor degrade;
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     GainProcessor outGain;

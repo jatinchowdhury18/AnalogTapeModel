@@ -24,6 +24,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 #endif
     vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
     hysteresis (vts),
+    degrade (vts),
     flutter (vts)
 {
     for (int ch = 0; ch < 2; ++ch)
@@ -46,6 +47,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
     Flutter::createParameterLayout (params);
+    DegradeProcessor::createParameterLayout (params);
 
     return { params.begin(), params.end() };
 }
@@ -117,6 +119,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 {
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    degrade.prepareToPlay (sampleRate, samplesPerBlock);
 
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
@@ -165,6 +168,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
+    degrade.processBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
 
