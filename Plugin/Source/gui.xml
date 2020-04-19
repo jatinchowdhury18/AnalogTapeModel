@@ -22,7 +22,7 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        background-color="FF7D2C2C" padding="0">
+        background-color="FF7D2C2C" padding="0" width="600" height="600">
     <View max-height="100" padding="0" background-color="FF7D2C2C" margin="0">
       <Label text="CHOW Tape Model" font-size="20" padding="0" background-color="FF7D2C2C"
              border="" max-width="180"/>

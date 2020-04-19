@@ -171,8 +171,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
-    degrade.processBlock (buffer, midiMessages);
     chewer.processBlock (buffer);
+    degrade.processBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
 
@@ -203,7 +203,7 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    magicState.setStateInformation (data, sizeInBytes);
+    magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
 }
 
 //==============================================================================

@@ -9,10 +9,15 @@ public:
     FIRFilter (int order) :
         order (order)
     {
-        h.reset (new float[order]);
-        z.reset (new float[order]);
+        h = new float[order];
+        z = new float[order];
     }
-    ~FIRFilter() {}
+
+    ~FIRFilter()
+    {
+        delete[] h;
+        delete[] z;
+    }
 
     void reset()
     {
@@ -36,7 +41,12 @@ public:
             z[zPtr] = buffer[n];
 
             for (int m = 0; m < order; ++m)
-                y += h[m] * z[negativeAwareModulo<int> (zPtr - m, order)];
+            {
+                int idx = zPtr - m;
+                idx = (idx < 0) ? idx + order : idx;
+
+                y += h[m] * z[idx];
+            }
 
             buffer[n] = y;
             zPtr = (zPtr + 1) % order;
@@ -53,11 +63,11 @@ public:
     }
 
 protected:
-    std::unique_ptr<float[]> h;
+    float* h;
     const int order;
 
 private:
-    std::unique_ptr<float[]> z;
+    float* z;
     int zPtr = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FIRFilter)
