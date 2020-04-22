@@ -192,7 +192,7 @@ bool ChowtapeModelAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    return GenericAudioProcessorEditor (*this); // new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
+    return new GenericAudioProcessorEditor (*this); // new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
 }
 
 //==============================================================================
