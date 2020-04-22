@@ -67,16 +67,16 @@ public:
 private:
     AudioProcessorValueTreeState vts;
 
-    GainProcessor inGain;
-    HysteresisProcessor hysteresis;
-    DegradeProcessor degrade;
-    ChewProcessor chewer;
-    std::unique_ptr<LossFilter> lossFilter[2];
-    Flutter flutter;
-    GainProcessor outGain;
-
-    foleys::MagicProcessorState magicState { *this, vts };
-    foleys::MagicPlotSource* scope = nullptr;
+    // GainProcessor inGain;
+    // HysteresisProcessor hysteresis;
+    // DegradeProcessor degrade;
+    // ChewProcessor chewer;
+    // std::unique_ptr<LossFilter> lossFilter[2];
+    // Flutter flutter;
+    // GainProcessor outGain;
+    // 
+    // foleys::MagicProcessorState magicState { *this, vts };
+    // foleys::MagicPlotSource* scope = nullptr;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
