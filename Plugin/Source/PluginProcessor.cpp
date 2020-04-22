@@ -187,12 +187,12 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 //==============================================================================
 bool ChowtapeModelAudioProcessor::hasEditor() const
 {
-    return false; // true; // (change this to false if you choose to not supply an editor)
+    return true; // (change this to false if you choose to not supply an editor)
 }
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    return nullptr; // new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
+    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
 }
 
 //==============================================================================
