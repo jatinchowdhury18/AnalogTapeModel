@@ -156,7 +156,7 @@ private:
 
     float fs = 44100.0f;
     int fsFactor = (int) (fs / 44100.0f);
-    float binWidth = fs / (float) order;
+    float binWidth = fs / 100.0f;
 
     const int order = 100;
     Array<float> currentCoefs;
