@@ -164,24 +164,24 @@ bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    ScopedNoDenormals noDenormals;
+    // ScopedNoDenormals noDenormals;
     
-    inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
-    outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
+    // inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
+    // outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
 
-    inGain.processBlock (buffer, midiMessages);
-    hysteresis.processBlock (buffer, midiMessages);
-    chewer.processBlock (buffer);
-    degrade.processBlock (buffer, midiMessages);
+    // inGain.processBlock (buffer, midiMessages);
+    // hysteresis.processBlock (buffer, midiMessages);
+    // chewer.processBlock (buffer);
+    // degrade.processBlock (buffer, midiMessages);
     
-    flutter.processBlock (buffer, midiMessages);
+    // flutter.processBlock (buffer, midiMessages);
 
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-        lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+    // for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    //     lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
-    outGain.processBlock (buffer, midiMessages);
+    // outGain.processBlock (buffer, midiMessages);
 
-    scope->pushSamples (buffer);
+    // scope->pushSamples (buffer);
 }
 
 //==============================================================================
