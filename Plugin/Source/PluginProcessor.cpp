@@ -171,7 +171,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
-    chewer.processBlock (buffer);
+    // chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
