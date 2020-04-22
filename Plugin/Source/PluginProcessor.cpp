@@ -119,23 +119,23 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    inGain.prepareToPlay (sampleRate, samplesPerBlock);
-    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
-    degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate, samplesPerBlock);
+    // inGain.prepareToPlay (sampleRate, samplesPerBlock);
+    // hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    // degrade.prepareToPlay (sampleRate, samplesPerBlock);
+    // chewer.prepare (sampleRate, samplesPerBlock);
 
-    for (int ch = 0; ch < 2; ++ch)
-        lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+    // for (int ch = 0; ch < 2; ++ch)
+    //     lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
 
-    flutter.prepareToPlay (sampleRate, samplesPerBlock);
-    outGain.prepareToPlay (sampleRate, samplesPerBlock);
+    // flutter.prepareToPlay (sampleRate, samplesPerBlock);
+    // outGain.prepareToPlay (sampleRate, samplesPerBlock);
 
-    scope->prepareToPlay (sampleRate, samplesPerBlock);
+    // scope->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
 {
-    hysteresis.releaseResources();
+    // hysteresis.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
