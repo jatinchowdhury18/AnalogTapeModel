@@ -171,8 +171,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
-    // chewer.processBlock (buffer);
-    // degrade.processBlock (buffer, midiMessages);
+    chewer.processBlock (buffer);
+    degrade.processBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
 
@@ -187,12 +187,12 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 //==============================================================================
 bool ChowtapeModelAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return false; // true; // (change this to false if you choose to not supply an editor)
 }
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
+    return nullptr; // new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
 }
 
 //==============================================================================
