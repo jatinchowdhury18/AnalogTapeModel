@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.4"
-              version="2.0.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
+              version="2.1.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com"
               defines="FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
@@ -73,6 +73,7 @@
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -95,6 +96,7 @@
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -117,6 +119,7 @@
         <MODULEPATH id="juce_gui_extra" path="Juce/modules"/>
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
+        <MODULEPATH id="juce_opengl" path="Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -136,6 +139,7 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>
