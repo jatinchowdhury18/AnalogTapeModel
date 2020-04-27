@@ -16,6 +16,3 @@ else
         make
     fi
 fi
-
-
-# if [ -f .git/.commit.txt ]
