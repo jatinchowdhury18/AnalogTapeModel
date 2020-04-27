@@ -22,16 +22,16 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                      #endif
                        ),
 #endif
-    vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout())// ,
-    // hysteresis (vts),
-    // degrade (vts),
-    // chewer (vts),
-    // flutter (vts)
+    vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+    hysteresis (vts),
+    degrade (vts),
+    chewer (vts),
+    flutter (vts)
 {
-    // for (int ch = 0; ch < 2; ++ch)
-    //     lossFilter[ch].reset (new LossFilter (vts));
-    // 
-    // scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
+    for (int ch = 0; ch < 2; ++ch)
+        lossFilter[ch].reset (new LossFilter (vts));
+    
+    scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -119,23 +119,23 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // inGain.prepareToPlay (sampleRate, samplesPerBlock);
-    // hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
-    // degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    // chewer.prepare (sampleRate, samplesPerBlock);
-    // 
-    // for (int ch = 0; ch < 2; ++ch)
-    //     lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
-    // 
-    // flutter.prepareToPlay (sampleRate, samplesPerBlock);
-    // outGain.prepareToPlay (sampleRate, samplesPerBlock);
-    // 
-    // scope->prepareToPlay (sampleRate, samplesPerBlock);
+    inGain.prepareToPlay (sampleRate, samplesPerBlock);
+    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
+    degrade.prepareToPlay (sampleRate, samplesPerBlock);
+    chewer.prepare (sampleRate, samplesPerBlock);
+    
+    for (int ch = 0; ch < 2; ++ch)
+        lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+    
+    flutter.prepareToPlay (sampleRate, samplesPerBlock);
+    outGain.prepareToPlay (sampleRate, samplesPerBlock);
+    
+    scope->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
 {
-    // hysteresis.releaseResources();
+    hysteresis.releaseResources();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -164,46 +164,46 @@ bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-    // ScopedNoDenormals noDenormals;
-    // 
-    // inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
-    // outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
-    // 
-    // inGain.processBlock (buffer, midiMessages);
-    // hysteresis.processBlock (buffer, midiMessages);
-    // chewer.processBlock (buffer);
-    // degrade.processBlock (buffer, midiMessages);
-    // 
-    // flutter.processBlock (buffer, midiMessages);
-    // 
-    // for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-    //     lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
-    // 
-    // outGain.processBlock (buffer, midiMessages);
-    // 
-    // scope->pushSamples (buffer);
+    ScopedNoDenormals noDenormals;
+    
+    inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
+    outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
+    
+    inGain.processBlock (buffer, midiMessages);
+    hysteresis.processBlock (buffer, midiMessages);
+    chewer.processBlock (buffer);
+    degrade.processBlock (buffer, midiMessages);
+    
+    flutter.processBlock (buffer, midiMessages);
+    
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+    
+    outGain.processBlock (buffer, midiMessages);
+    
+    scope->pushSamples (buffer);
 }
 
 //==============================================================================
 bool ChowtapeModelAudioProcessor::hasEditor() const
 {
-    return true; // true; // (change this to false if you choose to not supply an editor)
+    return true; // (change this to false if you choose to not supply an editor)
 }
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    return new GenericAudioProcessorEditor (*this); // new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
+    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
 }
 
 //==============================================================================
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-    // magicState.getStateInformation (destData);
+    magicState.getStateInformation (destData);
 }
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
+    magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
 }
 
 //==============================================================================
