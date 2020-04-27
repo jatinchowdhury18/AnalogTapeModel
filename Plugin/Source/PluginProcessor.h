@@ -74,7 +74,7 @@ private:
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     GainProcessor outGain;
-
+    
     foleys::MagicProcessorState magicState { *this, vts };
     foleys::MagicPlotSource* scope = nullptr;
 
