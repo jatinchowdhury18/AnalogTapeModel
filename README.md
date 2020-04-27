@@ -32,6 +32,10 @@ CHOW Tape is currently available in the following formats:
 
 ## Instructions For Building
 If you would like to build CHOW for yourself, use the following steps, otherwise you can download the [latest release &rarr;](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest).
+
+If you would like to try the most recent builds (potentially unstable),
+see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/master/Plugin/Bin).
+
 - Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - Run the following git commands:
   ```bash
