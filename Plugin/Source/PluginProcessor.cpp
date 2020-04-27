@@ -30,7 +30,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 {
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
-
+    
     scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
 }
 
@@ -123,13 +123,13 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate, samplesPerBlock);
-
+    
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
-
+    
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
-
+    
     scope->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
@@ -168,19 +168,19 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
     outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
-
+    
     inGain.processBlock (buffer, midiMessages);
     hysteresis.processBlock (buffer, midiMessages);
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
     
     flutter.processBlock (buffer, midiMessages);
-
+    
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
-
+    
     outGain.processBlock (buffer, midiMessages);
-
+    
     scope->pushSamples (buffer);
 }
 
