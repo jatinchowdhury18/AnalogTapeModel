@@ -17,6 +17,7 @@
 #include "Processors/Timing_Effects/Flutter.h"
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
+#include "Processors/DryWetProcessor.h"
 
 //==============================================================================
 /**
@@ -73,7 +74,10 @@ private:
     ChewProcessor chewer;
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
+    DryWetProcessor dryWet;
     GainProcessor outGain;
+
+    AudioBuffer<float> dryBuffer;
     
     foleys::MagicProcessorState magicState { *this, vts };
     foleys::MagicPlotSource* scope = nullptr;
