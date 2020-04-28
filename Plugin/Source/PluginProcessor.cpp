@@ -44,6 +44,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
 
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -131,6 +132,10 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
     
     scope->prepareToPlay (sampleRate, samplesPerBlock);
+
+    dryWet.setDryWet (*vts.getRawParameterValue ("drywet"));
+    dryWet.reset();
+    dryBuffer.setSize (2, samplesPerBlock);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
@@ -168,8 +173,12 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
     outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
+    dryWet.setDryWet (*vts.getRawParameterValue ("drywet"));
     
     inGain.processBlock (buffer, midiMessages);
+    
+    dryBuffer.makeCopyOf (buffer, true);
+
     hysteresis.processBlock (buffer, midiMessages);
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
@@ -179,6 +188,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
+    dryWet.processBlock (dryBuffer, buffer);
     outGain.processBlock (buffer, midiMessages);
     
     scope->pushSamples (buffer);

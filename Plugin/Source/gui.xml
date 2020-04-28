@@ -31,10 +31,12 @@
     </View>
     <View background-color="FF7D2C2C" padding="0" margin="">
       <View flex-direction="column" margin="5" padding="">
-        <Label max-height="40"/>
+        <Label max-height="5"/>
         <Slider caption="Input Gain [dB]" parameter="ingain" slider-textbox="textbox-below"
                 slider-type="rotary" max-height="160"/>
         <ComboBox caption="Oversampling" parameter="os" max-height="70"/>
+        <Slider caption="Dry/Wet" parameter="drywet" slider-textbox="textbox-below"
+                slider-type="rotary" max-height="170"/>
         <Slider caption="Output Gain [dB]" parameter="outgain" slider-textbox="textbox-below"
                 slider-type="rotary" max-height="170"/>
       </View>

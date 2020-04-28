@@ -44,6 +44,8 @@
           <FILE id="cVSIAR" name="Flutter.cpp" compile="1" resource="0" file="Source/Processors/Timing_Effects/Flutter.cpp"/>
           <FILE id="Wz3lz6" name="Flutter.h" compile="0" resource="0" file="Source/Processors/Timing_Effects/Flutter.h"/>
         </GROUP>
+        <FILE id="YNkJOh" name="DryWetProcessor.h" compile="0" resource="0"
+              file="Source/Processors/DryWetProcessor.h"/>
         <FILE id="zwLvQ9" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
       </GROUP>
       <FILE id="zPJjtw" name="PluginProcessor.cpp" compile="1" resource="0"
