@@ -12,11 +12,11 @@ public:
 
     void prepare (double sr, int samplesPerBlock);
     void processBlock (AudioBuffer<float>& buffer);
+    void processShortBlock (AudioBuffer<float>& buffer);
 
 private:
     float* depth = nullptr;
     float* freq = nullptr;
-    
     float mix = 0.0f;
     float power = 0.0f;
 
@@ -31,12 +31,15 @@ private:
 
     inline int getDryTime()
     {
-        return random.nextInt (Range<int> ((int) ((1.0 - *freq) * sampleRate), (int) ((2 - 1.8 * *freq) * sampleRate)));
+        return random.nextInt (Range<int> ((int) ((1.0 - *freq) * sampleRate), (int) ((2 - 1.99 * *freq) * sampleRate)));
     }
 
     inline int getWetTime()
     {
-        return random.nextInt (Range<int> ((int) ((0.05 + 0.05f * *depth) * sampleRate), (int) ((0.8 + 0.8 * *depth) * sampleRate)));
+        auto start = 0.2 + 0.8 * *depth;
+        auto end = start - (0.001 + 0.01 * *depth);
+        return random.nextInt (Range<int> ((int) ((1.0 - *freq) * sampleRate),
+            (int) ((start - end * *freq) * sampleRate)));
     }
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChewProcessor)

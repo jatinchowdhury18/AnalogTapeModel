@@ -16,7 +16,7 @@ void ChewProcessor::prepare (double sr, int samplesPerBlock)
 {
     sampleRate = (float) sr;
 
-    dropout.prepare (samplesPerBlock);
+    dropout.prepare (sr, samplesPerBlock);
 
     isCrinkled = false;
     samplesUntilChange = getDryTime();
@@ -25,28 +25,67 @@ void ChewProcessor::prepare (double sr, int samplesPerBlock)
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 {
-    if (sampleCounter >= samplesUntilChange)
+    const int shortBlockSize = 64;
+    if (buffer.getNumSamples() <= shortBlockSize)
+    {
+        processShortBlock (buffer);
+        return;
+    }
+
+    int sampleIdx = 0;
+    for(; sampleIdx + shortBlockSize <= buffer.getNumSamples(); sampleIdx += shortBlockSize)
+    {
+        AudioBuffer<float> shortBuff (buffer.getArrayOfWritePointers(),
+            buffer.getNumChannels(), sampleIdx, shortBlockSize);
+
+        processShortBlock (shortBuff);
+    }
+
+    if (sampleIdx < buffer.getNumSamples())
+    {
+        AudioBuffer<float> shortBuff (buffer.getArrayOfWritePointers(),
+            buffer.getNumChannels(), sampleIdx, buffer.getNumSamples() - sampleIdx);
+
+        processShortBlock (shortBuff);
+    }
+}
+
+void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
+{
+    if (*freq == 0.0f)
+    {
+        mix = 0.0f;
+    }
+    else if (*freq == 1.0f)
+    {
+        mix = 1.0f;
+        power = 3.0f * *depth;
+    }
+    else if (sampleCounter >= samplesUntilChange)
     {
         sampleCounter = 0;
         isCrinkled = ! isCrinkled;
-
+    
         if (isCrinkled) // start crinkle
         {
             mix = 1.0f;
-            power = *depth;
+            power = (1.0f + 2.0f * random.nextFloat()) * *depth;
             samplesUntilChange = getWetTime();
         }
         else            // end crinkle
         {
             mix = 0.0f;
-            power = 0.0f;
             samplesUntilChange = getDryTime();
         }
     }
+    else
+    {
+        power = (1.0f + 2.0f * random.nextFloat()) * *depth;
+    }
 
     dropout.setMix (mix);
-    dropout.setPow (1.0f + 4.0f * power);
-
+    dropout.setPower (1.0f + power);
+     
     dropout.process (buffer);
 
     sampleCounter += buffer.getNumSamples();
