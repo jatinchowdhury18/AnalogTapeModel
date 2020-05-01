@@ -123,7 +123,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate, samplesPerBlock);
+    chewer.prepare (sampleRate);
     
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
