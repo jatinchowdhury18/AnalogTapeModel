@@ -32,7 +32,7 @@ public:
                 wetBuffer.addFromWithRamp (ch, 0, dryBuffer.getReadPointer (ch), wetBuffer.getNumSamples(),
                                            (1.0f - lastDryWet), (1.0f -  dryWet));
             }
-
+        
             lastDryWet = dryWet;
         }
     }

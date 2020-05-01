@@ -123,7 +123,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate, samplesPerBlock);
+    chewer.prepare (sampleRate);
     
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
@@ -173,10 +173,10 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
     outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
-    dryWet.setDryWet (*vts.getRawParameterValue ("drywet"));
+    dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     
     inGain.processBlock (buffer, midiMessages);
-    
+
     dryBuffer.makeCopyOf (buffer, true);
 
     hysteresis.processBlock (buffer, midiMessages);
