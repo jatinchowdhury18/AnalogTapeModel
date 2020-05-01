@@ -12,11 +12,13 @@ void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAud
     params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq",  "Freq",  0.0f, 1.0f, 0.0f));
 }
 
-void ChewProcessor::prepare (double sr, int samplesPerBlock)
+void ChewProcessor::prepare (double sr)
 {
     sampleRate = (float) sr;
 
-    dropout.prepare (sr, samplesPerBlock);
+    dropout.prepare (sr);
+    filt[0].reset (sampleRate, int (sr * 0.02));
+    filt[1].reset (sampleRate, int (sr * 0.02));
 
     isCrinkled = false;
     samplesUntilChange = getDryTime();
@@ -52,14 +54,21 @@ void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 
 void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
 {
+    const float highFreq = 22000.0f;
+    const float freqChange = highFreq - 5000.0f;
+
     if (*freq == 0.0f)
     {
         mix = 0.0f;
+        filt[0].setFreq (highFreq);
+        filt[1].setFreq (highFreq);
     }
     else if (*freq == 1.0f)
     {
         mix = 1.0f;
         power = 3.0f * *depth;
+        filt[0].setFreq (highFreq - freqChange * *depth);
+        filt[1].setFreq (highFreq - freqChange * *depth);
     }
     else if (sampleCounter >= samplesUntilChange)
     {
@@ -70,23 +79,34 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
         {
             mix = 1.0f;
             power = (1.0f + 2.0f * random.nextFloat()) * *depth;
+            filt[0].setFreq (highFreq - freqChange * *depth);
+            filt[1].setFreq (highFreq - freqChange * *depth);
             samplesUntilChange = getWetTime();
         }
         else            // end crinkle
         {
             mix = 0.0f;
+            filt[0].setFreq (highFreq);
+            filt[1].setFreq (highFreq);
             samplesUntilChange = getDryTime();
         }
     }
     else
     {
         power = (1.0f + 2.0f * random.nextFloat()) * *depth;
+        if (isCrinkled)
+        {
+            filt[0].setFreq (highFreq - freqChange * *depth);
+            filt[1].setFreq (highFreq - freqChange * *depth);
+        }
     }
 
     dropout.setMix (mix);
     dropout.setPower (1.0f + power);
-     
+
     dropout.process (buffer);
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        filt[ch].process (buffer.getWritePointer (ch), buffer.getNumSamples());
 
     sampleCounter += buffer.getNumSamples();
 }

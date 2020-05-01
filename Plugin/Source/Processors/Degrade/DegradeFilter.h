@@ -10,13 +10,17 @@ public:
     DegradeFilter() { freq.reset (numSteps); }
     ~DegradeFilter() {}
 
-    void reset (float sampleRate)
+    void reset (float sampleRate, int steps=0)
     {
         fs = sampleRate;
         for (int n = 0; n < 2; ++n)
             z[n] = 0.0f;
 
-        calcCoefs (freq.skip (numSteps));
+        if (steps > 0)
+            freq.reset (steps);
+
+        freq.setCurrentAndTargetValue (freq.getTargetValue());
+        calcCoefs (freq.getCurrentValue());
     }
 
     inline void calcCoefs (float fc)
