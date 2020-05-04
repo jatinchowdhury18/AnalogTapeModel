@@ -95,14 +95,18 @@ public:
         }
     }
 
-    inline void processBlock (float* buffer, int numSamples)
+    inline void processBlock (float* buffer, const int numSamples)
     {
+        if (*spacing == (float) 1.0e-6 && *thickness == (float) 1.0e-6 && *gap == (float) 1.0e-6
+            && *spacing == prevSpacing && *thickness == prevThickness && *gap == prevGap)
+            return;
+
         if ((*speed != prevSpeed || *spacing != prevSpacing ||
             *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
         {
             calcCoefs();
             filters[! activeFilter]->setCoefs (currentCoefs.getRawDataPointer());
-
+        
             fadeCount = fadeLength;
             prevSpeed = *speed;
             prevSpacing = *spacing;
@@ -115,18 +119,18 @@ public:
                 fadeBuffer.setUnchecked (n, buffer[n]);
         else
             filters[! activeFilter]->processBypassed (buffer, numSamples);
-
+        
         filters[activeFilter]->process (buffer, numSamples);
-
+        
         if (fadeCount > 0)
         {
             filters[! activeFilter]->process (fadeBuffer.getRawDataPointer(), numSamples);
-
+        
             for (int n = 0; n < numSamples; ++n)
             {
                 float mult = (float) fadeCount / (float) fadeLength;
                 buffer[n] = buffer[n] * mult + fadeBuffer[n] * (1.0f - mult);
-
+        
                 fadeCount--;
                 if (fadeCount == 0)
                     break;
