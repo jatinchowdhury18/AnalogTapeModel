@@ -29,10 +29,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     flutter (vts)
 {
     for (int ch = 0; ch < 2; ++ch)
-    {
         lossFilter[ch].reset (new LossFilter (vts));
-        lossFilterCheap[ch].reset (new LossFilter (vts, 32));
-    }
     
     scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
 }
@@ -48,7 +45,6 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
-    params.push_back (std::make_unique<AudioParameterBool>  ("lowCPU",  "Low CPU", false));
 
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -130,10 +126,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     chewer.prepare (sampleRate);
     
     for (int ch = 0; ch < 2; ++ch)
-    {
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
-        lossFilterCheap[ch]->prepare ((float) sampleRate, samplesPerBlock);
-    }
     
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
@@ -192,16 +185,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     flutter.processBlock (buffer, midiMessages);
     
-    if ((bool) *vts.getRawParameterValue ("lowCPU"))
-    {
-        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-            lossFilterCheap[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
-    }
-    else
-    {
-        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-            lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
-    }
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
     dryWet.processBlock (dryBuffer, buffer);
     outGain.processBlock (buffer, midiMessages);
