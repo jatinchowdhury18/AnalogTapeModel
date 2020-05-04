@@ -16,9 +16,9 @@ public:
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
 
 private:
-    float* depthParam = nullptr;
-    float* amtParam   = nullptr;
-    float* varParam   = nullptr;
+    std::atomic<float>* depthParam = nullptr;
+    std::atomic<float>* amtParam   = nullptr;
+    std::atomic<float>* varParam   = nullptr;
 
     DegradeNoise noiseProc[2];
     DegradeFilter filterProc[2];

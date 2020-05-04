@@ -171,8 +171,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 {
     ScopedNoDenormals noDenormals;
     
-    inGain.setGain  (Decibels::decibelsToGain (*vts.getRawParameterValue ("ingain")));
-    outGain.setGain (Decibels::decibelsToGain (*vts.getRawParameterValue ("outgain")));
+    inGain.setGain  (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
+    outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     
     inGain.processBlock (buffer, midiMessages);

@@ -15,8 +15,8 @@ public:
     void processBlock (AudioBuffer<float>&, MidiBuffer&);
 
 private:
-    float* rate = nullptr;
-    float* depth = nullptr;
+    std::atomic<float>* rate = nullptr;
+    std::atomic<float>* depth = nullptr;
 
     float phase1[2] = { 0.0f, 0.0f };
     float phase2[2] = { 0.0f, 0.0f };

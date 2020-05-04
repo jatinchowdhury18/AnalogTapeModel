@@ -135,10 +135,10 @@ public:
     float calcMakeup();
 
 private:
-    float* driveParam = nullptr;
-    float* satParam = nullptr;
-    float* widthParam = nullptr;
-    float* osParam = nullptr;
+    std::atomic<float>* driveParam = nullptr;
+    std::atomic<float>* satParam = nullptr;
+    std::atomic<float>* widthParam = nullptr;
+    std::atomic<float>* osParam = nullptr;
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> drive[2];
     SmoothedValue<float, ValueSmoothingTypes::Linear> width[2];
