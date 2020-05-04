@@ -16,8 +16,8 @@ public:
     void processShortBlock (AudioBuffer<float>& buffer);
 
 private:
-    float* depth = nullptr;
-    float* freq = nullptr;
+    std::atomic<float>* depth = nullptr;
+    std::atomic<float>* freq = nullptr;
     float mix = 0.0f;
     float power = 0.0f;
 

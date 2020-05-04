@@ -148,10 +148,10 @@ private:
     const int fadeLength = 512;
     Array<float> fadeBuffer;
 
-    float* speed = nullptr;
-    float* spacing = nullptr;
-    float* thickness = nullptr;
-    float* gap = nullptr;
+    std::atomic<float>* speed = nullptr;
+    std::atomic<float>* spacing = nullptr;
+    std::atomic<float>* thickness = nullptr;
+    std::atomic<float>* gap = nullptr;
 
     float prevSpeed;
     float prevSpacing;
