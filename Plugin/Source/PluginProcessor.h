@@ -72,7 +72,10 @@ private:
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
     ChewProcessor chewer;
+
     std::unique_ptr<LossFilter> lossFilter[2];
+    std::unique_ptr<LossFilter> lossFilterCheap[2];
+
     Flutter flutter;
     DryWetProcessor dryWet;
     GainProcessor outGain;

@@ -6,7 +6,8 @@
 class LossFilter
 {
 public:
-    LossFilter (AudioProcessorValueTreeState& vts)
+    LossFilter (AudioProcessorValueTreeState& vts, int order = 100) :
+        order (order)
     {
         speed = vts.getRawParameterValue ("speed");
         spacing = vts.getRawParameterValue ("spacing");
@@ -43,7 +44,6 @@ public:
     void prepare (float sampleRate, int samplesPerBlock)
     {
         fs = sampleRate;
-        binWidth = fs / (float) order;
         fadeBuffer.resize (samplesPerBlock);
 
         fsFactor = (int) (fs / 44100.0f);
@@ -70,6 +70,7 @@ public:
     {
         // Set freq domain multipliers
         int curOrder = order * fsFactor;
+        binWidth = fs / (float) curOrder;
         std::unique_ptr<float[]> H (new float[curOrder]);
         for (int k = 0; k < curOrder / 2; k++)
         {
@@ -162,7 +163,7 @@ private:
     int fsFactor = (int) (fs / 44100.0f);
     float binWidth = fs / 100.0f;
 
-    const int order = 100;
+    const int order;
     Array<float> currentCoefs;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LossFilter)

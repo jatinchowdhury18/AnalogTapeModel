@@ -60,6 +60,8 @@
                   slider-textbox="textbox-below" lookAndFeel="LookAndFeel_V4" padding="0"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   slider-textbox="textbox-below" padding="0"/>
+          <TextButton text="Low CPU" parameter="lowCPU" button-on-color="FF175CCE"
+                      max-height="40"/>
         </View>
         <View tab-caption="Degr." padding="0" flex-direction="column">
           <Label text="Degrade" justification="centred" font-size="18" max-height="40"/>
