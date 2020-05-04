@@ -2,6 +2,7 @@
 #define FIRFILTER_H_INCLUDED
 
 #include "JuceHeader.h"
+#include <numeric>
 
 class FIRFilter
 {
@@ -37,19 +38,13 @@ public:
         float y = 0.0f;
         for (int n = 0; n < numSamples; ++n)
         {
-            y = 0.0f;
             z[zPtr] = buffer[n];
 
-            for (int m = 0; m < order; ++m)
-            {
-                int idx = zPtr - m;
-                idx = (idx < 0) ? idx + order : idx;
+            y = std::inner_product (z + zPtr, z + order, h, 0.0f);
+            y = std::inner_product (z, z + zPtr, h + (order - zPtr), y);
 
-                y += h[m] * z[idx];
-            }
-
+            zPtr = negativeAwareModulo (zPtr - 1, order);
             buffer[n] = y;
-            zPtr = (zPtr + 1) % order;
         }
     }
 
@@ -58,7 +53,7 @@ public:
         for (int n = 0; n < numSamples; ++n)
         {
             z[zPtr] = buffer[n];
-            zPtr = (zPtr + 1) % order;
+            zPtr = negativeAwareModulo (zPtr - 1, order);
         }
     }
 
