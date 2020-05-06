@@ -16,6 +16,8 @@ void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<Ranged
 
 void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    fs = (float) sampleRate;
+
     for (int ch = 0; ch < 2; ++ch)
     {
         noiseProc[ch].prepare();
@@ -35,7 +37,7 @@ void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& mid
         noiseProc[ch].setGain (0.5f * *depthParam * *amtParam);
         noiseProc[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
-        filterProc[ch].setFreq (jmin (freqHz + (*varParam * (freqHz / 0.6f) * (random.nextFloat() - 0.5f)), 22000.0f));
+        filterProc[ch].setFreq (jmin (freqHz + (*varParam * (freqHz / 0.6f) * (random.nextFloat() - 0.5f)), 0.49f * fs));
         filterProc[ch].process (buffer.getWritePointer (ch), buffer.getNumSamples());
     }
 
