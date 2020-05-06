@@ -54,7 +54,7 @@ void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 
 void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
 {
-    const float highFreq = 22000.0f;
+    const float highFreq = jmin (22000.0f, 0.49f * sampleRate);
     const float freqChange = highFreq - 5000.0f;
 
     if (*freq == 0.0f)

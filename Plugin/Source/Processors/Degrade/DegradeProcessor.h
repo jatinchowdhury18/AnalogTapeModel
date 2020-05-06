@@ -26,6 +26,8 @@ private:
 
     Random random;
 
+    float fs = 44100.0f;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DegradeProcessor)
 };
 
