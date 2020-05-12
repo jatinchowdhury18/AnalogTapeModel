@@ -18,11 +18,12 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
+#include "Presets/PresetManager.h"
 
 //==============================================================================
 /**
 */
-class ChowtapeModelAudioProcessor  : public AudioProcessor
+class ChowtapeModelAudioProcessor : public AudioProcessor
 {
 public:
     //==============================================================================
@@ -81,6 +82,8 @@ private:
     
     foleys::MagicProcessorState magicState { *this, vts };
     foleys::MagicPlotSource* scope = nullptr;
+
+    PresetManager presetManager;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)

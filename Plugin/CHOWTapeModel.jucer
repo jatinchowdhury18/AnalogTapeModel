@@ -6,6 +6,13 @@
               defines="FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
+      <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
+        <FILE id="ihP3jp" name="Default.xml" compile="0" resource="1" file="Source/Presets/Default.xml"/>
+        <FILE id="u8p0u2" name="PresetManager.cpp" compile="1" resource="0"
+              file="Source/Presets/PresetManager.cpp"/>
+        <FILE id="hN3w9Y" name="PresetManager.h" compile="0" resource="0" file="Source/Presets/PresetManager.h"/>
+        <FILE id="vgAsOC" name="Quiet.xml" compile="0" resource="1" file="Source/Presets/Quiet.xml"/>
+      </GROUP>
       <FILE id="Xn3V5v" name="gui.xml" compile="0" resource="1" file="Source/gui.xml"/>
       <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
         <GROUP id="{2F544AA2-63D9-E54A-A753-2E6249E85E60}" name="Chew">
