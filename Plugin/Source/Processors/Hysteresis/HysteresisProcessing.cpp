@@ -63,7 +63,8 @@ inline float HysteresisProcessing::langevinD (float x)
 
 inline float HysteresisProcessing::deriv (float x_n, float x_n1, float x_d_n1)
 {
-    return (twoFs * (x_n - x_n1)) - x_d_n1;
+    constexpr float dAlpha = 0.9f;
+    return (((1.0f + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
 }
 
 inline float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)

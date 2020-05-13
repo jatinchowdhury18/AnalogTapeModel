@@ -13,10 +13,9 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     widthParam = vts.getRawParameterValue ("width");
     osParam = vts.getRawParameterValue ("os");
 
-    overSample[0].reset (new dsp::Oversampling<float> (2, 1, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR));
-    overSample[1].reset (new dsp::Oversampling<float> (2, 2, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR));
-    overSample[2].reset (new dsp::Oversampling<float> (2, 3, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR));
-    overSample[3].reset (new dsp::Oversampling<float> (2, 4, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR));
+    for (int i = 0; i < 5; ++i)
+        overSample[i] = std::make_unique<dsp::Oversampling<float>>
+            (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
 
     for (int ch = 0; ch < 2; ++ch)
     {
@@ -33,7 +32,7 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Saturation", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Bias", 0.0f, 1.0f, 0.5f));
 
-    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"2x", "4x", "8x", "16x"}), 0));
+    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
 }
 
 float HysteresisProcessor::calcMakeup()
@@ -78,7 +77,7 @@ void HysteresisProcessor::toggleOnOff (bool shouldBeOn)
 void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
-    overSamplingFactor = (int) powf(2.0f, *osParam + 1);
+    overSamplingFactor = (int) powf(2.0f, *osParam);
 
     for (int ch = 0; ch < 2; ++ch)
     {
@@ -92,10 +91,8 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         hProcs[ch].reset();
     }
 
-    overSample[0]->initProcessing (samplesPerBlock);
-    overSample[1]->initProcessing (samplesPerBlock);
-    overSample[2]->initProcessing (samplesPerBlock);
-    overSample[3]->initProcessing (samplesPerBlock);
+    for (int i = 0; i < 5; ++i)
+        overSample[i]->initProcessing (samplesPerBlock);
     prevOS = (int) *osParam;
 
     dcBlocker[0].reset (sampleRate);
@@ -116,10 +113,8 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 void HysteresisProcessor::releaseResources()
 {
-    overSample[0]->reset();
-    overSample[1]->reset();
-    overSample[2]->reset();
-    overSample[3]->reset();
+    for (int i = 0; i < 5; ++i)
+        overSample[i]->reset();
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
@@ -130,7 +125,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     if ((int) *osParam != prevOS)
     {
-        overSamplingFactor = (int) powf(2.0f, *osParam + 1);
+        overSamplingFactor = (int) powf(2.0f, *osParam);
         prevOS = (int) *osParam;
 
         for (int ch = 0; ch < 2; ++ch)
