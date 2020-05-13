@@ -69,7 +69,7 @@ inline float HysteresisProcessing::deriv (float x_n, float x_n1, float x_d_n1)
 inline float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
 {
     Q = (H + alpha * M) / a;
-    coth = 1.0f /  dsp::FastMathApproximations::tanh (Q);
+    coth = 1.0f / std::tanh (Q);
     nearZero = Q < 0.001f && Q > -0.001f;
 
     M_diff = M_s * langevin (Q) - M;
@@ -105,11 +105,9 @@ float HysteresisProcessing::process (float H)
 
     float M = M_n1 + k2;
 
-    if (std::isnan (M))
+    if (std::isnan (M) || abs (M) > 20.0f)
     {
         M = 0.0f;
-        H = 0.0f;
-        H_d = 0.0f;
     }
 
     M_n1 = M;

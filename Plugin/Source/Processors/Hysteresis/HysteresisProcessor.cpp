@@ -150,6 +150,11 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
             fadeBuffer.copyFrom (ch, 0, buffer, ch, 0, buffer.getNumSamples());
     }
 
+    // clip input to +9 dB
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        FloatVectorOperations::clip (buffer.getWritePointer (ch),
+            buffer.getWritePointer (ch), -8.0f, 8.0f, buffer.getNumSamples());
+
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock;
     
