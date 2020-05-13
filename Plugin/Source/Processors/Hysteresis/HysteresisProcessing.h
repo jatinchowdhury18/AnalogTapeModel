@@ -17,20 +17,20 @@ public:
     float process (float H);
 
     void reset();
-    void setSampleRate (float newSR) { fs = newSR; T = 1.0f / fs; twoFs = 2.0f * fs; }
+    void setSampleRate (float newSR) { fs = newSR; T = 1.0f / fs; }
 
     void cook (float drive,  float width, float sat);
 
 private:
-    /* Continued fraction approximation for hyperbolic cotangent */
+    /* DEPRECATED (Continued fraction approximation for hyperbolic cotangent) */
     inline float cothApprox (float x);
 
     inline float langevin (float x);    // Langevin function
     inline float langevinD (float x);   // Derivative of Langevin function
-    inline float deriv (float x_n, float x_n1, float x_d_n1);   // Derivative by trapezoidal rule
+    inline float deriv (float x_n, float x_n1, float x_d_n1);   // Derivative by alpha transform
 
     inline float hysteresisFunc (float M, float H, float H_d);
-    float M_n (float M_n1, float k1, float k2, float k3, float k4);
+    float M_n (float M_n1, float k1, float k2, float k3, float k4); // DEPRECATED (from RK4 version)
 
     float fs = 48000.0f;
     float T = 1.0f / fs;
@@ -41,7 +41,6 @@ private:
     float c = (float) 1.7e-1;
 
     // Save calculations
-    float twoFs = 2.0f * fs;
     float nc = 1-c;
     float M_s_oa = M_s / a;
     float M_s_oa_tc = c * M_s / a;
