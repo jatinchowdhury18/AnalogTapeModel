@@ -23,6 +23,7 @@
                 file="Source/Processors/Degrade/DegradeProcessor.h"/>
         </GROUP>
         <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
+          <FILE id="l6IKp3" name="DCFilters.h" compile="0" resource="0" file="Source/Processors/Hysteresis/DCFilters.h"/>
           <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
           <FILE id="OYS18C" name="HysteresisProcessing.h" compile="0" resource="0"
