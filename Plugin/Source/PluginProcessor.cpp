@@ -45,6 +45,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
+    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 1, 0));
 
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -95,26 +96,28 @@ double ChowtapeModelAudioProcessor::getTailLengthSeconds() const
 
 int ChowtapeModelAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return presetManager.getNumPresets();
 }
 
 int ChowtapeModelAudioProcessor::getCurrentProgram()
 {
-    return 0;
+    return (int) *vts.getRawParameterValue ("preset");
 }
 
 void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
+    *vts.getRawParameterValue ("preset") = (float) index;
+    presetManager.setPreset (vts, index);
 }
 
 const String ChowtapeModelAudioProcessor::getProgramName (int index)
 {
-    return {};
+    return presetManager.getPresetName (index);
 }
 
 void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& newName)
 {
+    ignoreUnused (index, newName);
 }
 
 //==============================================================================
@@ -202,7 +205,23 @@ bool ChowtapeModelAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize);
+    auto builder = std::make_unique<foleys::MagicGUIBuilder> (&magicState);
+    builder->registerJUCEFactories();
+    presetManager.registerPresetsComponent (*builder, this);
+
+#if SAVE_PRESETS // Add button to save new presets
+    magicState.addTrigger ("savepreset", [=]
+    {
+        File xmlFile ("D:\\preset.xml");
+        xmlFile.deleteFile();
+        xmlFile.create();
+        xmlFile.replaceWithText (vts.state.toXmlString());
+    });
+
+    return new foleys::MagicPluginEditor (magicState, BinaryData::preset_save_gui_xml, BinaryData::preset_save_gui_xmlSize, std::move (builder));
+#else
+    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+#endif
 }
 
 //==============================================================================
@@ -213,7 +232,9 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
+    presetManager.presetUpdated();
 }
 
 //==============================================================================
