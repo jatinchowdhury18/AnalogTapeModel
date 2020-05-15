@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="TC-260">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.199999988079071"/>
+    <PARAM id="drive" value="0.6599999666213989"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="1.614829443497001e-6"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.199999988079071"/>
+    <PARAM id="sat" value="0.75"/>
+    <PARAM id="spacing" value="0.0002769171842373908"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="0.004748197738081217"/>
+    <PARAM id="width" value="0.3599999845027924"/>
+    <PARAM id="preset" value="1"/>
+  </Parameters>
+</Preset>

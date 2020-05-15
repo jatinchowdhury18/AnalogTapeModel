@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Woozy Chorus">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.25"/>
+    <PARAM id="chew_freq" value="0.5999999642372131"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.7999999523162842"/>
+    <PARAM id="drive" value="0.5"/>
+    <PARAM id="drywet" value="65.0"/>
+    <PARAM id="gap" value="9.999999974752427e-7"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.4399999976158142"/>
+    <PARAM id="sat" value="0.5"/>
+    <PARAM id="spacing" value="9.999999974752427e-7"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="9.999999974752427e-7"/>
+    <PARAM id="width" value="0.5"/>
+    <PARAM id="preset" value="2"/>
+  </Parameters>
+</Preset>

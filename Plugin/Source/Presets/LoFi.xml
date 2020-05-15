@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="LoFi">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.0"/>
+    <PARAM id="drive" value="1.0"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="9.999999974752427e-7"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.2999999821186066"/>
+    <PARAM id="sat" value="1.0"/>
+    <PARAM id="spacing" value="0.002999998396262527"/>
+    <PARAM id="speed" value="7.500000476837158"/>
+    <PARAM id="thick" value="0.004999995231628418"/>
+    <PARAM id="width" value="0.5999999642372131"/>
+    <PARAM id="preset" value="3"/>
+  </Parameters>
+</Preset>
