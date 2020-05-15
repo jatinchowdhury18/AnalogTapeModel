@@ -35,7 +35,8 @@ class PresetComp : public Component,
 {
 public:
     PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager) :
-        proc (proc)
+        proc (proc),
+        manager (manager)
     {
         manager.addListener (this);
 
@@ -47,6 +48,11 @@ public:
 
         presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
         presetBox.onChange  = [=, &proc, &manager] { proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
+    }
+
+    ~PresetComp()
+    {
+        manager.removeListener (this);
     }
 
     void paint (Graphics& g)
@@ -113,6 +119,7 @@ private:
     };
 
     ChowtapeModelAudioProcessor& proc;
+    PresetManager& manager;
     CustomComboBox presetBox;    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)

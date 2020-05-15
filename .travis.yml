@@ -104,14 +104,14 @@ script:
       pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
       pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
     fi
-  # - |
-  #   if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
-  #     echo "Validating plugin"
-  #     cd $TRAVIS_BUILD_DIR/
-  #     powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Windows.zip -OutFile pluginval.zip"
-  #     powershell -Command "Expand-Archive pluginval.zip -DestinationPath ."
-  #     ./pluginval.exe --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/CHOWTapeModel.vst3"
-  #   fi
+  - |
+    if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
+      echo "Validating plugin"
+      cd $TRAVIS_BUILD_DIR/
+      powershell -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Windows.zip -OutFile pluginval.zip"
+      powershell -Command "Expand-Archive pluginval.zip -DestinationPath ."
+      ./pluginval.exe --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/CHOWTapeModel.vst3"
+    fi
   - |
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip

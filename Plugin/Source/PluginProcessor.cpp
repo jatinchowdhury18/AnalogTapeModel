@@ -232,6 +232,7 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
     presetManager.presetUpdated();
 }
