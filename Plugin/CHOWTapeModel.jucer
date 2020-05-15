@@ -3,17 +3,25 @@
 <JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.7"
               version="2.2.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com"
-              defines="FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0">
+              defines="SAVE_PRESETS=0">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
+      <GROUP id="{8D673967-9B5D-8254-9062-4C4B14D4EAD9}" name="GUI">
+        <FILE id="KmBito" name="gui.xml" compile="0" resource="1" file="Source/GUI/gui.xml"/>
+        <FILE id="kmORjM" name="preset_save_gui.xml" compile="0" resource="1"
+              file="Source/GUI/preset_save_gui.xml"/>
+      </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <FILE id="ihP3jp" name="Default.xml" compile="0" resource="1" file="Source/Presets/Default.xml"/>
+        <FILE id="b5EimY" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/LoFi.xml"/>
+        <FILE id="MQFCLN" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/OldTape.xml"/>
         <FILE id="u8p0u2" name="PresetManager.cpp" compile="1" resource="0"
               file="Source/Presets/PresetManager.cpp"/>
         <FILE id="hN3w9Y" name="PresetManager.h" compile="0" resource="0" file="Source/Presets/PresetManager.h"/>
-        <FILE id="vgAsOC" name="Quiet.xml" compile="0" resource="1" file="Source/Presets/Quiet.xml"/>
+        <FILE id="kNY0o3" name="TC260.xml" compile="0" resource="1" file="Source/Presets/TC260.xml"/>
+        <FILE id="UtYbHz" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/Underbiased.xml"/>
+        <FILE id="Sa9RRP" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/WoozyChorus.xml"/>
       </GROUP>
-      <FILE id="Xn3V5v" name="gui.xml" compile="0" resource="1" file="Source/gui.xml"/>
       <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
         <GROUP id="{2F544AA2-63D9-E54A-A753-2E6249E85E60}" name="Chew">
           <FILE id="S5eP4b" name="ChewProcessor.cpp" compile="1" resource="0"
@@ -155,5 +163,6 @@
   <LIVE_SETTINGS>
     <WINDOWS/>
   </LIVE_SETTINGS>
-  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <JUCEOPTIONS JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"
+               FOLEYS_SHOW_GUI_EDITOR_PALLETTE="0"/>
 </JUCERPROJECT>

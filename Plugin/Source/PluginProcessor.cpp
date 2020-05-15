@@ -209,7 +209,19 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCEFactories();
     presetManager.registerPresetsComponent (*builder, this);
 
+#if SAVE_PRESETS // Add button to save new presets
+    magicState.addTrigger ("savepreset", [=]
+    {
+        File xmlFile ("D:\\preset.xml");
+        xmlFile.deleteFile();
+        xmlFile.create();
+        xmlFile.replaceWithText (vts.state.toXmlString());
+    });
+
+    return new foleys::MagicPluginEditor (magicState, BinaryData::preset_save_gui_xml, BinaryData::preset_save_gui_xmlSize, std::move (builder));
+#else
     return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+#endif
 }
 
 //==============================================================================

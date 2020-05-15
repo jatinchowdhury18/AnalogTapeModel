@@ -44,8 +44,9 @@ public:
         presetBox.setColour (ComboBox::ColourIds::backgroundColourId, Colours::transparentWhite);
         presetBox.addItemList (manager.getPresetChoices(), 1);
         presetBox.setColour (PopupMenu::ColourIds::backgroundColourId, Colour (0xFF434352));
+
         presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-        presetBox.onChange  = [=, &proc] {  proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
+        presetBox.onChange  = [=, &proc, &manager] { proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
     }
 
     void paint (Graphics& g)
@@ -78,8 +79,41 @@ public:
     }
 
 private:
+    class CustomComboBox : public ComboBox
+    {
+    public:
+        CustomComboBox (const String& name = {}) :
+            ComboBox (name)
+        {
+            setLookAndFeel (&comboLNF);
+        }
+
+        ~CustomComboBox()
+        {
+            setLookAndFeel (nullptr);
+        }
+
+    private:
+        class ComboLNF : public LookAndFeel_V4
+        {
+            void drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
+                const bool isSeparator, const bool isActive,
+                const bool isHighlighted, const bool /*isTicked*/,
+                const bool hasSubMenu, const String& text,
+                const String& shortcutKeyText,
+                const Drawable* icon, const Colour* const textColourToUse) override
+            {
+                LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive,
+                    isHighlighted, false /*isTicked*/, hasSubMenu, text,
+                    shortcutKeyText, icon, textColourToUse);
+            }
+        };
+
+        ComboLNF comboLNF;
+    };
+
     ChowtapeModelAudioProcessor& proc;
-    ComboBox presetBox;    
+    CustomComboBox presetBox;    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
 };
@@ -105,7 +139,11 @@ StringArray PresetManager::getPresetChoices()
 void PresetManager::loadPresets()
 {
     presets.add (new Preset ("Default.xml"));
-    presets.add (new Preset ("Quiet.xml"));
+    presets.add (new Preset ("TC260.xml"));
+    presets.add (new Preset ("LoFi.xml"));
+    presets.add (new Preset ("WoozyChorus.xml"));
+    presets.add (new Preset ("OldTape.xml"));
+    presets.add (new Preset ("Underbiased.xml"));
 
     for (auto* p : presets)
     {
@@ -126,7 +164,7 @@ String PresetManager::getPresetName (int idx)
 void PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
 {
     jassert (isPositiveAndBelow (idx, presets.size()));
-    auto newState = presetMap[idx]->state;
+    auto newState = presetMap[idx]->state.createCopy();
     vts.replaceState (newState);
 }
 
