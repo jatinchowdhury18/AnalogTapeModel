@@ -64,6 +64,8 @@ public:
         prevSpacing = *spacing;
         prevThickness = *thickness;
         prevGap = *gap;
+
+        starting = true;
     }
 
     void calcCoefs()
@@ -100,7 +102,10 @@ public:
     {
         if (*spacing == (float) 1.0e-6 && *thickness == (float) 1.0e-6 && *gap == (float) 1.0e-6
             && *spacing == prevSpacing && *thickness == prevThickness && *gap == prevGap)
+        {
+            filters[activeFilter]->processBypassed (buffer, numSamples);
             return;
+        }
 
         if ((*speed != prevSpeed || *spacing != prevSpacing ||
             *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
@@ -121,7 +126,13 @@ public:
         else
             filters[! activeFilter]->processBypassed (buffer, numSamples);
         
-        filters[activeFilter]->process (buffer, numSamples);
+        if (! starting)
+            filters[activeFilter]->process (buffer, numSamples);
+        else
+        {
+            starting = false;
+            filters[activeFilter]->processBypassed (buffer, numSamples);
+        }
         
         if (fadeCount > 0)
         {
@@ -148,6 +159,7 @@ private:
     int fadeCount = 0;
     const int fadeLength = 512;
     Array<float> fadeBuffer;
+    bool starting = false;
 
     std::atomic<float>* speed = nullptr;
     std::atomic<float>* spacing = nullptr;

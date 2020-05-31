@@ -21,7 +21,8 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     for (int ch = 0; ch < 2; ++ch)
     {
         noiseProc[ch].prepare();
-        filterProc[ch].reset ((float) sampleRate);
+        filterProc[ch].setFreq (20000.0f);
+        filterProc[ch].reset ((float) sampleRate, 20);
     }
 
     gainProc.prepareToPlay (sampleRate, samplesPerBlock);
