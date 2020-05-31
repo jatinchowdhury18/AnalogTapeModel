@@ -19,8 +19,10 @@ public:
     void processBypassed (AudioBuffer<float>& buffer);
 
 private:
-    std::atomic<float>* rate = nullptr;
-    std::atomic<float>* depth = nullptr;
+    std::atomic<float>* flutterRate  = nullptr;
+    std::atomic<float>* flutterDepth = nullptr;
+    std::atomic<float>* wowRate  = nullptr;
+    std::atomic<float>* wowDepth = nullptr;
     
     bool isOff = false;
     AudioBuffer<float> dryBuffer;
@@ -43,7 +45,8 @@ private:
     float angleDelta2 = 0.0f;
     float angleDelta3 = 0.0f;
 
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlew[2];
+    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewWow[2];
+    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewFlutter[2];
 
     DelayProcessor delay[2];
     TransformerHPF dcBlocker[2];

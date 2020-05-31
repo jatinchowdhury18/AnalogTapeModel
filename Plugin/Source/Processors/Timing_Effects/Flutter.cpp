@@ -1,12 +1,23 @@
 #include "Flutter.h"
 
+namespace
+{
+    constexpr float depthSlewMin = 0.001f;
+}
+
 Flutter::Flutter (AudioProcessorValueTreeState& vts)
 {
-    rate = vts.getRawParameterValue ("rate");
-    depth = vts.getRawParameterValue ("depth");
+    flutterRate = vts.getRawParameterValue ("rate");
+    flutterDepth = vts.getRawParameterValue ("depth");
 
-    depthSlew[0].setCurrentAndTargetValue (*depth);
-    depthSlew[1].setCurrentAndTargetValue (*depth);
+    wowRate = vts.getRawParameterValue ("wow_rate");
+    wowDepth = vts.getRawParameterValue ("wow_depth");
+
+    depthSlewWow[0].setCurrentAndTargetValue (*wowDepth);
+    depthSlewWow[1].setCurrentAndTargetValue (*wowDepth);
+
+    depthSlewFlutter[0].setCurrentAndTargetValue (*flutterDepth);
+    depthSlewFlutter[1].setCurrentAndTargetValue (*flutterDepth);
 }
 
 void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -26,8 +37,12 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
     {
         delay[ch].prepareToPlay (sampleRate, samplesPerBlock);
         delay[ch].setLengthMs (0.f);
-        depthSlew[ch].reset (10000);
-        depthSlew[ch].setCurrentAndTargetValue (0.001f);
+
+        depthSlewWow[ch].reset (10000);
+        depthSlewWow[ch].setCurrentAndTargetValue (depthSlewMin);
+
+        depthSlewFlutter[ch].reset (10000);
+        depthSlewFlutter[ch].setCurrentAndTargetValue (depthSlewMin);
 
         phase1[ch] = 0.0f;
         phase2[ch] = 0.0f;
@@ -42,7 +57,7 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
     amp3     = -99.0f  * 1000.0f / (float) sampleRate;
     dcOffset =  350.0f * 1000.0f / (float) sampleRate;
 
-    isOff = depthSlew[0].getTargetValue() == 0.0f;
+    isOff = true;
     dryBuffer.setSize (2, samplesPerBlock);
 }
 
@@ -50,16 +65,22 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
 {
     ScopedNoDenormals noDenormals;
 
-    auto curDepth = powf (*depth * 81.0f / 625.0f, 0.5f);
-    depthSlew[0].setTargetValue (jmax (0.001f, curDepth));
-    depthSlew[1].setTargetValue (jmax (0.001f, curDepth));
+    auto curDepthWow = powf (*wowDepth * 81.0f / 625.0f, 0.5f);
+    depthSlewWow[0].setTargetValue (jmax (depthSlewMin, curDepthWow));
+    depthSlewWow[1].setTargetValue (jmax (depthSlewMin, curDepthWow));
 
-    auto freq = 0.1f * powf (1000.0f, *rate);
-    angleDelta1 = MathConstants<float>::twoPi * 1.0f * freq / fs;
-    angleDelta2 = MathConstants<float>::twoPi * 2.0f * freq / fs;
-    angleDelta3 = MathConstants<float>::twoPi * 3.0f * freq / fs;
+    auto curDepthFlutter = powf (*flutterDepth * 81.0f / 625.0f, 0.5f);
+    depthSlewFlutter[0].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
+    depthSlewFlutter[1].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
 
-    bool shouldTurnOff = depthSlew[0].getTargetValue() == 0.001f;
+    auto wowFreq = 0.1f * powf (1000.0f, *wowRate);
+    auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
+    angleDelta1 = MathConstants<float>::twoPi * 1.0f * wowFreq / fs;
+    angleDelta2 = MathConstants<float>::twoPi * 2.0f * flutterFreq / fs;
+    angleDelta3 = MathConstants<float>::twoPi * 3.0f * flutterFreq / fs;
+
+    bool shouldTurnOff = depthSlewWow[0].getTargetValue() == depthSlewMin
+                      && depthSlewFlutter[0].getTargetValue() == depthSlewMin;
     if (! isOff && ! shouldTurnOff) // process normally
     {
         processWetBuffer (buffer);
@@ -105,12 +126,11 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
 
-            auto lfo = amp1 * cosf (phase1[ch] + phaseOff1)
-                + amp2 * cosf (phase2[ch] + phaseOff2)
-                + amp3 * cosf (phase3[ch] + phaseOff3)
-                + dcOffset;
+            auto wowLFO = depthSlewWow[ch].getNextValue() * amp1 * cosf (phase1[ch] + phaseOff1);
+            auto flutterLFO = depthSlewFlutter[ch].getNextValue()
+                * (amp2 * cosf (phase2[ch] + phaseOff2) + amp3 * cosf (phase3[ch] + phaseOff3));
 
-            delay[ch].setLengthMs (depthSlew[ch].getNextValue() * lfo);
+            delay[ch].setLengthMs (wowLFO + flutterLFO + dcOffset);
             x[n] = delay[ch].delay (x[n]);
         }
 
