@@ -13,6 +13,9 @@ void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioPara
 {
     params.push_back (std::make_unique<AudioParameterFloat> ("rate",  "Rate",  0.0f, 1.0f, 0.3f));
     params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.0f));
+
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.5f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Depth", 0.0f, 1.0f, 0.0f));
 }
 
 void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)

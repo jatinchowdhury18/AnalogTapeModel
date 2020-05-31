@@ -20,6 +20,8 @@
     <PARAM id="speed" value="15.00000095367432"/>
     <PARAM id="thick" value="9.999999974752427e-7"/>
     <PARAM id="width" value="0.5"/>
+    <PARAM id="wow_depth" value="0.0"/>
+    <PARAM id="wow_rate" value="0.5"/>
     <PARAM id="preset" value="0"/>
   </Parameters>
 </Preset>
