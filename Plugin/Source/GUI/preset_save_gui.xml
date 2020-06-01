@@ -77,13 +77,21 @@
                   slider-textbox="textbox-below" max-height="200"/>
         </View>
       </View>
-      <View flex-direction="column">
-        <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
-        <Slider caption="Depth" parameter="depth" slider-type="rotary" slider-textbox="textbox-below"
-                max-height="200"/>
-        <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
-                slider-type="rotary" max-height="200"/>
-        <TextButton max-height="50" text="Save" onClick="savepreset"/>
+      <View display="tabbed" padding="0">
+        <View tab-caption="Flutter" flex-direction="column">
+          <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
+          <Slider caption="Depth" parameter="depth" slider-type="rotary" slider-textbox="textbox-below"
+                  max-height="200"/>
+          <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
+                  slider-type="rotary" max-height="200"/>
+        </View>
+        <View tab-caption="Wow" flex-direction="column">
+          <Label max-height="40" text="Wow" justification="centred" font-size="18"/>
+          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary" slider-textbox="textbox-below"
+                  max-height="200"/>
+          <Slider caption="Rate" parameter="wow_rate" slider-textbox="textbox-below"
+                  slider-type="rotary" max-height="200"/>
+        </View>
       </View>
     </View>
     <presets max-height="30" margin="0" padding="0"/>
