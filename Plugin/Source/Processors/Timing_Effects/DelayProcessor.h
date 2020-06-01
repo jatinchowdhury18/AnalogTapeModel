@@ -22,7 +22,7 @@ public:
 private:
     enum
     {
-        maxDelaySeconds = 1,
+        maxDelaySeconds = 5,
     };
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> length = 0.0f;
