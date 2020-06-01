@@ -10,7 +10,7 @@ public:
 
     void prepareToPlay (double /*sampleRate*/, int /*maximumExpectedSamplesPerBlock*/)
     { 
-        oldGain = 0.0f;
+        oldGain = curGain;
     }
 
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)

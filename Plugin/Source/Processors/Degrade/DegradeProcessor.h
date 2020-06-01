@@ -12,6 +12,7 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
+    void cookParams();
     void prepareToPlay (double sampleRate, int samplesPerBlock);
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
 
