@@ -25,7 +25,7 @@ void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioPara
     params.push_back (std::make_unique<AudioParameterFloat> ("rate",  "Rate",  0.0f, 1.0f, 0.3f));
     params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.0f));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.5f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.25f));
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Depth", 0.0f, 1.0f, 0.0f));
 }
 
@@ -44,6 +44,7 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
         depthSlewFlutter[ch].reset (10000);
         depthSlewFlutter[ch].setCurrentAndTargetValue (depthSlewMin);
 
+        wowPhase[ch] = 0.0f;
         phase1[ch] = 0.0f;
         phase2[ch] = 0.0f;
         phase3[ch] = 0.0f;
@@ -52,6 +53,7 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
         dcBlocker[ch].calcCoefs (10.0f, 0.707f);
     }
 
+    wowAmp   = 1000.0f * 1000.0f / (float) sampleRate;
     amp1     = -230.0f * 1000.0f / (float) sampleRate;
     amp2     = -80.0f  * 1000.0f / (float) sampleRate;
     amp3     = -99.0f  * 1000.0f / (float) sampleRate;
@@ -65,7 +67,7 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
 {
     ScopedNoDenormals noDenormals;
 
-    auto curDepthWow = powf (*wowDepth * 81.0f / 625.0f, 0.5f);
+    auto curDepthWow = powf (*wowDepth, 0.5f);
     depthSlewWow[0].setTargetValue (jmax (depthSlewMin, curDepthWow));
     depthSlewWow[1].setTargetValue (jmax (depthSlewMin, curDepthWow));
 
@@ -73,9 +75,11 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     depthSlewFlutter[0].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
     depthSlewFlutter[1].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
 
-    auto wowFreq = 0.1f * powf (1000.0f, *wowRate);
+    auto wowFreq = powf (4.5, *wowRate) - 1.0f;
+    angleDeltaWow = MathConstants<float>::twoPi * wowFreq / fs;
+
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
-    angleDelta1 = MathConstants<float>::twoPi * 1.0f * wowFreq / fs;
+    angleDelta1 = MathConstants<float>::twoPi * 1.0f * flutterFreq / fs;
     angleDelta2 = MathConstants<float>::twoPi * 2.0f * flutterFreq / fs;
     angleDelta3 = MathConstants<float>::twoPi * 3.0f * flutterFreq / fs;
 
@@ -122,18 +126,23 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
         auto* x = buffer.getWritePointer (ch);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
+            wowPhase[ch] += angleDeltaWow;
             phase1[ch] += angleDelta1;
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
 
-            auto wowLFO = depthSlewWow[ch].getNextValue() * amp1 * cosf (phase1[ch] + phaseOff1);
+            auto wowLFO = depthSlewWow[ch].getNextValue() * wowAmp * cosf (wowPhase[ch]);
             auto flutterLFO = depthSlewFlutter[ch].getNextValue()
-                * (amp2 * cosf (phase2[ch] + phaseOff2) + amp3 * cosf (phase3[ch] + phaseOff3));
+                * (amp1 * cosf (phase1[ch] + phaseOff1)
+                + amp2 * cosf (phase2[ch] + phaseOff2)
+                + amp3 * cosf (phase3[ch] + phaseOff3));
 
-            delay[ch].setLengthMs (wowLFO + flutterLFO + dcOffset);
+            delay[ch].setLengthMs (wowLFO + flutterLFO + dcOffset + depthSlewWow[ch].getCurrentValue() * wowAmp);
             x[n] = delay[ch].delay (x[n]);
         }
 
+        while (wowPhase[ch] >= MathConstants<float>::twoPi)
+            wowPhase[ch] -= MathConstants<float>::twoPi;
         while (phase1[ch] >= MathConstants<float>::twoPi)
             phase1[ch] -= MathConstants<float>::twoPi;
         while (phase2[ch] >= MathConstants<float>::twoPi)
@@ -150,6 +159,7 @@ void Flutter::processBypassed (AudioBuffer<float>& buffer)
         delay[ch].setLengthMs (0.0f);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
+            wowPhase[ch] += angleDeltaWow;
             phase1[ch] += angleDelta1;
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
@@ -157,6 +167,8 @@ void Flutter::processBypassed (AudioBuffer<float>& buffer)
             delay[ch].delay (0.0f);
         }
 
+        while (wowPhase[ch] >= MathConstants<float>::twoPi)
+            wowPhase[ch] -= MathConstants<float>::twoPi;
         while (phase1[ch] >= MathConstants<float>::twoPi)
             phase1[ch] -= MathConstants<float>::twoPi;
         while (phase2[ch] >= MathConstants<float>::twoPi)

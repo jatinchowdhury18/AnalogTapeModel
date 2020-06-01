@@ -27,10 +27,12 @@ private:
     bool isOff = false;
     AudioBuffer<float> dryBuffer;
 
+    float wowPhase[2] = { 0.0f, 0.0f };
     float phase1[2] = { 0.0f, 0.0f };
     float phase2[2] = { 0.0f, 0.0f };
     float phase3[2] = { 0.0f, 0.0f };
 
+    float wowAmp = 0.0f;
     float amp1 = 0.0f;
     float amp2 = 0.0f;
     float amp3 = 0.0f;
@@ -41,6 +43,7 @@ private:
     const float phaseOff2 = 13.0f * MathConstants<float>::pi / 4.0f;
     const float phaseOff3 = -MathConstants<float>::pi / 10.0f;
 
+    float angleDeltaWow = 0.0f;
     float angleDelta1 = 0.0f;
     float angleDelta2 = 0.0f;
     float angleDelta3 = 0.0f;
