@@ -9,8 +9,8 @@ void DelayProcessor::setReadPtr (int maxLength)
 
 void DelayProcessor::setLengthMs (double lengthMs, bool force)
 {
-    int newLength = (int) (lengthMs * sampleRate / 1000.0);
-    newLength = jmin (newLength, bufferSize);
+    auto newLength = lengthMs * sampleRate / 1000.0;
+    newLength = jmin (newLength, (double) bufferSize);
 
     if (! force)
         length.setTargetValue ((float) newLength);
