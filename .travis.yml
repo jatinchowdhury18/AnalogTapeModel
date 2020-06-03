@@ -101,8 +101,8 @@ script:
       cd $TRAVIS_BUILD_DIR/
       curl -L "https://github.com/Tracktion/pluginval/releases/download/v0.2.3/pluginval_macOS.zip" -o pluginval.zip
       unzip pluginval
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
+      pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
+      pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
     fi
   # - |
   #   if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
