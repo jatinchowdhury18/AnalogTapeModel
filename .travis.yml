@@ -116,7 +116,7 @@ script:
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
       unzip pluginval
-      ./pluginval --strictness-level 5 --validate-in-process --timeout-ms 300000 --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/LinuxMakefile/build/CHOWTapeModel.so" || exit 1
+      ./pluginval --strictness-level 5 --validate-in-process --timeout-ms 500000 --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/LinuxMakefile/build/CHOWTapeModel.so" || exit 1
     fi
 
   - echo "SUCCESS"
