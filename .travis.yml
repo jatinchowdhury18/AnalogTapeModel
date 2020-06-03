@@ -121,28 +121,28 @@ script:
 
   - echo "SUCCESS"
 
-after_success: # upload mac bins
-  - |
-    if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
-      echo "Copying Files..."
-      cd $TRAVIS_BUILD_DIR/
-      rm -R Plugin/Bin/Mac/CHOWTapeModel.*
-      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
-      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
-      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
-      cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
+# after_success: # upload mac bins
+#   - |
+#     if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
+#       echo "Copying Files..."
+#       cd $TRAVIS_BUILD_DIR/
+#       rm -R Plugin/Bin/Mac/CHOWTapeModel.*
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
 
-      zip -r $TRAVIS_BUILD_DIR/Plugin/Bin/MacBuilds.zip $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
+#       zip -r $TRAVIS_BUILD_DIR/Plugin/Bin/MacBuilds.zip $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
 
-      echo "Setting Up Git..."
-      git config --global user.email "travis@travis-ci.org"
-      git config --global user.name "Travis CI"
+#       echo "Setting Up Git..."
+#       git config --global user.email "travis@travis-ci.org"
+#       git config --global user.name "Travis CI"
 
-      echo "Committing Files..."
-      git checkout -b builds
-      git add $TRAVIS_BUILD_DIR/Plugin/Bin/
-      git commit -m "Travis build- $TRAVIS_BUILD_NUMBER [ci skip]"
+#       echo "Committing Files..."
+#       git checkout -b builds
+#       git add $TRAVIS_BUILD_DIR/Plugin/Bin/
+#       git commit -m "Travis build- $TRAVIS_BUILD_NUMBER [ci skip]"
 
-      echo "Pushing to branch..."
-      git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
-    fi
+#       echo "Pushing to branch..."
+#       git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
+#     fi
