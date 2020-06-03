@@ -45,7 +45,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
-    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 1, 0));
+    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 10, 0));
 
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -106,8 +106,14 @@ int ChowtapeModelAudioProcessor::getCurrentProgram()
 
 void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
-    *vts.getRawParameterValue ("preset") = (float) index;
-    presetManager.setPreset (vts, index);
+    auto& presetParam = *vts.getRawParameterValue ("preset");
+    
+    if (presetManager.setPreset (vts, index))
+    {
+        presetParam = (float) index;
+        presetManager.presetUpdated();
+        updateHostDisplay();
+    }
 }
 
 const String ChowtapeModelAudioProcessor::getProgramName (int index)
@@ -232,6 +238,8 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+    presetManager.processorLoadingState();
+
     MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
     presetManager.presetUpdated();

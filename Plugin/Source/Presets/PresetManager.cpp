@@ -162,17 +162,36 @@ void PresetManager::loadPresets()
     maxIdx++;
 }
 
+void PresetManager::timerCallback()
+{ 
+    stopTimer();
+}
+
+void PresetManager::processorLoadingState()
+{
+    startTimer (500);
+}
+
 String PresetManager::getPresetName (int idx)
 {
     jassert (isPositiveAndBelow (idx, presets.size()));
     return presetMap[idx]->name;
 }
 
-void PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
+bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
 {
-    jassert (isPositiveAndBelow (idx, presets.size()));
+    if (isTimerRunning()) // host is loading state
+        return false;
+
+    if (! isPositiveAndBelow (idx, presets.size())) // invalid index
+    {
+        jassertfalse;
+        return false;
+    }
+
     auto newState = presetMap[idx]->state.createCopy();
     vts.replaceState (newState);
+    return true;
 }
 
 void PresetManager::registerPresetsComponent (foleys::MagicGUIBuilder& builder, AudioProcessor* proc)
