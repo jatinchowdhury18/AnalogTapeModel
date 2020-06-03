@@ -55,7 +55,7 @@ public:
         manager.removeListener (this);
     }
 
-    void paint (Graphics& g)
+    void paint (Graphics& g) override
     {
         Colour background (0xFF434352);
         g.fillAll (background);
@@ -72,7 +72,7 @@ public:
         g.drawFittedText ("v" + String (JucePlugin_VersionString), versionBounds, Justification::centred, 1);
     }
 
-    void resized()
+    void resized() override
     {
         auto boxWidth = jmin (getWidth() / 3, 200);
         presetBox.setBounds ((getWidth() - boxWidth) / 2, 2, boxWidth, getHeight() - 4);
