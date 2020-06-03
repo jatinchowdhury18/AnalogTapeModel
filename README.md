@@ -35,6 +35,8 @@ CHOW Tape is currently available in the following formats:
 ## Instructions For Building
 If you would like to try the most recent builds (potentially unstable),
 see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/master/Plugin/Bin).
+If you need a build that is compatible with Mac OS Catalina, try
+[this link](https://www.dropbox.com/s/n14b1ju8kofp71v/CHOWTape.zip).
 If you would like to build CHOW for yourself, use the following steps.
 
 - Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)

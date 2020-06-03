@@ -23,7 +23,7 @@ public:
     
     int getNumPresets() const { return presets.size(); }
     String getPresetName (int idx);
-    void setPreset (AudioProcessorValueTreeState& vts, int idx);
+    bool setPreset (AudioProcessorValueTreeState& vts, int idx);
 
     void registerPresetsComponent (foleys::MagicGUIBuilder&, AudioProcessor* proc);
     void presetUpdated() { listeners.call (&Listener::presetUpdated); }
