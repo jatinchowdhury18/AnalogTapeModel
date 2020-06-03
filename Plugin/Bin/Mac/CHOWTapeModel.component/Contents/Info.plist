@@ -10,7 +10,7 @@
 			<key>factoryFunction</key>
 			<string>CHOWTapeModelAUFactory</string>
 			<key>manufacturer</key>
-			<string>Manu</string>
+			<string>Chow</string>
 			<key>name</key>
 			<string>chowdsp: CHOWTapeModel</string>
 			<key>resourceUsage</key>
@@ -25,7 +25,7 @@
 			<key>type</key>
 			<string>aufx</string>
 			<key>version</key>
-			<integer>131328</integer>
+			<integer>131840</integer>
 		</dict>
 	</array>
 	<key>BuildMachineOSBuild</key>
@@ -41,7 +41,7 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1.0</string>
+	<string>2.3.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleSupportedPlatforms</key>
@@ -49,7 +49,7 @@
 		<string>MacOSX</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2.1.0</string>
+	<string>2.3.0</string>
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>

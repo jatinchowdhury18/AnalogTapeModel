@@ -101,8 +101,8 @@ script:
       cd $TRAVIS_BUILD_DIR/
       curl -L "https://github.com/Tracktion/pluginval/releases/download/v0.2.3/pluginval_macOS.zip" -o pluginval.zip
       unzip pluginval
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
+      pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
+      pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
     fi
   # - |
   #   if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
@@ -116,7 +116,7 @@ script:
     if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
       curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
       unzip pluginval
-      ./pluginval --strictness-level 5 --validate-in-process --timeout-ms 300000 --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/LinuxMakefile/build/CHOWTapeModel.so" || exit 1
+      ./pluginval --strictness-level 5 --validate-in-process --timeout-ms 500000 --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/LinuxMakefile/build/CHOWTapeModel.so" || exit 1
     fi
 
   - echo "SUCCESS"
@@ -126,12 +126,13 @@ script:
 #     if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
 #       echo "Copying Files..."
 #       cd $TRAVIS_BUILD_DIR/
+#       rm -R Plugin/Bin/Mac/CHOWTapeModel.*
 #       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
-#       cp -R /Users/travis/Library/Audio/Plug-Ins/Components/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
-#       cp -R /Users/travis/Library/Audio/Plug-Ins/VST/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
-#       cp -R /Users/travis/Library/Audio/Plug-Ins/VST3/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
+#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
 
-#       zip -r $TRAVIS_BUILD_DIR/Plugin/Bin/MacBuilds.zip $TRAVIS_BUILD_DIR/Plugin/Bin/Mac
+#       zip -r $TRAVIS_BUILD_DIR/Plugin/Bin/MacBuilds.zip $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
 
 #       echo "Setting Up Git..."
 #       git config --global user.email "travis@travis-ci.org"
