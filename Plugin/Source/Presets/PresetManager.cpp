@@ -162,16 +162,6 @@ void PresetManager::loadPresets()
     maxIdx++;
 }
 
-void PresetManager::timerCallback()
-{ 
-    stopTimer();
-}
-
-void PresetManager::processorLoadingState()
-{
-    startTimer (500);
-}
-
 String PresetManager::getPresetName (int idx)
 {
     jassert (isPositiveAndBelow (idx, presets.size()));
@@ -180,9 +170,6 @@ String PresetManager::getPresetName (int idx)
 
 bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
 {
-    if (isTimerRunning()) // host is loading state
-        return false;
-
     if (! isPositiveAndBelow (idx, presets.size())) // invalid index
     {
         jassertfalse;

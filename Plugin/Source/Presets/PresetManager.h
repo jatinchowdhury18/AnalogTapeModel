@@ -13,7 +13,7 @@ struct Preset
 };
 
 //====================================================
-class PresetManager : public Timer
+class PresetManager
 {
 public:
     PresetManager();
@@ -36,9 +36,6 @@ public:
 
     void addListener (Listener* l) { listeners.add (l); }
     void removeListener (Listener* l) { listeners.remove (l); }
-
-    void timerCallback() override;
-    void processorLoadingState();
 
 private:
     HashMap<int, Preset*> presetMap;

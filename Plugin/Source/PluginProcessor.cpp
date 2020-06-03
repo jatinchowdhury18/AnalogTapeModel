@@ -107,6 +107,8 @@ int ChowtapeModelAudioProcessor::getCurrentProgram()
 void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
     auto& presetParam = *vts.getRawParameterValue ("preset");
+    if ((int) presetParam == index)
+        return;
     
     if (presetManager.setPreset (vts, index))
     {
@@ -238,8 +240,6 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    presetManager.processorLoadingState();
-
     MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
     presetManager.presetUpdated();
