@@ -46,8 +46,8 @@ public:
         fs = sampleRate;
         fadeBuffer.resize (samplesPerBlock);
 
-        fsFactor = (int) (fs / 44100.0f);
-        const int curOrder = order * fsFactor;
+        fsFactor = (float) fs / 44100.0f;
+        const int curOrder = int(order * fsFactor);
         filters.clear();
         filters.add (new FIRFilter (curOrder));
         filters.add (new FIRFilter (curOrder));
@@ -71,8 +71,8 @@ public:
     void calcCoefs()
     {
         // Set freq domain multipliers
-        int curOrder = order * fsFactor;
-        binWidth = fs / (float) curOrder;
+        float curOrder = order * fsFactor;
+        binWidth = fs / curOrder;
         std::unique_ptr<float[]> H (new float[curOrder]);
         for (int k = 0; k < curOrder / 2; k++)
         {
@@ -172,7 +172,7 @@ private:
     float prevGap;
 
     float fs = 44100.0f;
-    int fsFactor = (int) (fs / 44100.0f);
+    float fsFactor =  1.0f;
     float binWidth = fs / 100.0f;
 
     const int order;
