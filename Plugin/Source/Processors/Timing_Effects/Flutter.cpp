@@ -67,11 +67,11 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
 {
     ScopedNoDenormals noDenormals;
 
-    auto curDepthWow = powf (*wowDepth, 0.5f);
+    auto curDepthWow = powf (*wowDepth, 3.0f);
     depthSlewWow[0].setTargetValue (jmax (depthSlewMin, curDepthWow));
     depthSlewWow[1].setTargetValue (jmax (depthSlewMin, curDepthWow));
 
-    auto curDepthFlutter = powf (*flutterDepth * 81.0f / 625.0f, 0.5f);
+    auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     depthSlewFlutter[0].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
     depthSlewFlutter[1].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
 

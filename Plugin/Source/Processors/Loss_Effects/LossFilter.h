@@ -44,7 +44,7 @@ public:
     void prepare (float sampleRate, int samplesPerBlock)
     {
         fs = sampleRate;
-        fadeBuffer.resize (samplesPerBlock);
+        fadeBuffer.setSize (1, samplesPerBlock);
 
         fsFactor = (float) fs / 44100.0f;
         const int curOrder = int (order * fsFactor);
@@ -121,10 +121,14 @@ public:
         }
 
         if (fadeCount > 0)
-            for (int n = 0; n < numSamples; ++n)
-                fadeBuffer.setUnchecked (n, buffer[n]);
+        {
+            fadeBuffer.setSize (1, numSamples, false, false, true);
+            fadeBuffer.copyFrom (0, 0, buffer, numSamples);
+        }
         else
+        {
             filters[! activeFilter]->processBypassed (buffer, numSamples);
+        }
         
         if (! starting)
             filters[activeFilter]->process (buffer, numSamples);
@@ -136,12 +140,13 @@ public:
         
         if (fadeCount > 0)
         {
-            filters[! activeFilter]->process (fadeBuffer.getRawDataPointer(), numSamples);
+            auto* fadePtr = fadeBuffer.getWritePointer (0);
+            filters[! activeFilter]->process (fadePtr, numSamples);
         
             for (int n = 0; n < numSamples; ++n)
             {
                 float mult = (float) fadeCount / (float) fadeLength;
-                buffer[n] = buffer[n] * mult + fadeBuffer[n] * (1.0f - mult);
+                buffer[n] = buffer[n] * mult + fadePtr[n] * (1.0f - mult);
         
                 fadeCount--;
                 if (fadeCount == 0)
@@ -158,7 +163,7 @@ private:
     int activeFilter = 0;
     int fadeCount = 0;
     const int fadeLength = 512;
-    Array<float> fadeBuffer;
+    AudioBuffer<float> fadeBuffer;
     bool starting = false;
 
     std::atomic<float>* speed = nullptr;
