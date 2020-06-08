@@ -13,7 +13,7 @@
     <PARAM id="gap" value="9.999999974752427e-7"/>
     <PARAM id="ingain" value="0.0"/>
     <PARAM id="os" value="1.0"/>
-    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="outgain" value="-3.5"/>
     <PARAM id="rate" value="0.2999999821186066"/>
     <PARAM id="sat" value="1.0"/>
     <PARAM id="spacing" value="0.002999998396262527"/>
