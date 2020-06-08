@@ -9,8 +9,7 @@ implemented as an audio plugin. The physical model is described
 in a [paper](http://dafx2019.bcu.ac.uk/papers/DAFx2019_paper_3.pdf)
 presented at the 2019 DAFx conference. This work began part of a
 class project for [Music 420](https://ccrma.stanford.edu/courses/420/)
-at Stanford University (CCRMA). Download the latest release
-[here](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest).
+at Stanford University (CCRMA).
 
 ## Definition
 **magnetic tape** noun<br/>
@@ -32,11 +31,20 @@ CHOW Tape is currently available in the following formats:
   - AU
   - Standalone plugin
 
-## Instructions For Building
+## Installation
+
+Download the latest release
+[here](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest).
 If you would like to try the most recent builds (potentially unstable),
 see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/master/Plugin/Bin).
 If you need a build that is compatible with Mac OS Catalina, try
 [this link](https://www.dropbox.com/s/n14b1ju8kofp71v/CHOWTape.zip).
+
+Note for FL Studio users: If you're experiencing pops and click while using
+the plugin, try enabling the "used fixed size buffers" setting. For more
+information, see this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/17#issuecomment-640199581).
+
+### Instructions For Building
 If you would like to build CHOW for yourself, use the following steps.
 
 - Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
