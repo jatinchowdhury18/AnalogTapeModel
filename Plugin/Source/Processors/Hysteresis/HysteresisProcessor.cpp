@@ -117,6 +117,12 @@ void HysteresisProcessor::releaseResources()
         overSample[i]->reset();
 }
 
+float HysteresisProcessor::getLatencySamples() const noexcept
+{
+    // latency of oversampling + 1/2 sample latency from Runge-Kutta
+    return overSample[(int) *osParam]->getLatencyInSamples() + 0.5f;
+}
+
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
     setDrive (*driveParam);
