@@ -23,6 +23,8 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
+    float getLatencySamples() const noexcept;
+
     void setDrive (float newDrive);
     void setSaturation (float newSat);
     void setWidth (float newWidth);
