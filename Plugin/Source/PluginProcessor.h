@@ -18,6 +18,7 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
+#include "Processors/Timing_Effects/DelayProcessor.h"
 #include "Presets/PresetManager.h"
 
 //==============================================================================
@@ -51,6 +52,7 @@ public:
     bool producesMidi() const override;
     bool isMidiEffect() const override;
     double getTailLengthSeconds() const override;
+    float calcLatencySamples() const noexcept;
 
     //==============================================================================
     int getNumPrograms() override;
@@ -76,6 +78,7 @@ private:
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     DryWetProcessor dryWet;
+    DelayProcessor dryDelay[2];
     GainProcessor outGain;
 
     AudioBuffer<float> dryBuffer;

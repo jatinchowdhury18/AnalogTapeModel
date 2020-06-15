@@ -131,13 +131,18 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
+
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate);
     
     for (int ch = 0; ch < 2; ++ch)
+    {
+        dryDelay[ch].prepareToPlay (sampleRate, samplesPerBlock);
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+    }
     
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
@@ -147,11 +152,18 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet"));
     dryWet.reset();
     dryBuffer.setSize (2, samplesPerBlock);
+
+    setLatencySamples (roundToInt (calcLatencySamples()));
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
 {
     hysteresis.releaseResources();
+}
+
+float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
+{
+    return hysteresis.getLatencySamples();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -199,6 +211,17 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
+    // delay dry buffer to avoid phase issues
+    setLatencySamples (roundToInt (calcLatencySamples()));
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    {
+        auto* dryPtr = dryBuffer.getWritePointer (ch);
+        dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) getSampleRate());
+        
+        for (int n = 0; n < dryBuffer.getNumSamples(); ++n)
+            dryPtr[n] = dryDelay[ch].delay (dryPtr[n]);
+    }
+
     dryWet.processBlock (dryBuffer, buffer);
     outGain.processBlock (buffer, midiMessages);
     

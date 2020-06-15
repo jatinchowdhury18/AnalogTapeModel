@@ -1,12 +1,5 @@
 #include "DelayProcessor.h"
 
-void DelayProcessor::setReadPtr (int maxLength)
-{
-    readPtr++;
-    if (readPtr >= maxLength) //wrap
-        readPtr = 0;
-}
-
 void DelayProcessor::setLengthMs (double lengthMs, bool force)
 {
     auto newLength = lengthMs * sampleRate / 1000.0;
@@ -48,36 +41,4 @@ void DelayProcessor::process (float* buffer, int numSamples)
 {
     for (int n = 0; n < numSamples; n++)
         buffer[n] += delay (buffer[n]);
-}
-
-float DelayProcessor::delay (float x)
-{  
-    // Erase head
-    const int erasePtr = negativeAwareModulo (readPtr - 1, bufferSize);
-    delayBuffer.setSample (0, erasePtr, 0.0f);
-
-    // Write head
-    const float len = length.getNextValue();
-
-    float y = x;
-    if (len > 0)
-    {
-        // Read head
-        y = delayBuffer.getSample (0, readPtr);
-
-        // write ptr
-        const float fractionSample = len - (int) len;
-        const int writePtr = (readPtr + (int) floorf (len)) % bufferSize;
-
-        // feedback
-        float writeSample = x + y * feedback;
-
-        delayBuffer.addSample (0, writePtr, writeSample * (1.0f - fractionSample));
-        delayBuffer.addSample (0, (writePtr + 1) % bufferSize, writeSample * fractionSample);
-    }
-
-    //update pointers
-    setReadPtr (bufferSize);
-
-    return y;
 }
