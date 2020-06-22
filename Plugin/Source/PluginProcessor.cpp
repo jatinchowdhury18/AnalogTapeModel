@@ -31,7 +31,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
     
-    scope = magicState.addPlotSource ("scope", std::make_unique<foleys::MagicOscilloscope>());
+    scope = magicState.createAndAddObject<foleys::MagicOscilloscope> ("scope");
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -236,9 +236,9 @@ bool ChowtapeModelAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
-    auto builder = std::make_unique<foleys::MagicGUIBuilder> (&magicState);
+    auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
-    presetManager.registerPresetsComponent (*builder, this);
+    presetManager.registerPresetsComponent (*builder);
 
 #if SAVE_PRESETS // Add button to save new presets
     magicState.addTrigger ("savepreset", [=]

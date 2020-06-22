@@ -12,15 +12,19 @@
               file="Source/GUI/preset_save_gui.xml"/>
       </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
-        <FILE id="ihP3jp" name="Default.xml" compile="0" resource="1" file="Source/Presets/Default.xml"/>
-        <FILE id="b5EimY" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/LoFi.xml"/>
-        <FILE id="MQFCLN" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/OldTape.xml"/>
+        <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
+          <FILE id="AymGjK" name="Default.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.xml"/>
+          <FILE id="zlTcrf" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.xml"/>
+          <FILE id="drwXrv" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/OldTape.xml"/>
+          <FILE id="O4vt7g" name="TC260.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/TC260.xml"/>
+          <FILE id="FkbdSt" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Underbiased.xml"/>
+          <FILE id="wf7iTS" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/WoozyChorus.xml"/>
+        </GROUP>
+        <FILE id="ByxTdI" name="PresetComp.cpp" compile="1" resource="0" file="Source/Presets/PresetComp.cpp"/>
+        <FILE id="jFQg5e" name="PresetComp.h" compile="0" resource="0" file="Source/Presets/PresetComp.h"/>
         <FILE id="u8p0u2" name="PresetManager.cpp" compile="1" resource="0"
               file="Source/Presets/PresetManager.cpp"/>
         <FILE id="hN3w9Y" name="PresetManager.h" compile="0" resource="0" file="Source/Presets/PresetManager.h"/>
-        <FILE id="kNY0o3" name="TC260.xml" compile="0" resource="1" file="Source/Presets/TC260.xml"/>
-        <FILE id="UtYbHz" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/Underbiased.xml"/>
-        <FILE id="Sa9RRP" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/WoozyChorus.xml"/>
       </GROUP>
       <GROUP id="{43BBFC88-4D0A-01B8-2635-3748470B94F4}" name="Processors">
         <GROUP id="{2F544AA2-63D9-E54A-A753-2E6249E85E60}" name="Chew">
