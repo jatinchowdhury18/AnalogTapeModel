@@ -25,7 +25,7 @@ public:
     String getPresetName (int idx);
     bool setPreset (AudioProcessorValueTreeState& vts, int idx);
 
-    void registerPresetsComponent (foleys::MagicGUIBuilder&, AudioProcessor* proc);
+    void registerPresetsComponent (foleys::MagicGUIBuilder&);
     void presetUpdated() { listeners.call (&Listener::presetUpdated); }
 
     struct Listener
