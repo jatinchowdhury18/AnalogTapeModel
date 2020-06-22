@@ -39,36 +39,19 @@ If you would like to try the most recent builds (potentially unstable),
 see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/master/Plugin/Bin).
 If you need a build that is compatible with Mac OS Catalina, try
 [this link](https://www.dropbox.com/s/n14b1ju8kofp71v/CHOWTape.zip).
+If you prefer to build the plugin for yourself, please see the
+[building instructions](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md).
 
 Note for FL Studio users: If you're experiencing pops and click while using
 the plugin, try enabling the "used fixed size buffers" setting. For more
 information, see this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/17#issuecomment-640199581).
 
-### Instructions For Building
-If you would like to build CHOW for yourself, use the following steps.
+## Contributing
 
-- Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- Run the following git commands:
-  ```bash
-  # Clone the repository
-  git clone --recursive https://github.com/jatinchowdhury18/AnalogTapeModel.git
-  
-  # Enter the repository
-  cd AnalogTapeModel/Plugin
-  
-  # Initialize JUCE submodule
-  git submodule update --init --recursive
-  ```
-- Navigate to "JUCE/extras/Projucer/Builds/"
-- Build the Projucer using XCode (Mac), Visual Studio (Windows), or Makefile (Linux)
-- From the Projucer, open CHOWTapeModel.jucer
-- From the "File" menu, open "Global Paths..."
-  - Set "Path To JUCE" to "...\Plugin\JUCE"
-  - Set "JUCE Modules" to "...\Plugin\JUCE\modules"
-  - Set "VST (Legacy) SDK" to "...\Plugin\JUCE\VST2_SDK"
-  - Close "Global Paths" window
-- Select "Save and open in IDE"
-- Build CHOW Tape
+Contributions are most welcome! There are many ways to contribute to this 
+project, for both programmers and non-programmers. For more information,
+see the
+[contributing guidelines](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md).
 
 ## License
 CHOW Tape is licensed under the GNU General Public License agreement. Enjoy!
