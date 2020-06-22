@@ -68,6 +68,8 @@ public:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     AudioProcessorValueTreeState& getVTS() { return vts; }
 
+    PresetManager& getPresetManager() { return presetManager; }
+
 private:
     AudioProcessorValueTreeState vts;
 

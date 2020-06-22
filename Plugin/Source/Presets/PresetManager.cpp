@@ -1,5 +1,6 @@
 #include "PresetManager.h"
 #include "../PluginProcessor.h"
+#include "PresetComp.h"
 
 Preset::Preset (String presetFile)
 {
@@ -28,102 +29,6 @@ Preset::Preset (String presetFile)
             index = (int) child.getProperty ("value");
     }
 }
-
-//====================================================
-class PresetComp : public Component,
-                   private PresetManager::Listener
-{
-public:
-    PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager) :
-        proc (proc),
-        manager (manager)
-    {
-        manager.addListener (this);
-
-        addAndMakeVisible (presetBox);
-        presetBox.setJustificationType (Justification::centred);
-        presetBox.setColour (ComboBox::ColourIds::backgroundColourId, Colours::transparentWhite);
-        presetBox.addItemList (manager.getPresetChoices(), 1);
-        presetBox.setColour (PopupMenu::ColourIds::backgroundColourId, Colour (0xFF434352));
-
-        presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-        presetBox.onChange  = [=, &proc, &manager] { proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
-    }
-
-    ~PresetComp()
-    {
-        manager.removeListener (this);
-    }
-
-    void paint (Graphics& g) override
-    {
-        Colour background (0xFF434352);
-        g.fillAll (background);
-
-        g.setColour (Colours::white);
-        g.setFont (getHeight() * 0.6f);
-        auto presetBounds = presetBox.getBounds();
-        presetBounds.setWidth (100);
-        presetBounds.translate (-110, 0);
-        g.drawFittedText ("Presets:", presetBounds, Justification::centredRight, 1);
-
-        g.setFont (getHeight() * 0.4f);
-        auto versionBounds = getLocalBounds().removeFromRight (50);
-        g.drawFittedText ("v" + String (JucePlugin_VersionString), versionBounds, Justification::centred, 1);
-    }
-
-    void resized() override
-    {
-        auto boxWidth = jmin (getWidth() / 3, 200);
-        presetBox.setBounds ((getWidth() - boxWidth) / 2, 2, boxWidth, getHeight() - 4);
-        repaint();
-    }
-
-    void presetUpdated() override
-    {
-        presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-    }
-
-private:
-    class CustomComboBox : public ComboBox
-    {
-    public:
-        CustomComboBox (const String& name = {}) :
-            ComboBox (name)
-        {
-            setLookAndFeel (&comboLNF);
-        }
-
-        ~CustomComboBox()
-        {
-            setLookAndFeel (nullptr);
-        }
-
-    private:
-        class ComboLNF : public LookAndFeel_V4
-        {
-            void drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
-                const bool isSeparator, const bool isActive,
-                const bool isHighlighted, const bool /*isTicked*/,
-                const bool hasSubMenu, const String& text,
-                const String& shortcutKeyText,
-                const Drawable* icon, const Colour* const textColourToUse) override
-            {
-                LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive,
-                    isHighlighted, false /*isTicked*/, hasSubMenu, text,
-                    shortcutKeyText, icon, textColourToUse);
-            }
-        };
-
-        ComboLNF comboLNF;
-    };
-
-    ChowtapeModelAudioProcessor& proc;
-    PresetManager& manager;
-    CustomComboBox presetBox;    
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
-};
 
 //====================================================
 PresetManager::PresetManager()
@@ -181,13 +86,8 @@ bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
     return true;
 }
 
-void PresetManager::registerPresetsComponent (foleys::MagicGUIBuilder& builder, AudioProcessor* proc)
+void PresetManager::registerPresetsComponent (foleys::MagicGUIBuilder& builder)
 {
-    auto procCast = dynamic_cast<ChowtapeModelAudioProcessor*> (proc);
-
     static Identifier presetsID { "presets" };
-    builder.registerFactory (presetsID, [=] (const ValueTree&)
-    {
-        return std::make_unique<PresetComp> (*procCast, *this);
-    });
+    builder.registerFactory (presetsID, &PresetComponentItem::factory);
 }
