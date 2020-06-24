@@ -8,9 +8,9 @@ MSBuild.exe -v:quiet -t:rebuild -p:Configuration=Release -p:Platform=x64 CHOWTap
 
 echo "Building 32-bit..."
 MSBuild.exe -v:quiet -t:rebuild -p:Configuration=Release32 -p:Platform=Win32 CHOWTapeModel.sln
+cd ../../
 
 echo "Copying Files..."
-cd ../../
 cp Builds/VisualStudio2017/x64/Release/VST/CHOWTapeModel.dll Bin/Win64/
 cp Builds/VisualStudio2017/x64/Release/VST3/CHOWTapeModel.vst3 Bin/Win64/
 cp Builds/VisualStudio2017/x64/Release/Standalone\ Plugin/CHOWTapeModel.exe Bin/Win64/
