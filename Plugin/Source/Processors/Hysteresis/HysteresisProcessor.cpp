@@ -13,6 +13,8 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     widthParam = vts.getRawParameterValue ("width");
     osParam = vts.getRawParameterValue ("os");
 
+    delayParam = vts.getRawParameterValue ("delay_factor");
+
     for (int i = 0; i < 5; ++i)
         overSample[i] = std::make_unique<dsp::Oversampling<float>>
             (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
@@ -31,6 +33,8 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("drive", "Drive", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Saturation", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Bias", 0.0f, 1.0f, 0.5f));
+
+    params.push_back (std::make_unique<AudioParameterFloat> ("delay_factor", "Delay", 0.0f, 16.0f, 4.0f));
 
     params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
 }
@@ -119,8 +123,8 @@ void HysteresisProcessor::releaseResources()
 
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
-    // latency of oversampling + 1/2 sample latency from Runge-Kutta
-    return overSample[(int) *osParam]->getLatencyInSamples() + 0.5f;
+    // latency of oversampling + fudge factor for Runge-Kutta and hysteresis
+    return overSample[(int) *osParam]->getLatencyInSamples() + 1.65f;
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
