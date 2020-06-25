@@ -10,7 +10,7 @@
         <group margin="5" padding="5" border="2" flex-direction="column"/>
       </Classes>
       <Types>
-        <Slider border="0" slider-type="rotary" slider-textbox="textbox-below"/>
+        <Slider border="0" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
         <ToggleButton border="0" max-height="50" caption-size="0" text="Active"/>
         <TextButton border="0" max-height="50" caption-size="0"/>
         <ComboBox border="0" max-height="50" caption-size="0"/>
@@ -33,19 +33,19 @@
       <View flex-direction="column" margin="5" padding="">
         <Label max-height="5"/>
         <Slider caption="Input Gain [dB]" parameter="ingain" slider-textbox="textbox-below"
-                slider-type="rotary" max-height="160"/>
+                slider-type="rotary-horizontal-vertical" max-height="160"/>
         <ComboBox caption="Oversampling" parameter="os" max-height="70"/>
         <Slider caption="Dry/Wet" parameter="drywet" slider-textbox="textbox-below"
-                slider-type="rotary" max-height="170"/>
+                slider-type="rotary-horizontal-vertical" max-height="170"/>
         <Slider caption="Output Gain [dB]" parameter="outgain" slider-textbox="textbox-below"
-                slider-type="rotary" max-height="170"/>
+                slider-type="rotary-horizontal-vertical" max-height="170"/>
       </View>
       <View flex-direction="column" tab-color="">
         <Label max-height="40" text="Hysteresis" font-size="18" justification="centred"/>
-        <Slider caption="Bias" parameter="width" slider-type="rotary" slider-textbox="textbox-below"/>
+        <Slider caption="Bias" parameter="width" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
         <Slider caption="Saturation" parameter="sat" slider-textbox="textbox-below"
-                slider-type="rotary"/>
-        <Slider caption="Drive" parameter="drive" slider-type="rotary" slider-textbox="textbox-below"/>
+                slider-type="rotary-horizontal-vertical"/>
+        <Slider caption="Drive" parameter="drive" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
       </View>
       <View display="tabbed" padding="0">
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color=""
@@ -63,34 +63,34 @@
         </View>
         <View tab-caption="Degr." padding="0" flex-direction="column">
           <Label text="Degrade" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="deg_depth" slider-type="rotary" slider-textbox="textbox-below"
+          <Slider parameter="deg_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
                   caption="Depth"/>
-          <Slider caption="Amount" parameter="deg_amt" slider-type="rotary" slider-textbox="textbox-below"/>
-          <Slider parameter="deg_var" slider-type="rotary" slider-textbox="textbox-below"
+          <Slider caption="Amount" parameter="deg_amt" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
+          <Slider parameter="deg_var" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
                   caption="Variance"/>
         </View>
         <View tab-caption="CHEW" padding="0" flex-direction="column">
           <Label text="CHEW" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="chew_depth" slider-type="rotary" slider-textbox="textbox-below"
+          <Slider parameter="chew_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
                   caption="Depth" max-height="180"/>
-          <Slider caption="Frequency" parameter="chew_freq" slider-type="rotary"
+          <Slider caption="Frequency" parameter="chew_freq" slider-type="rotary-horizontal-vertical"
                   slider-textbox="textbox-below" max-height="200"/>
         </View>
       </View>
       <View display="tabbed" padding="0">
         <View tab-caption="Flutter" flex-direction="column">
           <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="depth" slider-type="rotary" slider-textbox="textbox-below"
+          <Slider caption="Depth" parameter="depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
                   max-height="200"/>
           <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
-                  slider-type="rotary" max-height="200"/>
+                  slider-type="rotary-horizontal-vertical" max-height="200"/>
         </View>
         <View tab-caption="Wow" flex-direction="column">
           <Label max-height="40" text="Wow" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary" slider-textbox="textbox-below"
+          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
                   max-height="200"/>
           <Slider caption="Rate" parameter="wow_rate" slider-textbox="textbox-below"
-                  slider-type="rotary" max-height="200"/>
+                  slider-type="rotary-horizontal-vertical" max-height="200"/>
         </View>
       </View>
     </View>
