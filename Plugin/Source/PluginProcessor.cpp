@@ -212,11 +212,18 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
     // delay dry buffer to avoid phase issues
-    setLatencySamples (roundToInt (calcLatencySamples()));
+    const auto latencySamp = roundToInt (calcLatencySamples());
+    setLatencySamples (latencySamp);
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         auto* dryPtr = dryBuffer.getWritePointer (ch);
-        dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) getSampleRate());
+
+        // For "true bypass" use integer sample delay to avoid delay
+        // line interpolation freq. response issues
+        if (dryWet.getDryWet() < 0.2f)
+            dryDelay[ch].setLengthMs (1000.0f * latencySamp / (float) getSampleRate());
+        else
+            dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) getSampleRate());
         
         for (int n = 0; n < dryBuffer.getNumSamples(); ++n)
             dryPtr[n] = dryDelay[ch].delay (dryPtr[n]);

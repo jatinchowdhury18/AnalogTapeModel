@@ -35,6 +35,7 @@ private:
     std::atomic<float>* satParam = nullptr;
     std::atomic<float>* widthParam = nullptr;
     std::atomic<float>* osParam = nullptr;
+    std::atomic<float>* delayParam = nullptr;
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> drive[2];
     SmoothedValue<float, ValueSmoothingTypes::Linear> width[2];
