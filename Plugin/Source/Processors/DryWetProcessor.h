@@ -10,6 +10,7 @@ public:
     DryWetProcessor() {}
 
     void setDryWet (float newDryWet) { dryWet = newDryWet; }
+    float getDryWet() const noexcept { return dryWet; }
 
     void reset() { lastDryWet = dryWet; }
 
