@@ -4,7 +4,7 @@
 #include "JuceHeader.h"
 
 /*
-    Hysteresis processing for a model of a Sowter 3575f Transformer.
+    Hysteresis processing for a model of an analog tape machine.
     For more information on the DSP happening here, see:
     https://ccrma.stanford.edu/~jatin/420/tape/TapeModel_DAFx.pdf
 */
