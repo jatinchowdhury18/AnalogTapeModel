@@ -36,7 +36,7 @@ These can be installed with the following command:
 sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev webkit2gtk-4.0 freeglut3-dev libjack-jackd2-dev
 ```
 
-Then to build the plugin (Standalone, VST/ LV2), simply run
+Then to build the plugin (Standalone, VST/ LV2), run
 ```
 cd Plugin/ && bash build_linux.sh
 ```
