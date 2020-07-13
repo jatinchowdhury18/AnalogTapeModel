@@ -23,7 +23,7 @@ $(JUCE_OUTDIR_LV2)/$(JUCE_TARGET_LV2) : check-pkg-config $(OBJECTS_LV2) $(RESOUR
 	-$(V_AT)mkdir -p $(JUCE_LIBDIR)
 	-$(V_AT)mkdir -p $(JUCE_OUTDIR_LV2)
 	$(V_AT)$(CXX) -o $(JUCE_OUTDIR_LV2)/$(JUCE_TARGET_LV2) $(OBJECTS_LV2) $(JUCE_OUTDIR)/$(JUCE_TARGET_SHARED_CODE) $(JUCE_LDFLAGS) $(JUCE_LDFLAGS_LV2) $(RESOURCES) $(TARGET_ARCH)
-	python3 ../../generate-lv2-ttl.py $(JUCE_OUTDIR_LV2)/$(JUCE_TARGET_LV2)
+	python3 ../../linux_utils/generate-lv2-ttl.py $(JUCE_OUTDIR_LV2)/$(JUCE_TARGET_LV2)
 
 -include $(OBJECTS_LV2:%.o=%.d)
 
