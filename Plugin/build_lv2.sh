@@ -19,6 +19,7 @@ sed "s/_juce_target_/CHOWTapeModel/g" LV2.mak.in >LV2.mak
 PJ=./Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer
 
 $PJ --set-global-search-path linux defaultJuceModulePath Juce/modules
+$PJ --set-global-search-path linux vstLegacyPath Juce/VST2_SDK
 $PJ --resave CHOWTapeModel.jucer
 echo "include ../../LV2.mak" >> Builds/LinuxMakefile/Makefile
 
