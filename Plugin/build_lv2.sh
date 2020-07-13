@@ -10,14 +10,6 @@ lv2uri="https://github.com/jatinchowdhury18/AnalogTapeModel"
 sed "s/_lv2uri_pattern_/${lv2uri//\//\\/}/g" JuceLibraryCode/AppConfig.h.in >JuceLibraryCode/AppConfig.h
 sed "s/_juce_target_/CHOWTapeModel/g" LV2.mak.in >LV2.mak
 
-#############################################
-### Launch a virtual framebuffer X server ###
-#############################################
-# export DISPLAY=${X_display}
-# Xvfb %{X_display} >& Xvfb.log &
-# trap "kill $! || true" EXIT
-# sleep 10
-
 # build Projucer
 (
     cd Juce/extras/Projucer/Builds/LinuxMakefile

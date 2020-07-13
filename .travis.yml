@@ -6,27 +6,10 @@ sudo: false
 
 # if pull request: always build
 # if push: only build for master branch
-if: (type != push) OR (type = push AND branch = master)
+if: (type != push) OR (type = push AND branch = lv2)
 
 matrix:
   include:
-    #- name: "unit-tests"
-    #  os: osx
-    #  env:
-    #    - BUILD_FOLDER="MacOSX"
-    #    - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer" 
-    - name: "osx"
-      os: osx
-      env:
-        - BUILD_FOLDER="MacOSX"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
-        - secure: VjjlWj4TxFpDrbKDKkhkbsAMZs8sf3QAhD5BcPZAyYkaTmP7RdW77z56c5hpucK01hGNZxLhrlc/0ziNOJqGNwO0tJwR4KYSfZ7xhgljC4NKdTfb5vlBseqvWXNQfIurfYjh2m95/XbAYM+v42i7N+Htf+G/DBmjVgsLGDILt4pV2BojAXVxywrenzlM4khcG8g3Q+TxuaVop5zgT6vmF4F0/HOFRIlOiancDHXHKMeyC9ms6+M/k2FjTW6k96n2JRtI3y7Gzhbs1o3BG+dtN6le3pmSaGmRjqzMuwiC2TZg612tb9FA7+2XdsRavjkKzEHmHvYPrlu7OwwQJ9v2Am6PNn7oPnIk6a8EIUnaj3PXOvE99SdF7xNUN40IR5dqoan0p7hecZGktMeoWkWRnMNGrGRR2X827NnxFTEE2N87djRJ9UT2I4kCfRjqHNePQEl1RVGajLJGiZL2ZiHY7SRYv2apv2e8ovSEZhbQs9euZXhkujCVFtsKep5139WHVXuB+iGDKrYRfkTiAZeRs5aZ4os2C2CHH6rffHZTGXl2e4NW23PEejueXuJof6svVL0Jc50MnVY/F1Hl5Tcp471VOFTM5SXQm3ApL655rdKr07RKIf9YzE3eb1VrHmiL0CH7LxN09Z63/M0s+RlkEvxHlQFsy5Ph66FfuPW24bc=
-    - name: "win"
-      os: windows
-      env:
-        - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
-        - BUILD_FOLDER="VisualStudio2017"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
     - name: "linux"
       os: linux
       dist: xenial
@@ -60,88 +43,7 @@ matrix:
         - BUILD_FOLDER="LinuxMakefile"
         - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
 
-before_install:
-  # mac installs
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then gem install xcpretty; fi
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then gem install xcpretty-travis-formatter; fi
-  # windows setup msbuild path
-  - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then export PATH=$MSBUILD_PATH:$PATH; fi
-
-  # Build Projucer
-  - cd $TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/$BUILD_FOLDER
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project Projucer.xcodeproj > /dev/null; fi
-  - if [[ $TRAVIS_OS_NAME == 'windows' ]]; then msbuild.exe -v:quiet Projucer.sln; fi
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make; fi
-
 script:
   - cd $TRAVIS_BUILD_DIR/Plugin/
-  - export PROJUCER=$PROJUCER_EXPORT
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME defaultJuceModulePath  $TRAVIS_BUILD_DIR/Plugin/Juce/modules
-  - $PROJUCER --set-global-search-path $TRAVIS_OS_NAME vstLegacyPath $TRAVIS_BUILD_DIR/Plugin/Juce/VST2_SDK
-  - $PROJUCER --resave CHOWTapeModel.jucer
-  - cd $TRAVIS_BUILD_DIR/Plugin/Builds/$BUILD_FOLDER/
-
-  - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ clean; fi
-  - if [[ $TRAVIS_JOB_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release | xcpretty -s -f `xcpretty-travis-formatter`; fi
-  - if [[ $TRAVIS_JOB_NAME == 'win' ]]; then msbuild.exe -v:normal CHOWTapeModel.sln; fi
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make clean; fi
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make CONFIG=Release; fi
-
-  #- |
-  #  if [[ $TRAVIS_JOB_NAME == 'unit-tests' ]]; then 
-  #    xcodebuild -project NewMixer.xcodeproj/ -configuration Debug | xcpretty -s -f `xcpretty-travis-formatter`
-  #    cd build/Debug/NewMixer.app/Contents/MacOS
-  #    ./NewMixer --unit-tests
-  #  fi
-
-  # Pluginval
-  - |
-    if [[ $TRAVIS_OS_NAME == 'osx' ]]; then
-      echo "Validating plugin"
-      cd $TRAVIS_BUILD_DIR/
-      curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip" -o pluginval.zip
-      unzip pluginval
-      pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3" || exit 1
-      # pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component" || exit 1
-    fi
-  # - |
-  #   if [[ $TRAVIS_OS_NAME == 'windows' ]]; then
-  #     echo "Validating plugin"
-  #     cd $TRAVIS_BUILD_DIR/
-  #     choco install pluginval
-  #     pluginval.exe --strictness-level 8 --validate-in-process --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/VisualStudio2017/x64/Debug/VST3/CHOWTapeModel.vst3"
-  #   fi
-  # - |
-  #   if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
-  #     curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_Linux.zip" -o pluginval.zip
-  #     unzip pluginval
-  #     ./pluginval --strictness-level 6 --validate-in-process --timeout-ms 500000 --validate "$TRAVIS_BUILD_DIR/Plugin/Builds/LinuxMakefile/build/CHOWTapeModel.so" || exit 1
-  #   fi
-
+  - bash build_lv2.sh
   - echo "SUCCESS"
-
-# after_success: # upload mac bins
-#   - |
-#     if [[ $TRAVIS_JOB_NAME == 'osx' && type != push ]]; then
-#       echo "Copying Files..."
-#       cd $TRAVIS_BUILD_DIR/
-#       rm -R Plugin/Bin/Mac/CHOWTapeModel.*
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.app $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.app
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.component $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.component
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst
-#       cp -R $TRAVIS_BUILD_DIR/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3 $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/CHOWTapeModel.vst3
-
-#       zip -r $TRAVIS_BUILD_DIR/Plugin/Bin/MacBuilds.zip $TRAVIS_BUILD_DIR/Plugin/Bin/Mac/
-
-#       echo "Setting Up Git..."
-#       git config --global user.email "travis@travis-ci.org"
-#       git config --global user.name "Travis CI"
-
-#       echo "Committing Files..."
-#       git checkout -b builds
-#       git add $TRAVIS_BUILD_DIR/Plugin/Bin/
-#       git commit -m "Travis build- $TRAVIS_BUILD_NUMBER [ci skip]"
-
-#       echo "Pushing to branch..."
-#       git push https://${GH_TOKEN}@github.com/jatinchowdhury18/AnalogTapeModel.git
-#     fi
