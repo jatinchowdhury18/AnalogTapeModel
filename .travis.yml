@@ -22,7 +22,9 @@ matrix:
             - libxcursor-dev
             - libxinerama-dev
             - libxrandr-dev
-            - libfreetype6-dev
+            - webkit2gtk-4.0
+            - freeglut3-dev
+            - libjack-jackd2-dev
       services:
         - xvfb
       env:
