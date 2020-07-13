@@ -22,6 +22,7 @@ matrix:
             - libxcursor-dev
             - libxinerama-dev
             - libxrandr-dev
+            - libfreetype6-dev
       services:
         - xvfb
       env:
