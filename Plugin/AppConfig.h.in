@@ -1,0 +1,7 @@
+// [BEGIN_USER_CODE_SECTION]
+  #define JucePlugin_Build_LV2 1
+  #define JucePlugin_LV2URI "_lv2uri_pattern_"
+  #define JucePlugin_MaxNumInputChannels 2
+  #define JucePlugin_MaxNumOutputChannels 2
+
+// [END_USER_CODE_SECTION]
