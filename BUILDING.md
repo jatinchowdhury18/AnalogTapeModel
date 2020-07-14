@@ -27,13 +27,12 @@ The Linux build utilises the following dependencies:
 - libxcursor
 - libxinerama
 - libxrandr
-- webkit2gtk
 - freeglut3
 - libjack
 
 These can be installed with the following command:
 ```
-sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev webkit2gtk-4.0 freeglut3-dev libjack-jackd2-dev
+sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev freeglut3-dev libjack-jackd2-dev
 ```
 
 Then to build the plugin (Standalone, VST/ LV2), run

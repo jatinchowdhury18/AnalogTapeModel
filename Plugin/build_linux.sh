@@ -1,6 +1,5 @@
 mkdir -p JuceLibraryCode
 cp -f linux_utils/AppConfig.h.in JuceLibraryCode/
-sed -i -e 's/JUCEOPTIONS/JUCEOPTIONS JUCE_JACK="1"/'  CHOWTapeModel.jucer
 
 lv2uri="https://github.com/jatinchowdhury18/AnalogTapeModel"
 sed "s/_lv2uri_pattern_/${lv2uri//\//\\/}/g" JuceLibraryCode/AppConfig.h.in >JuceLibraryCode/AppConfig.h
