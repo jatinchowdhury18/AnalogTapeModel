@@ -10,11 +10,25 @@ if: (type != push) OR (type = push AND branch = master)
 
 matrix:
   include:
-    #- name: "unit-tests"
-    #  os: osx
-    #  env:
-    #    - BUILD_FOLDER="MacOSX"
-    #    - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer" 
+    - name: "linux"
+      os: linux
+      dist: xenial
+      sudo: required
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - libasound2-dev
+            - libxcursor-dev
+            - libxinerama-dev
+            - libxrandr-dev
+            - freeglut3-dev
+            - libjack-jackd2-dev
+      services:
+        - xvfb
+      env:
+        - BUILD_FOLDER="LinuxMakefile"
+        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
     - name: "osx"
       os: osx
       env:
@@ -27,38 +41,6 @@ matrix:
         - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
         - BUILD_FOLDER="VisualStudio2017"
         - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
-    - name: "linux"
-      os: linux
-      dist: xenial
-      sudo: required
-      compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-6
-            - g++-6
-            - freeglut3-dev
-            - g++
-            - libasound2-dev
-            - libcurl4-openssl-dev
-            - libfreetype6-dev
-            - libjack-jackd2-dev
-            - libx11-dev
-            - libxcomposite-dev
-            - libxcursor-dev
-            - libxinerama-dev
-            - libxrandr-dev
-            - mesa-common-dev
-            - ladspa-sdk
-            - webkit2gtk-4.0
-            - libgtk-3-dev
-      services:
-        - xvfb
-      env:
-        - BUILD_FOLDER="LinuxMakefile"
-        - PROJUCER_EXPORT="$TRAVIS_BUILD_DIR/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
 
 before_install:
   # mac installs
@@ -84,15 +66,7 @@ script:
   - if [[ $TRAVIS_OS_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ clean; fi
   - if [[ $TRAVIS_JOB_NAME == 'osx' ]]; then xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release | xcpretty -s -f `xcpretty-travis-formatter`; fi
   - if [[ $TRAVIS_JOB_NAME == 'win' ]]; then msbuild.exe -v:normal CHOWTapeModel.sln; fi
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make clean; fi
-  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then make CONFIG=Release; fi
-
-  #- |
-  #  if [[ $TRAVIS_JOB_NAME == 'unit-tests' ]]; then 
-  #    xcodebuild -project NewMixer.xcodeproj/ -configuration Debug | xcpretty -s -f `xcpretty-travis-formatter`
-  #    cd build/Debug/NewMixer.app/Contents/MacOS
-  #    ./NewMixer --unit-tests
-  #  fi
+  - if [[ $TRAVIS_OS_NAME == 'linux' ]]; then cd ../../ && bash build_linux.sh; fi
 
   # Pluginval
   - |
