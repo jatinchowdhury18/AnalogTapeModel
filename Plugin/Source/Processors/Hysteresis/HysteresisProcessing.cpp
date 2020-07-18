@@ -20,6 +20,13 @@ void HysteresisProcessing::reset()
     nearZero = false;
 }
 
+void HysteresisProcessing::setSampleRate (float newSR)
+{ 
+    fs = newSR;
+    T = 1.0f / fs;
+    Talpha = T / 1.9f;
+}
+
 void HysteresisProcessing::cook (float drive,  float width, float sat)
 {
     M_s = 0.5f + 1.5f * (1.0f - sat);
@@ -28,11 +35,39 @@ void HysteresisProcessing::cook (float drive,  float width, float sat)
 
     nc = 1.0f - c;
     M_s_oa = M_s / a;
+    M_s_oa_talpha = alpha * M_s_oa;
     M_s_oa_tc = c * M_s_oa;
     M_s_oa_tc_talpha = alpha * M_s_oa_tc;
+    M_s_oaSq_tc_talpha = M_s_oa_tc_talpha / a;
+    M_s_oaSq_tc_talphaSq = alpha * M_s_oaSq_tc_talpha;
 }
 
-inline float HysteresisProcessing::cothApprox (float x)
+void HysteresisProcessing::setSolver (SolverType solverType)
+{
+    // defaults
+    numIter = 0;
+    solver = &HysteresisProcessing::NR;
+
+    switch (solverType)
+    {
+    case SolverType::RK4:
+        solver = &HysteresisProcessing::RK4;
+        return;
+
+    case SolverType::NR5:
+        numIter = 5;
+        return;
+
+    case SolverType::NR10:
+        numIter = 10;
+        return;
+
+    default: // RK2
+        solver = &HysteresisProcessing::RK2;
+    };
+}
+
+inline float HysteresisProcessing::cothApprox (float x) const noexcept
 {
     const auto exp_2x = expf (2.0f * x); // expf_approx (2.0f * x);
 
@@ -45,29 +80,31 @@ inline float HysteresisProcessing::cothApprox (float x)
     // return (1.0f + (xSquare / 3.0f)) / x;
 }
 
-inline float HysteresisProcessing::langevin (float x)
+inline float HysteresisProcessing::langevin (float x) const noexcept
 {
     if (! nearZero)
         return (coth) - (1.0f / x);
     else
-        return (x / 3.0f);
+        return x / 3.0f;
 }
 
-inline float HysteresisProcessing::langevinD (float x)
+inline float HysteresisProcessing::langevinD (float x) const noexcept
 {
     if (! nearZero)
         return (1.0f / (x * x)) - (coth * coth) + 1.0f;
     else
-        return (1.0f / 3.0f);
+        return 1.0f / 3.0f;
 }
 
-inline float HysteresisProcessing::deriv (float x_n, float x_n1, float x_d_n1)
+inline float HysteresisProcessing::langevinD2 (float x) const noexcept
 {
-    constexpr float dAlpha = 0.9f;
-    return (((1.0f + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
+    if (! nearZero)
+        return 2.0f * coth * (coth * coth - 1) - (2.0f / (x * x * x));
+    else
+        return -2.0f * x / 15.0f;
 }
 
-inline float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
+inline float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d) noexcept
 {
     Q = (H + alpha * M) / a;
     coth = 1.0f / std::tanh (Q);
@@ -80,40 +117,60 @@ inline float HysteresisProcessing::hysteresisFunc (float M, float H, float H_d)
 
     L_prime = langevinD (Q);
 
-    // const float denominator = 1 - (c * alpha * (M_s / a) * L_prime);
-    // 
-    // const float t1_num = (1 - c) * delta_M * M_diff;
-    // const float t1_den = ((1 - c) * delta * k) - (alpha * M_diff);
-    // const float t1 = (t1_num / t1_den) * H_d;
-    // 
-    // const float t2 = c * (M_s / a) * H_d * L_prime;
-    // 
-    // return (t1 + t2) / denominator;
-    return H_d * (((nc * delta_M * M_diff) / ((nc * delta * k) - (alpha * M_diff))) + (M_s_oa_tc * L_prime)) / (1.0f - (M_s_oa_tc_talpha * L_prime));
+    kap1 = nc * delta_M;
+    f1Denom = nc * delta * k - alpha * M_diff;
+    f1 = kap1 * M_diff / f1Denom;
+    f2 = M_s_oa_tc * L_prime;
+    f3 = 1.0f - (M_s_oa_tc_talpha * L_prime);
+
+    return H_d * (f1 + f2) / f3;
 }
 
-float HysteresisProcessing::M_n (float prevM, float k1, float k2, float k3, float k4)
+inline float HysteresisProcessing::hysteresisFuncPrime (float H_d, float dMdt) noexcept
 {
-    return prevM + (k1 / 6.0f) + (k2 / 3.0f) + (k3 / 3.0f) + (k4 / 6.0f);
+    const float L_prime2 = langevinD2 (Q);
+    const float M_diff2 = M_s_oa_talpha * L_prime - 1.0f;
+
+    const float f1_p = kap1 * ((M_diff2 / f1Denom) + M_diff * alpha * M_diff2 / (f1Denom * f1Denom));
+    const float f2_p = M_s_oaSq_tc_talpha * L_prime2;
+    const float f3_p = -M_s_oaSq_tc_talphaSq * L_prime2;
+
+    return H_d * (f1_p + f2_p) / f3 - dMdt * f3_p / f3;
 }
 
-float HysteresisProcessing::process (float H)
+inline float HysteresisProcessing::RK2 (float H, float H_d) noexcept
 {
-    float H_d = deriv (H, H_n1, H_d_n1);
-
     const float k1 = T * hysteresisFunc (M_n1, H_n1, H_d_n1);
     const float k2 = T * hysteresisFunc (M_n1 + (k1 / 2.0f), (H + H_n1) / 2.0f, (H_d + H_d_n1) / 2.0f);
 
-    float M = M_n1 + k2;
+    return M_n1 + k2;
+}
 
-    if (std::isnan (M) || abs (M) > 20.0f)
+float HysteresisProcessing::RK4 (float H, float H_d) noexcept
+{
+    const float H_1_2 = (H + H_n1) / 2.0f;
+    const float H_d_1_2 = (H_d + H_d_n1) / 2.0f;
+
+    const float k1 = T * hysteresisFunc (M_n1, H_n1, H_d_n1);
+    const float k2 = T * hysteresisFunc (M_n1 + (k1 / 2.0f), H_1_2, H_d_1_2);
+    const float k3 = T * hysteresisFunc (M_n1 + (k2 / 2.0f), H_1_2, H_d_1_2);
+    const float k4 = T * hysteresisFunc (M_n1 + k3, H, H_d);
+
+    return M_n1 + k1 / 6.0f + k2 / 3.0f + k4 / 6.0f;
+}
+
+inline float HysteresisProcessing::NR (float H, float H_d) noexcept
+{
+    float M = M_n1;
+    const float last_dMdt = hysteresisFunc (M_n1, H_n1, H_d_n1);
+    for (int n = 0; n < numIter; ++n)
     {
-        M = 0.0f;
-    }
+        const float dMdt = hysteresisFunc (M, H, H_d);
+        const float dMdtPrime = hysteresisFuncPrime (H_d, dMdt);
 
-    M_n1 = M;
-    H_n1 = H;
-    H_d_n1 = H_d;
+        const float deltaNR = (M - M_n1 - Talpha * (dMdt + last_dMdt)) / (1.0f - Talpha * dMdtPrime);
+        M -= deltaNR;
+    }
 
     return M;
 }

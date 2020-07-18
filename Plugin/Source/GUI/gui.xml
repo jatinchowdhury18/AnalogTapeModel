@@ -46,6 +46,7 @@
         <Slider caption="Saturation" parameter="sat" slider-textbox="textbox-below"
                 slider-type="rotary-horizontal-vertical"/>
         <Slider caption="Drive" parameter="drive" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
+        <ComboBox caption="Solver" parameter="solver" max-height="70"/>
       </View>
       <View display="tabbed" padding="0">
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color=""

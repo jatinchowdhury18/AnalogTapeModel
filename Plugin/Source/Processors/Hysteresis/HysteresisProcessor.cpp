@@ -12,8 +12,7 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     satParam = vts.getRawParameterValue ("sat");
     widthParam = vts.getRawParameterValue ("width");
     osParam = vts.getRawParameterValue ("os");
-
-    delayParam = vts.getRawParameterValue ("delay_factor");
+    solverParam = vts.getRawParameterValue ("solver");
 
     for (int i = 0; i < 5; ++i)
         overSample[i] = std::make_unique<dsp::Oversampling<float>>
@@ -34,9 +33,14 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Saturation", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Bias", 0.0f, 1.0f, 0.5f));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("delay_factor", "Delay", 0.0f, 16.0f, 4.0f));
-
+    params.push_back (std::make_unique<AudioParameterChoice> ("solver", "Solver", StringArray ({"RK2", "RK4", "NR5", "NR10"}), 0));
     params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
+}
+
+void HysteresisProcessor::setSolver (int newSolver)
+{
+    for (int ch = 0; ch < 2; ++ch)
+        hProcs[ch].setSolver (static_cast<SolverType> (newSolver));
 }
 
 float HysteresisProcessor::calcMakeup()
@@ -129,6 +133,7 @@ float HysteresisProcessor::getLatencySamples() const noexcept
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
+    setSolver ((int) *solverParam);
     setDrive (*driveParam);
     setSaturation (*satParam);
     setWidth (1.0f - *widthParam);

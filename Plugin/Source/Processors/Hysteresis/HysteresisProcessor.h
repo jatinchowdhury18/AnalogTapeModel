@@ -25,17 +25,18 @@ public:
 
     float getLatencySamples() const noexcept;
 
+private:
+    void setSolver (int newSolver);
     void setDrive (float newDrive);
     void setSaturation (float newSat);
     void setWidth (float newWidth);
     float calcMakeup();
 
-private:
     std::atomic<float>* driveParam = nullptr;
     std::atomic<float>* satParam = nullptr;
     std::atomic<float>* widthParam = nullptr;
     std::atomic<float>* osParam = nullptr;
-    std::atomic<float>* delayParam = nullptr;
+    std::atomic<float>* solverParam = nullptr;
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> drive[2];
     SmoothedValue<float, ValueSmoothingTypes::Linear> width[2];
