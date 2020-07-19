@@ -27,11 +27,20 @@ void HysteresisProcessing::setSampleRate (float newSR)
     Talpha = T / 1.9f;
 }
 
-void HysteresisProcessing::cook (float drive,  float width, float sat)
+void HysteresisProcessing::cook (float drive,  float width, float sat, bool v1)
 {
     M_s = 0.5f + 1.5f * (1.0f - sat);
     a = M_s / (0.01f + 6.0f * drive);
     c = sqrtf (1.0f - width) - 0.01f;
+    k = 0.47875f;
+
+    if (v1)
+    {
+        k = (float) 27.0e3;
+        c = (float) 1.7e-1;
+        M_s *= 300000.0f;
+        a = M_s / (0.01f + 25.0f * drive);
+    }
 
     nc = 1.0f - c;
     M_s_oa = M_s / a;

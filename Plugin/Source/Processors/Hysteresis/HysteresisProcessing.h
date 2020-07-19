@@ -24,7 +24,7 @@ public:
     void reset();
     void setSampleRate (float newSR);
 
-    void cook (float drive,  float width, float sat);
+    void cook (float drive,  float width, float sat, bool v1);
     void setSolver (SolverType solverType);
 
     /* Process a single sample */
@@ -33,7 +33,7 @@ public:
         float H_d = deriv (H, H_n1, H_d_n1);
         float M = (*this.*solver) (H, H_d);
 
-        if (std::isnan (M) || abs (M) > 20.0f)
+        if (std::isnan (M))
         {
             M = 0.0f;
         }
@@ -80,7 +80,7 @@ private:
     float M_s = (float) 1;
     float a = M_s / 4.0f;
     const float alpha = (float) 1.6e-3;
-    const float k = 0.47875f;
+    float k = 0.47875f;
     float c = (float) 1.7e-1;
 
     // Save calculations
