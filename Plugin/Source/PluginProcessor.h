@@ -20,6 +20,7 @@
 #include "Processors/DryWetProcessor.h"
 #include "Processors/Timing_Effects/DelayProcessor.h"
 #include "Presets/PresetManager.h"
+#include "GUI/MyLNF.h"
 
 //==============================================================================
 /**
@@ -89,6 +90,7 @@ private:
     foleys::MagicPlotSource* scope = nullptr;
 
     PresetManager presetManager;
+    MyLNF myLNF;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)

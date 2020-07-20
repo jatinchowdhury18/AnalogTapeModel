@@ -8,6 +8,10 @@
         <plot-view border="2" background-color="black" border-color="silver" display="contents"/>
         <nomargin margin="0" padding="0" border="0"/>
         <group margin="5" padding="5" border="2" flex-direction="column"/>
+        <Slider background-color="00000000" caption-color="FFFFFFFF" slider-text-outline="00000000"
+                slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below">
+          <media/>
+        </Slider>
       </Classes>
       <Types>
         <Slider border="0" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
@@ -22,79 +26,83 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        background-color="FF7D2C2C" padding="0" width="600" height="650">
-    <View max-height="100" padding="0" background-color="FF7D2C2C" margin="0">
-      <Label text="CHOW Tape Model" font-size="20" padding="0" background-color="FF7D2C2C"
-             border="" max-width="180"/>
-      <Plot source="scope" plot-fill-color="FF000000" plot-color="FFCC7D12"
-            padding="0" background-color="FF000000" plot-decay="0.0"/>
+        padding="0" width="600" height="650" background-color="FF8B3232"
+        background-image="Background_svg" image-placement="stretch">
+    <View max-height="100" padding="0" margin="0" background-color="">
+      <View margin="2" padding="" background-color="00000000" flex-direction="column"
+            flex-grow="0.75">
+        <TitleComp background-color="00000000" title="Chow Tape Model" font="40"
+                   padding="0"/>
+        <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
+                  padding="0" margin="5"/>
+      </View>
+      <Plot source="scope" plot-fill-color="33000000" plot-color="FFEAA92C"
+            padding="0" background-color="33000000" plot-decay="0.0"/>
     </View>
-    <View background-color="FF7D2C2C" padding="0" margin="">
-      <View flex-direction="column" margin="5" padding="">
-        <Label max-height="5"/>
-        <Slider caption="Input Gain [dB]" parameter="ingain" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="160"/>
-        <ComboBox caption="Oversampling" parameter="os" max-height="70"/>
-        <Slider caption="Dry/Wet" parameter="drywet" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="170"/>
-        <Slider caption="Output Gain [dB]" parameter="outgain" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="170"/>
+    <View padding="0" margin="" background-color="">
+      <View flex-direction="column" margin="5" padding="" background-color="FF31323A">
+        <Label max-height="5" background-color="FF31323A"/>
+        <Slider caption="Input Gain [dB]" parameter="ingain" max-height="160"
+                class="Slider" tooltip="Sets the input gain to the tape model in  Decibels."
+                name="Input Gain"/>
+        <ComboBox caption="Oversampling" parameter="os" max-height="70" class="Slider"
+                  caption-size="20"/>
+        <Slider caption="Dry/Wet" parameter="drywet" max-height="170" class="Slider"/>
+        <Slider caption="Output Gain [dB]" parameter="outgain" max-height="170"
+                class="Slider"/>
       </View>
-      <View flex-direction="column" tab-color="">
-        <Label max-height="40" text="Hysteresis" font-size="18" justification="centred"/>
-        <Slider caption="Bias" parameter="width" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
-        <Slider caption="Saturation" parameter="sat" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical"/>
-        <Slider caption="Drive" parameter="drive" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
-        <ComboBox caption="Mode" parameter="mode" max-height="70"/>
+      <View flex-direction="column" tab-color="" background-color="FF31323A">
+        <Label max-height="40" text="Hysteresis" font-size="18" justification="centred"
+               background-color="00000000"/>
+        <Slider caption="Bias" parameter="width" class="Slider"/>
+        <Slider caption="Saturation" parameter="sat" class="Slider"/>
+        <Slider caption="Drive" parameter="drive" class="Slider"/>
       </View>
-      <View display="tabbed" padding="0">
-        <View flex-direction="column" tab-caption="Loss" tab-color="" background-color=""
+      <View display="tabbed" padding="0" background-color="FF31323A">
+        <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
               padding="0" margin="0">
           <Label max-height="40" text="Loss" justification="centred" font-size="18"
-                 padding="0" margin="0"/>
+                 padding="0" margin="0" background-color="00000000"/>
           <Slider caption="Gap [mm]" parameter="gap" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" background-color="" padding="0"/>
-          <Slider caption="Thickness [mm]" parameter="thick" slider-textbox="textbox-below"
-                  slider-type="linear-horizontal" padding="0"/>
+                  class="Slider" padding="0" slider-background="ff596b6c" slider-track="ffce5757"/>
+          <Slider caption="Thickness [mm]" parameter="thick" class="Slider" slider-type="linear-horizontal"
+                  padding="0" slider-background="ff596b6c" slider-track="ffce5757"/>
           <Slider caption="Spacing [mm]" parameter="spacing" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" lookAndFeel="LookAndFeel_V4" padding="0"/>
+                  class="Slider" padding="0" slider-background="ff596b6c" slider-track="ffce5757"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" padding="0"/>
+                  class="Slider" padding="0" slider-background="ff596b6c" slider-track="ffce5757"/>
         </View>
-        <View tab-caption="Degr." padding="0" flex-direction="column">
-          <Label text="Degrade" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="deg_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Depth"/>
-          <Slider caption="Amount" parameter="deg_amt" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
-          <Slider parameter="deg_var" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Variance"/>
+        <View tab-caption="Degr." padding="0" flex-direction="column" background-color="FF31323A">
+          <Label text="Degrade" justification="centred" font-size="18" max-height="40"
+                 background-color="00000000"/>
+          <Slider parameter="deg_depth" caption="Depth" class="Slider"/>
+          <Slider caption="Amount" parameter="deg_amt" class="Slider"/>
+          <Slider parameter="deg_var" caption="Variance" class="Slider"/>
         </View>
-        <View tab-caption="CHEW" padding="0" flex-direction="column">
-          <Label text="CHEW" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="chew_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Depth" max-height="180"/>
-          <Slider caption="Frequency" parameter="chew_freq" slider-type="rotary-horizontal-vertical"
-                  slider-textbox="textbox-below" max-height="200"/>
+        <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A">
+          <Label text="CHEW" justification="centred" font-size="18" max-height="40"
+                 background-color="00000000"/>
+          <Slider parameter="chew_depth" caption="Depth" max-height="180" class="Slider"/>
+          <Slider caption="Frequency" parameter="chew_freq" max-height="200" class="Slider"/>
         </View>
       </View>
-      <View display="tabbed" padding="0">
-        <View tab-caption="Flutter" flex-direction="column">
-          <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  max-height="200"/>
-          <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
-                  slider-type="rotary-horizontal-vertical" max-height="200"/>
+      <View display="tabbed" padding="0" background-color="FF31323A">
+        <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
+          <Label max-height="40" text="Flutter" justification="centred" font-size="18"
+                 background-color="00000000"/>
+          <Slider caption="Depth" parameter="depth" max-height="200" class="Slider"/>
+          <Slider caption="Rate" parameter="rate" class="Slider" max-height="200"/>
         </View>
-        <View tab-caption="Wow" flex-direction="column">
-          <Label max-height="40" text="Wow" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  max-height="200"/>
-          <Slider caption="Rate" parameter="wow_rate" slider-textbox="textbox-below"
-                  slider-type="rotary-horizontal-vertical" max-height="200"/>
+        <View tab-caption="Wow" flex-direction="column" background-color="FF31323A">
+          <Label max-height="40" text="Wow" justification="centred" font-size="18"
+                 background-color="00000000"/>
+          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary-horizontal-vertical"
+                  slider-textbox="textbox-below" max-height="200" class="Slider"/>
+          <Slider caption="Rate" parameter="wow_rate" class="Slider" max-height="200"/>
         </View>
       </View>
     </View>
+    <TooltipComp flex-grow="0.12" background-color="00000000" tooltip-name="FFEAA92C"/>
     <presets max-height="30" margin="0" padding="0"/>
   </View>
 </magic>
