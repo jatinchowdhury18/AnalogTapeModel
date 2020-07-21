@@ -12,6 +12,7 @@
 #include "GUI/InfoComp.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
+#include "GUI/MyLNF.h"
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
@@ -256,6 +257,10 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
     builder->registerFactory ("InfoComp", &InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
+
+    builder->registerJUCELookAndFeels();
+    builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
+    builder->registerLookAndFeel ("ComboBoxLNF", std::make_unique<ComboBoxLNF>());
 
 #if SAVE_PRESETS // Add button to save new presets
     magicState.addTrigger ("savepreset", [=]

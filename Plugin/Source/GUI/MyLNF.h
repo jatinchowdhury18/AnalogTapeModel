@@ -35,4 +35,31 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MyLNF)
 };
 
+
+class ComboBoxLNF : public MyLNF
+{
+public:
+    ComboBoxLNF() {}
+
+    void drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box) override;
+    void positionComboBoxText (ComboBox& box, Label& label) override;
+
+    void drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
+        const bool isSeparator, const bool isActive,
+        const bool isHighlighted, const bool /*isTicked*/,
+        const bool hasSubMenu, const String& text,
+        const String& shortcutKeyText,
+        const Drawable* icon, const Colour* const textColourToUse) override
+    {
+        LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive,
+            isHighlighted, false /*isTicked*/, hasSubMenu, text,
+            shortcutKeyText, icon, textColourToUse);
+    }
+
+private:
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComboBoxLNF)
+};
+
+
 #endif // MYLNF_H_INCLUDED
