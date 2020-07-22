@@ -22,20 +22,20 @@ public:
     HysteresisProcessing();
 
     void reset();
-    void setSampleRate (float newSR);
+    void setSampleRate (double newSR);
 
-    void cook (float drive,  float width, float sat, bool v1);
+    void cook (float drive, float width, float sat, bool v1);
     void setSolver (SolverType solverType);
 
     /* Process a single sample */
-    inline float process (float H) noexcept
+    inline double process (double H) noexcept
     {
-        float H_d = deriv (H, H_n1, H_d_n1);
-        float M = (*this.*solver) (H, H_d);
+        double H_d = deriv (H, H_n1, H_d_n1);
+        double M = (*this.*solver) (H, H_d);
 
-        if (std::isnan (M))
+        if (std::isnan (M) || M > upperLim)
         {
-            M = 0.0f;
+            M = 0.0;
         }
 
         M_n1 = M;
@@ -46,60 +46,59 @@ public:
     }
 
 private:
-    /* DEPRECATED (Continued fraction approximation for hyperbolic cotangent) */
-    inline float cothApprox (float x) const noexcept;
-
-    inline float langevin (float x) const noexcept;    // Langevin function
-    inline float langevinD (float x) const noexcept;   // Derivative of Langevin function
-    inline float langevinD2 (float x) const noexcept;  // 2nd derivative of Langevin function
-    inline float deriv (float x_n, float x_n1, float x_d_n1) const noexcept // Derivative by alpha transform
+    inline double langevin (double x) const noexcept;    // Langevin function
+    inline double langevinD (double x) const noexcept;   // Derivative of Langevin function
+    inline double langevinD2 (double x) const noexcept;  // 2nd derivative of Langevin function
+    inline double deriv (double x_n, double x_n1, double x_d_n1) const noexcept // Derivative by alpha transform
     {
-        constexpr float dAlpha = 0.9f;
-        return (((1.0f + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
+        constexpr double dAlpha = 0.9;
+        return (((1.0 + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
     }
 
     // hysteresis function dM/dt
-    inline float hysteresisFunc (float M, float H, float H_d) noexcept;
+    inline double hysteresisFunc (double M, double H, double H_d) noexcept;
 
     // derivative of hysteresis func w.r.t M (depends on cached values from computing hysteresisFunc)
-    inline float hysteresisFuncPrime (float H_d, float dMdt) noexcept;
+    inline double hysteresisFuncPrime (double H_d, double dMdt) noexcept;
 
     // runge-kutta solvers
-    inline float RK2 (float H, float H_d) noexcept;
-    inline float RK4 (float H, float H_d) noexcept;
+    inline double RK2 (double H, double H_d) noexcept;
+    inline double RK4 (double H, double H_d) noexcept;
 
     // newton-raphson solvers
-    inline float NR (float H, float H_d) noexcept;
+    inline double NR (double H, double H_d) noexcept;
     int numIter = 0;
 
-    float (HysteresisProcessing::*solver) (float, float) = &HysteresisProcessing::NR;
+    double (HysteresisProcessing::*solver) (double, double) = &HysteresisProcessing::NR;
 
-    float fs = 48000.0f;
-    float T = 1.0f / fs;
-    float Talpha = T / 1.9f;
-    float M_s = (float) 1;
-    float a = M_s / 4.0f;
-    const float alpha = (float) 1.6e-3;
-    float k = 0.47875f;
-    float c = (float) 1.7e-1;
+    double fs = 48000.0;
+    double T = 1.0 / fs;
+    double Talpha = T / 1.9;
+    double M_s = 1.0;
+    double a = M_s / 4.0;
+    const double alpha = 1.6e-3;
+    double k = 0.47875;
+    double c = 1.7e-1;
+
+    double upperLim = 20.0;
 
     // Save calculations
-    float nc = 1-c;
-    float M_s_oa = M_s / a;
-    float M_s_oa_talpha = alpha * M_s / a;
-    float M_s_oa_tc = c * M_s / a;
-    float M_s_oa_tc_talpha = alpha * c * M_s / a;
-    float M_s_oaSq_tc_talpha = alpha * c * M_s / (a * a);
-    float M_s_oaSq_tc_talphaSq = alpha * alpha * c * M_s / (a * a);
+    double nc = 1-c;
+    double M_s_oa = M_s / a;
+    double M_s_oa_talpha = alpha * M_s / a;
+    double M_s_oa_tc = c * M_s / a;
+    double M_s_oa_tc_talpha = alpha * c * M_s / a;
+    double M_s_oaSq_tc_talpha = alpha * c * M_s / (a * a);
+    double M_s_oaSq_tc_talphaSq = alpha * alpha * c * M_s / (a * a);
 
-    float M_n1 = 0.0f;
-    float H_n1 = 0.0f;
-    float H_d_n1 = 0.0f;
+    double M_n1 = 0.0;
+    double H_n1 = 0.0;
+    double H_d_n1 = 0.0;
 
     // temp vars
-    float Q, M_diff, delta, delta_M, L_prime, kap1, f1Denom, f1, f2, f3;
+    double Q, M_diff, delta, delta_M, L_prime, kap1, f1Denom, f1, f2, f3;
 
-    float coth = 0.0f;
+    double coth = 0.0;
     bool nearZero = false;
 
     // JUCE_DECLARE_NONCOPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)

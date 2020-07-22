@@ -104,8 +104,6 @@ void HysteresisProcessor::setOversampling()
 void HysteresisProcessor::calcBiasFreq()
 {
     biasFreq = fs * overSamplingFactor / 2.0f;
-    while (biasFreq / 2.0f > 40000.0f)
-        biasFreq /= 2.0f;
 }
 
 void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -122,7 +120,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         sat[ch].skip (numSteps);
         makeup[ch].skip (numSteps);
 
-        hProcs[ch].setSampleRate ((float) (sampleRate * overSamplingFactor));
+        hProcs[ch].setSampleRate (sampleRate * overSamplingFactor);
         hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
         hProcs[ch].reset();
 
@@ -199,7 +197,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     overSample[(int) *osParam]->processSamplesDown (block);
 
-    // applyDCBlockers (buffer);
+    applyDCBlockers (buffer);
 }
 
 void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
@@ -209,7 +207,7 @@ void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
         auto* x = block.getChannelPointer (channel);
         for (int samp = 0; samp < block.getNumSamples(); samp++)
         {
-            x[samp] = hProcs[channel].process (x[samp]) * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process ((double) x[samp]) * makeup[channel].getNextValue();
         }
     }
 }
@@ -223,7 +221,7 @@ void HysteresisProcessor::processSmooth (dsp::AudioBlock<float>& block)
         {
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), false);
 
-            x[samp] = hProcs[channel].process (x[samp]) * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process ((double) x[samp]) * makeup[channel].getNextValue();
         }
     }
 }
@@ -238,7 +236,7 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
         for (int samp = 0; samp < block.getNumSamples(); samp++)
         {
             float bias = biasGain * (1.0f - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            x[samp] = hProcs[channel].process (5000.0f * (x[samp] + bias)); // * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process (5000.0 * (double) (x[samp] + bias));
             biasAngle[channel] += angleDelta;
 
             if (biasAngle[channel] >= MathConstants<float>::twoPi)
@@ -261,7 +259,7 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), true);
 
             float bias = biasGain * (1.0f - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            x[samp] = hProcs[channel].process (5000.0f * (x[samp] + bias)); // * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process (5000.0 * (double) (x[samp] + bias));
             biasAngle[channel] += angleDelta;
 
             if (biasAngle[channel] >= MathConstants<float>::twoPi)
