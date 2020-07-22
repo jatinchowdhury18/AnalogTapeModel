@@ -39,9 +39,9 @@ void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
     {
         k = 27.0e3;
         c = 1.7e-1;
-        M_s *= 300000.0;
-        a = M_s / (0.01 + 25.0 * (double) drive);
-        upperLim = 200000.0;
+        M_s *= 50000.0;
+        a = M_s / (0.01 + 40.0 * (double) drive);
+        upperLim = 100000.0;
     }
 
     nc = 1.0 - c;

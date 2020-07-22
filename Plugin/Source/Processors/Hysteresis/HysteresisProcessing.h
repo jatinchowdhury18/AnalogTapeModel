@@ -69,8 +69,10 @@ private:
     inline double NR (double H, double H_d) noexcept;
     int numIter = 0;
 
+    // solver function pointer
     double (HysteresisProcessing::*solver) (double, double) = &HysteresisProcessing::NR;
 
+    // parameter values
     double fs = 48000.0;
     double T = 1.0 / fs;
     double Talpha = T / 1.9;
@@ -79,7 +81,6 @@ private:
     const double alpha = 1.6e-3;
     double k = 0.47875;
     double c = 1.7e-1;
-
     double upperLim = 20.0;
 
     // Save calculations
@@ -91,17 +92,17 @@ private:
     double M_s_oaSq_tc_talpha = alpha * c * M_s / (a * a);
     double M_s_oaSq_tc_talphaSq = alpha * alpha * c * M_s / (a * a);
 
+    // state variables
     double M_n1 = 0.0;
     double H_n1 = 0.0;
     double H_d_n1 = 0.0;
 
     // temp vars
     double Q, M_diff, delta, delta_M, L_prime, kap1, f1Denom, f1, f2, f3;
-
     double coth = 0.0;
     bool nearZero = false;
 
-    // JUCE_DECLARE_NONCOPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)
 };
 
 #endif
