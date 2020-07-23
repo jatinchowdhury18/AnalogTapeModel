@@ -50,7 +50,7 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
         phase3[ch] = 0.0f;
 
         dcBlocker[ch].reset (sampleRate);
-        dcBlocker[ch].calcCoefs (10.0f, 0.707f);
+        dcBlocker[ch].calcCoefs (30.0f, 0.707f);
     }
 
     wowAmp   = 1000.0f * 1000.0f / (float) sampleRate;
