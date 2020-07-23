@@ -44,6 +44,9 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
 {
+    if (depthParam->load() == 0.0f && amtParam->load() == 0.0f)
+        return;
+
     cookParams();
 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)

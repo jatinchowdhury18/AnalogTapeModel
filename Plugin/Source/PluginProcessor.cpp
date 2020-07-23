@@ -141,6 +141,8 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     for (int ch = 0; ch < 2; ++ch)
     {
         dryDelay[ch].prepareToPlay (sampleRate, samplesPerBlock);
+        dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) sampleRate, true);
+
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
     }
     
@@ -149,7 +151,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     
     scope->prepareToPlay (sampleRate, samplesPerBlock);
 
-    dryWet.setDryWet (*vts.getRawParameterValue ("drywet"));
+    dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     dryWet.reset();
     dryBuffer.setSize (2, samplesPerBlock);
 

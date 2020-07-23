@@ -27,6 +27,9 @@ void ChewProcessor::prepare (double sr)
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 {
+    if (depth->load() == 0.0f && freq->load() == 0.0f)
+        return;
+
     const int shortBlockSize = 64;
     if (buffer.getNumSamples() <= shortBlockSize)
     {
