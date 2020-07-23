@@ -38,7 +38,7 @@ public:
             buffer[n] = processSample (buffer[n]);
     }
 
-    inline float processSample (float x)
+    inline float processSample (float x) noexcept
     {
         // direct form II transposed
         float y = z[1] + x * b[0];
