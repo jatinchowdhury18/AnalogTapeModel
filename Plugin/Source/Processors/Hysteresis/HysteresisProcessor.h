@@ -57,7 +57,7 @@ private:
     // TransformerShelf dcLower[2];
 
     int overSamplingFactor = 2;
-    const float dcFreq = 10.0f;
+    const float dcFreq = 35.0f;
     const float dcShelfFreq = 60.0f;
 
     float biasGain = 10.0f;

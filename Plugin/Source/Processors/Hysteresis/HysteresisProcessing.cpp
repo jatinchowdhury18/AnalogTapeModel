@@ -1,6 +1,12 @@
 #include "HysteresisProcessing.h"
 #include <math.h>
 
+namespace
+{
+    constexpr double ONE_THIRD =  1.0 / 3.0;
+    constexpr double NEG_TWO_OVER_15 = -2.0 / 15.0;
+}
+
 inline int sign (double x)
 {
     return (x > 0.0) - (x < 0.0);
@@ -91,7 +97,7 @@ inline double HysteresisProcessing::langevinD (double x) const noexcept
     if (! nearZero)
         return (1.0 / (x * x)) - (coth * coth) + 1.0;
     else
-        return 0.33333333333333;
+        return ONE_THIRD;
 }
 
 inline double HysteresisProcessing::langevinD2 (double x) const noexcept
@@ -99,7 +105,7 @@ inline double HysteresisProcessing::langevinD2 (double x) const noexcept
     if (! nearZero)
         return 2.0 * coth * (coth * coth - 1.0) - (2.0 / (x * x * x));
     else
-        return -2.0 * x / 15.0;
+        return NEG_TWO_OVER_15 * x;;
 }
 
 inline double HysteresisProcessing::hysteresisFunc (double M, double H, double H_d) noexcept

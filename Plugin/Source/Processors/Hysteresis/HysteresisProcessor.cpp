@@ -236,11 +236,10 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
         for (int samp = 0; samp < block.getNumSamples(); samp++)
         {
             float bias = biasGain * (1.0f - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
             biasAngle[channel] += angleDelta;
+            biasAngle[channel] -= MathConstants<float>::twoPi * (biasAngle[channel] >= MathConstants<float>::twoPi);
 
-            if (biasAngle[channel] >= MathConstants<float>::twoPi)
-                biasAngle[channel] -= MathConstants<float>::twoPi;
+            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
         }
 
         FloatVectorOperations::multiply (x, 1.414f / 10000.0f, (int) block.getNumSamples());
@@ -259,11 +258,10 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), true);
 
             float bias = biasGain * (1.0f - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
             biasAngle[channel] += angleDelta;
+            biasAngle[channel] -= MathConstants<float>::twoPi * (biasAngle[channel] >= MathConstants<float>::twoPi);
 
-            if (biasAngle[channel] >= MathConstants<float>::twoPi)
-                biasAngle[channel] -= MathConstants<float>::twoPi;
+            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
         }
 
         FloatVectorOperations::multiply (x, 1.414f / 10000.0f, (int) block.getNumSamples());
