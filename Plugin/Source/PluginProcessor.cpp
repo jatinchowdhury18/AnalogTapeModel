@@ -9,6 +9,10 @@
 */
 
 #include "PluginProcessor.h"
+#include "GUI/InfoComp.h"
+#include "GUI/TitleComp.h"
+#include "GUI/TooltipComp.h"
+#include "GUI/MyLNF.h"
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
@@ -32,6 +36,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
         lossFilter[ch].reset (new LossFilter (vts));
     
     scope = magicState.createAndAddObject<foleys::MagicOscilloscope> ("scope");
+
+    LookAndFeel::setDefaultLookAndFeel (&myLNF);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -248,6 +254,13 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
     presetManager.registerPresetsComponent (*builder);
+    builder->registerFactory ("TooltipComp", &TooltipItem::factory);
+    builder->registerFactory ("InfoComp", &InfoItem::factory);
+    builder->registerFactory ("TitleComp", &TitleItem::factory);
+
+    builder->registerJUCELookAndFeels();
+    builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
+    builder->registerLookAndFeel ("ComboBoxLNF", std::make_unique<ComboBoxLNF>());
 
 #if SAVE_PRESETS // Add button to save new presets
     magicState.addTrigger ("savepreset", [=]
