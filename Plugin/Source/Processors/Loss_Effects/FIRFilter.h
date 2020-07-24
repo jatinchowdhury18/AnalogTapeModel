@@ -23,14 +23,12 @@ public:
     void reset()
     {
         zPtr = 0;
-        for (int n = 0; n < order; ++n)
-            z[n] = 0.0f;
+        std::fill (z, &z[order], 0.0f);
     }
 
     void setCoefs (float* coefs)
     {
-        for (int n = 0; n < order; ++n)
-            h[n] = coefs[n];
+        std::copy (coefs, &coefs[order], h);
     }
 
     inline void process (float* buffer, int numSamples)
@@ -43,7 +41,7 @@ public:
             y = std::inner_product (z + zPtr, z + order, h, 0.0f);
             y = std::inner_product (z, z + zPtr, h + (order - zPtr), y);
 
-            zPtr = negativeAwareModulo (zPtr - 1, order);
+            zPtr = (zPtr == 0 ? order - 1 : zPtr - 1);
             buffer[n] = y;
         }
     }
@@ -53,7 +51,7 @@ public:
         for (int n = 0; n < numSamples; ++n)
         {
             z[zPtr] = buffer[n];
-            zPtr = negativeAwareModulo (zPtr - 1, order);
+            zPtr = (zPtr == 0 ? order - 1 : zPtr - 1);
         }
     }
 
