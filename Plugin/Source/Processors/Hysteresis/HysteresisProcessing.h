@@ -31,7 +31,7 @@ public:
     inline double process (double H) noexcept
     {
         double H_d = deriv (H, H_n1, H_d_n1);
-        double M = (*this.*solver) (H, H_d);
+        double M = (this->*solver) (H, H_d);
 
         if (std::isnan (M) || M > upperLim)
         {
@@ -70,7 +70,8 @@ private:
     int numIter = 0;
 
     // solver function pointer
-    double (HysteresisProcessing::*solver) (double, double) = &HysteresisProcessing::NR;
+    using Solver = double (HysteresisProcessing::*) (double, double);
+    Solver solver = &HysteresisProcessing::NR;
 
     // parameter values
     double fs = 48000.0;
