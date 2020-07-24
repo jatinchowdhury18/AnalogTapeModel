@@ -6,7 +6,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
 {
     manager.addListener (this);
 
-    setColour (backgroundColourId, Colour (0xFF434352));
+    setColour (backgroundColourId, Colour (0xFF595C6B));
     setColour (textColourId, Colours::white);
 
     addAndMakeVisible (presetBox);
@@ -25,25 +25,16 @@ PresetComp::~PresetComp()
 
 void PresetComp::paint (Graphics& g)
 {
+    const auto cornerSize = 5.0f;   
+
     presetBox.setColour (PopupMenu::ColourIds::backgroundColourId, findColour (backgroundColourId));
-    g.fillAll (findColour (backgroundColourId));
-
-    g.setColour (findColour (textColourId));
-    g.setFont (getHeight() * 0.6f);
-    auto presetBounds = presetBox.getBounds();
-    presetBounds.setWidth (100);
-    presetBounds.translate (-110, 0);
-    g.drawFittedText ("Presets:", presetBounds, Justification::centredRight, 1);
-
-    g.setFont (getHeight() * 0.4f);
-    auto versionBounds = getLocalBounds().removeFromRight (50);
-    g.drawFittedText ("v" + String (JucePlugin_VersionString), versionBounds, Justification::centred, 1);
+    g.setColour (findColour (backgroundColourId));
+    g.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
 }
 
 void PresetComp::resized()
 {
-    auto boxWidth = jmin (getWidth() / 3, 200);
-    presetBox.setBounds ((getWidth() - boxWidth) / 2, 2, boxWidth, getHeight() - 4);
+    presetBox.setBounds (getLocalBounds());
     repaint();
 }
 

@@ -5,6 +5,7 @@
 #include "../PluginProcessor.h"
 
 class PresetComp : public Component,
+                   public SettableTooltipClient,
                    private PresetManager::Listener
 {
 public:
@@ -22,42 +23,9 @@ public:
     void presetUpdated() override;
 
 private:
-    class CustomComboBox : public ComboBox
-    {
-    public:
-        CustomComboBox (const String& name = {}) :
-            ComboBox (name)
-        {
-            setLookAndFeel (&comboLNF);
-        }
-
-        ~CustomComboBox()
-        {
-            setLookAndFeel (nullptr);
-        }
-
-    private:
-        class ComboLNF : public LookAndFeel_V4
-        {
-            void drawPopupMenuItem (Graphics& g, const Rectangle<int>& area,
-                const bool isSeparator, const bool isActive,
-                const bool isHighlighted, const bool /*isTicked*/,
-                const bool hasSubMenu, const String& text,
-                const String& shortcutKeyText,
-                const Drawable* icon, const Colour* const textColourToUse) override
-            {
-                LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive,
-                    isHighlighted, false /*isTicked*/, hasSubMenu, text,
-                    shortcutKeyText, icon, textColourToUse);
-            }
-        };
-
-        ComboLNF comboLNF;
-    };
-
     ChowtapeModelAudioProcessor& proc;
     PresetManager& manager;
-    CustomComboBox presetBox;    
+    ComboBox presetBox;    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
 };

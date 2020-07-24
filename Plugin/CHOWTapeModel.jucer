@@ -7,9 +7,26 @@
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
       <GROUP id="{8D673967-9B5D-8254-9062-4C4B14D4EAD9}" name="GUI">
-        <FILE id="KmBito" name="gui.xml" compile="0" resource="1" file="Source/GUI/gui.xml"/>
-        <FILE id="kmORjM" name="preset_save_gui.xml" compile="0" resource="1"
-              file="Source/GUI/preset_save_gui.xml"/>
+        <GROUP id="{1765C43E-7671-A0DE-6CE7-A10A24110269}" name="Assets">
+          <FILE id="rW7Fbv" name="Background.svg" compile="0" resource="1" file="Source/GUI/Assets/Background.svg"/>
+          <FILE id="DzcyPN" name="gui.xml" compile="0" resource="1" file="Source/GUI/Assets/gui.xml"/>
+          <FILE id="xzpwn3" name="knob.svg" compile="0" resource="1" file="Source/GUI/Assets/knob.svg"/>
+          <FILE id="VVaf9c" name="pointer.svg" compile="0" resource="1" file="Source/GUI/Assets/pointer.svg"/>
+          <FILE id="LbfXKZ" name="preset_save_gui.xml" compile="0" resource="1"
+                file="Source/GUI/Assets/preset_save_gui.xml"/>
+          <FILE id="th5YSa" name="RobotoCondensed-Bold.ttf" compile="0" resource="1"
+                file="Source/GUI/Assets/RobotoCondensed-Bold.ttf"/>
+          <FILE id="bQP3yl" name="RobotoCondensed-Regular.ttf" compile="0" resource="1"
+                file="Source/GUI/Assets/RobotoCondensed-Regular.ttf"/>
+        </GROUP>
+        <FILE id="rOj90C" name="InfoComp.cpp" compile="1" resource="0" file="Source/GUI/InfoComp.cpp"/>
+        <FILE id="FxvDV3" name="InfoComp.h" compile="0" resource="0" file="Source/GUI/InfoComp.h"/>
+        <FILE id="IgOtsG" name="MyLNF.cpp" compile="1" resource="0" file="Source/GUI/MyLNF.cpp"/>
+        <FILE id="pj6eEc" name="MyLNF.h" compile="0" resource="0" file="Source/GUI/MyLNF.h"/>
+        <FILE id="WfCYvA" name="TitleComp.cpp" compile="1" resource="0" file="Source/GUI/TitleComp.cpp"/>
+        <FILE id="aoz8GN" name="TitleComp.h" compile="0" resource="0" file="Source/GUI/TitleComp.h"/>
+        <FILE id="oFI05X" name="TooltipComp.cpp" compile="1" resource="0" file="Source/GUI/TooltipComp.cpp"/>
+        <FILE id="BpGwTA" name="TooltipComp.h" compile="0" resource="0" file="Source/GUI/TooltipComp.h"/>
       </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
@@ -169,5 +186,5 @@
     <LINUX/>
   </LIVE_SETTINGS>
   <JUCEOPTIONS JUCE_JACK="1" JUCE_VST3_CAN_REPLACE_VST2="0" JUCE_STRICT_REFCOUNTEDPOINTER="1"
-               FOLEYS_SHOW_GUI_EDITOR_PALLETTE="0" JUCE_WEB_BROWSER="0"/>
+               FOLEYS_SHOW_GUI_EDITOR_PALLETTE="0" JUCE_WEB_BROWSER="0" FOLEYS_ENABLE_BINARY_DATA="1"/>
 </JUCERPROJECT>
