@@ -6,7 +6,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
 {
     manager.addListener (this);
 
-    setColour (backgroundColourId, Colour (0xFF595C6B)); // Colour (0xFF434352));
+    setColour (backgroundColourId, Colour (0xFF595C6B));
     setColour (textColourId, Colours::white);
 
     addAndMakeVisible (presetBox);
@@ -16,7 +16,6 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
 
     presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
     presetBox.onChange  = [=, &proc, &manager] { proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
-    presetBox.setName ("Preset");
 }
 
 PresetComp::~PresetComp()

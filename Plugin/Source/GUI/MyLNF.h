@@ -25,6 +25,9 @@ public:
                            float sliderPos, float minSliderPos, float maxSliderPos,
                            const Slider::SliderStyle style, Slider& slider) override;
 
+    Slider::SliderLayout getSliderLayout (Slider& slider) override;
+    Label* createSliderTextBox (Slider& slider) override;
+
 private:
     std::unique_ptr<Drawable> knob = Drawable::createFromImageData (BinaryData::knob_svg, BinaryData::knob_svgSize);
     std::unique_ptr<Drawable> pointer = Drawable::createFromImageData (BinaryData::pointer_svg, BinaryData::pointer_svgSize);

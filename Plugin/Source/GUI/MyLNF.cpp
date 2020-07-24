@@ -46,14 +46,12 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
 
     Path valueArc;
     valueArc.addPieSegment (bounds, rotaryStartAngle, rotaryEndAngle, arcFactor);
-    g.setColour (Colour (0xff596b6c));
+    g.setColour (Colour (0xff595c6b));
     g.fillPath (valueArc);
     valueArc.clear();
 
     valueArc.addPieSegment (bounds, rotaryStartAngle, toAngle, arcFactor);
-    ColourGradient gr (Colour (0xffce5757), { centre.x - radius, centre.y },
-                       Colour (0xffce5757), { centre.x + radius, centre.y }, false);
-    g.setGradientFill (gr);
+    g.setColour (Colour (0xff9cbcbd));
     g.fillPath (valueArc);
 }
 
@@ -204,6 +202,28 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
     knob->drawWithin (g, thumbRect, RectanglePlacement::stretchToFit, 1.0f);
 }
 
+Slider::SliderLayout MyLNF::getSliderLayout (Slider& slider)
+{
+    auto layout = LookAndFeel_V4::getSliderLayout (slider);
+
+    auto style = slider.getSliderStyle();
+    if (style == Slider::LinearHorizontal)
+        layout.textBoxBounds = layout.textBoxBounds.withX (layout.sliderBounds.getX());
+
+    return layout;
+}
+
+Label* MyLNF::createSliderTextBox (Slider& slider)
+{
+    auto l = LookAndFeel_V4::createSliderTextBox (slider);
+
+    auto style = slider.getSliderStyle();
+    if (style == Slider::LinearHorizontal)
+        l->setJustificationType (Justification::left);
+
+    return l;
+}
+
 void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box)
 {
     auto cornerSize = 5.0f;
@@ -212,18 +232,26 @@ void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, i
     g.setColour (box.findColour (ComboBox::backgroundColourId));
     g.fillRoundedRectangle (boxBounds.toFloat(), cornerSize);
 
-    g.setColour (Colours::white);
-    g.setFont (getComboBoxFont (box).boldened());
-    auto nameBox = boxBounds.withWidth (boxBounds.proportionOfWidth (0.7f));
-    g.drawFittedText (box.getName() + ": ", nameBox, Justification::centred, 1);
+    if (box.getName().isNotEmpty())
+    {
+        g.setColour (Colours::white);
+        g.setFont (getComboBoxFont (box).boldened());
+        auto nameBox = boxBounds.withWidth (boxBounds.proportionOfWidth (0.7f));
+        g.drawFittedText (box.getName() + ": ", nameBox, Justification::right, 1);
+    }
 }
 
 void ComboBoxLNF::positionComboBoxText (ComboBox& box, Label& label)
 {
     auto b = box.getBounds();
-    auto width = b.proportionOfWidth (0.3f);
-    auto x = b.proportionOfWidth (0.7f);
-    label.setBounds (b.withX (x).withWidth (width));
 
+    if (box.getName().isNotEmpty())
+    {
+        auto width = b.proportionOfWidth (0.3f);
+        auto x = b.proportionOfWidth (0.7f);
+        b = b.withX (x).withWidth (width);
+    }
+
+    label.setBounds (b);
     label.setFont (getComboBoxFont (box).boldened());
 }
