@@ -10,7 +10,8 @@
         <group margin="5" padding="5" border="2" flex-direction="column"/>
         <Slider background-color="00000000" caption-color="FFFFFFFF" slider-text-outline="00000000"
                 slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                lookAndFeel="MyLNF" slider-background="ff595c6b" slider-track="ff9cbcbd">
+                lookAndFeel="MyLNF" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                slidertext-width="80" slidertext-height="17" caption-size="21.25">
           <media/>
         </Slider>
       </Classes>
@@ -32,8 +33,8 @@
     <View max-height="100" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
             flex-grow="0.75">
-        <TitleComp background-color="00000000" title="Chow Tape Model" font="40"
-                   padding="0"/>
+        <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
+                   padding="3" flex-grow="1.0"/>
         <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
                   padding="0" margin="5"/>
       </View>
@@ -46,12 +47,12 @@
                 tooltip="Sets the input gain to the tape model in Decibels."/>
         <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
                 name="Dry/Wet" slider-track="FF0BBDC2"/>
-        <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider" name="Output Gain"
-                tooltip="Sets the output gain from the tape model in Decibels."/>
+        <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider"
+                name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
       </View>
-      <View flex-direction="column" tab-color="" background-color="FF31323A">
-        <Slider caption="Bias" parameter="width" class="Slider" name="Bias"
-                tooltip="Controls the amount of bias used by the tape recorder. Turning down the bias can create &quot;deadzone&quot; distortion."/>
+      <View flex-direction="column" tab-color="" background-color="FF31323A"
+            padding="0">
+        <Slider caption="Bias" parameter="width" class="Slider" name="Bias" tooltip="Controls the amount of bias used by the tape recorder. Turning down the bias can create &quot;deadzone&quot; distortion."/>
         <Slider caption="Saturation" parameter="sat" class="Slider" name="Saturation"
                 tooltip="Controls the amount of tape saturation applied to the signal."/>
         <Slider caption="Drive" parameter="drive" class="Slider" name="Drive"
@@ -64,29 +65,33 @@
           <View flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Gap [mm]" parameter="gap" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."/>
+                  name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
+                  slidertext-height="18" caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
           <Slider caption="Thickness [mm]" parameter="thick" class="Slider" slider-type="linear-horizontal"
                   padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."/>
+                  name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
+                  caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
           <Slider caption="Spacing [mm]" parameter="spacing" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."/>
+                  name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
+                  caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."/>
+                  name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
+                  caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
         </View>
         <View tab-caption="Degrade" padding="0" flex-direction="column" background-color="FF31323A">
           <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
                   tooltip="Sets the depth of the tape degradation." padding="0"
                   margin="0"/>
-          <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount" padding="0" margin="0"
-                  tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."/>
-          <Slider parameter="deg_var" caption="Variance" class="Slider" name="Variance" padding="0" margin="0"
-                  tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."/>
+          <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
+                  padding="0" margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."/>
+          <Slider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
+                  padding="0" margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."/>
         </View>
         <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A">
           <Slider parameter="chew_depth" caption="Depth" max-height="150" class="Slider"
@@ -115,17 +120,16 @@
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
       <ComboBox caption="Oversampling" parameter="os" class="Slider" caption-size="0"
-                padding="0" combo-text="FFEAA92C" combo-background="00000000" max-height="100" margin=""
-                lookAndFeel="ComboBoxLNF" name="Oversampling"
+                padding="0" combo-text="FFEAA92C" combo-background="00000000"
+                max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
                 tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
       <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
-                name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0" combo-text="FFEAA92C"
-                caption-color="FFFFFFFF" max-height="100" margin="" parameter="mode" combo-background="00000000"
-                tooltip="Selects the mode to use for hysteresis processing. Choose between 2nd/4th order Runge-Kutta method, 5 or 10 Newton-Raphson iterations, or revert to version 1.0."/>
+                name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
+                combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"
+                margin="" parameter="mode" combo-background="00000000" tooltip="Selects the mode to use for hysteresis processing. Choose between 2nd/4th order Runge-Kutta method, 5 or 10 Newton-Raphson iterations, or revert to version 1.0."/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
                radius="" border="" lookAndFeel="ComboBoxLNF" tooltip="Selects a preset for the plugin."
                flex-grow="1.8" max-height="100"/>
     </View>
   </View>
 </magic>
- 

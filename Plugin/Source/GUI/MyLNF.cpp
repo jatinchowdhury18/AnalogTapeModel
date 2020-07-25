@@ -221,6 +221,8 @@ Label* MyLNF::createSliderTextBox (Slider& slider)
     if (style == Slider::LinearHorizontal)
         l->setJustificationType (Justification::left);
 
+    l->setFont ((float) slider.getTextBoxHeight());
+
     return l;
 }
 
