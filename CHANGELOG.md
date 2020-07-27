@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [2.4.0] - UNKNOWN
+## [2.4.0] - 2020-07-26
 - New "Hysteresis Mode" parameter: choose between Runge-Kutta or
   Newton-Raphson modes, or revert to Version 1.0-style processing.
 - New GUI design.
