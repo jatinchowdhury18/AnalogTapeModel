@@ -54,5 +54,10 @@ project, for both programmers and non-programmers. For more information,
 see the
 [contributing guidelines](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md).
 
+## Credits
+
+- GUI Design - [Margus Mets](mailto:hello@mmcreative.eu)
+- GUI Framework - [Plugin GUI Magic](https://github.com/ffAudio/PluginGUIMagic)
+
 ## License
 CHOW Tape is licensed under the GNU General Public License agreement. Enjoy!
