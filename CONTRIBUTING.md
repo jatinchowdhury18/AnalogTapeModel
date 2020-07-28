@@ -54,15 +54,6 @@ page. If you plan to implement a new feature, please create a
 first, so the feature can be discussed by the community.
 
 
-## Design
-
-If you have experience with graphic design (or want to gain experience),
-contributions to the design of the plugin are welcome. The UI is mostly
-built using [PluginGUIMagic](https://github.com/ffAudio/PluginGUIMagic),
-so the design can be altered with minimal changes to the codebase.
-For more information, please [contact](#Contact) me.
-
-
 ## Website
 
 CHOW Tape does not currently have it's own website. If you want to help
