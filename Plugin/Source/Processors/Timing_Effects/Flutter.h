@@ -51,7 +51,12 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewWow[2];
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewFlutter[2];
 
-    DelayProcessor delay[2];
+    enum
+    {
+        HISTORY_SIZE = 1 << 21,
+    };
+
+    dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
     TransformerHPF dcBlocker[2];
 
     //==============================================================================

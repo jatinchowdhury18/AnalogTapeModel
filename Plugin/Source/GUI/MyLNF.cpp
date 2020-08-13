@@ -18,7 +18,7 @@ Typeface::Ptr MyLNF::getTypefaceForFont (const Font& font)
 
 void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
                               float sliderPos, float rotaryStartAngle,
-                              float rotaryEndAngle, juce::Slider& slider)
+                              float rotaryEndAngle, juce::Slider&)
 {
     int diameter = (width > height)? height : width;
     if (diameter < 16) return;
@@ -32,7 +32,6 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
     const auto bounds = juce::Rectangle<int> (x, y, diameter, diameter).toFloat();   
 
     auto b = pointer->getBounds().toFloat();
-    auto b2 = knob->getBounds().toFloat();
     pointer->setTransform (AffineTransform::rotation (MathConstants<float>::twoPi * ((sliderPos - 0.5f) * 300.0f / 360.0f),
         b.getCentreX(), b.getCentreY()));
 
@@ -41,7 +40,6 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
     pointer->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, 1.0f);
 
     const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
-    const juce::Colour fill = slider.findColour (juce::Slider::rotarySliderFillColourId);
     constexpr float arcFactor = 0.9f;
 
     Path valueArc;

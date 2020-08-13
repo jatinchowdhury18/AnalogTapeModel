@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" jucerVersion="5.4.7"
-              version="2.4.0" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
-              cppLanguageStandard="17" companyName="chowdsp" companyEmail="chowdsp@gmail.com"
-              defines="SAVE_PRESETS=0" pluginManufacturerCode="Chow" reportAppUsage="0">
+<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.4.0"
+              pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" cppLanguageStandard="17"
+              companyName="chowdsp" companyEmail="chowdsp@gmail.com" defines="SAVE_PRESETS=0"
+              pluginManufacturerCode="Chow" reportAppUsage="0" jucerFormatVersion="1">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
       <GROUP id="{8D673967-9B5D-8254-9062-4C4B14D4EAD9}" name="GUI">

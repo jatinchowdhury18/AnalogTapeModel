@@ -39,6 +39,5 @@ void InfoComp::paint (Graphics& g)
 
 void InfoComp::resized()
 {
-    auto b = getLocalBounds();
     linkButton.setBounds (linkX, 0, 100, getHeight());
 }

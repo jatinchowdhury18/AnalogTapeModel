@@ -71,7 +71,7 @@ private:
 
     // solver function pointer
     using Solver = double (HysteresisProcessing::*) (double, double);
-    Solver solver = &HysteresisProcessing::NR;
+    Solver solver;
 
     // parameter values
     double fs = 48000.0;
