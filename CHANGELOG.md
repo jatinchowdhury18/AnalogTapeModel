@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## [UNRELEASED]
+- Updated delay lines in wow/flutter processing to use 3-point
+  Lagrange interpolation.
+
 ## [2.4.0] - 2020-07-26
 - New "Hysteresis Mode" parameter: choose between Runge-Kutta or
   Newton-Raphson modes, or revert to Version 1.0-style processing.
