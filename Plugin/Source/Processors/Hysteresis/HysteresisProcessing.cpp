@@ -14,6 +14,7 @@ inline int sign (double x)
 
 HysteresisProcessing::HysteresisProcessing()
 {
+    solver = &HysteresisProcessing::NR;
 }
 
 void HysteresisProcessing::reset()

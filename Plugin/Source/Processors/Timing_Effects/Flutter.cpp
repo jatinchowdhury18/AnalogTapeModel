@@ -35,13 +35,13 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int ch = 0; ch < 2; ++ch)
     {
-        delay[ch].prepareToPlay (sampleRate, samplesPerBlock);
-        delay[ch].setLengthMs (0.f);
+        delay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
+        delay.setDelay (0.0f);
 
-        depthSlewWow[ch].reset (10000);
+        depthSlewWow[ch].reset (sampleRate, 0.05);
         depthSlewWow[ch].setCurrentAndTargetValue (depthSlewMin);
 
-        depthSlewFlutter[ch].reset (10000);
+        depthSlewFlutter[ch].reset (sampleRate, 0.05);
         depthSlewFlutter[ch].setCurrentAndTargetValue (depthSlewMin);
 
         wowPhase[ch] = 0.0f;
@@ -137,8 +137,12 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
                 + amp2 * cosf (phase2[ch] + phaseOff2)
                 + amp3 * cosf (phase3[ch] + phaseOff3));
 
-            delay[ch].setLengthMs (wowLFO + flutterLFO + dcOffset + depthSlewWow[ch].getCurrentValue() * wowAmp);
-            x[n] = delay[ch].delay (x[n]);
+            auto newLength = (wowLFO + flutterLFO + dcOffset + depthSlewWow[ch].getCurrentValue() * wowAmp) * (float) fs / 1000.0f;
+            newLength = jlimit (0.0f, (float) HISTORY_SIZE, newLength);
+
+            delay.setDelay (newLength);
+            delay.pushSample (ch, x[n]);
+            x[n] = delay.popSample (ch);
         }
 
         while (wowPhase[ch] >= MathConstants<float>::twoPi)
@@ -156,7 +160,7 @@ void Flutter::processBypassed (AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
-        delay[ch].setLengthMs (0.0f);
+        delay.setDelay (0.0f);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
             wowPhase[ch] += angleDeltaWow;
@@ -164,7 +168,8 @@ void Flutter::processBypassed (AudioBuffer<float>& buffer)
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
 
-            delay[ch].delay (0.0f);
+            delay.pushSample (ch, 0.0f);
+            delay.popSample (ch);
         }
 
         while (wowPhase[ch] >= MathConstants<float>::twoPi)
