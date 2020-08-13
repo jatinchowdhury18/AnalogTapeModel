@@ -18,7 +18,7 @@ Typeface::Ptr MyLNF::getTypefaceForFont (const Font& font)
 
 void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
                               float sliderPos, float rotaryStartAngle,
-                              float rotaryEndAngle, juce::Slider& slider)
+                              float rotaryEndAngle, juce::Slider&)
 {
     int diameter = (width > height)? height : width;
     if (diameter < 16) return;
