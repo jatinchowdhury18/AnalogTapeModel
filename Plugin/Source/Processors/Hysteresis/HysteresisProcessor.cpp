@@ -109,7 +109,7 @@ void HysteresisProcessor::calcBiasFreq()
 void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
-    overSamplingFactor = (int) powf(2.0f, *osParam);
+    overSamplingFactor = 0; // (int) powf(2.0f, *osParam);
     wasV1 = useV1;
     calcBiasFreq();
 
@@ -129,7 +129,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int i = 0; i < 5; ++i)
         overSample[i]->initProcessing (samplesPerBlock);
-    prevOS = (int) *osParam;
+    prevOS = 0; // (int) *osParam;
 
     dcBlocker[0].reset (sampleRate);
     dcBlocker[0].calcCoefs (dcFreq, 0.707f);
@@ -151,7 +151,7 @@ void HysteresisProcessor::releaseResources()
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for Runge-Kutta and hysteresis
-    return overSample[(int) *osParam]->getLatencyInSamples() + 1.65f;
+    return 0.0f; // overSample[(int) *osParam]->getLatencyInSamples() + 1.65f;
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
