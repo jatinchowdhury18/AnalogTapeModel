@@ -136,9 +136,17 @@ File getPluginFile()
     File pluginFile = rootFolder.getChildFile ("Builds/VisualStudio2017/x64/Release/VST3/CHOWTapeModel.vst3");
 #endif
 
+#ifdef JUCE_MAC
+    File pluginFile = rootFolder.getChildFile ("Builds/MacOSX/build/Release/CHOWTapeModel.vst3");
+#endif
+
+#ifdef JUCE_LINUX
+    File pluginFile = rootFolder.getChildFile ("Builds/LinuxMakefile/build/CHOWTapeModel.vst3");
+#endif
+
     // std::cout << "Plugin File: " << pluginFile.getFullPathName() << std::endl;
 
-    jassert (pluginFile.existsAsFile());
+    jassert (pluginFile.exists());
 
     return pluginFile;
 }
@@ -149,6 +157,14 @@ File getRootFolder()
 
 #ifdef JUCE_WINDOWS
     int numParentsToRoot = 7;
+#endif
+
+#ifdef JUCE_MAC
+    int numParentsToRoot = 6;
+#endif
+
+#ifdef JUCE_LINUX
+    int numParentsToRoot = 5;
 #endif
 
     File rootFolder = File (appFile);
