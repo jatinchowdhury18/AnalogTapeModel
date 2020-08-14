@@ -56,6 +56,7 @@ int main (int argc, char* argv[])
     // print results
     std::cout << "Results:" << std::endl;
     std::cout << audioLength / time << "x real-time" << std::endl;
+    std::cout << time << std::endl;
 
     return 0;
 }
