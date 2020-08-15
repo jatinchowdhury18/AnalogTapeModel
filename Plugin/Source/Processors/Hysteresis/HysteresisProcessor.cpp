@@ -89,6 +89,7 @@ void HysteresisProcessor::setOversampling()
     if (curOS != prevOS)
     {
         overSamplingFactor = 1 << curOS;
+        prevOS = curOS;
 
         for (int ch = 0; ch < 2; ++ch)
         {
@@ -129,6 +130,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int i = 0; i < 5; ++i)
         overSample[i]->initProcessing (samplesPerBlock);
+    prevOS = curOS;
 
     dcBlocker[0].reset (sampleRate);
     dcBlocker[0].calcCoefs (dcFreq, 0.707f);
