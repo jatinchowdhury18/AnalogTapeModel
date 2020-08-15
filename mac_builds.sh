@@ -11,3 +11,5 @@ cp -Rf ~/Library/Audio/Plug-Ins/VST3/CHOWTapeModel.vst3 CHOWTapeModel.vst3
 cp -Rf ~/Library/Audio/Plug-Ins/VST/CHOWTapeModel.vst CHOWTapeModel.vst
 cp -Rf ~/Library/Audio/Plug-Ins/Components/CHOWTapeModel.component CHOWTapeModel.component
 
+cd ../
+zip -r MacBuilds.zip Mac
