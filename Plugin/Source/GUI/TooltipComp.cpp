@@ -36,17 +36,20 @@ void TooltipComponent::paint (Graphics& g)
     }
 }
 
-String TooltipComponent::getTipFor (Component& c)
+void TooltipComponent::getTipFor (Component& c, String& newTip, String& newName)
 {
     if (Process::isForegroundProcess()
          && ! ModifierKeys::currentModifiers.isAnyMouseButtonDown())
     {
         if (auto* ttc = dynamic_cast<TooltipClient*> (&c))
+        {
             if (! c.isCurrentlyBlockedByAnotherModalComponent())
-                return ttc->getTooltip();
+            {
+                newTip = ttc->getTooltip();
+                newName = c.getName();
+            }
+        }
     }
-
-    return {};
 }
 
 void TooltipComponent::timerCallback()
@@ -59,11 +62,18 @@ void TooltipComponent::timerCallback()
     bool needsRepaint = false;
     if (newComp != nullptr)
     {
-        auto newTip = getTipFor (*newComp);
+        String newTip, newName;
+        getTipFor (*newComp, newTip, newName);
         needsRepaint = newTip != tip;
 
+        if (newTip.isNotEmpty() && newName.isEmpty())
+        {
+            if (auto parent = newComp->getParentComponent())
+                newName = parent->getName();
+        }
+
         tip = newTip;
-        name = newComp->getName();   
+        name = newName;
 
         if (! showTip.load())
         {

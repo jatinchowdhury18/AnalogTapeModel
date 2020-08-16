@@ -18,7 +18,7 @@ public:
 
     void paint (Graphics& g) override;
     void timerCallback() override;
-    String getTipFor (Component& c);
+    void getTipFor (Component& c, String& newTip, String& newName);
 
 private:
     String name, tip;

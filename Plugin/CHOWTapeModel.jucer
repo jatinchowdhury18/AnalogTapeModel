@@ -71,6 +71,7 @@
         </GROUP>
         <GROUP id="{37F4BCFA-28D3-CD4D-17AF-3C696E7EC8DA}" name="Loss_Effects">
           <FILE id="gJA2Gi" name="FIRFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/FIRFilter.h"/>
+          <FILE id="gjr7ub" name="LossFilter.cpp" compile="1" resource="0" file="Source/Processors/Loss_Effects/LossFilter.cpp"/>
           <FILE id="ZNErgZ" name="LossFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/LossFilter.h"/>
         </GROUP>
         <GROUP id="{0C000F30-53FD-3EFB-FAEA-6321B08AE56A}" name="Timing_Effects">
