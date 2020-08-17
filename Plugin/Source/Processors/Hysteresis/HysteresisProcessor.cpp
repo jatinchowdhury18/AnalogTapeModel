@@ -85,10 +85,11 @@ void HysteresisProcessor::setSaturation (float newSaturation)
 
 void HysteresisProcessor::setOversampling()
 {
-    if ((int) *osParam != prevOS)
+    curOS = (int) *osParam;
+    if (curOS != prevOS)
     {
-        overSamplingFactor = (int) powf(2.0f, *osParam);
-        prevOS = (int) *osParam;
+        overSamplingFactor = 1 << curOS;
+        prevOS = curOS;
 
         for (int ch = 0; ch < 2; ++ch)
         {
@@ -109,7 +110,7 @@ void HysteresisProcessor::calcBiasFreq()
 void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
-    overSamplingFactor = (int) powf(2.0f, *osParam);
+    overSamplingFactor = 1 << curOS;
     wasV1 = useV1;
     calcBiasFreq();
 
@@ -129,7 +130,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int i = 0; i < 5; ++i)
         overSample[i]->initProcessing (samplesPerBlock);
-    prevOS = (int) *osParam;
+    prevOS = curOS;
 
     dcBlocker[0].reset (sampleRate);
     dcBlocker[0].calcCoefs (dcFreq, 0.707f);
@@ -151,7 +152,7 @@ void HysteresisProcessor::releaseResources()
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for Runge-Kutta and hysteresis
-    return overSample[(int) *osParam]->getLatencyInSamples() + 1.65f;
+    return overSample[curOS]->getLatencyInSamples() + 1.65f;
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
@@ -178,7 +179,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
             buffer.getWritePointer (ch), -8.0f, 8.0f, buffer.getNumSamples());
 
     dsp::AudioBlock<float> block (buffer);
-    dsp::AudioBlock<float> osBlock = overSample[(int) *osParam]->processSamplesUp (block);
+    dsp::AudioBlock<float> osBlock = overSample[curOS]->processSamplesUp (block);
 
     if (needsSmoothing)
     {
@@ -195,7 +196,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
             process (osBlock);
     }
 
-    overSample[(int) *osParam]->processSamplesDown (block);
+    overSample[curOS]->processSamplesDown (block);
 
     applyDCBlockers (buffer);
 }
