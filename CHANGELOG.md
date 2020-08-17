@@ -5,6 +5,10 @@ this file.
 ## [UNRELEASED]
 - Updated delay lines in wow/flutter processing to use 3-point
   Lagrange interpolation.
+- Improved Newton-Raphson solver performance.
+- Improved loss filter sliders.
+- Fixed tooltip name sometimes not appearing.
+- Fixed save/load bug for VST3 in Ableton.
 
 ## [2.4.0] - 2020-07-26
 - New "Hysteresis Mode" parameter: choose between Runge-Kutta or
