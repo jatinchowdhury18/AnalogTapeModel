@@ -50,7 +50,7 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> makeup[2];
 
     float fs = 44100.0f;
-    int prevOS = 0;
+    int curOS = 0, prevOS = 0;
     HysteresisProcessing hProcs[2];
     std::unique_ptr<dsp::Oversampling<float>> overSample[5]; // needs oversampling to avoid aliasing
     TransformerHPF dcBlocker[2];
