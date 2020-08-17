@@ -6,7 +6,7 @@ sudo: false
 
 # if pull request: always build
 # if push: only build for master branch
-if: (type != push) OR (type = push AND (branch = master OR branch = develop OR branch = vst3-load-bug))
+if: (type != push) OR (type = push AND (branch = master OR branch = develop))
 
 matrix:
   include:
