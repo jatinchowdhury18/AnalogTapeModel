@@ -7,8 +7,8 @@ enum SolverType
 {
     RK2 = 0,
     RK4,
-    NR5,
-    NR10,
+    NR4,
+    NR8,
 };
 
 /*
