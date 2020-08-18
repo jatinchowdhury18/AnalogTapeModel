@@ -32,7 +32,7 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Saturation", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Bias", 0.0f, 1.0f, 0.5f));
 
-    params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({"RK2", "RK4", "NR5", "NR10", "V1"}), 0));
+    params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({"RK2", "RK4", "NR4", "NR8", "V1"}), 0));
     params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
 }
 

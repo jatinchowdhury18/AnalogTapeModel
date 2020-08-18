@@ -44,7 +44,7 @@ int main (int argc, char* argv[])
             param->setValue (3.0f / 4.0f); // 8x
 
         if (param->getName (10) == "Mode")
-            param->setValue (3.0f / 5.0f); // NR5
+            param->setValue (3.0f / 5.0f); // NR4
     }
 
     // process audio

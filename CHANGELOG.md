@@ -5,7 +5,7 @@ this file.
 ## [UNRELEASED]
 - Updated delay lines in wow/flutter processing to use 3-point
   Lagrange interpolation.
-- Improved Newton-Raphson solver performance.
+- Change Newton-Raphson solver to use 4 or 8 iterations, in unrolled loop.
 - Improved loss filter sliders.
 - Fixed tooltip name sometimes not appearing.
 - Fixed save/load bug for VST3 in Ableton.
