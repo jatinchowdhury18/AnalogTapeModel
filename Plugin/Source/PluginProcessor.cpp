@@ -206,9 +206,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     
-    inGain.processBlock (buffer, midiMessages);
-
     dryBuffer.makeCopyOf (buffer, true);
+    inGain.processBlock (buffer, midiMessages);
 
     hysteresis.processBlock (buffer, midiMessages);
     chewer.processBlock (buffer);
@@ -219,10 +218,20 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
+    latencyCompensation();
+
+    outGain.processBlock (buffer, midiMessages);
+    dryWet.processBlock (dryBuffer, buffer);
+    
+    scope->pushSamples (buffer);
+}
+
+void ChowtapeModelAudioProcessor::latencyCompensation()
+{
     // delay dry buffer to avoid phase issues
     const auto latencySamp = roundToInt (calcLatencySamples());
     setLatencySamples (latencySamp);
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    for (int ch = 0; ch < dryBuffer.getNumChannels(); ++ch)
     {
         auto* dryPtr = dryBuffer.getWritePointer (ch);
 
@@ -232,15 +241,10 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
             dryDelay[ch].setLengthMs (1000.0f * latencySamp / (float) getSampleRate());
         else
             dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) getSampleRate());
-        
+
         for (int n = 0; n < dryBuffer.getNumSamples(); ++n)
             dryPtr[n] = dryDelay[ch].delay (dryPtr[n]);
     }
-
-    dryWet.processBlock (dryBuffer, buffer);
-    outGain.processBlock (buffer, midiMessages);
-    
-    scope->pushSamples (buffer);
 }
 
 //==============================================================================

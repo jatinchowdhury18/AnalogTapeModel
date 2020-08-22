@@ -66,12 +66,12 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-    AudioProcessorValueTreeState& getVTS() { return vts; }
-
     PresetManager& getPresetManager() { return presetManager; }
-
+    
 private:
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void latencyCompensation();
+
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
