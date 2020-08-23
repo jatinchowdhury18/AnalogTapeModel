@@ -19,6 +19,9 @@
           <FILE id="bQP3yl" name="RobotoCondensed-Regular.ttf" compile="0" resource="1"
                 file="Source/GUI/Assets/RobotoCondensed-Regular.ttf"/>
         </GROUP>
+        <FILE id="XNEbSl" name="AutoUpdating.cpp" compile="1" resource="0"
+              file="Source/GUI/AutoUpdating.cpp"/>
+        <FILE id="u8IfBD" name="AutoUpdating.h" compile="0" resource="0" file="Source/GUI/AutoUpdating.h"/>
         <FILE id="rOj90C" name="InfoComp.cpp" compile="1" resource="0" file="Source/GUI/InfoComp.cpp"/>
         <FILE id="FxvDV3" name="InfoComp.h" compile="0" resource="0" file="Source/GUI/InfoComp.h"/>
         <FILE id="IgOtsG" name="MyLNF.cpp" compile="1" resource="0" file="Source/GUI/MyLNF.cpp"/>
