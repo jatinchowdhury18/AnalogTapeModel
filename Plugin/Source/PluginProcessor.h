@@ -81,7 +81,7 @@ private:
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     DryWetProcessor dryWet;
-    DelayProcessor dryDelay[2];
+    dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
     GainProcessor outGain;
 
     AudioBuffer<float> dryBuffer;
