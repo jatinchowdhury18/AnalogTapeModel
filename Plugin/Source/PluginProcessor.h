@@ -67,12 +67,12 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-    AudioProcessorValueTreeState& getVTS() { return vts; }
-
     PresetManager& getPresetManager() { return presetManager; }
-
+    
 private:
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void latencyCompensation();
+
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
@@ -82,7 +82,7 @@ private:
     std::unique_ptr<LossFilter> lossFilter[2];
     Flutter flutter;
     DryWetProcessor dryWet;
-    DelayProcessor dryDelay[2];
+    dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
     GainProcessor outGain;
 
     AudioBuffer<float> dryBuffer;

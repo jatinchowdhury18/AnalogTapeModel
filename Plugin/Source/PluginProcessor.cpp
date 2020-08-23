@@ -144,14 +144,12 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate);
+
+    dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
+    dryDelay.setDelay (calcLatencySamples());
     
     for (int ch = 0; ch < 2; ++ch)
-    {
-        dryDelay[ch].prepareToPlay (sampleRate, samplesPerBlock);
-        dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) sampleRate, true);
-
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
-    }
     
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
@@ -207,9 +205,8 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     
-    inGain.processBlock (buffer, midiMessages);
-
     dryBuffer.makeCopyOf (buffer, true);
+    inGain.processBlock (buffer, midiMessages);
 
     hysteresis.processBlock (buffer, midiMessages);
     chewer.processBlock (buffer);
@@ -220,28 +217,29 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
     
+    latencyCompensation();
+
+    outGain.processBlock (buffer, midiMessages);
+    dryWet.processBlock (dryBuffer, buffer);
+    
+    scope->pushSamples (buffer);
+}
+
+void ChowtapeModelAudioProcessor::latencyCompensation()
+{
     // delay dry buffer to avoid phase issues
     const auto latencySamp = roundToInt (calcLatencySamples());
     setLatencySamples (latencySamp);
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-    {
-        auto* dryPtr = dryBuffer.getWritePointer (ch);
 
-        // For "true bypass" use integer sample delay to avoid delay
-        // line interpolation freq. response issues
-        if (dryWet.getDryWet() < 0.2f)
-            dryDelay[ch].setLengthMs (1000.0f * latencySamp / (float) getSampleRate());
-        else
-            dryDelay[ch].setLengthMs (1000.0f * calcLatencySamples() / (float) getSampleRate());
-        
-        for (int n = 0; n < dryBuffer.getNumSamples(); ++n)
-            dryPtr[n] = dryDelay[ch].delay (dryPtr[n]);
-    }
+    // For "true bypass" use integer sample delay to avoid delay
+    // line interpolation freq. response issues
+    if (dryWet.getDryWet() < 0.15f)
+        dryDelay.setDelay ((float) latencySamp);
+    else
+        dryDelay.setDelay (calcLatencySamples());
 
-    dryWet.processBlock (dryBuffer, buffer);
-    outGain.processBlock (buffer, midiMessages);
-    
-    scope->pushSamples (buffer);
+    dsp::AudioBlock<float> block { dryBuffer };
+    dryDelay.process (dsp::ProcessContextReplacing<float> { block });
 }
 
 //==============================================================================
