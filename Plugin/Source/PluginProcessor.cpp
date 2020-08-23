@@ -12,7 +12,6 @@
 #include "GUI/InfoComp.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
-#include "GUI/MyLNF.h"
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
@@ -38,6 +37,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     scope = magicState.createAndAddObject<foleys::MagicOscilloscope> ("scope");
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
+
+    needsUpdate = updater.runAutoUpdateCheck();
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -273,7 +274,17 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 
     return new foleys::MagicPluginEditor (magicState, BinaryData::preset_save_gui_xml, BinaryData::preset_save_gui_xmlSize, std::move (builder));
 #else
-    return new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+    auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+    
+    if (needsUpdate)
+    {
+        needsUpdate = false;
+
+        editor->addAndMakeVisible (updater);
+        updater.setBounds (0, 0, editor->getWidth(), editor->getHeight());
+    }
+
+    return editor;
 #endif
 }
 
