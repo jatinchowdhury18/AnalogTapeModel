@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.4.0"
+<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.5.0"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" cppLanguageStandard="17"
               companyName="chowdsp" companyEmail="chowdsp@gmail.com" defines="SAVE_PRESETS=0"
               pluginManufacturerCode="Chow" reportAppUsage="0" jucerFormatVersion="1">
