@@ -151,8 +151,8 @@ void HysteresisProcessor::releaseResources()
 
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
-    // latency of oversampling + fudge factor for Runge-Kutta and hysteresis
-    return overSample[curOS]->getLatencyInSamples() + 1.65f;
+    // latency of oversampling + fudge factor for hysteresis
+    return overSample[curOS]->getLatencyInSamples() + 1.4f;
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
