@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [UNRELEASED]
+## [2.5.0] - 2020-08-23
 - Updated delay lines in wow/flutter processing to use 3-point
   Lagrange interpolation.
 - Change Newton-Raphson solver to use 4 or 8 iterations, in unrolled loop.

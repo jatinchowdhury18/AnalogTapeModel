@@ -69,7 +69,12 @@ void PresetManager::loadPresets()
 
 String PresetManager::getPresetName (int idx)
 {
-    jassert (isPositiveAndBelow (idx, presets.size()));
+    if (! isPositiveAndBelow (idx, presets.size())) // invalid index
+    {
+        jassertfalse;
+        return {};
+    }
+
     return presetMap[idx]->name;
 }
 
