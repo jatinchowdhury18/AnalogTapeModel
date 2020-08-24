@@ -6,6 +6,7 @@ this file.
 - Updated delay lines in wow/flutter processing to use 3-point
   Lagrange interpolation.
 - Change Newton-Raphson solver to use 4 or 8 iterations, in unrolled loop.
+- Adjust signal flow so that input/output gains apply only to the wet signal.
 - Added simple behavior to automatically check for updates.
 - Improved loss filter sliders.
 - Fixed tooltip name sometimes not appearing.
