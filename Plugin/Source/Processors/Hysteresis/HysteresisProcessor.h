@@ -2,7 +2,7 @@
 #define HYSTERESISPROCESSOR_H_INCLUDED
 
 #include "HysteresisProcessing.h"
-#include "DCFilters.h"
+#include "DCBlocker.h"
 
 /* Hysteresis Processor for tape. */
 class HysteresisProcessor
@@ -53,7 +53,7 @@ private:
     int curOS = 0, prevOS = 0;
     HysteresisProcessing hProcs[2];
     std::unique_ptr<dsp::Oversampling<float>> overSample[5]; // needs oversampling to avoid aliasing
-    TransformerHPF dcBlocker[2][2];
+    DCBlocker dcBlocker[2];
 
     int overSamplingFactor = 2;
     const float dcFreq = 35.0f;

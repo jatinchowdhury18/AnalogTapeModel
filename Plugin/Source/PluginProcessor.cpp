@@ -26,6 +26,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        ),
 #endif
     vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+    toneControl (vts),
     hysteresis (vts),
     degrade (vts),
     chewer (vts),
@@ -54,6 +55,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
     params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 10, 0));
 
+    ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
     Flutter::createParameterLayout (params);
@@ -141,6 +143,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
+    toneControl.prepare (sampleRate);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate);
@@ -208,7 +211,9 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     dryBuffer.makeCopyOf (buffer, true);
     inGain.processBlock (buffer, midiMessages);
 
+    toneControl.processBlockIn (buffer);
     hysteresis.processBlock (buffer, midiMessages);
+    toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
     
