@@ -13,12 +13,12 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Processors/GainProcessor.h"
 #include "Processors/Hysteresis/HysteresisProcessor.h"
+#include "Processors/Hysteresis/ToneControl.h"
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/Flutter.h"
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
-#include "Processors/Timing_Effects/DelayProcessor.h"
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
@@ -76,6 +76,7 @@ private:
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
+    ToneControl toneControl;
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
     ChewProcessor chewer;

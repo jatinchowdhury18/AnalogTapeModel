@@ -11,8 +11,11 @@
     <PARAM id="drive" value="0.6599999666213989"/>
     <PARAM id="drywet" value="100.0"/>
     <PARAM id="gap" value="1.614829443497001e-6"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_treble" value="0.0"/>
     <PARAM id="ingain" value="0.0"/>
-    <PARAM id="os" value="1.0"/>
+    <PARAM id="mode" value="2"/>
+    <PARAM id="os" value="2"/>
     <PARAM id="outgain" value="-2.0"/>
     <PARAM id="rate" value="0.199999988079071"/>
     <PARAM id="sat" value="0.75"/>

@@ -62,7 +62,7 @@
                 file="Source/Processors/Degrade/DegradeProcessor.h"/>
         </GROUP>
         <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
-          <FILE id="l6IKp3" name="DCFilters.h" compile="0" resource="0" file="Source/Processors/Hysteresis/DCFilters.h"/>
+          <FILE id="l6IKp3" name="DCBlocker.h" compile="0" resource="0" file="Source/Processors/Hysteresis/DCBlocker.h"/>
           <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
           <FILE id="OYS18C" name="HysteresisProcessing.h" compile="0" resource="0"
@@ -71,6 +71,9 @@
                 file="Source/Processors/Hysteresis/HysteresisProcessor.cpp"/>
           <FILE id="TRDp2E" name="HysteresisProcessor.h" compile="0" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessor.h"/>
+          <FILE id="yqa9LH" name="ToneControl.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/ToneControl.cpp"/>
+          <FILE id="vd8RTB" name="ToneControl.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneControl.h"/>
+          <FILE id="Gxo9aB" name="ToneFilter.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneFilter.h"/>
         </GROUP>
         <GROUP id="{37F4BCFA-28D3-CD4D-17AF-3C696E7EC8DA}" name="Loss_Effects">
           <FILE id="gJA2Gi" name="FIRFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/FIRFilter.h"/>
@@ -78,16 +81,14 @@
           <FILE id="ZNErgZ" name="LossFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/LossFilter.h"/>
         </GROUP>
         <GROUP id="{0C000F30-53FD-3EFB-FAEA-6321B08AE56A}" name="Timing_Effects">
-          <FILE id="kv0dir" name="DelayProcessor.cpp" compile="1" resource="0"
-                file="Source/Processors/Timing_Effects/DelayProcessor.cpp"/>
-          <FILE id="ZrrIc3" name="DelayProcessor.h" compile="0" resource="0"
-                file="Source/Processors/Timing_Effects/DelayProcessor.h"/>
           <FILE id="cVSIAR" name="Flutter.cpp" compile="1" resource="0" file="Source/Processors/Timing_Effects/Flutter.cpp"/>
           <FILE id="Wz3lz6" name="Flutter.h" compile="0" resource="0" file="Source/Processors/Timing_Effects/Flutter.h"/>
         </GROUP>
+        <FILE id="jlO9LL" name="BilinearUtils.h" compile="0" resource="0" file="Source/Processors/BilinearUtils.h"/>
         <FILE id="YNkJOh" name="DryWetProcessor.h" compile="0" resource="0"
               file="Source/Processors/DryWetProcessor.h"/>
         <FILE id="zwLvQ9" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
+        <FILE id="SSnw2J" name="IIRFilter.h" compile="0" resource="0" file="Source/Processors/IIRFilter.h"/>
       </GROUP>
       <FILE id="zPJjtw" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
