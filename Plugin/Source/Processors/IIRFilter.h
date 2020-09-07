@@ -14,6 +14,7 @@ class IIRFilter
 {
 public:
     IIRFilter() = default;
+    virtual ~IIRFilter() {}
 
     /** Reset filter state */
     virtual void reset()
