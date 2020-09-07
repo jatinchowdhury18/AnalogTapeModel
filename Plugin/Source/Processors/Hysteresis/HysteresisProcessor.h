@@ -53,12 +53,10 @@ private:
     int curOS = 0, prevOS = 0;
     HysteresisProcessing hProcs[2];
     std::unique_ptr<dsp::Oversampling<float>> overSample[5]; // needs oversampling to avoid aliasing
-    TransformerHPF dcBlocker[2];
-    // TransformerShelf dcLower[2];
+    TransformerHPF dcBlocker[2][2];
 
     int overSamplingFactor = 2;
     const float dcFreq = 35.0f;
-    const float dcShelfFreq = 60.0f;
 
     float biasGain = 10.0f;
     float biasFreq = 48000.0f;
