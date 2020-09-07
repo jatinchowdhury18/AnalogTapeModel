@@ -22,32 +22,19 @@ struct ToneStage
 class ToneControl
 {
 public:
-    ToneControl() = default;
+    ToneControl (AudioProcessorValueTreeState& vts);
 
-    void prepare (double sampleRate)
-    {
-        toneIn.prepare (sampleRate);
-        toneOut.prepare (sampleRate);
+    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    void prepare (double sampleRate);
 
-        toneIn.setLowGain (-3.0f);
-        toneIn.setHighGain (3.0f);
-        
-        toneOut.setLowGain (3.0f);
-        toneOut.setHighGain (-3.0f);
-    }
-
-    void processBlockIn (AudioBuffer<float>& buffer)
-    {
-        toneIn.processBlock (buffer);
-    }
-
-    void processBlockOut (AudioBuffer<float>& buffer)
-    {
-        toneOut.processBlock (buffer);
-    }
+    void processBlockIn (AudioBuffer<float>& buffer);
+    void processBlockOut (AudioBuffer<float>& buffer);
 
 private:
     ToneStage toneIn, toneOut;
+
+    std::atomic<float>* bassParam = nullptr;
+    std::atomic<float>* trebleParam = nullptr;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ToneControl)
 };

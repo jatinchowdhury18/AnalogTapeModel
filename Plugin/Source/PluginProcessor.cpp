@@ -26,6 +26,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        ),
 #endif
     vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+    toneControl (vts),
     hysteresis (vts),
     degrade (vts),
     chewer (vts),
@@ -54,6 +55,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
     params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 10, 0));
 
+    ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
     Flutter::createParameterLayout (params);
