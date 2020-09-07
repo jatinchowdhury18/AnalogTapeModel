@@ -133,17 +133,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     prevOS = curOS;
 
     for (int ch = 0; ch < 2; ++ch)
-    {
-        // Q values for 4th-order Butterworth filter
-        // (https://en.wikipedia.org/wiki/Butterworth_filter#Normalized_Butterworth_polynomials) 
-        constexpr float orders[] = { 1.0f / 0.7654f, 1.0f / 1.8478f };
-
-        for (int order = 0; order < 2; ++order)
-        {
-            dcBlocker[ch][order].reset (sampleRate);
-            dcBlocker[ch][order].calcCoefs (dcFreq, orders[order]);
-        }
-    }
+        dcBlocker[ch].prepare (sampleRate, dcFreq);
 }
 
 void HysteresisProcessor::releaseResources()
@@ -274,13 +264,6 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
 
 void HysteresisProcessor::applyDCBlockers (AudioBuffer<float>& buffer)
 {
-    for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
-    {
-        for (int order = 0; order < 2; ++order)
-        {
-            auto* x = buffer.getWritePointer (channel);
-            for (int samp = 0; samp < buffer.getNumSamples(); samp++)
-                x[samp] = dcBlocker[channel][order].processSample (x[samp]);
-        }
-    }
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 }

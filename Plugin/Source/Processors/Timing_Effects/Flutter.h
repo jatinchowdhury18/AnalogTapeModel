@@ -3,7 +3,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "DelayProcessor.h"
-#include "../Hysteresis/DCFilters.h"
+#include "../Hysteresis/DCBlocker.h"
 
 class Flutter
 {
@@ -57,7 +57,7 @@ private:
     };
 
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
-    TransformerHPF dcBlocker[2];
+    DCBlocker dcBlocker[2];
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Flutter)
