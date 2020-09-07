@@ -29,7 +29,7 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     spaceRange.setSkewForCentre (centreSkew);
 
     NormalisableRange<float> thickRange (minDist, 10.0f);
-    thickRange.setSkewForCentre (centreSkew);
+    thickRange.setSkewForCentre (centreSkew / 15.0f);
 
     NormalisableRange<float> gapRange (minDist, 100.0f);
     gapRange.setSkewForCentre (centreSkew);
