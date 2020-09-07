@@ -2,7 +2,6 @@
 #define FLUTTER_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "DelayProcessor.h"
 #include "../Hysteresis/DCBlocker.h"
 
 class Flutter

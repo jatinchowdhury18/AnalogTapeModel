@@ -141,6 +141,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
+    toneControl.prepare (sampleRate);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate);
@@ -208,7 +209,9 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     dryBuffer.makeCopyOf (buffer, true);
     inGain.processBlock (buffer, midiMessages);
 
+    toneControl.processBlockIn (buffer);
     hysteresis.processBlock (buffer, midiMessages);
+    toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
     
