@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## [Unreleased]
+- Improved behavior for thickness slider.
+- Improved DC blocker for hysteresis processor.
+
 ## [2.5.0] - 2020-08-23
 - Updated delay lines in wow/flutter processing to use 3-point
   Lagrange interpolation.
