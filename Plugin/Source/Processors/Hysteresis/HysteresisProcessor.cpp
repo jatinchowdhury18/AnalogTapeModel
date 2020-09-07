@@ -132,15 +132,18 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         overSample[i]->initProcessing (samplesPerBlock);
     prevOS = curOS;
 
-    dcBlocker[0].reset (sampleRate);
-    dcBlocker[0].calcCoefs (dcFreq, 0.707f);
-    dcBlocker[1].reset (sampleRate);
-    dcBlocker[1].calcCoefs (dcFreq, 0.707f);
-     
-    // dcLower[0].reset (sampleRate);
-    // dcLower[0].calcCoefs (dcShelfFreq, 0.707f, Decibels::decibelsToGain (-12.0f));
-    // dcLower[1].reset (sampleRate);
-    // dcLower[1].calcCoefs (dcShelfFreq, 0.707f, Decibels::decibelsToGain (-12.0f));
+    for (int ch = 0; ch < 2; ++ch)
+    {
+        // Q values for 4th-order Butterworth filter
+        // (https://en.wikipedia.org/wiki/Butterworth_filter#Normalized_Butterworth_polynomials) 
+        constexpr float orders[] = { 1.0f / 0.7654f, 1.0f / 1.8478f };
+
+        for (int order = 0; order < 2; ++order)
+        {
+            dcBlocker[ch][order].reset (sampleRate);
+            dcBlocker[ch][order].calcCoefs (dcFreq, orders[order]);
+        }
+    }
 }
 
 void HysteresisProcessor::releaseResources()
@@ -180,7 +183,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock = overSample[curOS]->processSamplesUp (block);
-
+    
     if (needsSmoothing)
     {
         if (useV1)
@@ -195,7 +198,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         else
             process (osBlock);
     }
-
+    
     overSample[curOS]->processSamplesDown (block);
 
     applyDCBlockers (buffer);
@@ -273,11 +276,11 @@ void HysteresisProcessor::applyDCBlockers (AudioBuffer<float>& buffer)
 {
     for (int channel = 0; channel < buffer.getNumChannels(); ++channel)
     {
-        auto* x = buffer.getWritePointer (channel);
-        for (int samp = 0; samp < buffer.getNumSamples(); samp++)
+        for (int order = 0; order < 2; ++order)
         {
-            x[samp] = dcBlocker[channel].processSample (x[samp]);
-            // x[samp] = dcLower[channel].processSample (x[samp]);
+            auto* x = buffer.getWritePointer (channel);
+            for (int samp = 0; samp < buffer.getNumSamples(); samp++)
+                x[samp] = dcBlocker[channel][order].processSample (x[samp]);
         }
     }
 }
