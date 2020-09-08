@@ -3,6 +3,7 @@ All notable changes to this project will be documented in
 this file.
 
 ## [Unreleased]
+- Pre/post emphasis filters for the hysteresis stage.
 - Improved behavior for thickness slider.
 - Improved DC blocker for hysteresis processor.
 
