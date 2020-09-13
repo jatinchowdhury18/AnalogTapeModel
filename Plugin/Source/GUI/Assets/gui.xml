@@ -106,10 +106,12 @@
                   padding="0" margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."/>
         </View>
         <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A">
-          <Slider parameter="chew_depth" caption="Depth" max-height="150" class="Slider"
+          <Slider parameter="chew_depth" caption="Depth" padding="0" margin="0" class="Slider"
                   name="Chew Depth" tooltip="Controls how intensely the tape has been chewed up."/>
-          <Slider caption="Frequency" parameter="chew_freq" max-height="150" class="Slider"
+          <Slider caption="Frequency" parameter="chew_freq" padding="0" margin="0" class="Slider"
                   name="Chew Frequency" tooltip="Controls the amount of time in between chewed-up sections of tape."/>
+          <Slider caption="Variance" parameter="chew_var" padding="0" margin="0" class="Slider"
+                  name="Chew Variance" tooltip="Controls the amount of variance in the chew frequency."/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
