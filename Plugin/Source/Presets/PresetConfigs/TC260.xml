@@ -4,6 +4,7 @@
   <Parameters>
     <PARAM id="chew_depth" value="0.0"/>
     <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
     <PARAM id="deg_amt" value="0.0"/>
     <PARAM id="deg_depth" value="0.0"/>
     <PARAM id="deg_var" value="0.0"/>

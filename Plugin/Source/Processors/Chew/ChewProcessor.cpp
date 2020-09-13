@@ -4,12 +4,14 @@ ChewProcessor::ChewProcessor (AudioProcessorValueTreeState& vts)
 {
     depth = vts.getRawParameterValue ("chew_depth");
     freq  = vts.getRawParameterValue ("chew_freq");
+    var   = vts.getRawParameterValue ("chew_var");
 }
 
 void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq",  "Freq",  0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth",    0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq",  "Freq",     0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var",   "Variance", 0.0f, 1.0f, 0.0f));
 }
 
 void ChewProcessor::prepare (double sr)
