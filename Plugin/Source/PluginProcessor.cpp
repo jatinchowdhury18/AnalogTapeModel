@@ -62,6 +62,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     Flutter::createParameterLayout (params);
     DegradeProcessor::createParameterLayout (params);
     ChewProcessor::createParameterLayout (params);
+    MixGroupsController::createParameterLayout (params);
 
     return { params.begin(), params.end() };
 }

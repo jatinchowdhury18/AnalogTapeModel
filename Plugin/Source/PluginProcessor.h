@@ -22,7 +22,7 @@
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
-#include "MixGroupsController.h"
+#include "MixGroups/MixGroupsController.h"
 
 //==============================================================================
 /**
