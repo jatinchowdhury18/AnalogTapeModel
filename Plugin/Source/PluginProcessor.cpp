@@ -30,7 +30,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     hysteresis (vts),
     degrade (vts),
     chewer (vts),
-    flutter (vts)
+    flutter (vts),
+    mixGroupsController (vts, this)
 {
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
