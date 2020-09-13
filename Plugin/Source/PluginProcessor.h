@@ -22,6 +22,7 @@
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
+#include "MixGroups/MixGroupsController.h"
 
 //==============================================================================
 /**
@@ -96,6 +97,8 @@ private:
 
     AutoUpdater updater;
     bool needsUpdate = false;
+
+    MixGroupsController mixGroupsController;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
