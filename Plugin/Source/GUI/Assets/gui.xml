@@ -141,9 +141,13 @@
                 name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
                 combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"
                 margin="" parameter="mode" combo-background="00000000" tooltip="Selects the mode to use for hysteresis processing. Choose between 2nd/4th order Runge-Kutta method, 4 or 8 Newton-Raphson iterations, or revert to version 1.0."/>
+      <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
+                name="Mix Group" caption="Mix Group" caption-size="0" flex-grow="0.9"
+                combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100" margin="0"
+                parameter="mix_group" combo-background="00000000" tooltip="Adds this plugin to a mix group. If you add this plugin to a group, the parameter settings will be copied to all other plugins in the group, and their parameters will remain in sync."/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
                radius="" border="" lookAndFeel="ComboBoxLNF" tooltip="Selects a preset for the plugin."
-               flex-grow="1.8" max-height="100"/>
+               flex-grow="1.75" max-height="100"/>
     </View>
   </View>
 </magic>

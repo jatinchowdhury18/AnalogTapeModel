@@ -31,6 +31,16 @@
         <FILE id="oFI05X" name="TooltipComp.cpp" compile="1" resource="0" file="Source/GUI/TooltipComp.cpp"/>
         <FILE id="BpGwTA" name="TooltipComp.h" compile="0" resource="0" file="Source/GUI/TooltipComp.h"/>
       </GROUP>
+      <GROUP id="{DCA33FEB-7151-818B-57ED-905929FEF150}" name="MixGroups">
+        <FILE id="plu32m" name="MixGroupsController.cpp" compile="1" resource="0"
+              file="Source/MixGroups/MixGroupsController.cpp"/>
+        <FILE id="vwS6BX" name="MixGroupsController.h" compile="0" resource="0"
+              file="Source/MixGroups/MixGroupsController.h"/>
+        <FILE id="yc5D3k" name="MixGroupsParamReceiver.cpp" compile="1" resource="0"
+              file="Source/MixGroups/MixGroupsParamReceiver.cpp"/>
+        <FILE id="hGI0mn" name="MixGroupsParamReceiver.h" compile="0" resource="0"
+              file="Source/MixGroups/MixGroupsParamReceiver.h"/>
+      </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
           <FILE id="AymGjK" name="Default.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.xml"/>
@@ -118,6 +128,7 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
+        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -142,6 +153,7 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
+        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -165,6 +177,7 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
+        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -185,6 +198,7 @@
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>

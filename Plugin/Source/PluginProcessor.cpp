@@ -30,7 +30,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     hysteresis (vts),
     degrade (vts),
     chewer (vts),
-    flutter (vts)
+    flutter (vts),
+    mixGroupsController (vts, this)
 {
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
@@ -61,6 +62,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     Flutter::createParameterLayout (params);
     DegradeProcessor::createParameterLayout (params);
     ChewProcessor::createParameterLayout (params);
+    MixGroupsController::createParameterLayout (params);
 
     return { params.begin(), params.end() };
 }
