@@ -3,7 +3,9 @@ All notable changes to this project will be documented in
 this file.
 
 ## [Unreleased]
-- Pre/post emphasis filters for the hysteresis stage.
+- Added Pre/post emphasis filters for the hysteresis stage.
+- Added "mix groups" to allow instances of the plugin to be synced across a mix.
+- Added Chew variance parameter to control the randomness of the chew dropouts.
 - Improved behavior for thickness slider.
 - Improved DC blocker for hysteresis processor.
 

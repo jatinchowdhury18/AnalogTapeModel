@@ -37,7 +37,7 @@ CHOW Tape is currently available in the following formats:
 Download the latest release
 [here](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest).
 If you would like to try the most recent builds (potentially unstable),
-see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/master/Plugin/Bin).
+see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/develop/Plugin/Bin).
 If you need Linux builds, or if you prefer to build the plugin for yourself,
 please see the [building instructions](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md).
 
