@@ -5,28 +5,22 @@
 
 namespace MixGroupsConstants
 {
-    constexpr int portNum = 1818;
-    const String oscAddressPrefix = "/chowdsp/tape/";
-    const String allParamsAddress = oscAddressPrefix + "all";
-    const String mixGroupParamID = "mix_group";
+    constexpr int numMixGroups = 4;
+    const String mixGroupParamID = "mix_group";    
 }
 
 /** Class to control syncing parameters between multiple mix groups */
 class MixGroupsController : private AudioProcessorValueTreeState::Listener,
-                            private ChangeListener
+                            private MixGroupsSharedData::Listener
 {
 public:
     MixGroupsController (AudioProcessorValueTreeState& vts, AudioProcessor* proc);
+    ~MixGroupsController();
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     void parameterChanged (const String& parameterID, float newValue) override;
-    void changeListenerCallback (ChangeBroadcaster* source) override;
-    void sendParameter (const String& paramID, int mixGroup, float value);
-
-    void parseAllParams (const OSCMessage& message);
-
-    static bool isValidOSCMessage (const OSCMessage& message);
+    void mixGroupParamChanged (const String& paramID, int mixGroup, float value, String otherUuid) override;
 
 private:
     void loadParameterList (Array<AudioProcessorParameter*>& params);
@@ -34,10 +28,11 @@ private:
     AudioProcessorValueTreeState& vts;
     std::atomic<float>* mixGroupParam = nullptr;
     Array<String> paramList;
-    OSCSender sender;
     Uuid uuid;
 
-    SharedResourcePointer<MixGroupsParamReceiver> paramReceiver;
+    String lastParameterChanged = "";
+
+    SharedResourcePointer<MixGroupsSharedData> sharedData;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixGroupsController)
 };
