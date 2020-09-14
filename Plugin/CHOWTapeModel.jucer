@@ -128,7 +128,6 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
-        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <VS2017 targetFolder="Builds/VisualStudio2017">
@@ -153,7 +152,6 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
-        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </VS2017>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
@@ -177,7 +175,6 @@
         <MODULEPATH id="juce_dsp" path="Juce/modules"/>
         <MODULEPATH id="foleys_gui_magic" path="."/>
         <MODULEPATH id="juce_opengl" path="Juce/modules"/>
-        <MODULEPATH id="juce_osc" path="Juce/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
@@ -198,7 +195,6 @@
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>
