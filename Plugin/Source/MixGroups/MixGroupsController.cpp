@@ -6,18 +6,20 @@ MixGroupsController::MixGroupsController (AudioProcessorValueTreeState& vts,
                                           AudioProcessor* proc) :
     vts (vts)
 {
-    // connect sender
-    sender.connect ("127.0.0.1", portNum);
-
     // load parameters
     auto params = proc->getParameters();
     loadParameterList (params);
 
     // set up receiver
-    paramReceiver->loadReceiverListeners (paramList);
-    paramReceiver->addChangeListener (this);
+    sharedData->loadParameterList (paramList);
+    sharedData->addListener (this);
 
     mixGroupParam = vts.getRawParameterValue (mixGroupParamID);
+}
+
+MixGroupsController::~MixGroupsController()
+{
+    sharedData->removeListener (this);
 }
 
 void MixGroupsController::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -45,127 +47,65 @@ void MixGroupsController::loadParameterList (Array<AudioProcessorParameter*>& pa
 
 void MixGroupsController::parameterChanged (const String& parameterID, float newValue)
 {
-    int mixGroup = (int) mixGroupParam->load();
-    if (mixGroup == 0) // no mix group, don't bother sending
+    if (parameterID == lastParameterChanged) // I just changed this param, don't want to get stuck in an endless loop...
+    {
+        lastParameterChanged = String();
         return;
+    }
+
+    int mixGroup = (int) mixGroupParam->load();
 
     if (parameterID == mixGroupParamID) // mix group was changed
     {
-        OSCMessage message (allParamsAddress);
-        message.addArgument (uuid.toString());
-        message.addArgument (mixGroup);
+        sharedData->pluginGroupChanged (uuid.toString(), mixGroup);
 
-        for (const auto& paramID : paramList)
+        if (mixGroup == 0)
+            return;
+
+        int numPluginsInGroup = sharedData->getNumPluginsInGroup (mixGroup);
+        if (numPluginsInGroup == 1) // I'm the only plugin in this group
         {
-            auto param = vts.getParameter (paramID);
-            auto value = param->convertFrom0to1 (param->getValue());
-            
-            message.addArgument (paramID);
-            message.addArgument (value);
+            sharedData->copyPluginState (mixGroup, vts);
         }
+        else if (numPluginsInGroup > 1) // there are already plugins in this group
+        {
+            // copy shared state to me     
+            for (const auto& paramID : paramList)
+            {
+                auto param = vts.getParameter (paramID);
+                auto value = sharedData->getParameter (paramID, mixGroup);
 
-        sender.send (message);
+                lastParameterChanged = paramID;
+                param->setValueNotifyingHost (param->convertTo0to1 (value));
+            }
+        }
 
         return;
     }
+
+    if (mixGroup == 0) // no mix group, don't bother sending
+        return;
 
     if (! paramList.contains (parameterID)) // parameter is not in list
         return;
 
-    sendParameter (parameterID, mixGroup, newValue);
+    sharedData->setParameter (parameterID, mixGroup, newValue, uuid.toString());
 }
 
-void MixGroupsController::sendParameter (const String& paramID, int mixGroup, float value)
+void MixGroupsController::mixGroupParamChanged (const String& paramID, int mixGroup, float value, String otherUuid)
 {
-    String address = oscAddressPrefix + paramID;
-    String pluginID = uuid.toString();
-
-    sender.send (address, pluginID, mixGroup, value);
-}
-
-void MixGroupsController::changeListenerCallback (ChangeBroadcaster* source)
-{
-    if (source != paramReceiver)
+    if (uuid == otherUuid) // this message came from me!
         return;
 
-    // get message from receiver, we already know this will be a valid message!
-    auto& message = paramReceiver->getOSCMessage();
-
-    // get address
-    auto address = message.getAddressPattern().toString();
-
-    // special case: all parameters
-    if (address == allParamsAddress)
-    {
-        parseAllParams (message);
-        return;
-    }
-
-    // get paramID from address
-    auto paramID = address.fromFirstOccurrenceOf (oscAddressPrefix, false, false);
+    // load parameter
     auto param = vts.getParameter (paramID);
-
     if (param == nullptr) // invalid parameter
         return;
 
-    String pluginID = message[0].getString();
-    if (uuid == pluginID) // this message came from me!
-        return;
-
-    int mixGroup = message[1].getInt32();
     if (mixGroup != (int) mixGroupParam->load()) // received message does not apply to this mix group
         return;
-
-    auto value = message[2].getFloat32();
+    
+    // set parameter value
+    lastParameterChanged = paramID;
     param->setValueNotifyingHost (param->convertTo0to1 (value));
-}
-
-void MixGroupsController::parseAllParams (const OSCMessage& message)
-{
-    if (message.size() % 2 != 0) // must have even number of arguments!
-        return;
-
-    String pluginID = message[0].getString();
-    if (uuid == pluginID) // this message came from me!
-        return;
-
-    int mixGroup = message[1].getInt32();
-    if (mixGroup != (int) mixGroupParam->load()) // received message does not apply to this mix group
-        return;
-
-    for (int argIdx = 2; argIdx < message.size(); argIdx += 2)
-    {
-        auto temp1 = message[argIdx];
-        auto temp2 = message[argIdx+1];
-        if (! (message[argIdx].isString() && message[argIdx + 1].isFloat32())) // incorrect format...
-            continue;
-
-        String paramID = message[argIdx].getString();
-        auto param = vts.getParameter (paramID);
-
-        if (param == nullptr) // invalid parameter
-            continue;
-
-        auto value = message[argIdx + 1].getFloat32();
-        param->setValueNotifyingHost (param->convertTo0to1 (value));
-    }
-}
-
-bool MixGroupsController::isValidOSCMessage (const OSCMessage& message)
-{
-    // special case: all parameters
-    if (message.getAddressPattern() == allParamsAddress && message.size() > 2)
-        return true;
-
-    // other valid messages will be of the form: string, int, float
-    if (message.size() != 3)
-        return false;
-
-    bool isValid = true;
-
-    isValid &= message[0].isString();
-    isValid &= message[1].isInt32();
-    isValid &= message[2].isFloat32();
-
-    return isValid;
 }
