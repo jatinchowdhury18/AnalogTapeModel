@@ -54,7 +54,7 @@ void ToneStage::setHighGain (float highGainDB)
 
 void ToneStage::processBlock (AudioBuffer<float>& buffer)
 {
-    for (int ch = 0; ch < 2; ++ch)
+    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         if (lowGain[ch].isSmoothing() || highGain[ch].isSmoothing())
         {
