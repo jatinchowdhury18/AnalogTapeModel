@@ -7,6 +7,7 @@ this file.
 - Added "mix groups" to allow instances of the plugin to be synced across a mix.
 - Added Chew variance parameter to control the randomness of the chew dropouts.
 - Improved behavior for thickness slider.
+- Improved internal clipping characteristic (to preserve stability).
 - Improved DC blocker for hysteresis processor.
 
 ## [2.5.0] - 2020-08-23
