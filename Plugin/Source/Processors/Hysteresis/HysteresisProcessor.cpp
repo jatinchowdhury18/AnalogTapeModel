@@ -50,6 +50,23 @@ void HysteresisProcessor::setSolver (int newSolver)
 
     for (int ch = 0; ch < 2; ++ch)
         hProcs[ch].setSolver (static_cast<SolverType> (newSolver));
+
+    // set clip level for solver
+    switch (newSolver)
+    {
+    case 0: // RK2
+    case 1: // RK4
+        clipLevel = 10.0f;
+        return;
+
+    case 2: // NR4
+    case 3: // NR8
+        clipLevel = 12.5f;
+        return;
+
+    default:
+        clipLevel = 20.0f;
+    };
 }
 
 float HysteresisProcessor::calcMakeup()
@@ -166,10 +183,10 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     wasV1 = useV1;
 
-    // clip input to +9 dB
+    // clip input to avoid unstable hysteresis
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         FloatVectorOperations::clip (buffer.getWritePointer (ch),
-            buffer.getWritePointer (ch), -8.0f, 8.0f, buffer.getNumSamples());
+            buffer.getWritePointer (ch), -clipLevel, clipLevel, buffer.getNumSamples());
 
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock = overSample[curOS]->processSamplesUp (block);

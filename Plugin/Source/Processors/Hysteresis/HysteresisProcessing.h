@@ -33,10 +33,15 @@ public:
         double H_d = deriv (H, H_n1, H_d_n1);
         double M = (this->*solver) (H, H_d);
 
-        if (std::isnan (M) || M > upperLim)
-        {
-            M = 0.0;
-        }
+        // check for instability
+        bool illCondition = std::isnan (M) || M > upperLim;
+        M = illCondition ? 0.0 : M;
+        H_d = illCondition ? 0.0 : H_d;
+
+        // if (std::isnan (M) || M > upperLim)
+        // {
+        //     M = 0.0;
+        // }
 
         M_n1 = M;
         H_n1 = H;
@@ -51,7 +56,7 @@ private:
     inline double langevinD2 (double x) const noexcept;  // 2nd derivative of Langevin function
     inline double deriv (double x_n, double x_n1, double x_d_n1) const noexcept // Derivative by alpha transform
     {
-        constexpr double dAlpha = 0.9;
+        constexpr double dAlpha = 0.75;
         return (((1.0 + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
     }
 
