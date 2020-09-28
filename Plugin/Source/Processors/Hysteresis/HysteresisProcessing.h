@@ -38,11 +38,6 @@ public:
         M = illCondition ? 0.0 : M;
         H_d = illCondition ? 0.0 : H_d;
 
-        // if (std::isnan (M) || M > upperLim)
-        // {
-        //     M = 0.0;
-        // }
-
         M_n1 = M;
         H_n1 = H;
         H_d_n1 = H_d;
