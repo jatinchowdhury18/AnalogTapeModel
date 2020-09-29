@@ -25,7 +25,7 @@ public:
 
     struct Listener
     {
-        ~Listener() {}
+        virtual ~Listener() {}
         virtual void mixGroupParamChanged (const String& /*paramID*/, int /*mixGroup*/, float /*value*/, String /*uuid*/) {}
     };
 

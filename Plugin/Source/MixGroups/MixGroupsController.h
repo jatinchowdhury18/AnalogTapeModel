@@ -1,7 +1,7 @@
 #ifndef MIXGROUPSCONTROLLER_H_INCLUDED
 #define MIXGROUPSCONTROLLER_H_INCLUDED
 
-#include "MixGroupsParamReceiver.h"
+#include "MixGroupsSharedData.h"
 
 namespace MixGroupsConstants
 {

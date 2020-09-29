@@ -1,4 +1,4 @@
-#include "MixGroupsParamReceiver.h"
+#include "MixGroupsSharedData.h"
 #include "MixGroupsController.h"
 
 MixGroupsSharedData::MixGroupsSharedData()
