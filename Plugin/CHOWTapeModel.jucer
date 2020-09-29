@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.5.99"
+<JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.6.0"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" cppLanguageStandard="17"
               companyName="chowdsp" companyEmail="chowdsp@gmail.com" defines="SAVE_PRESETS=0"
               pluginManufacturerCode="Chow" reportAppUsage="0" jucerFormatVersion="1">
@@ -36,10 +36,10 @@
               file="Source/MixGroups/MixGroupsController.cpp"/>
         <FILE id="vwS6BX" name="MixGroupsController.h" compile="0" resource="0"
               file="Source/MixGroups/MixGroupsController.h"/>
-        <FILE id="yc5D3k" name="MixGroupsParamReceiver.cpp" compile="1" resource="0"
-              file="Source/MixGroups/MixGroupsParamReceiver.cpp"/>
-        <FILE id="hGI0mn" name="MixGroupsParamReceiver.h" compile="0" resource="0"
-              file="Source/MixGroups/MixGroupsParamReceiver.h"/>
+        <FILE id="yc5D3k" name="MixGroupsSharedData.cpp" compile="1" resource="0"
+              file="Source/MixGroups/MixGroupsSharedData.cpp"/>
+        <FILE id="hGI0mn" name="MixGroupsSharedData.h" compile="0" resource="0"
+              file="Source/MixGroups/MixGroupsSharedData.h"/>
       </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
