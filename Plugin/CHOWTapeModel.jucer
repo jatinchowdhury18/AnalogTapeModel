@@ -52,6 +52,14 @@
           <FILE id="AymGjK" name="Default.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.xml"/>
           <FILE id="zlTcrf" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.xml"/>
           <FILE id="drwXrv" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/OldTape.xml"/>
+          <FILE id="KrMr05" name="SNK_CleanFat.xml" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_CleanFat.xml"/>
+          <FILE id="zm6tJQ" name="SNK_Fat2.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Fat2.xml"/>
+          <FILE id="vcSaJ4" name="SNK_Gritty.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Gritty.xml"/>
+          <FILE id="UdKpcL" name="SNK_Gritty2.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Gritty2.xml"/>
+          <FILE id="UuLbyh" name="SNK_lofi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_lofi.xml"/>
+          <FILE id="c60moA" name="SNK_SlightlyWobbly.xml" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_SlightlyWobbly.xml"/>
           <FILE id="O4vt7g" name="TC260.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/TC260.xml"/>
           <FILE id="FkbdSt" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Underbiased.xml"/>
           <FILE id="wf7iTS" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/WoozyChorus.xml"/>

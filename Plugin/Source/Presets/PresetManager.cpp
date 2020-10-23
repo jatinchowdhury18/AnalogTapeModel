@@ -56,6 +56,12 @@ void PresetManager::loadPresets()
     presets.add (new Preset ("WoozyChorus.xml"));
     presets.add (new Preset ("OldTape.xml"));
     presets.add (new Preset ("Underbiased.xml"));
+    presets.add (new Preset ("SNK_CleanFat.xml"));
+    presets.add (new Preset ("SNK_Fat2.xml"));
+    presets.add (new Preset ("SNK_Gritty.xml"));
+    presets.add (new Preset ("SNK_Gritty2.xml"));
+    presets.add (new Preset ("SNK_lofi.xml"));
+    presets.add (new Preset ("SNK_SlightlyWobbly.xml"));
 
     for (auto* p : presets)
     {

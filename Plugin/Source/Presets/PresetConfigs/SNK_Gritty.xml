@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="SNK_Gritty">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.0"/>
+    <PARAM id="drive" value="1.0"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="9.999999974752427e-7"/>
+    <PARAM id="h_bass" value="0.1499999761581421"/>
+    <PARAM id="h_treble" value="0.2999999523162842"/>
+    <PARAM id="ingain" value="2.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="-2.0"/>
+    <PARAM id="preset" value="0.0"/>
+    <PARAM id="rate" value="0.2999999821186066"/>
+    <PARAM id="sat" value="0.5"/>
+    <PARAM id="spacing" value="9.999999974752427e-7"/>
+    <PARAM id="speed" value="3.499999761581421"/>
+    <PARAM id="thick" value="9.999999974752427e-7"/>
+    <PARAM id="width" value="0.6499999761581421"/>
+    <PARAM id="wow_depth" value="0.0"/>
+    <PARAM id="wow_rate" value="0.1499999910593033"/>
+    <PARAM id="preset" value="8"/>
+  </Parameters>
+</Preset>

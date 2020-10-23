@@ -56,7 +56,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
-    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 10, 0));
+    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 20, 0));
 
     ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);

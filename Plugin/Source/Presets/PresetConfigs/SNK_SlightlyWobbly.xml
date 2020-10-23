@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="SNK_Slightly Wobbly">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.04999999701976776"/>
+    <PARAM id="chew_freq" value="0.07000000029802322"/>
+    <PARAM id="chew_var" value="0.199999988079071"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.2099999934434891"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.6599999666213989"/>
+    <PARAM id="drive" value="0.5"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="9.999999974752427e-7"/>
+    <PARAM id="h_bass" value="-0.14000004529953"/>
+    <PARAM id="h_treble" value="0.2200000286102295"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="preset" value="0.0"/>
+    <PARAM id="rate" value="0.2599999904632568"/>
+    <PARAM id="sat" value="0.5"/>
+    <PARAM id="spacing" value="9.999999974752427e-7"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="9.999999974752427e-7"/>
+    <PARAM id="width" value="0.5399999618530273"/>
+    <PARAM id="wow_depth" value="0.6100000143051147"/>
+    <PARAM id="wow_rate" value="0.2099999934434891"/>
+    <PARAM id="preset" value="11"/>
+  </Parameters>
+</Preset>

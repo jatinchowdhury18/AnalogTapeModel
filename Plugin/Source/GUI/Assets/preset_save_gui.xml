@@ -8,6 +8,12 @@
         <plot-view border="2" background-color="black" border-color="silver" display="contents"/>
         <nomargin margin="0" padding="0" border="0"/>
         <group margin="5" padding="5" border="2" flex-direction="column"/>
+        <Slider background-color="00000000" caption-color="FFFFFFFF" slider-text-outline="00000000"
+                slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
+                lookAndFeel="MyLNF" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                slidertext-width="80" slidertext-height="17" caption-size="21.25">
+          <media/>
+        </Slider>
       </Classes>
       <Types>
         <Slider border="0" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
@@ -22,78 +28,127 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        background-color="FF7D2C2C" padding="0" width="600" height="650">
-    <View max-height="100" padding="0" background-color="FF7D2C2C" margin="0">
-      <Label text="CHOW Tape Model" font-size="20" padding="0" background-color="FF7D2C2C"
-             border="" max-width="180"/>
-      <Plot source="scope" plot-fill-color="FF000000" plot-color="FFCC7D12"
-            padding="0" background-color="FF000000" plot-decay="0.0"/>
+        padding="0" width="580" height="580" background-color="FF8B3232"
+        background-image="Background_svg" image-placement="stretch">
+    <View max-height="100" padding="0" margin="0" background-color="">
+      <View margin="2" padding="" background-color="00000000" flex-direction="column"
+            flex-grow="0.75">
+        <View flex-grow="0.333" background-color="00000000"/>
+        <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
+                   padding="3" flex-grow="1.0"/>
+        <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
+                  padding="0" margin="5" border=""/>
+        <View background-color="00000000" flex-grow="0.33"/>
+      </View>
+      <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
+            plot-decay="0.0" plot-fill-color="00000000"/>
     </View>
-    <View background-color="FF7D2C2C" padding="0" margin="">
-      <View flex-direction="column" margin="5" padding="">
-        <Label max-height="5"/>
-        <Slider caption="Input Gain [dB]" parameter="ingain" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="160"/>
-        <ComboBox caption="Oversampling" parameter="os" max-height="70"/>
-        <Slider caption="Dry/Wet" parameter="drywet" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="170"/>
-        <Slider caption="Output Gain [dB]" parameter="outgain" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical" max-height="170"/>
+    <View padding="0" margin="" background-color="" lookAndFeel="">
+      <View flex-direction="column" margin="5" padding="" background-color="FF31323A">
+        <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
+                tooltip="Sets the input gain to the tape model in Decibels."/>
+        <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
+                name="Dry/Wet" slider-track="FF0BBDC2"/>
+        <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider"
+                name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
       </View>
-      <View flex-direction="column" tab-color="">
-        <Label max-height="40" text="Hysteresis" font-size="18" justification="centred"/>
-        <Slider caption="Bias" parameter="width" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
-        <Slider caption="Saturation" parameter="sat" slider-textbox="textbox-below"
-                slider-type="rotary-horizontal-vertical"/>
-        <Slider caption="Drive" parameter="drive" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Tape">
+          <Slider caption="Bias" parameter="width" class="Slider" name="Bias"
+                  padding="0" margin="0" tooltip="Controls the amount of bias used by the tape recorder. Turning down the bias can create &quot;deadzone&quot; distortion."/>
+          <Slider caption="Saturation" parameter="sat" class="Slider" name="Saturation"
+                  padding="0" margin="0" tooltip="Controls the amount of tape saturation applied to the signal."/>
+          <Slider caption="Drive" parameter="drive" class="Slider" name="Drive"
+                  padding="0" margin="0" tooltip="Controls the amount of amplification done during the tape magnetisation process. Note that unlike the &quot;Input Gain&quot;, this amplification is highly nonlinear."/>
+        </View>
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Tone">
+          <Slider caption="Bass" parameter="h_bass" class="Slider" name="Bass"
+                  tooltip="Controls the bass response of the pre/post-emphasis filters."/>
+          <Slider caption="Treble" parameter="h_treble" class="Slider" name="Treble"
+                  tooltip="Controls the treble response of the pre/post-emphasis filters."/>
+        </View>
       </View>
-      <View display="tabbed" padding="0">
-        <View flex-direction="column" tab-caption="Loss" tab-color="" background-color=""
+      <View display="tabbed" padding="0" background-color="FF31323A" flex-grow="1.5"
+            lookAndFeel="MyLNF">
+        <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
               padding="0" margin="0">
-          <Label max-height="40" text="Loss" justification="centred" font-size="18"
-                 padding="0" margin="0"/>
-          <Slider caption="Gap [mm]" parameter="gap" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" background-color="" padding="0"/>
-          <Slider caption="Thickness [mm]" parameter="thick" slider-textbox="textbox-below"
-                  slider-type="linear-horizontal" padding="0"/>
-          <Slider caption="Spacing [mm]" parameter="spacing" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" lookAndFeel="LookAndFeel_V4" padding="0"/>
+          <View flex-grow="0.1" background-color="00000000"/>
+          <Slider caption="Gap [cm]" parameter="gap" slider-type="linear-horizontal"
+                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                  name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
+                  slidertext-height="18" caption-placement="top-left"/>
+          <View flex-grow="0.2" background-color="00000000"/>
+          <Slider caption="Thickness [cm]" parameter="thick" class="Slider" slider-type="linear-horizontal"
+                  padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                  name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
+                  caption-placement="top-left"/>
+          <View flex-grow="0.2" background-color="00000000"/>
+          <Slider caption="Spacing [cm]" parameter="spacing" slider-type="linear-horizontal"
+                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                  name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
+                  caption-placement="top-left"/>
+          <View flex-grow="0.2" background-color="00000000"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
-                  slider-textbox="textbox-below" padding="0"/>
+                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                  name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
+                  caption-placement="top-left"/>
+          <View flex-grow="0.2" background-color="00000000"/>
         </View>
-        <View tab-caption="Degr." padding="0" flex-direction="column">
-          <Label text="Degrade" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="deg_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Depth"/>
-          <Slider caption="Amount" parameter="deg_amt" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"/>
-          <Slider parameter="deg_var" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Variance"/>
+        <View tab-caption="Degrade" padding="0" flex-direction="column" background-color="FF31323A">
+          <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
+                  tooltip="Sets the depth of the tape degradation." padding="0"
+                  margin="0"/>
+          <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
+                  padding="0" margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."/>
+          <Slider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
+                  padding="0" margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."/>
         </View>
-        <View tab-caption="CHEW" padding="0" flex-direction="column">
-          <Label text="CHEW" justification="centred" font-size="18" max-height="40"/>
-          <Slider parameter="chew_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  caption="Depth" max-height="180"/>
-          <Slider caption="Frequency" parameter="chew_freq" slider-type="rotary-horizontal-vertical"
-                  slider-textbox="textbox-below" max-height="200"/>
+        <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A">
+          <Slider parameter="chew_depth" caption="Depth" padding="0" margin="0" class="Slider"
+                  name="Chew Depth" tooltip="Controls how intensely the tape has been chewed up."/>
+          <Slider caption="Frequency" parameter="chew_freq" padding="0" margin="0" class="Slider"
+                  name="Chew Frequency" tooltip="Controls the amount of time in between chewed-up sections of tape."/>
+          <Slider caption="Variance" parameter="chew_var" padding="0" margin="0" class="Slider"
+                  name="Chew Variance" tooltip="Controls the amount of variance in the chew frequency."/>
         </View>
       </View>
-      <View display="tabbed" padding="0">
-        <View tab-caption="Flutter" flex-direction="column">
-          <Label max-height="40" text="Flutter" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  max-height="200"/>
-          <Slider caption="Rate" parameter="rate" slider-textbox="textbox-below"
-                  slider-type="rotary-horizontal-vertical" max-height="200"/>
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+        <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
+          <Slider caption="Depth" parameter="depth" max-height="150" class="Slider"
+                  name="Flutter Depth" tooltip="Sets depth of the tape flutter."/>
+          <Slider caption="Rate" parameter="rate" class="Slider" max-height="150"
+                  name="Flutter Rate" tooltip="Sets the rate of the tape flutter."/>
         </View>
-        <View tab-caption="Wow" flex-direction="column">
-          <Label max-height="40" text="Wow" justification="centred" font-size="18"/>
-          <Slider caption="Depth" parameter="wow_depth" slider-type="rotary-horizontal-vertical" slider-textbox="textbox-below"
-                  max-height="200"/>
-          <Slider caption="Rate" parameter="wow_rate" slider-textbox="textbox-below"
-                  slider-type="rotary-horizontal-vertical" max-height="200"/>
+        <View tab-caption="Wow" flex-direction="column" background-color="FF31323A">
+          <Slider caption="Depth" parameter="wow_depth" max-height="150" class="Slider"
+                  name="Wow Depth" tooltip="Sets the depth of the tape wow."/>
+          <Slider caption="Rate" parameter="wow_rate" class="Slider" max-height="150"
+                  name="Wow Rate" tooltip="Sets the rate of the tape wow."/>
         </View>
       </View>
     </View>
-    <presets max-height="30" margin="0" padding="0"/>
+    <TooltipComp flex-grow="0.15" background-color="00000000" tooltip-name="FFEAA92C"
+                 tooltip-text="FFFFFFFF"/>
+    <View max-height="35" margin="0" padding="0" background-color="FF31323A"
+          flex-grow="0.1">
+      <ComboBox caption="Oversampling" parameter="os" class="Slider" caption-size="0"
+                padding="0" combo-text="FFEAA92C" combo-background="00000000"
+                max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
+                tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
+      <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
+                name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
+                combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"
+                margin="" parameter="mode" combo-background="00000000" tooltip="Selects the mode to use for hysteresis processing. Choose between 2nd/4th order Runge-Kutta method, 4 or 8 Newton-Raphson iterations, or revert to version 1.0."/>
+      <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
+                name="Mix Group" caption="Mix Group" caption-size="0" flex-grow="0.9"
+                combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100" margin="0"
+                parameter="mix_group" combo-background="00000000" tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
+      <TextButton max-height="50" margin="0" padding="0" text="Save" onClick="savepreset"/>
+      <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
+               radius="" border="" lookAndFeel="ComboBoxLNF" tooltip="Selects a preset for the plugin."
+               flex-grow="1.75" max-height="100"/>
+    </View>
   </View>
 </magic>
