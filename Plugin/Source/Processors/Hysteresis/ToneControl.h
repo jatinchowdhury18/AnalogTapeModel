@@ -8,7 +8,7 @@ using SmoothGain = SmoothedValue<float, ValueSmoothingTypes::Multiplicative>;
 struct ToneStage
 {
     ToneFilter tone[2];
-    SmoothGain lowGain[2], highGain[2];
+    SmoothGain lowGain[2], highGain[2], tFreq[2];
     float fs = 44100.0f;
 
     ToneStage();
@@ -17,6 +17,7 @@ struct ToneStage
     void processBlock (AudioBuffer<float>& buffer);
     void setLowGain (float lowGainDB);
     void setHighGain (float highGainDB);
+    void setTransFreq (float newTFreq);
 };
 
 class ToneControl
@@ -35,6 +36,7 @@ private:
 
     std::atomic<float>* bassParam = nullptr;
     std::atomic<float>* trebleParam = nullptr;
+    std::atomic<float>* tFreqParam = nullptr;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ToneControl)
 };
