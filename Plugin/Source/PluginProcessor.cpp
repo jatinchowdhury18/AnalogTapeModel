@@ -12,6 +12,7 @@
 #include "GUI/InfoComp.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
+#include "GUI/MixGroupViz.h"
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
@@ -263,6 +264,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
     builder->registerFactory ("InfoComp", &InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
+    builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
