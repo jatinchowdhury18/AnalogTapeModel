@@ -3,6 +3,7 @@ All notable changes to this project will be documented in
 this file.
 
 ## [Unreleased]
+- Tone section: added transition frequency control, and made bass/treble controls more extreme
 - Added coloured circle on bottom bar to visualize mix group
 - Added buttons to snap tape speed to conventional values
 
