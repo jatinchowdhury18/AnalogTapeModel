@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in
 this file.
 
+## [Unreleased]
+- Added coloured circle on bottom bar to visualize mix group
+
 ## [2.6.0] - 2020-09-29
 - Added Pre/post emphasis filters for the hysteresis stage.
 - Added "mix groups" to allow instances of the plugin to be synced across a mix.
