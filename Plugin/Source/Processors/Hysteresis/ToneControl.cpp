@@ -4,7 +4,7 @@ namespace
 {
     constexpr double slewTime = 0.05;
     constexpr float transFreq = 500.0f;
-    constexpr float dbScale = 12.0f;
+    constexpr float dbScale = 18.0f;
 }
 
 ToneStage::ToneStage()
@@ -13,6 +13,7 @@ ToneStage::ToneStage()
     {
         lowGain[ch] = 1.0f;
         highGain[ch] = 1.0f;
+        tFreq[ch] = transFreq;
     }
 }
 
@@ -22,46 +23,45 @@ void ToneStage::prepare (double sampleRate)
 
     for (int ch = 0; ch < 2; ++ch)
     {
-        lowGain[ch].reset (sampleRate, slewTime);
-        lowGain[ch].setCurrentAndTargetValue (lowGain[ch].getTargetValue());
-        highGain[ch].reset (sampleRate, slewTime);
-        highGain[ch].setCurrentAndTargetValue (highGain[ch].getTargetValue());
+        auto resetSmoothValue = [sampleRate] (SmoothGain& value)
+        {
+            value.reset (sampleRate, slewTime);
+            value.setCurrentAndTargetValue (value.getTargetValue());
+        };
+
+        resetSmoothValue (lowGain[ch]);
+        resetSmoothValue (highGain[ch]);
+        resetSmoothValue (tFreq[ch]);
 
         tone[ch].reset();
-        tone[ch].calcCoefs (lowGain[ch].getTargetValue(), highGain[ch].getTargetValue(), transFreq, fs);
+        tone[ch].calcCoefs (lowGain[ch].getTargetValue(), highGain[ch].getTargetValue(),
+            tFreq[ch].getTargetValue(), fs);
     }
 }
 
-void ToneStage::setLowGain (float lowGainDB)
+void setSmoothValues (SmoothGain values[2], float newValue)
 {
-    auto newLowGain = Decibels::decibelsToGain (lowGainDB);
-    if (newLowGain == lowGain[0].getTargetValue())
+    if (newValue == values[0].getTargetValue())
         return;
 
-    lowGain[0].setTargetValue (newLowGain);
-    lowGain[1].setTargetValue (newLowGain);
+    values[0].setTargetValue (newValue);
+    values[1].setTargetValue (newValue);
 }
 
-void ToneStage::setHighGain (float highGainDB)
-{
-    auto newHighGain = Decibels::decibelsToGain (highGainDB);
-    if (newHighGain == highGain[0].getTargetValue())
-        return;
-
-    highGain[0].setTargetValue (newHighGain);
-    highGain[1].setTargetValue (newHighGain);
-}
+void ToneStage::setLowGain (float lowGainDB) { setSmoothValues (lowGain, Decibels::decibelsToGain (lowGainDB)); }
+void ToneStage::setHighGain (float highGainDB) { setSmoothValues (highGain, Decibels::decibelsToGain (highGainDB)); }
+void ToneStage::setTransFreq (float newTFreq) { setSmoothValues (tFreq, newTFreq); }
 
 void ToneStage::processBlock (AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
-        if (lowGain[ch].isSmoothing() || highGain[ch].isSmoothing())
+        if (lowGain[ch].isSmoothing() || highGain[ch].isSmoothing() || tFreq[ch].isSmoothing())
         {
             auto* x = buffer.getWritePointer (ch);
             for (int n = 0; n < buffer.getNumSamples(); ++n)
             {
-                tone[ch].calcCoefs (lowGain[ch].getNextValue(), highGain[ch].getNextValue(), transFreq, fs);
+                tone[ch].calcCoefs (lowGain[ch].getNextValue(), highGain[ch].getNextValue(), tFreq[ch].getNextValue(), fs);
                 x[n] = tone[ch].processSample (x[n]);
             }
         }
@@ -77,12 +77,22 @@ ToneControl::ToneControl (AudioProcessorValueTreeState& vts)
 {
     bassParam   = vts.getRawParameterValue ("h_bass");
     trebleParam = vts.getRawParameterValue ("h_treble");
+    tFreqParam = vts.getRawParameterValue ("h_tfreq");
 }
 
 void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
+    NormalisableRange freqRange { 100.0f, 4000.0f };
+    freqRange.setSkewForCentre (transFreq);
+
     params.push_back (std::make_unique<AudioParameterFloat> ("h_bass",   "Bass",   -1.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("h_treble", "Treble", -1.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("h_tfreq",  "Frequency", freqRange, transFreq,
+        String(), AudioProcessorParameter::genericParameter, [=] (float val, int) {
+        String suffix = " Hz";
+        if (val > 1000.0f) { val /= 1000.0f; suffix = " kHz"; }
+        return String (val, 2, false) + suffix;
+    }));
 }
 
 void ToneControl::prepare (double sampleRate)
@@ -95,6 +105,7 @@ void ToneControl::processBlockIn (AudioBuffer<float>& buffer)
 {
     toneIn.setLowGain  (dbScale * bassParam->load());
     toneIn.setHighGain (dbScale * trebleParam->load());
+    toneIn.setTransFreq (tFreqParam->load());
 
     toneIn.processBlock (buffer);
 }
@@ -103,6 +114,7 @@ void ToneControl::processBlockOut (AudioBuffer<float>& buffer)
 {
     toneOut.setLowGain  (-1.0f * dbScale * bassParam->load());
     toneOut.setHighGain (-1.0f * dbScale * trebleParam->load());
+    toneOut.setTransFreq (tFreqParam->load());
     
     toneOut.processBlock (buffer);
 }

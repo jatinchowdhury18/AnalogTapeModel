@@ -64,10 +64,12 @@
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tone">
-          <Slider caption="Bass" parameter="h_bass" class="Slider" name="Bass"
-                  tooltip="Controls the bass response of the pre/post-emphasis filters."/>
-          <Slider caption="Treble" parameter="h_treble" class="Slider" name="Treble"
-                  tooltip="Controls the treble response of the pre/post-emphasis filters."/>
+          <Slider caption="Treble" parameter="h_treble" class="Slider" name="Treble" padding="0"
+                  margin="0" tooltip="Controls the treble response of the pre/post-emphasis filters."/>
+          <Slider caption="Bass" parameter="h_bass" class="Slider" name="Bass" padding="0"
+                  margin="0" tooltip="Controls the bass response of the pre/post-emphasis filters."/>
+          <Slider caption="Frequency" parameter="h_tfreq" class="Slider" name="Transition Frequency" padding="0"
+                  margin="0" tooltip="Controls the transition frequency between the bass and treble sections of the EQ."/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" flex-grow="1.5"
