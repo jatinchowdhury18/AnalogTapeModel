@@ -94,7 +94,17 @@
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
                   caption-placement="top-left"/>
-          <View flex-grow="0.2" background-color="00000000"/>
+          <View flex-grow="0.55" margin="0" padding="2" background-color="00000000">
+            <TextButton margin="0" padding="2" text="3.75" button-color="00000000" background-color="00000000"
+                        onClick="set_speed_3.75" lookAndFeel="SpeedButtonLNF"/>
+            <TextButton text="7.5" margin="0" padding="2" button-color="00000000" background-color="00000000"
+                        onClick="set_speed_7.50" lookAndFeel="SpeedButtonLNF"/>
+            <TextButton margin="0" padding="2" text="15" button-color="00000000" border-color=""
+                        background-color="00000000" onClick="set_speed_15.00" lookAndFeel="SpeedButtonLNF"/>
+            <TextButton margin="0" padding="2" background-color="00000000" onClick="set_speed_30.00"
+                        lookAndFeel="SpeedButtonLNF" text="30" button-color="00000000"/>
+          </View>
+          <View flex-grow="0.01" background-color="00000000"/>
         </View>
         <View tab-caption="Degrade" padding="0" flex-direction="column" background-color="FF31323A">
           <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"

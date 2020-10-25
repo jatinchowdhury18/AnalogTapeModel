@@ -4,6 +4,7 @@ this file.
 
 ## [Unreleased]
 - Added coloured circle on bottom bar to visualize mix group
+- Added buttons to snap tape speed to conventional values
 
 ## [2.6.0] - 2020-09-29
 - Added Pre/post emphasis filters for the hysteresis stage.
