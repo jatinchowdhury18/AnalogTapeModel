@@ -269,6 +269,17 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerLookAndFeel ("ComboBoxLNF", std::make_unique<ComboBoxLNF>());
+    builder->registerLookAndFeel ("SpeedButtonLNF", std::make_unique<SpeedButtonLNF>());
+
+    auto* speedHandle = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));
+    for (auto speed : { 3.75f, 7.5f, 15.0f, 30.0f })
+    {
+        magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed] {
+            speedHandle->beginChangeGesture();
+            speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
+            speedHandle->endChangeGesture();
+        });
+    }
 
 #if SAVE_PRESETS // Add button to save new presets
     magicState.addTrigger ("savepreset", [=]

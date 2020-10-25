@@ -36,7 +36,7 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
 
     params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Speed [ips]",
         speedRange, 15.0f, String(), AudioProcessorParameter::genericParameter,
-        [] (float value, int) { return String (value, 4); }));
+        [] (float value, int) { return String (value, 2); }));
 
     params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Spacing [cm]",
         spaceRange, minDist, String(), AudioProcessorParameter::genericParameter,
