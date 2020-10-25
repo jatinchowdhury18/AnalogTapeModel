@@ -64,5 +64,35 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComboBoxLNF)
 };
 
+class SpeedButtonLNF : public MyLNF
+{
+public:
+    SpeedButtonLNF() {}
+
+    void drawButtonBackground (Graphics& g, Button& button,
+        const Colour& backgroundColour, bool shouldDrawButtonAsHighlighted,
+        bool shouldDrawButtonAsDown) override
+    {
+        constexpr auto cornerSize = 8.0f;
+        auto bounds = button.getLocalBounds().toFloat().reduced (0.5f, 0.5f);
+
+        auto baseColour = backgroundColour.withMultipliedSaturation (button.hasKeyboardFocus (true) ? 1.3f : 0.9f)
+            .withMultipliedAlpha (button.isEnabled() ? 1.0f : 0.5f);
+
+        if (shouldDrawButtonAsDown || shouldDrawButtonAsHighlighted)
+            baseColour = baseColour.contrasting (shouldDrawButtonAsDown ? 0.2f : 0.05f);
+
+        g.setColour (baseColour);
+        g.fillRoundedRectangle (bounds, cornerSize);
+
+        g.setColour (Colour (0xFF838590));
+        g.drawRoundedRectangle (bounds, cornerSize, 1.0f);
+    }
+
+private:
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpeedButtonLNF)
+};
+
 
 #endif // MYLNF_H_INCLUDED
