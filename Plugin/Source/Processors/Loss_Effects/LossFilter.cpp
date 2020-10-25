@@ -19,8 +19,8 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     constexpr float minDist = (float) 1.0e-6;
     constexpr float centreSkew = 5.0f;
 
-    auto valueToString = [] (float value, int) { return String (10.0f * value, 5); };
-    auto stringToValue = [] (const String& text) { return text.getFloatValue() / 10.0f; };
+    auto valueToString = [] (float value, int) { return String (100.0f * value, 4); };
+    auto stringToValue = [] (const String& text) { return text.getFloatValue() / 100.0f; };
 
     NormalisableRange<float> speedRange (1.0f, 100.0f); // meters per second
     speedRange.setSkewForCentre (15.0f);
