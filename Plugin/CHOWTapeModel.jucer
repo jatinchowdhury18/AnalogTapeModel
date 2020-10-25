@@ -24,6 +24,8 @@
         <FILE id="u8IfBD" name="AutoUpdating.h" compile="0" resource="0" file="Source/GUI/AutoUpdating.h"/>
         <FILE id="rOj90C" name="InfoComp.cpp" compile="1" resource="0" file="Source/GUI/InfoComp.cpp"/>
         <FILE id="FxvDV3" name="InfoComp.h" compile="0" resource="0" file="Source/GUI/InfoComp.h"/>
+        <FILE id="SYzWcj" name="MixGroupViz.cpp" compile="1" resource="0" file="Source/GUI/MixGroupViz.cpp"/>
+        <FILE id="YzAgWK" name="MixGroupViz.h" compile="0" resource="0" file="Source/GUI/MixGroupViz.h"/>
         <FILE id="IgOtsG" name="MyLNF.cpp" compile="1" resource="0" file="Source/GUI/MyLNF.cpp"/>
         <FILE id="pj6eEc" name="MyLNF.h" compile="0" resource="0" file="Source/GUI/MyLNF.h"/>
         <FILE id="WfCYvA" name="TitleComp.cpp" compile="1" resource="0" file="Source/GUI/TitleComp.cpp"/>
