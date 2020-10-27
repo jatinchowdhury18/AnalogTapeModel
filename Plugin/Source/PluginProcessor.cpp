@@ -38,6 +38,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
         lossFilter[ch].reset (new LossFilter (vts));
     
     scope = magicState.createAndAddObject<foleys::MagicOscilloscope> ("scope");
+    flutter.initialisePlots (magicState);
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
 

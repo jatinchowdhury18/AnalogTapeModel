@@ -1,4 +1,5 @@
 #include "Flutter.h"
+#include "../../GUI/LightMeter.h"
 
 namespace
 {
@@ -18,6 +19,15 @@ Flutter::Flutter (AudioProcessorValueTreeState& vts)
 
     depthSlewFlutter[0].setCurrentAndTargetValue (*flutterDepth);
     depthSlewFlutter[1].setCurrentAndTargetValue (*flutterDepth);
+}
+
+void Flutter::initialisePlots (foleys::MagicGUIState& magicState)
+{
+    wowPlot = magicState.createAndAddObject<LightMeter> ("wow");
+    magicState.addBackgroundProcessing (wowPlot);
+
+    flutterPlot = magicState.createAndAddObject<LightMeter> ("flutter");
+    magicState.addBackgroundProcessing (flutterPlot);
 }
 
 void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -60,6 +70,11 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     isOff = true;
     dryBuffer.setSize (2, samplesPerBlock);
+    wowBuffer.setSize (2, samplesPerBlock);
+    flutterBuffer.setSize (2, samplesPerBlock);
+
+    wowPlot->prepareToPlay (sampleRate, samplesPerBlock);
+    flutterPlot->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
 void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
@@ -81,6 +96,11 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     angleDelta1 = MathConstants<float>::twoPi * 1.0f * flutterFreq / fs;
     angleDelta2 = MathConstants<float>::twoPi * 2.0f * flutterFreq / fs;
     angleDelta3 = MathConstants<float>::twoPi * 3.0f * flutterFreq / fs;
+
+    wowBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
+    wowBuffer.clear();
+    flutterBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
+    flutterBuffer.clear();
 
     bool shouldTurnOff = depthSlewWow[0].getTargetValue() == depthSlewMin
                       && depthSlewFlutter[0].getTargetValue() == depthSlewMin;
@@ -116,6 +136,12 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     // dc block
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+
+    wowBuffer.applyGain (0.83333f / wowAmp);
+    wowPlot->pushSamples (wowBuffer);
+
+    flutterBuffer.applyGain (1.3333f / amp1);
+    flutterPlot->pushSamples (flutterBuffer);
 }
 
 void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
@@ -123,6 +149,8 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         auto* x = buffer.getWritePointer (ch);
+        auto* wowPtr = wowBuffer.getWritePointer (ch);
+        auto* flutterPtr = flutterBuffer.getWritePointer (ch);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
             wowPhase[ch] += angleDeltaWow;
@@ -142,6 +170,9 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
             delay.setDelay (newLength);
             delay.pushSample (ch, x[n]);
             x[n] = delay.popSample (ch);
+
+            wowPtr[n] = wowLFO;
+            flutterPtr[n] = flutterLFO;
         }
 
         while (wowPhase[ch] >= MathConstants<float>::twoPi)
