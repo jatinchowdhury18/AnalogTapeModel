@@ -9,6 +9,7 @@ class Flutter
 public:
     Flutter (AudioProcessorValueTreeState& vts);
 
+    void initialisePlots (foleys::MagicGUIState& magicState);
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     void prepareToPlay (double sampleRate, int samplesPerBlock);
@@ -49,6 +50,9 @@ private:
 
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewWow[2];
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewFlutter[2];
+
+    AudioBuffer<float> wowBuffer, flutterBuffer;
+    foleys::MagicPlotSource* wowPlot = nullptr, *flutterPlot = nullptr;
 
     enum
     {
