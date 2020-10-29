@@ -6,6 +6,8 @@
 struct Preset
 {
     Preset (String presetFile);
+    Preset (const File& presetFile);
+    void initialise (const ValueTree& parentTree);
 
     String name;
     ValueTree state;
@@ -28,6 +30,9 @@ public:
     void registerPresetsComponent (foleys::MagicGUIBuilder&);
     void presetUpdated() { listeners.call (&Listener::presetUpdated); }
 
+    void loadUserPreset (const File& file);
+    void saveUserPreset (const String& name, const AudioProcessorValueTreeState& vts);
+
     struct Listener
     {
         virtual ~Listener() {}
@@ -38,6 +43,9 @@ public:
     void removeListener (Listener* l) { listeners.remove (l); }
 
 private:
+    File getUserPresetFile();
+    void resaveUserPresetFile (const StringArray& presetPaths);
+
     HashMap<int, Preset*> presetMap;
     OwnedArray<Preset> presets;
     int maxIdx = 0;

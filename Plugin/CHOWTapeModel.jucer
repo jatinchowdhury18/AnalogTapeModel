@@ -49,20 +49,24 @@
       </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
-          <FILE id="AymGjK" name="Default.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.xml"/>
-          <FILE id="zlTcrf" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.xml"/>
-          <FILE id="drwXrv" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/OldTape.xml"/>
-          <FILE id="KrMr05" name="SNK_CleanFat.xml" compile="0" resource="1"
-                file="Source/Presets/PresetConfigs/SNK_CleanFat.xml"/>
-          <FILE id="zm6tJQ" name="SNK_Fat2.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Fat2.xml"/>
-          <FILE id="vcSaJ4" name="SNK_Gritty.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Gritty.xml"/>
-          <FILE id="UdKpcL" name="SNK_Gritty2.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Gritty2.xml"/>
-          <FILE id="UuLbyh" name="SNK_lofi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_lofi.xml"/>
-          <FILE id="c60moA" name="SNK_SlightlyWobbly.xml" compile="0" resource="1"
-                file="Source/Presets/PresetConfigs/SNK_SlightlyWobbly.xml"/>
-          <FILE id="O4vt7g" name="TC260.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/TC260.xml"/>
-          <FILE id="FkbdSt" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Underbiased.xml"/>
-          <FILE id="wf7iTS" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/WoozyChorus.xml"/>
+          <FILE id="EwHRvr" name="Default.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.preset"/>
+          <FILE id="DvfI1V" name="LoFi.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.preset"/>
+          <FILE id="ydwBCg" name="OldTape.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/OldTape.preset"/>
+          <FILE id="rsRRJZ" name="SNK_CleanFat.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_CleanFat.preset"/>
+          <FILE id="Rf95tl" name="SNK_Fat2.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_Fat2.preset"/>
+          <FILE id="deBqJw" name="SNK_Gritty.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Gritty.preset"/>
+          <FILE id="ue1O7i" name="SNK_Gritty2.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Gritty2.preset"/>
+          <FILE id="rKh1fN" name="SNK_lofi.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/SNK_lofi.preset"/>
+          <FILE id="rmzk2A" name="SNK_SlightlyWobbly.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_SlightlyWobbly.preset"/>
+          <FILE id="zLheBA" name="TC260.preset" compile="0" resource="1" file="Source/Presets/PresetConfigs/TC260.preset"/>
+          <FILE id="crqqBd" name="Underbiased.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/Underbiased.preset"/>
+          <FILE id="VMktnr" name="WoozyChorus.preset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/WoozyChorus.preset"/>
         </GROUP>
         <FILE id="ByxTdI" name="PresetComp.cpp" compile="1" resource="0" file="Source/Presets/PresetComp.cpp"/>
         <FILE id="jFQg5e" name="PresetComp.h" compile="0" resource="0" file="Source/Presets/PresetComp.h"/>

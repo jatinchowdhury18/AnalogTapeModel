@@ -21,12 +21,18 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
     void presetUpdated() override;
-    void loadPresetChoices();
 
 private:
+    void loadPresetChoices();
+    void addPresetOptions();
+
+    void loadUserPreset();
+    void saveUserPreset();
+
     ChowtapeModelAudioProcessor& proc;
     PresetManager& manager;
-    ComboBox presetBox;    
+    ComboBox presetBox;
+    TextEditor presetNameEditor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
 };

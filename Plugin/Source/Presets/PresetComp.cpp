@@ -14,8 +14,17 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetBox.setJustificationType (Justification::centred);
     loadPresetChoices();
 
+    addChildComponent (presetNameEditor);
+    presetNameEditor.setColour (TextEditor::backgroundColourId, Colour (0xFF595C6B));
+    presetNameEditor.setColour (TextEditor::textColourId, Colours::white);
+    presetNameEditor.setColour (TextEditor::highlightColourId, Colour (0xFF8B3232));
+    presetNameEditor.setColour (CaretComponent::caretColourId, Colour (0xFF8B3232));
+    presetNameEditor.setFont (Font (16.0f).boldened());
+    presetNameEditor.setMultiLine (false, false);
+    presetNameEditor.setJustification (Justification::centred);
+
     presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-    presetBox.onChange  = [=, &proc] { proc.setCurrentProgram (presetBox.getSelectedItemIndex()); };
+    presetBox.onChange  = [=, &proc] { proc.setCurrentProgram (presetBox.getSelectedId() - 1); };
 }
 
 PresetComp::~PresetComp()
@@ -25,6 +34,8 @@ PresetComp::~PresetComp()
 
 void PresetComp::loadPresetChoices()
 {
+    presetBox.getRootMenu()->clear();
+
     const auto& presetChoices = manager.getPresetChoices();
     std::map<String, PopupMenu> presetChoicesMap;
     for (int i = 0; i < presetChoices.size(); ++i)
@@ -42,6 +53,24 @@ void PresetComp::loadPresetChoices()
 
     for (auto& presetGroup : presetChoicesMap)
         presetBox.getRootMenu()->addSubMenu (presetGroup.first, presetGroup.second);
+
+    addPresetOptions();
+}
+
+void PresetComp::addPresetOptions()
+{
+    auto menu = presetBox.getRootMenu();
+    menu->addSeparator();
+
+    PopupMenu::Item loadItem { "Load" };
+    loadItem.itemID = 998;
+    loadItem.action = [=] { loadUserPreset(); };
+    menu->addItem (loadItem);
+
+    PopupMenu::Item saveItem { "Save" };
+    saveItem.itemID = 999;
+    saveItem.action = [=] { saveUserPreset(); };
+    menu->addItem (saveItem);
 }
 
 void PresetComp::paint (Graphics& g)
@@ -56,10 +85,38 @@ void PresetComp::paint (Graphics& g)
 void PresetComp::resized()
 {
     presetBox.setBounds (getLocalBounds());
+    presetNameEditor.setBounds (getLocalBounds());
     repaint();
 }
 
 void PresetComp::presetUpdated()
 {
     presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
+}
+
+void PresetComp::loadUserPreset()
+{
+    FileChooser fileChooser ("Load Preset", File(), "*.chowpreset");
+
+    if (fileChooser.browseForFileToOpen())
+    {
+        auto result = fileChooser.getResult();
+        manager.loadUserPreset (result);
+        loadPresetChoices();
+    }
+}
+
+void PresetComp::saveUserPreset()
+{
+    presetNameEditor.setVisible (true);
+    presetNameEditor.toFront (true);
+    presetNameEditor.setText ("MyPreset");
+    presetNameEditor.setHighlightedRegion ({ 0, 10 });
+
+    presetNameEditor.onReturnKey = [=] {
+        auto presetName = presetNameEditor.getText();
+        presetNameEditor.setVisible (false);
+        manager.saveUserPreset (presetName, proc.getVTS());
+        loadPresetChoices();
+    };
 }
