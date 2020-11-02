@@ -1,5 +1,6 @@
-#include "HysteresisProcessing.h"
 #include <math.h>
+#include "HysteresisProcessing.h"
+#include "RTNeural/src/Json2RnnParser.h"
 
 namespace
 {
@@ -15,6 +16,9 @@ inline int sign (double x)
 HysteresisProcessing::HysteresisProcessing()
 {
     solver = &HysteresisProcessing::NR;
+
+    MemoryInputStream jsonStream (BinaryData::drive_80_50_json, BinaryData::drive_80_50_jsonSize, false);
+    stnModel = Json2RnnParser::parseJson<double> (jsonStream);
 }
 
 void HysteresisProcessing::reset()
@@ -32,12 +36,15 @@ void HysteresisProcessing::setSampleRate (double newSR)
     fs = newSR;
     T = 1.0 / fs;
     Talpha = T / 1.9;
+    sampleRateCorr = 96000.0 / newSR;
 }
 
 void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
 {
+    driveValue = static_cast<double> (drive);
+
     M_s = 0.5 + 1.5 * (1.0 - (double) sat);
-    a = M_s / (0.01 + 6.0 * (double) drive);
+    a = M_s / (0.01 + 6.0 * driveValue);
     c = std::sqrt (1.0f - (double) width) - 0.01;
     k = 0.47875;
     upperLim = 20.0;
@@ -47,7 +54,7 @@ void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
         k = 27.0e3;
         c = 1.7e-1;
         M_s *= 50000.0;
-        a = M_s / (0.01 + 40.0 * (double) drive);
+        a = M_s / (0.01 + 40.0 * driveValue);
         upperLim = 100000.0;
     }
 
@@ -70,6 +77,10 @@ void HysteresisProcessing::setSolver (SolverType solverType)
     {
     case SolverType::RK4:
         solver = &HysteresisProcessing::RK4;
+        return;
+
+    case SolverType::STN:
+        solver = &HysteresisProcessing::STN;
         return;
 
     case SolverType::NR4:
@@ -131,7 +142,7 @@ inline double HysteresisProcessing::hysteresisFunc (double M, double H, double H
     return H_d * (f1 + f2) / f3;
 }
 
-inline double HysteresisProcessing::hysteresisFuncPrime (double H_d, double dMdt) noexcept
+inline double HysteresisProcessing::hysteresisFuncPrime (double H_d, double dMdt) const noexcept
 {
     const double L_prime2 = langevinD2 (Q);
     const double M_diff2 = M_s_oa_talpha * L_prime - 1.0;
@@ -198,4 +209,12 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
     }
 
     return M;
+}
+
+inline double HysteresisProcessing::STN (double H, double H_d) noexcept
+{
+    constexpr double diffMakeup = 1.0 / 6.0e4;
+
+    std::array<double, 6> x_in { H, H_d * diffMakeup, H_n1, H_d_n1 * diffMakeup, driveValue, M_n1 };
+    return stnModel->forward(x_in.data()) * sampleRateCorr + M_n1;
 }

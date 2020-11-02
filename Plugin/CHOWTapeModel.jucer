@@ -111,6 +111,26 @@
                 file="Source/Processors/Degrade/DegradeProcessor.h"/>
         </GROUP>
         <GROUP id="{6052B1B0-83EF-DBFA-991C-FC0B47A949C9}" name="Hysteresis">
+          <GROUP id="{A4185D0A-8289-D298-5C8F-340D5F34536D}" name="RTNeural">
+            <FILE id="VYlPdE" name="activation.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/activation.h"/>
+            <FILE id="Rvs0tO" name="dense.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/dense.h"/>
+            <FILE id="waQbof" name="dense_eigen.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/dense_eigen.h"/>
+            <FILE id="OB1nyt" name="gru.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/gru.cpp"/>
+            <FILE id="CZKQpU" name="gru.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/gru.h"/>
+            <FILE id="mBKfVC" name="gru_eigen.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/gru_eigen.cpp"/>
+            <FILE id="AGa9yU" name="gru_eigen.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/gru_eigen.h"/>
+            <FILE id="idA6lp" name="Json2RnnParser.cpp" compile="1" resource="0"
+                  file="Source/Processors/Hysteresis/RTNeural/src/Json2RnnParser.cpp"/>
+            <FILE id="ZN3kzT" name="Json2RnnParser.h" compile="0" resource="0"
+                  file="Source/Processors/Hysteresis/RTNeural/src/Json2RnnParser.h"/>
+            <FILE id="G6NDg6" name="Layer.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/Layer.h"/>
+            <FILE id="b8hfRa" name="Model.h" compile="0" resource="0" file="Source/Processors/Hysteresis/RTNeural/src/Model.h"/>
+          </GROUP>
+          <GROUP id="{875CE76D-E0F5-EAD7-C837-F2D490D96C63}" name="STN_Models">
+            <FILE id="bwScIl" name="drive_80_50.json" compile="0" resource="1"
+                  file="Source/Processors/Hysteresis/STN_Models/drive_80_50.json"/>
+            <FILE id="o2yaDD" name="no_params.json" compile="0" resource="1" file="Source/Processors/Hysteresis/STN_Models/no_params.json"/>
+          </GROUP>
           <FILE id="l6IKp3" name="DCBlocker.h" compile="0" resource="0" file="Source/Processors/Hysteresis/DCBlocker.h"/>
           <FILE id="Qe4tlV" name="HysteresisProcessing.cpp" compile="1" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessing.cpp"/>
