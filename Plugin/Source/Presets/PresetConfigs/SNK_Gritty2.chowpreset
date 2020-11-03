@@ -27,7 +27,7 @@
     <PARAM id="width" value="0.3499999940395355"/>
     <PARAM id="wow_depth" value="0.0"/>
     <PARAM id="wow_rate" value="0.1499999910593033"/>
-    <PARAM id="preset" value="9"/>
+    <PARAM id="preset" value="13"/>
   </Parameters>
 </Preset>
 

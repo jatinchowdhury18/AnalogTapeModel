@@ -66,18 +66,22 @@ StringArray PresetManager::getPresetChoices()
 void PresetManager::loadPresets()
 {
     // load factory presets
-    presets.add (std::make_unique<Preset> ("Default.preset"));
-    presets.add (std::make_unique<Preset> ("TC260.preset"));
-    presets.add (std::make_unique<Preset> ("LoFi.preset"));
-    presets.add (std::make_unique<Preset> ("WoozyChorus.preset"));
-    presets.add (std::make_unique<Preset> ("OldTape.preset"));
-    presets.add (std::make_unique<Preset> ("Underbiased.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_CleanFat.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_Fat2.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_Gritty.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_Gritty2.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_lofi.preset"));
-    presets.add (std::make_unique<Preset> ("SNK_SlightlyWobbly.preset"));
+    presets.add (std::make_unique<Preset> ("Default.chowpreset"));
+    presets.add (std::make_unique<Preset> ("TC260.chowpreset"));
+    presets.add (std::make_unique<Preset> ("LoFi.chowpreset"));
+    presets.add (std::make_unique<Preset> ("WoozyChorus.chowpreset"));
+    presets.add (std::make_unique<Preset> ("OldTape.chowpreset"));
+    presets.add (std::make_unique<Preset> ("Underbiased.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_BassPusher.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Chorus2.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Chorus3.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Chorus4.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_CleanFat.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Fat2.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Gritty.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_Gritty2.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_lofi.chowpreset"));
+    presets.add (std::make_unique<Preset> ("SNK_SlightlyWobbly.chowpreset"));
     numFactoryPresets = presets.size();
 
     for (auto* p : presets)
@@ -131,7 +135,7 @@ bool PresetManager::saveUserPreset (const String& name, const AudioProcessorValu
         return false;
 
     // create file to save preset
-    File saveFile = userPresetFolder.getChildFile (name + ".preset");
+    File saveFile = userPresetFolder.getChildFile (name + ".chowpreset");
     saveFile.deleteFile();
     auto result = saveFile.create();
 
@@ -196,7 +200,7 @@ void PresetManager::loadPresetFolder (PopupMenu& menu, File& directory)
             menu.addSubMenu (firstSubfolder, subMenu);
         }
 
-        if (userPreset.hasFileExtension (".preset"))
+        if (userPreset.hasFileExtension (".chowpreset"))
             presetFiles.add (userPreset);
     }
 

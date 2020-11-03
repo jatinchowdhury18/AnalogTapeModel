@@ -42,7 +42,12 @@ private:
 class ComboBoxLNF : public MyLNF
 {
 public:
-    ComboBoxLNF() {}
+    ComboBoxLNF()
+    {
+        setColour (PopupMenu::backgroundColourId, Colour (0xFF31323A));
+        setColour (PopupMenu::highlightedBackgroundColourId, Colour (0x7FEAA92C));
+        setColour (PopupMenu::highlightedTextColourId, Colours::white);
+    }
 
     void drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box) override;
     void positionComboBoxText (ComboBox& box, Label& label) override;
@@ -57,6 +62,12 @@ public:
         LookAndFeel_V4::drawPopupMenuItem (g, area, isSeparator, isActive,
             isHighlighted, false /*isTicked*/, hasSubMenu, text,
             shortcutKeyText, icon, textColourToUse);
+    }
+
+    void drawPopupMenuBackground (Graphics& g, int width, int height) override
+    {
+        g.fillAll (findColour (PopupMenu::backgroundColourId));
+        ignoreUnused (width, height);
     }
 
 private:
