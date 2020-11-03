@@ -16,7 +16,7 @@
 
 namespace
 {
-    constexpr int maxNumPresets = 200;
+    constexpr int maxNumPresets = 999;
 }
 
 //==============================================================================

@@ -12,6 +12,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     addAndMakeVisible (presetBox);
     presetBox.setColour (ComboBox::ColourIds::backgroundColourId, Colours::transparentWhite);
     presetBox.setJustificationType (Justification::centred);
+    presetBox.setTextWhenNothingSelected ("No Preset selected...");
     loadPresetChoices();
 
     addChildComponent (presetNameEditor);
@@ -23,8 +24,14 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetNameEditor.setMultiLine (false, false);
     presetNameEditor.setJustification (Justification::centred);
 
-    presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-    presetBox.onChange  = [=, &proc] { proc.setCurrentProgram (presetBox.getSelectedId() - 1); };
+    presetUpdated();
+    presetBox.onChange  = [=, &proc] { 
+        const auto selectedId = presetBox.getSelectedId();
+        if (selectedId >= 1000 || selectedId <= 0)
+            return;
+
+        proc.setCurrentProgram (presetBox.getSelectedId() - 1);
+    };
 }
 
 PresetComp::~PresetComp()
@@ -42,6 +49,8 @@ void PresetComp::loadPresetChoices()
     {
         const String& choice = presetChoices[i];
         String category = choice.upToFirstOccurrenceOf ("_", false, false);
+        if (category == "User") // user presets are treated specially
+            continue;
         category = (category == choice) ? "CHOW" : category;
         String presetName = choice.fromLastOccurrenceOf ("_", false, false);
         
@@ -54,6 +63,11 @@ void PresetComp::loadPresetChoices()
     for (auto& presetGroup : presetChoicesMap)
         presetBox.getRootMenu()->addSubMenu (presetGroup.first, presetGroup.second);
 
+    // add user presets
+    auto& userPresetMenu = manager.getUserPresetMenu();
+    if (userPresetMenu.containsAnyActiveItems())
+        presetBox.getRootMenu()->addSubMenu ("User", userPresetMenu);
+
     addPresetOptions();
 }
 
@@ -62,15 +76,27 @@ void PresetComp::addPresetOptions()
     auto menu = presetBox.getRootMenu();
     menu->addSeparator();
 
-    PopupMenu::Item loadItem { "Load" };
-    loadItem.itemID = 998;
-    loadItem.action = [=] { loadUserPreset(); };
-    menu->addItem (loadItem);
-
     PopupMenu::Item saveItem { "Save" };
-    saveItem.itemID = 999;
+    saveItem.itemID = 1001;
     saveItem.action = [=] { saveUserPreset(); };
     menu->addItem (saveItem);
+
+    PopupMenu::Item goToFolderItem { "Go to Preset folder..." };
+    goToFolderItem.itemID = 1002;
+    goToFolderItem.action = [=] {
+        presetUpdated();
+        auto folder = manager.getUserPresetFolder();
+        if (folder.isDirectory())
+            folder.startAsProcess();
+        else
+            manager.chooseUserPresetFolder();
+    };
+    menu->addItem (goToFolderItem);
+
+    PopupMenu::Item chooseFolderItem { "Choose Preset folder..." };
+    chooseFolderItem.itemID = 1003;
+    chooseFolderItem.action = [=] { presetUpdated(); manager.chooseUserPresetFolder(); };
+    menu->addItem (chooseFolderItem);
 }
 
 void PresetComp::paint (Graphics& g)
@@ -91,19 +117,7 @@ void PresetComp::resized()
 
 void PresetComp::presetUpdated()
 {
-    presetBox.setSelectedItemIndex (proc.getCurrentProgram(), dontSendNotification);
-}
-
-void PresetComp::loadUserPreset()
-{
-    FileChooser fileChooser ("Load Preset", File(), "*.chowpreset");
-
-    if (fileChooser.browseForFileToOpen())
-    {
-        auto result = fileChooser.getResult();
-        manager.loadUserPreset (result);
-        loadPresetChoices();
-    }
+    presetBox.setSelectedId (proc.getCurrentProgram() + 1, dontSendNotification);
 }
 
 void PresetComp::saveUserPreset()
@@ -116,7 +130,15 @@ void PresetComp::saveUserPreset()
     presetNameEditor.onReturnKey = [=] {
         auto presetName = presetNameEditor.getText();
         presetNameEditor.setVisible (false);
-        manager.saveUserPreset (presetName, proc.getVTS());
-        loadPresetChoices();
+        
+        if (manager.saveUserPreset (presetName, proc.getVTS()))
+        {
+            loadPresetChoices();
+            proc.setCurrentProgram (manager.getNumPresets() - 1);
+        }
+        else
+        {
+            presetUpdated();
+        }
     };
 }

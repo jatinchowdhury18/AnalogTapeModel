@@ -78,6 +78,7 @@ void PresetManager::loadPresets()
     presets.add (std::make_unique<Preset> ("SNK_Gritty2.preset"));
     presets.add (std::make_unique<Preset> ("SNK_lofi.preset"));
     presets.add (std::make_unique<Preset> ("SNK_SlightlyWobbly.preset"));
+    numFactoryPresets = presets.size();
 
     for (auto* p : presets)
     {
@@ -88,24 +89,7 @@ void PresetManager::loadPresets()
 
     maxIdx++;
 
-    // load user presets
-    auto presetFile = getUserPresetFile();
-    StringArray presetPaths;
-    presetFile.readLines (presetPaths);
-    
-    for (const auto& path : presetPaths)
-    {
-        File pathFile { path };
-        if (! pathFile.existsAsFile())
-        {
-            presetPaths.removeString (path);
-            continue;
-        }
-
-        loadUserPreset (pathFile);
-    }
-
-    resaveUserPresetFile (presetPaths);
+    updateUserPresets();
 }
 
 String PresetManager::getPresetName (int idx)
@@ -138,73 +122,110 @@ void PresetManager::registerPresetsComponent (foleys::MagicGUIBuilder& builder)
     builder.registerFactory (presetsID, &PresetComponentItem::factory);
 }
 
-void PresetManager::saveUserPreset (const String& name, const AudioProcessorValueTreeState& vts)
+bool PresetManager::saveUserPreset (const String& name, const AudioProcessorValueTreeState& vts)
 {
-    FileChooser fileChooser ("Save Preset", File(), "*.chowpreset");
-    if (fileChooser.browseForFileToSave (true))
-    {
-        auto saveFile = fileChooser.getResult();
-        saveFile.deleteFile();
-        auto result = saveFile.create();
+    if (! userPresetFolder.isDirectory()) // if not set, choose preset folder
+        chooseUserPresetFolder();
 
-        if (result.failed()) // unable to create file;
-            return;
+    if (! userPresetFolder.isDirectory()) // user doesn't want to choose preset folder, cancelling...
+        return false;
 
-        auto stateXml = vts.state.createXml();
-        if (stateXml == nullptr) // invalid xml
-            return;
+    // create file to save preset
+    File saveFile = userPresetFolder.getChildFile (name + ".preset");
+    saveFile.deleteFile();
+    auto result = saveFile.create();
 
-        auto presetXml = std::make_unique<XmlElement> ("Preset");
-        presetXml->setAttribute ("name", "User_" + name);
+    if (result.failed()) // unable to create file;
+        return false;
+
+    auto stateXml = vts.state.createXml();
+    if (stateXml == nullptr) // invalid xml
+        return false;
+
+    // create preset XML
+    auto presetXml = std::make_unique<XmlElement> ("Preset");
+    presetXml->setAttribute ("name", "User_" + name);
         
-        auto xmlParameters = std::make_unique<XmlElement> ("Parameters");
-        forEachXmlChildElementWithTagName (*stateXml, p, "PARAM")
-        {
-            if (p->getAttributeValue (0) == "preset")
-                p->setAttribute ("value", maxIdx);
+    auto xmlParameters = std::make_unique<XmlElement> ("Parameters");
+    forEachXmlChildElementWithTagName (*stateXml, p, "PARAM")
+    {
+        if (p->getAttributeValue (0) == "preset")
+            p->setAttribute ("value", maxIdx);
 
-            xmlParameters->addChildElement (new XmlElement (*p));
-        }
-        presetXml->addChildElement (xmlParameters.release());
+        xmlParameters->addChildElement (new XmlElement (*p));
+    }
+    presetXml->addChildElement (xmlParameters.release());
 
-        saveFile.replaceWithText (presetXml->toString());
-        loadUserPreset (saveFile);
+    saveFile.replaceWithText (presetXml->toString());
+    updateUserPresets();
+    return true;
+}
+
+File PresetManager::getUserPresetConfigFile() const
+{
+    File updatePresetFile = File::getSpecialLocation (File::userApplicationDataDirectory);
+    return updatePresetFile.getChildFile (userPresetPath);
+}
+
+void PresetManager::chooseUserPresetFolder()
+{
+    FileChooser chooser ("Choose preset folder");
+    if (chooser.browseForDirectory())
+    {
+        auto result = chooser.getResult();
+        auto config = getUserPresetConfigFile();
+        config.deleteFile();
+        config.create();
+        config.replaceWithText (result.getFullPathName());
+        updateUserPresets();
     }
 }
 
-void PresetManager::loadUserPreset (const File& file)
+void PresetManager::loadPresetFolder (PopupMenu& menu, File& directory)
 {
-    const auto& presetFile = getUserPresetFile();
+    Array<File> presetFiles;
+    for (auto& userPreset : directory.findChildFiles (File::findFilesAndDirectories, false))
+    {
+        if (userPreset.isDirectory())
+        {
+            auto relativePath = userPreset.getRelativePathFrom (userPresetFolder);
+            auto firstSubfolder = relativePath.fromLastOccurrenceOf (File::getSeparatorString(), false, false);
 
-    StringArray lines;
-    presetFile.readLines (lines);
-    lines.addIfNotAlreadyThere (file.getFullPathName());
+            PopupMenu subMenu;
+            loadPresetFolder (subMenu, userPreset);
+            menu.addSubMenu (firstSubfolder, subMenu);
+        }
 
-    auto newPreset = presets.add (std::make_unique<Preset> (file));
-    newPreset->index = jmax (maxIdx, newPreset->index);
-    presetMap.set (newPreset->index, newPreset);
-    maxIdx++;
+        if (userPreset.hasFileExtension (".preset"))
+            presetFiles.add (userPreset);
+    }
 
-    resaveUserPresetFile (lines);
+    for (auto& userPreset : presetFiles)
+    {
+        auto relativePath = userPreset.getRelativePathFrom (userPresetFolder);
+        auto newPreset = presets.add (std::make_unique<Preset> (userPreset));
+        newPreset->index = maxIdx;
+        presetMap.set (newPreset->index, newPreset);
+        menu.addItem (newPreset->index + 1, newPreset->name.fromFirstOccurrenceOf ("User_", false, false));
+        maxIdx++;
+    }
 }
 
-File PresetManager::getUserPresetFile()
+void PresetManager::updateUserPresets()
 {
-    File updatePresetFile = File::getSpecialLocation (File::userApplicationDataDirectory);
-    updatePresetFile = updatePresetFile.getChildFile (userPresetPath);
+    // set preset folder
+    auto config = getUserPresetConfigFile();
+    if (config.existsAsFile())
+        userPresetFolder = File (config.loadFileAsString());
+    else
+        userPresetFolder = File();
 
-    if (! updatePresetFile.existsAsFile())
-        updatePresetFile.create();
+    // remove existing user presets
+    presets.removeRange (numFactoryPresets, maxIdx - numFactoryPresets);
+    for (; maxIdx > numFactoryPresets; maxIdx--)
+        presetMap.remove (maxIdx - 1);
+    userPresetMenu.clear();
 
-    return updatePresetFile;
-}
-
-void PresetManager::resaveUserPresetFile (const StringArray& presetPaths)
-{
-    auto presetFile = getUserPresetFile();
-    presetFile.deleteFile();
-    presetFile.create();
-
-    for (const auto& path : presetPaths)
-        presetFile.appendText (path);
+    if (userPresetFolder.isDirectory())
+        loadPresetFolder (userPresetMenu, userPresetFolder);
 }

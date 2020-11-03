@@ -19,7 +19,6 @@
     <PARAM id="mode" value="0.0"/>
     <PARAM id="os" value="1.0"/>
     <PARAM id="outgain" value="-1.5"/>
-    <PARAM id="preset" value="0.0"/>
     <PARAM id="rate" value="0.2999999821186066"/>
     <PARAM id="sat" value="0.6499999761581421"/>
     <PARAM id="spacing" value="9.999999974752427e-7"/>

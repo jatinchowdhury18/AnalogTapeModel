@@ -25,8 +25,6 @@ public:
 private:
     void loadPresetChoices();
     void addPresetOptions();
-
-    void loadUserPreset();
     void saveUserPreset();
 
     ChowtapeModelAudioProcessor& proc;
