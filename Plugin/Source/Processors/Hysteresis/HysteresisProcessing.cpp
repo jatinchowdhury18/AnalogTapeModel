@@ -16,9 +16,6 @@ inline int sign (double x)
 HysteresisProcessing::HysteresisProcessing()
 {
     solver = &HysteresisProcessing::NR;
-
-    MemoryInputStream jsonStream (BinaryData::drive_80_50_json, BinaryData::drive_80_50_jsonSize, false);
-    stnModel = Json2RnnParser::parseJson<double> (jsonStream);
 }
 
 void HysteresisProcessing::reset()
@@ -36,15 +33,15 @@ void HysteresisProcessing::setSampleRate (double newSR)
     fs = newSR;
     T = 1.0 / fs;
     Talpha = T / 1.9;
-    sampleRateCorr = 96000.0 / newSR;
+    hysteresisSTN.prepare (newSR);
 }
 
 void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
 {
-    driveValue = static_cast<double> (drive);
+    hysteresisSTN.setParams (drive, sat, width);
 
     M_s = 0.5 + 1.5 * (1.0 - (double) sat);
-    a = M_s / (0.01 + 6.0 * driveValue);
+    a = M_s / (0.01 + 6.0 * (double) drive);
     c = std::sqrt (1.0f - (double) width) - 0.01;
     k = 0.47875;
     upperLim = 20.0;
@@ -54,7 +51,7 @@ void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
         k = 27.0e3;
         c = 1.7e-1;
         M_s *= 50000.0;
-        a = M_s / (0.01 + 40.0 * driveValue);
+        a = M_s / (0.01 + 40.0 * (double) drive);
         upperLim = 100000.0;
     }
 
@@ -213,8 +210,5 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
 
 inline double HysteresisProcessing::STN (double H, double H_d) noexcept
 {
-    constexpr double diffMakeup = 1.0 / 6.0e4;
-
-    std::array<double, 6> x_in { H, H_d * diffMakeup, H_n1, H_d_n1 * diffMakeup, driveValue, M_n1 };
-    return stnModel->forward(x_in.data()) * sampleRateCorr + M_n1;
+    return hysteresisSTN.process ({ H, H_d, H_n1, H_d_n1, 0.0, M_n1 }) + M_n1;
 }

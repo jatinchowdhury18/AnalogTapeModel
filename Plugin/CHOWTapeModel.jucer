@@ -129,6 +129,8 @@
           <GROUP id="{875CE76D-E0F5-EAD7-C837-F2D490D96C63}" name="STN_Models">
             <FILE id="bwScIl" name="drive_80_50.json" compile="0" resource="1"
                   file="Source/Processors/Hysteresis/STN_Models/drive_80_50.json"/>
+            <FILE id="m6xT4v" name="hyst_width_0.json" compile="0" resource="1"
+                  file="Source/Processors/Hysteresis/STN_Models/hyst_width_0.json"/>
             <FILE id="o2yaDD" name="no_params.json" compile="0" resource="1" file="Source/Processors/Hysteresis/STN_Models/no_params.json"/>
           </GROUP>
           <FILE id="l6IKp3" name="DCBlocker.h" compile="0" resource="0" file="Source/Processors/Hysteresis/DCBlocker.h"/>
@@ -140,6 +142,9 @@
                 file="Source/Processors/Hysteresis/HysteresisProcessor.cpp"/>
           <FILE id="TRDp2E" name="HysteresisProcessor.h" compile="0" resource="0"
                 file="Source/Processors/Hysteresis/HysteresisProcessor.h"/>
+          <FILE id="yyRNO0" name="HysteresisSTN.cpp" compile="1" resource="0"
+                file="Source/Processors/Hysteresis/HysteresisSTN.cpp"/>
+          <FILE id="ELL2Q2" name="HysteresisSTN.h" compile="0" resource="0" file="Source/Processors/Hysteresis/HysteresisSTN.h"/>
           <FILE id="yqa9LH" name="ToneControl.cpp" compile="1" resource="0" file="Source/Processors/Hysteresis/ToneControl.cpp"/>
           <FILE id="vd8RTB" name="ToneControl.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneControl.h"/>
           <FILE id="Gxo9aB" name="ToneFilter.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneFilter.h"/>

@@ -2,7 +2,7 @@
 #define HYSTERESISPROCESSING_H_INCLUDED
 
 #include "JuceHeader.h"
-#include "RTNeural/src/Model.h"
+#include "HysteresisSTN.h"
 
 enum SolverType
 {
@@ -74,9 +74,7 @@ private:
 
     // state transition network solver
     inline double STN (double H, double H_d) noexcept;
-    std::unique_ptr<MLUtils::Model<double>> stnModel;
-    double sampleRateCorr = 1.0;
-    double driveValue = 0.0f;
+    HysteresisSTN hysteresisSTN;
 
     // solver function pointer
     using Solver = double (HysteresisProcessing::*) (double, double);

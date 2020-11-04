@@ -6,12 +6,18 @@ template <typename T>
 std::unique_ptr<Model<T>> Json2RnnParser::parseJson (InputStream& input)
 {
     auto parent = JSON::parse (input);
+    return parseJson<T> (parent);
+}
+
+template <typename T>
+std::unique_ptr<MLUtils::Model<T>> Json2RnnParser::parseJson (const var& parent)
+{
     auto shape = parent["in_shape"];
     auto layers = parent["layers"];
 
     if (! shape.isArray() || ! layers.isArray())
         return nullptr;
-    
+
     auto nDims = int (shape.getArray()->getLast());
     // std::cout << "# dimensions: " << nDims <<std::endl;
     auto model = std::make_unique<Model<T>> (nDims);
@@ -20,7 +26,7 @@ std::unique_ptr<Model<T>> Json2RnnParser::parseJson (InputStream& input)
     {
         auto l = layers.getArray()->getUnchecked (i);
         const auto type = l["type"].toString();
-        
+
         const auto layerShape = l["shape"];
         auto layerDims = int (layerShape.getArray()->getLast());
 
@@ -49,7 +55,7 @@ std::unique_ptr<Model<T>> Json2RnnParser::parseJson (InputStream& input)
             jassertfalse;
         }
     }
-    
+
     return std::move (model);
 }
 

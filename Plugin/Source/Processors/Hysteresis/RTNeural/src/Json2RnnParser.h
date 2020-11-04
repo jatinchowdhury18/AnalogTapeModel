@@ -13,6 +13,9 @@ public:
     static std::unique_ptr<MLUtils::Model<T>> parseJson (InputStream& input);
 
     template <typename T>
+    static std::unique_ptr<MLUtils::Model<T>> parseJson (const var& json);
+
+    template <typename T>
     static std::unique_ptr<MLUtils::Dense<T>> createDense (size_t in_size, size_t out_size, var& weights);
 
     template <typename T>
