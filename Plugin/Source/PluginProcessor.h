@@ -22,6 +22,7 @@
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
+#include "GUI/TapeScope.h"
 #include "MixGroups/MixGroupsController.h"
 
 //==============================================================================
@@ -90,7 +91,7 @@ private:
     AudioBuffer<float> dryBuffer;
     
     foleys::MagicProcessorState magicState { *this, vts };
-    foleys::MagicPlotSource* scope = nullptr;
+    TapeScope* scope = nullptr;
 
     PresetManager presetManager;
     MyLNF myLNF;

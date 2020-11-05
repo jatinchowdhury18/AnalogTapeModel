@@ -41,7 +41,7 @@
         <View background-color="00000000" flex-grow="0.33"/>
       </View>
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
-            plot-decay="0.0" plot-fill-color="00000000"/>
+            plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
     <View padding="0" margin="" background-color="" lookAndFeel="">
       <View flex-direction="column" margin="5" padding="" background-color="FF31323A">
