@@ -1,3 +1,4 @@
+#include <future>
 #include "HysteresisSTN.h"
 #include "RTNeural/src/Json2RnnParser.h"
 
@@ -9,7 +10,7 @@ namespace
     constexpr float widthIdxMult = (float) HysteresisSTN::numWidthModels - 1.0f;
 
     static std::array<String, HysteresisSTN::numWidthModels> widthTags
-        { "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"};
+        { "0", "10", "20", "30", "40", "50", "50", "50", "50", "50", "50"};
 
     static std::array<String, HysteresisSTN::numSatModels> satTags
         { "0",  "5", "10", "15", "20", "25", "30", "35", "40", "45",
@@ -63,7 +64,6 @@ HysteresisSTN::HysteresisSTN()
             jassert (stnModels[widthLoadIdx][satLoadIdx] != nullptr);
             satLoadIdx++;
         }
-
         widthLoadIdx++;
     }
 }

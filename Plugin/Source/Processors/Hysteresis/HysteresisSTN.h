@@ -17,25 +17,17 @@ public:
 
     void prepare (double sampleRate);
     void setParams (float drive, float saturation, float width);
-    
+
     inline double process (std::array<double, 6> input) const noexcept
     {
         constexpr double diffMakeup = 1.0 / 6.0e4;
+        input[0] *= driveValue; input[2] *= driveValue; input[4] = driveValue;  // set drive
+        input[1] *= diffMakeup; input[3] *= diffMakeup;                         // correct derivatives
 
-        input[0] *= driveValue;
-        input[1] *= diffMakeup;
-        input[2] *= driveValue;
-        input[3] *= diffMakeup;
-        input[4]  = driveValue;
-
-        return stnModels[widthIdx][satIdx]->forward(input.data());
+        return stnModels[widthIdx][satIdx]->forward(input.data()) * sampleRateCorr;
     }
 
-    enum
-    {
-        numWidthModels = 11,
-        numSatModels = 21,
-    };
+    enum { numWidthModels = 11, numSatModels = 21 };
 
 private:
     std::unique_ptr<MLUtils::Model<double>> stnModels[numWidthModels][numSatModels];
