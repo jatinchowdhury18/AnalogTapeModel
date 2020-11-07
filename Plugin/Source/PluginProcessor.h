@@ -70,6 +70,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     PresetManager& getPresetManager() { return presetManager; }
+    const AudioProcessorValueTreeState& getVTS() { return vts; }
     
 private:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();

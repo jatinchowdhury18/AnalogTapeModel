@@ -2,8 +2,8 @@
 
 <JUCERPROJECT id="jDoXPz" name="CHOWTapeModel" projectType="audioplug" version="2.6.0"
               pluginFormats="buildAU,buildStandalone,buildVST,buildVST3" cppLanguageStandard="17"
-              companyName="chowdsp" companyEmail="chowdsp@gmail.com" defines="SAVE_PRESETS=0"
-              pluginManufacturerCode="Chow" reportAppUsage="0" jucerFormatVersion="1">
+              companyName="chowdsp" companyEmail="chowdsp@gmail.com" pluginManufacturerCode="Chow"
+              reportAppUsage="0" jucerFormatVersion="1">
   <MAINGROUP id="pXbPvR" name="CHOWTapeModel">
     <GROUP id="{0178B10A-4A61-796A-5AB2-915D32AF6EEE}" name="Source">
       <GROUP id="{8D673967-9B5D-8254-9062-4C4B14D4EAD9}" name="GUI">
@@ -12,8 +12,6 @@
           <FILE id="DzcyPN" name="gui.xml" compile="0" resource="1" file="Source/GUI/Assets/gui.xml"/>
           <FILE id="xzpwn3" name="knob.svg" compile="0" resource="1" file="Source/GUI/Assets/knob.svg"/>
           <FILE id="VVaf9c" name="pointer.svg" compile="0" resource="1" file="Source/GUI/Assets/pointer.svg"/>
-          <FILE id="LbfXKZ" name="preset_save_gui.xml" compile="0" resource="1"
-                file="Source/GUI/Assets/preset_save_gui.xml"/>
           <FILE id="th5YSa" name="RobotoCondensed-Bold.ttf" compile="0" resource="1"
                 file="Source/GUI/Assets/RobotoCondensed-Bold.ttf"/>
           <FILE id="bQP3yl" name="RobotoCondensed-Regular.ttf" compile="0" resource="1"
@@ -49,12 +47,37 @@
       </GROUP>
       <GROUP id="{71C1FCA8-E7B0-3B66-1340-F140C452FF6F}" name="Presets">
         <GROUP id="{AB6F221D-98B5-9782-2241-321BA5DFB83C}" name="PresetConfigs">
-          <FILE id="AymGjK" name="Default.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Default.xml"/>
-          <FILE id="zlTcrf" name="LoFi.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.xml"/>
-          <FILE id="drwXrv" name="OldTape.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/OldTape.xml"/>
-          <FILE id="O4vt7g" name="TC260.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/TC260.xml"/>
-          <FILE id="FkbdSt" name="Underbiased.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/Underbiased.xml"/>
-          <FILE id="wf7iTS" name="WoozyChorus.xml" compile="0" resource="1" file="Source/Presets/PresetConfigs/WoozyChorus.xml"/>
+          <FILE id="GvUTP4" name="Default.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/Default.chowpreset"/>
+          <FILE id="BPj68R" name="LoFi.chowpreset" compile="0" resource="1" file="Source/Presets/PresetConfigs/LoFi.chowpreset"/>
+          <FILE id="uAXu5z" name="OldTape.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/OldTape.chowpreset"/>
+          <FILE id="U14vbg" name="SNK_BassPusher.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_BassPusher.chowpreset"/>
+          <FILE id="k622ua" name="SNK_Chorus3.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Chorus3.chowpreset"/>
+          <FILE id="MOk9cf" name="SNK_Chorus4.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Chorus4.chowpreset"/>
+          <FILE id="LktNck" name="SNK_Chorus2.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Chorus2.chowpreset"/>
+          <FILE id="Tft4Nf" name="SNK_CleanFat.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_CleanFat.chowpreset"/>
+          <FILE id="JIJgNs" name="SNK_Fat2.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Fat2.chowpreset"/>
+          <FILE id="MRXbHr" name="SNK_Gritty.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Gritty.chowpreset"/>
+          <FILE id="WbTlM4" name="SNK_Gritty2.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_Gritty2.chowpreset"/>
+          <FILE id="oYWApp" name="SNK_lofi.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/SNK_lofi.chowpreset"/>
+          <FILE id="dfvIsA" name="SNK_SlightlyWobbly.chowpreset" compile="0"
+                resource="1" file="Source/Presets/PresetConfigs/SNK_SlightlyWobbly.chowpreset"/>
+          <FILE id="RwaoWX" name="TC260.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/TC260.chowpreset"/>
+          <FILE id="cwOBOG" name="Underbiased.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/Underbiased.chowpreset"/>
+          <FILE id="uL6YwZ" name="WoozyChorus.chowpreset" compile="0" resource="1"
+                file="Source/Presets/PresetConfigs/WoozyChorus.chowpreset"/>
         </GROUP>
         <FILE id="ByxTdI" name="PresetComp.cpp" compile="1" resource="0" file="Source/Presets/PresetComp.cpp"/>
         <FILE id="jFQg5e" name="PresetComp.h" compile="0" resource="0" file="Source/Presets/PresetComp.h"/>
