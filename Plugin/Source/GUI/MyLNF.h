@@ -42,7 +42,12 @@ private:
 class ComboBoxLNF : public MyLNF
 {
 public:
-    ComboBoxLNF() {}
+    ComboBoxLNF()
+    {
+        setColour (PopupMenu::backgroundColourId, Colour (0xFF31323A));
+        setColour (PopupMenu::highlightedBackgroundColourId, Colour (0x7FEAA92C));
+        setColour (PopupMenu::highlightedTextColourId, Colours::white);
+    }
 
     void drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box) override;
     void positionComboBoxText (ComboBox& box, Label& label) override;
@@ -59,10 +64,42 @@ public:
             shortcutKeyText, icon, textColourToUse);
     }
 
-private:
+    void drawPopupMenuBackground (Graphics& g, int width, int height) override
+    {
+        g.fillAll (findColour (PopupMenu::backgroundColourId));
+        ignoreUnused (width, height);
+    }
 
+private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComboBoxLNF)
 };
+
+
+class PresetsLNF : public ComboBoxLNF
+{
+public:
+    PresetsLNF() = default;
+
+    void drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box) override
+    {
+        auto cornerSize = 5.0f;
+        Rectangle<int> boxBounds (0, 0, width, height);
+
+        g.setColour (box.findColour (ComboBox::backgroundColourId));
+        g.fillRoundedRectangle (boxBounds.toFloat(), cornerSize);
+    }
+
+    void positionComboBoxText (ComboBox& box, Label& label) override
+    {
+        auto b = box.getBounds();
+        label.setBounds (b);
+        label.setFont (getComboBoxFont (box).boldened());
+    }
+
+private:
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetsLNF)
+};
+
 
 class SpeedButtonLNF : public MyLNF
 {
@@ -90,7 +127,6 @@ public:
     }
 
 private:
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SpeedButtonLNF)
 };
 

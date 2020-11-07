@@ -14,6 +14,11 @@
 #include "GUI/TooltipComp.h"
 #include "GUI/MixGroupViz.h"
 
+namespace
+{
+    constexpr int maxNumPresets = 999;
+}
+
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -56,7 +61,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("ingain",  "Input Gain [dB]",  -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
-    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, 10, 0));
+    params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, maxNumPresets, 0));
 
     ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
@@ -119,6 +124,9 @@ int ChowtapeModelAudioProcessor::getCurrentProgram()
 
 void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
+    if (index > maxNumPresets)
+        return;
+
     auto& presetParam = *vts.getRawParameterValue ("preset");
     if ((int) presetParam == index)
         return;
@@ -272,6 +280,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerLookAndFeel ("ComboBoxLNF", std::make_unique<ComboBoxLNF>());
+    builder->registerLookAndFeel ("PresetsLNF", std::make_unique<PresetsLNF>());
     builder->registerLookAndFeel ("SpeedButtonLNF", std::make_unique<SpeedButtonLNF>());
 
     auto* speedHandle = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));
@@ -284,17 +293,6 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
         });
     }
 
-#if SAVE_PRESETS // Add button to save new presets
-    magicState.addTrigger ("savepreset", [=]
-    {
-        File xmlFile ("D:\\preset.xml");
-        xmlFile.deleteFile();
-        xmlFile.create();
-        xmlFile.replaceWithText (vts.state.toXmlString());
-    });
-
-    return new foleys::MagicPluginEditor (magicState, BinaryData::preset_save_gui_xml, BinaryData::preset_save_gui_xmlSize, std::move (builder));
-#else
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
     
     if (needsUpdate)
@@ -306,7 +304,6 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     }
 
     return editor;
-#endif
 }
 
 //==============================================================================

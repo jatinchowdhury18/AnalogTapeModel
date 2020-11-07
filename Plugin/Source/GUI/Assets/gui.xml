@@ -168,8 +168,7 @@
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
-               radius="" border="" lookAndFeel="ComboBoxLNF" tooltip="Selects a preset for the plugin."
-               flex-grow="1.9" max-height="100"/>
+               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9" max-height="100"/>
     </View>
   </View>
 </magic>

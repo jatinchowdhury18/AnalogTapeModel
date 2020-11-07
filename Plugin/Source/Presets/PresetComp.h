@@ -5,7 +5,6 @@
 #include "../PluginProcessor.h"
 
 class PresetComp : public Component,
-                   public SettableTooltipClient,
                    private PresetManager::Listener
 {
 public:
@@ -23,9 +22,14 @@ public:
     void presetUpdated() override;
 
 private:
+    void loadPresetChoices();
+    void addPresetOptions();
+    void saveUserPreset();
+
     ChowtapeModelAudioProcessor& proc;
     PresetManager& manager;
-    ComboBox presetBox;    
+    ComboBox presetBox;
+    TextEditor presetNameEditor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
 };
