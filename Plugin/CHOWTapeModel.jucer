@@ -128,6 +128,9 @@
               file="Source/Processors/DryWetProcessor.h"/>
         <FILE id="zwLvQ9" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
         <FILE id="SSnw2J" name="IIRFilter.h" compile="0" resource="0" file="Source/Processors/IIRFilter.h"/>
+        <FILE id="ArGmHO" name="InputFilters.cpp" compile="1" resource="0"
+              file="Source/Processors/InputFilters.cpp"/>
+        <FILE id="ipAPk7" name="InputFilters.h" compile="0" resource="0" file="Source/Processors/InputFilters.h"/>
       </GROUP>
       <FILE id="zPJjtw" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
