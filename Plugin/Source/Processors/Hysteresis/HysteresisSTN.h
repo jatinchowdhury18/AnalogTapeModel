@@ -15,15 +15,14 @@ class HysteresisSTN
 public:
     HysteresisSTN();
 
+    static constexpr size_t inputSize = 5;
+    static constexpr double diffMakeup = 1.0 / 6.0e4;
+
     void prepare (double sampleRate);
-    void setParams (float drive, float saturation, float width);
+    void setParams (float saturation, float width);
 
-    inline double process (std::array<double, 6> input) const noexcept
+    inline double process (const std::array<double, inputSize>& input) const noexcept
     {
-        constexpr double diffMakeup = 1.0 / 6.0e4;
-        input[0] *= driveValue; input[2] *= driveValue; input[4] = driveValue;  // set drive
-        input[1] *= diffMakeup; input[3] *= diffMakeup;                         // correct derivatives
-
         return stnModels[widthIdx][satIdx]->forward(input.data()) * sampleRateCorr;
     }
 
@@ -32,7 +31,6 @@ public:
 private:
     std::unique_ptr<MLUtils::Model<double>> stnModels[numWidthModels][numSatModels];
     double sampleRateCorr = 1.0;
-    double driveValue = 0.0f;
     size_t widthIdx = 0;
     size_t satIdx = 0;
 

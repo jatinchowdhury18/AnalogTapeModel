@@ -10,7 +10,8 @@ namespace
     constexpr float widthIdxMult = (float) HysteresisSTN::numWidthModels - 1.0f;
 
     static std::array<String, HysteresisSTN::numWidthModels> widthTags
-        { "0", "10", "20", "30", "40", "50", "50", "50", "50", "50", "50"};
+        { "50", "50", "50", "50", "50", "50", "60", "70", "80", "90", "100"};
+        // { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
 
     static std::array<String, HysteresisSTN::numSatModels> satTags
         { "0",  "5", "10", "15", "20", "25", "30", "35", "40", "45",
@@ -47,6 +48,7 @@ std::unique_ptr<MemoryInputStream> getModelFileStream (const String& modelFile)
 HysteresisSTN::HysteresisSTN()
 {
     // load models
+    auto start = Time::getMillisecondCounterHiRes();
     size_t widthLoadIdx = 0;
     for (const auto& width : widthTags)
     {
@@ -62,10 +64,15 @@ HysteresisSTN::HysteresisSTN()
             stnModels[widthLoadIdx][satLoadIdx] = Json2RnnParser::parseJson<double> (modelJson);
 
             jassert (stnModels[widthLoadIdx][satLoadIdx] != nullptr);
+            jassert (stnModels[widthLoadIdx][satLoadIdx]->layers[0]->in_size == inputSize);
             satLoadIdx++;
         }
         widthLoadIdx++;
     }
+
+    auto dur = Time::getMillisecondCounterHiRes() - start;
+    Logger::writeToLog ("Loaded " + String (widthTags.size() * satTags.size())
+        + " models in " + String (dur / 1000.0) + " seconds");
 }
 
 void HysteresisSTN::prepare (double sampleRate)
@@ -73,9 +80,8 @@ void HysteresisSTN::prepare (double sampleRate)
     sampleRateCorr = trainingSampleRate / sampleRate;
 }
 
-void HysteresisSTN::setParams (float drive, float saturation, float width)
+void HysteresisSTN::setParams (float saturation, float width)
 {
-    driveValue = static_cast<double> (drive);
     satIdx = getSatIdx (saturation);
     widthIdx = getWidthIdx (width);
 }

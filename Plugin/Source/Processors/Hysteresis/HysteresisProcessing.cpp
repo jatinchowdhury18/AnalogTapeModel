@@ -38,7 +38,7 @@ void HysteresisProcessing::setSampleRate (double newSR)
 
 void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
 {
-    hysteresisSTN.setParams (drive, sat, width);
+    hysteresisSTN.setParams (sat, width);
 
     M_s = 0.5 + 1.5 * (1.0 - (double) sat);
     a = M_s / (0.01 + 6.0 * (double) drive);
@@ -210,5 +210,12 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
 
 inline double HysteresisProcessing::STN (double H, double H_d) noexcept
 {
-    return hysteresisSTN.process ({ H, H_d, H_n1, H_d_n1, 0.0, M_n1 }) + M_n1;
+    std::array<double, HysteresisSTN::inputSize> input { H, H_d, H_n1, H_d_n1, M_n1 };
+
+    // scale derivatives
+    input[1] *= HysteresisSTN::diffMakeup;
+    input[3] *= HysteresisSTN::diffMakeup;
+    FloatVectorOperations::multiply (input.data(), 0.7071 / a, 4); // scale by drive param
+
+    return hysteresisSTN.process (input) + M_n1;
 }

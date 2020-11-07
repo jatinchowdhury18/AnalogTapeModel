@@ -49,7 +49,7 @@ int main (int argc, char* argv[])
 
         if (param->getName (10) == "Mode")
         {
-            param->setValue (1.0f / 6.0f); // NR4
+            param->setValue (4.0f / 5.0f); // STN
             std::cout << "Setting parameter " << param->getName (10)
                 << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
