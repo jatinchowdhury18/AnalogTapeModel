@@ -5,7 +5,6 @@
 #include "../PluginProcessor.h"
 
 class PresetComp : public Component,
-                   public SettableTooltipClient,
                    private PresetManager::Listener
 {
 public:

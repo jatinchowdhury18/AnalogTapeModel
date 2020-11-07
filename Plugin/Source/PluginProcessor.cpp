@@ -280,6 +280,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
     builder->registerLookAndFeel ("ComboBoxLNF", std::make_unique<ComboBoxLNF>());
+    builder->registerLookAndFeel ("PresetsLNF", std::make_unique<PresetsLNF>());
     builder->registerLookAndFeel ("SpeedButtonLNF", std::make_unique<SpeedButtonLNF>());
 
     auto* speedHandle = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));

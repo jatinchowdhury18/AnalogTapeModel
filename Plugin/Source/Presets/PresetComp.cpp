@@ -6,6 +6,9 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
 {
     manager.addListener (this);
 
+    presetBox.setName ("Preset Manager");
+    presetBox.setTooltip ("Use this menu to select presets, and to save and manage user presets");
+
     setColour (backgroundColourId, Colour (0xFF595C6B));
     setColour (textColourId, Colours::white);
 
