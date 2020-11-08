@@ -56,11 +56,14 @@
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Filters">
-          <Slider caption="Low Cut" parameter="ifilt_low" class="Slider"/>
-          <Slider caption="High Cut" parameter="ifilt_high" class="Slider"/>
+          <Slider caption="Low Cut" parameter="ifilt_low" class="Slider" name="Low Cut"
+                  tooltip="Applies a low cut filter before applying tape processing."/>
+          <Slider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut"
+                  tooltip="Applies a high cut filter before applying tape processing."/>
           <TextButton parameter="ifilt_makeup" text="Makeup" background-color="00000000"
                       margin="0" padding="5" button-color="00000000" flex-grow="0.35"
-                      button-on-color="FF8B3232" lookAndFeel="SpeedButtonLNF"/>
+                      button-on-color="FF8B3232" lookAndFeel="SpeedButtonLNF" name="Makeup"
+                      tooltip="Adds the signal cut out by the cut filters back to the processed signal."/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
