@@ -32,6 +32,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
                        ),
 #endif
     vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+    inputFilters (vts),
     toneControl (vts),
     hysteresis (vts),
     degrade (vts),
@@ -63,6 +64,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet",  "Dry/Wet", 0.0f, 100.0f, 100.0f));
     params.push_back (std::make_unique<AudioParameterInt>   ("preset", "Preset", 0, maxNumPresets, 0));
 
+    InputFilters::createParameterLayout (params);
     ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
@@ -155,6 +157,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
+    inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
     toneControl.prepare (sampleRate);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
@@ -222,6 +225,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     dryBuffer.makeCopyOf (buffer, true);
     inGain.processBlock (buffer, midiMessages);
+    inputFilters.processBlock (buffer);
 
     scope->pushSamples (buffer, TapeScope::AudioType::Input);
 
@@ -230,7 +234,6 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
-    
     flutter.processBlock (buffer, midiMessages);
     
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
@@ -238,6 +241,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     
     latencyCompensation();
 
+    inputFilters.processBlockMakeup (buffer);
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
     
@@ -247,15 +251,19 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 void ChowtapeModelAudioProcessor::latencyCompensation()
 {
     // delay dry buffer to avoid phase issues
-    const auto latencySamp = roundToInt (calcLatencySamples());
+    const auto latencySampFloat = calcLatencySamples();
+    const auto latencySamp = roundToInt (latencySampFloat);
     setLatencySamples (latencySamp);
+
+    // delay makeup block from input filters
+    inputFilters.setMakeupDelay (latencySampFloat);
 
     // For "true bypass" use integer sample delay to avoid delay
     // line interpolation freq. response issues
     if (dryWet.getDryWet() < 0.15f)
         dryDelay.setDelay ((float) latencySamp);
     else
-        dryDelay.setDelay (calcLatencySamples());
+        dryDelay.setDelay (latencySampFloat);
 
     dsp::AudioBlock<float> block { dryBuffer };
     dryDelay.process (dsp::ProcessContextReplacing<float> { block });
