@@ -44,13 +44,27 @@
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
     <View padding="0" margin="" background-color="" lookAndFeel="">
-      <View flex-direction="column" margin="5" padding="" background-color="FF31323A">
-        <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
-                tooltip="Sets the input gain to the tape model in Decibels."/>
-        <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
-                name="Dry/Wet" slider-track="FF0BBDC2"/>
-        <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider"
-                name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Gain">
+          <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
+                  padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
+          <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
+                  padding="0" margin="0" name="Dry/Wet" slider-track="FF0BBDC2"/>
+          <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider"
+                  padding="0" margin="0" name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
+        </View>
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Filters">
+          <Slider caption="Low Cut" parameter="ifilt_low" class="Slider" name="Low Cut"
+                  tooltip="Applies a low cut filter before applying tape processing."/>
+          <Slider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut"
+                  tooltip="Applies a high cut filter before applying tape processing."/>
+          <TextButton parameter="ifilt_makeup" text="Makeup" background-color="00000000"
+                      margin="0" padding="5" button-color="00000000" flex-grow="0.35"
+                      button-on-color="FF8B3232" lookAndFeel="SpeedButtonLNF" name="Makeup"
+                      tooltip="Adds the signal cut out by the cut filters back to the processed signal."/>
+        </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
@@ -64,10 +78,12 @@
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tone">
-          <Slider caption="Bass" parameter="h_bass" class="Slider" name="Bass"
-                  tooltip="Controls the bass response of the pre/post-emphasis filters."/>
           <Slider caption="Treble" parameter="h_treble" class="Slider" name="Treble"
-                  tooltip="Controls the treble response of the pre/post-emphasis filters."/>
+                  padding="0" margin="0" tooltip="Controls the treble response of the pre/post-emphasis filters."/>
+          <Slider caption="Bass" parameter="h_bass" class="Slider" name="Bass"
+                  padding="0" margin="0" tooltip="Controls the bass response of the pre/post-emphasis filters."/>
+          <Slider caption="Frequency" parameter="h_tfreq" class="Slider" name="Transition Frequency"
+                  padding="0" margin="0" tooltip="Controls the transition frequency between the bass and treble sections of the EQ."/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" flex-grow="1.5"
@@ -168,7 +184,8 @@
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
-               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9" max-height="100"/>
+               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9"
+               max-height="100"/>
     </View>
   </View>
 </magic>

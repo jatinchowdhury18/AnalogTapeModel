@@ -19,6 +19,7 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
+#include "Processors/InputFilters.h"
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
@@ -79,6 +80,7 @@ private:
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
+    InputFilters inputFilters;
     ToneControl toneControl;
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
