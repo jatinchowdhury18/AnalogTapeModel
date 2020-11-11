@@ -91,17 +91,17 @@
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
               padding="0" margin="0">
           <View flex-grow="0.1" background-color="00000000"/>
-          <Slider caption="Gap [cm]" parameter="gap" slider-type="linear-horizontal"
+          <Slider caption="Gap [microns]" parameter="gap" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
                   slidertext-height="18" caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
-          <Slider caption="Thickness [cm]" parameter="thick" class="Slider" slider-type="linear-horizontal"
+          <Slider caption="Thickness [microns]" parameter="thick" class="Slider" slider-type="linear-horizontal"
                   padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
                   caption-placement="top-left"/>
           <View flex-grow="0.2" background-color="00000000"/>
-          <Slider caption="Spacing [cm]" parameter="spacing" slider-type="linear-horizontal"
+          <Slider caption="Spacing [microns]" parameter="spacing" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
                   caption-placement="top-left"/>
@@ -112,13 +112,13 @@
                   caption-placement="top-left"/>
           <View flex-grow="0.55" margin="0" padding="2" background-color="00000000">
             <TextButton margin="0" padding="2" text="3.75" button-color="00000000" background-color="00000000"
-                        onClick="set_speed_3.75" lookAndFeel="SpeedButtonLNF"/>
+                        onClick="set_speed_3.75" lookAndFeel="SpeedButtonLNF" button-on-color="00000000"/>
             <TextButton text="7.5" margin="0" padding="2" button-color="00000000" background-color="00000000"
-                        onClick="set_speed_7.50" lookAndFeel="SpeedButtonLNF"/>
-            <TextButton margin="0" padding="2" text="15" button-color="00000000" border-color=""
+                        onClick="set_speed_7.50" lookAndFeel="SpeedButtonLNF" button-on-color="00000000"/>
+            <TextButton margin="0" padding="2" text="15" button-color="00000000" button-on-color="00000000"
                         background-color="00000000" onClick="set_speed_15.00" lookAndFeel="SpeedButtonLNF"/>
             <TextButton margin="0" padding="2" background-color="00000000" onClick="set_speed_30.00"
-                        lookAndFeel="SpeedButtonLNF" text="30" button-color="00000000"/>
+                        lookAndFeel="SpeedButtonLNF" text="30" button-color="00000000" button-on-color="00000000"/>
           </View>
           <View flex-grow="0.01" background-color="00000000"/>
         </View>

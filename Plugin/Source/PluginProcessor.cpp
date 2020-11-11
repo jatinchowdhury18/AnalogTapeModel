@@ -163,11 +163,11 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate);
 
-    dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
-    dryDelay.setDelay (calcLatencySamples());
-    
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+
+    dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
+    dryDelay.setDelay (calcLatencySamples());
     
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
@@ -188,7 +188,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
 
 float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 {
-    return hysteresis.getLatencySamples();
+    return lossFilter[0]->getLatencySamples() + hysteresis.getLatencySamples();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
