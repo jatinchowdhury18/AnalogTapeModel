@@ -2,12 +2,13 @@
 Refs
 
 # Tex artifacts
-*.synctex.gz
+*.synctex.gz*
 *.aux
 *.bbl
 *.blg
 420_paper.log
 *.out
+*.log
 
 #JUCE generated content
 Builds
