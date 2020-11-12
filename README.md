@@ -40,6 +40,8 @@ If you would like to try the most recent builds (potentially unstable),
 see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/develop/Plugin/Bin).
 If you need Linux builds, or if you prefer to build the plugin for yourself,
 please see the [building instructions](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md).
+Alternatively, Linux users may download builds from the
+[Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/CHOWTapeModel).
 
 Note for FL Studio users: If you're experiencing pops and click while using
 the plugin, try enabling the "used fixed size buffers" setting. For more
@@ -56,6 +58,8 @@ see the
 
 - GUI Design - [Margus Mets](mailto:hello@mmcreative.eu)
 - GUI Framework - [Plugin GUI Magic](https://github.com/ffAudio/PluginGUIMagic)
+- Open Build Service Builds - [Konstantin Voinov](https://github.com/lv2-porting-project)
+- User Manual - Yann
 
 ## License
 CHOW Tape is licensed under the GNU General Public License agreement. Enjoy!

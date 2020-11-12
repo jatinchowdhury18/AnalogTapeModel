@@ -3,10 +3,13 @@ All notable changes to this project will be documented in
 this file.
 
 ## [Unreleased]
-- Added visualizations for Wow and Flutter.
+- Updated Loss Filters to improve frequency response and phase response.
+- Added high/low-cut filters for the input section.
+- Updated presets menu: now supports saving presets, and managing user preset folder.
 - Tone section: added transition frequency control, and made bass/treble controls more extreme.
-- Added coloured circle on bottom bar to visualize mix group.
+- Added visualizations for Wow and Flutter.
 - Added buttons to snap tape speed to conventional values.
+- Added coloured circle on bottom bar to visualize mix group.
 
 ## [2.6.0] - 2020-09-29
 - Added Pre/post emphasis filters for the hysteresis stage.
