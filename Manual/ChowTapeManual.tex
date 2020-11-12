@@ -55,9 +55,8 @@ results than would be possible with a physical tape machine.
 \boldtheme{Input Gain} controls the gain level going into the
 rest of the plugin. Note that abnormally large levels can
 cause the plugin to become unstable, so it is recommended
-that your levels are below unity gain going into the plugin,
-and any extra gain you wish to add should come from the input
-gain control. %@TODO: more notes on stability
+that sound levels are below unity gain going into the plugin,
+and any extra gain should come from the input gain control. %@TODO: more notes on stability
 \newpar
 \boldtheme{Dry/Wet} allows the user to choose how much of the
 signal they want to the plugin's processing to affect.
@@ -68,21 +67,83 @@ signal they want to the plugin's processing to affect.
 being done internally within the plugin. More oversampling
 will result in a higher quality sound with fewer aliasing
 artifacts and better noise characteristics, but will also
-use more of your CPU. It is recommended to use as much
-oversampling as your CPU will allow.
+use more CPU. It is recommended to use as much oversampling
+as your CPU will allow.
 \newpar
 \boldtheme{Mix Group}: When using ChowTape on multiple channels
-in your mix, you can synchronize parameters between plugin
+in a mix, you can synchronize parameters between plugin
 instances belonging to the same mix group. Essentially, all
 the plugin instances in the same mix group will share the same
 parameters.
 
 \subsubsection{Hysteresis Controls}
-@TODO
-\boldtheme{Hysteresis Mode}
-\boldtheme{Drive}
-\boldtheme{Saturation}
-\boldtheme{Bias}
+The hysteresis processing is the most important section of the
+plugin. \href{https://en.wikipedia.org/wiki/Hysteresis}{Hysteresis}
+is a complex nonlinear phenomenon that describes many
+natural processes in physics, biology, economics, and more.
+In particular, magnetic hysteresis describes the process by
+which tape becomes magnetised when subjected to a strong magnetic
+field. ChowTape emulates magnetic hysteresis, using the
+Jiles-Atherton\footnote{Jiles, D.C.; Atherton, D.L. (1984) ``Theory of ferromagnetic hysteresis'' \textit{Journal of Applied Physics}.}
+model of magnetic hysteresis. Magnetic hysteresis is largely
+responsible for the ``warm'' sound often associated with
+analog tape distortion.
+\newpar
+\boldtheme{Drive} controls the level of amplification done by
+the hysteresis process. This differs from the input gain in that
+it affects the nonlinear characteristic of the hysteresis process.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/drive.png}
+    \caption{\label{h_drive}{\it Hysteresis curves with varying drive}}
+\end{figure}
+
+\boldtheme{Saturation} controls the levelat which the hysteresis
+function saturates. Higher values correspond to a lower Saturation
+point, resulting in a more distorted sound.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/sat.png}
+    \caption{\label{h_sat}{\it Hysteresis curves with varying saturation}}
+\end{figure}
+
+\boldtheme{Bias} controls the amount of bias used by the tape
+recorder. Tape bias is the addition of an inaudible high-frequency
+signal to the audio signal\footnote{\href{https://hccc.org.uk/acbias.html}{More information on tape biasing}}.
+At lower bias levels, the hysteresis curve becomes ``wider'',
+thus creating the ``deadzone'' effect often associated with
+underbiased tape.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/bias.png}
+    \caption{\label{h_bias}{\it Hysteresis curves with varying bias}}
+\end{figure}
+
+\boldtheme{Hysteresis Mode} selects the equation solver used
+to solve the Jiles-Atherton equation in real time. ChowTape
+currently supports the following hysteresis modes:
+\renewcommand{\labelitemi}{\textendash}
+\begin{itemize}
+    \itemsep-1mm
+    \item 2nd-order Runge Kutta (RK2)
+    \item 4th-order Runge Kutta (RK4)
+    \item 4-iteration Newton Raphson (NR4)
+    \item 8-iteration Newton Raphson (NR8)
+    \item Version 1.0 processing (V1)
+\end{itemize}
+%
+The Runge-Kutta solvers are computationally cheaper, but
+somewhat less accurate than the Newton-Raphson solvers.
+Similarly, the higher-order solvers will be more accurate,
+but will also consume more compute resources. The V1 mode
+reverts to a different parameterization of the hysteresis
+equation that was used in earlier versions of the plugin. It
+is recommended to use higher-order solvers for mix busses
+and key tracks in a mix, while using lower-order solvers for
+less important tracks.
 
 \subsubsection{Tone Controls}
 The tone section applies a set of pre-/post-emphasis filters
@@ -108,7 +169,14 @@ effects'' is also dependent on the tape speed.
 \boldtheme{Spacing}
 controls the amount of space between the playhead and the tape,
 measured in centiimeters.
-\newpar
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.9\columnwidth]{../Simulations/LossEffects/space_loss.png}
+    \caption{\label{spacing_loss}{\it Spacing loss at 7.5 ips}}
+\end{figure}
+
+\noindent
 \boldtheme{Thickness} controls the thickness
 of the tape, measured in centiimeters.
 \newpar
@@ -119,6 +187,11 @@ the width of the playhead gap, measured in millimeters.
 controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
 continuous, standard tape speeds are 7.5, 15, and 30 ips.
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.9\columnwidth]{../Simulations/LossEffects/speed_thickness.png}
+    \caption{\label{thick_loss}{\it Thickness loss for 5 micron tape}}
+\end{figure}
 
 \subsubsection{Tape Degradation Controls}
 The degradation parameters control a simulation of old, degraded
@@ -154,5 +227,53 @@ more noticeable.
 "\boldtheme{Wow}" is similar to flutter but on a much longer time scale,
 and contains similar controls.
 
+\subsection{Presets}
+Presets provide a quick way to achieve a specific sound
+with the plugin. ChowTape comes with a set of built-in
+factory presets. To contribute your presets to be added
+to the factory presets list for future releases, see the
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues/30}{Presets GitHub issue}.
+
+\subsubsection{User Presets}
+To save the currenet plugin state as a user preset, open
+the presets menu, and select ``Save''. The first time a
+preset is saved, you will be asked to choose a preset
+folder. All future presets will be saved to this folder,
+and when the plugin opens, it will search this folder, as
+well as any subfolders, to load new user presets.
+Presets located in subfolders will be placed in their
+own groups in the preset menu.
+
+\subsection{Open Source}
+ChowTape is open-source software that is free (as in ``free
+beer''), and free (as in ``free speech''), under the
+\href{https://www.gnu.org/licenses/gpl-3.0}{General Public License}.
+As a research project, the goal of developing this plugin is
+to help advance the body of knowledge of real-time audio
+signal processing. Therefore, keeping any part of this project
+behind a paywall, or licensing this software under a proprietary
+license would be antithetical to that goal. As an open-source
+project, ChowTape is open to outside contributors. For more
+information, see our
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md}{Contributing}
+page.
+
+\subsection{Feedback}
+If you notice any bugs, or have any questions, feel free
+to \href{mailto:jatin@ccrma.stanford.edu}{email me directly},
+or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
+on GitHub. GitHub issues are preferred, since they are publicly
+visible.
+
+\subsection{Acknowledgements}
+Thanks to Yann for helping to write this user manual,
+as well as all the users of ChowTape who have made
+efforts to help improve the plugin.
+\newpar
+Enjoy!
+\newpar
+Jatin Chowdhury
+\newpar
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel}{https://github.com/jatinchowdhury18/AnalogTapeModel}
 
 \end{document}
