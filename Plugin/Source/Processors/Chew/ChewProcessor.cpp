@@ -5,6 +5,7 @@ ChewProcessor::ChewProcessor (AudioProcessorValueTreeState& vts)
     depth = vts.getRawParameterValue ("chew_depth");
     freq  = vts.getRawParameterValue ("chew_freq");
     var   = vts.getRawParameterValue ("chew_var");
+    onOff = vts.getRawParameterValue ("chew_onoff");
 }
 
 void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -12,6 +13,7 @@ void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAud
     params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth",    0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq",  "Freq",     0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("chew_var",   "Variance", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterBool>  ("chew_onoff", "On/Off", true));
 }
 
 void ChewProcessor::prepare (double sr)
@@ -29,7 +31,7 @@ void ChewProcessor::prepare (double sr)
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
 {
-    if (depth->load() == 0.0f && freq->load() == 0.0f)
+    if (onOff->load() == 0.0f || (depth->load() == 0.0f && freq->load() == 0.0f))
         return;
 
     const int shortBlockSize = 64;

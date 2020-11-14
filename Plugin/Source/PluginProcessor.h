@@ -25,6 +25,7 @@
 #include "GUI/AutoUpdating.h"
 #include "GUI/TapeScope.h"
 #include "MixGroups/MixGroupsController.h"
+#include "GUI/OnOffManager.h"
 
 //==============================================================================
 /**
@@ -90,6 +91,7 @@ private:
     DryWetProcessor dryWet;
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
     GainProcessor outGain;
+    OnOffManager onOffManager;
 
     AudioBuffer<float> dryBuffer;
     

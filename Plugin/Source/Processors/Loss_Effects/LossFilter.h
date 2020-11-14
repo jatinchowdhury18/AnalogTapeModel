@@ -25,6 +25,7 @@ private:
     AudioBuffer<float> fadeBuffer;
     bool starting = false;
 
+    std::atomic<float>* onOff = nullptr;
     std::atomic<float>* speed = nullptr;
     std::atomic<float>* spacing = nullptr;
     std::atomic<float>* thickness = nullptr;

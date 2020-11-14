@@ -78,6 +78,7 @@ ToneControl::ToneControl (AudioProcessorValueTreeState& vts)
     bassParam   = vts.getRawParameterValue ("h_bass");
     trebleParam = vts.getRawParameterValue ("h_treble");
     tFreqParam = vts.getRawParameterValue ("h_tfreq");
+    onOffParam = vts.getRawParameterValue ("tone_onoff");
 }
 
 void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -85,6 +86,7 @@ void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudio
     NormalisableRange freqRange { 100.0f, 4000.0f };
     freqRange.setSkewForCentre (transFreq);
 
+    params.push_back (std::make_unique<AudioParameterBool>  ("tone_onoff", "On/Off", true));
     params.push_back (std::make_unique<AudioParameterFloat> ("h_bass",   "Bass",   -1.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("h_treble", "Treble", -1.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("h_tfreq",  "Frequency", freqRange, transFreq,
@@ -103,8 +105,16 @@ void ToneControl::prepare (double sampleRate)
 
 void ToneControl::processBlockIn (AudioBuffer<float>& buffer)
 {
-    toneIn.setLowGain  (dbScale * bassParam->load());
-    toneIn.setHighGain (dbScale * trebleParam->load());
+    if (static_cast<bool> (onOffParam->load()))
+    {
+        toneIn.setLowGain  (dbScale * bassParam->load());
+        toneIn.setHighGain (dbScale * trebleParam->load());
+    }
+    else
+    {
+        toneIn.setLowGain  (0.0f);
+        toneIn.setHighGain (0.0f);
+    }
     toneIn.setTransFreq (tFreqParam->load());
 
     toneIn.processBlock (buffer);
@@ -112,8 +122,16 @@ void ToneControl::processBlockIn (AudioBuffer<float>& buffer)
 
 void ToneControl::processBlockOut (AudioBuffer<float>& buffer)
 {
-    toneOut.setLowGain  (-1.0f * dbScale * bassParam->load());
-    toneOut.setHighGain (-1.0f * dbScale * trebleParam->load());
+    if (static_cast<bool> (onOffParam->load()))
+    {
+        toneOut.setLowGain  (-1.0f * dbScale * bassParam->load());
+        toneOut.setHighGain (-1.0f * dbScale * trebleParam->load());
+    }
+    else
+    {
+        toneOut.setLowGain  (0.0f);
+        toneOut.setHighGain (0.0f);
+    }
     toneOut.setTransFreq (tFreqParam->load());
     
     toneOut.processBlock (buffer);

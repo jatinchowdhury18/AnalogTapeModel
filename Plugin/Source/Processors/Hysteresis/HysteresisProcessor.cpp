@@ -12,6 +12,7 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     widthParam = vts.getRawParameterValue ("width");
     osParam = vts.getRawParameterValue ("os");
     modeParam = vts.getRawParameterValue ("mode");
+    onOffParam = vts.getRawParameterValue ("hyst_onoff");
 
     for (int i = 0; i < 5; ++i)
         overSample[i] = std::make_unique<dsp::Oversampling<float>>
@@ -34,6 +35,7 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
 
     params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({"RK2", "RK4", "NR4", "NR8", "V1"}), 0));
     params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
+    params.push_back (std::make_unique<AudioParameterBool>   ("hyst_onoff", "On/Off", true));
 }
 
 void HysteresisProcessor::setSolver (int newSolver)
@@ -167,6 +169,9 @@ float HysteresisProcessor::getLatencySamples() const noexcept
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
+    if (! static_cast<bool> (onOffParam->load()))
+        return;
+
     setSolver ((int) *modeParam);
     setDrive (*driveParam);
     setSaturation (*satParam);

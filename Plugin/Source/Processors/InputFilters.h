@@ -16,6 +16,7 @@ public:
     void processBlockMakeup (AudioBuffer<float>& buffer);
 
 private:
+    std::atomic<float>* onOffParam   = nullptr;
     std::atomic<float>* lowCutParam  = nullptr;
     std::atomic<float>* highCutParam = nullptr;
     std::atomic<float>* makeupParam  = nullptr;

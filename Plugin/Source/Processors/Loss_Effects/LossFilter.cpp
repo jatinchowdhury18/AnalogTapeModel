@@ -7,6 +7,7 @@ LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) :
     spacing = vts.getRawParameterValue ("spacing");
     thickness = vts.getRawParameterValue ("thick");
     gap = vts.getRawParameterValue ("gap");
+    onOff = vts.getRawParameterValue ("loss_onoff");
 
     filters.add (new FIRFilter (order));
     filters.add (new FIRFilter (order));
@@ -48,6 +49,8 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Gap [microns]",
         gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter,
         valueToString, stringToValue));
+
+    params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "On/Off", true));
 }
 
 void LossFilter::prepare (float sampleRate, int samplesPerBlock)
@@ -123,6 +126,12 @@ void LossFilter::calcCoefs()
 
 void LossFilter::processBlock (float* buffer, const int numSamples)
 {
+    if (! static_cast<bool> (onOff->load()))
+    {
+        filters[activeFilter]->processBypassed (buffer, numSamples);
+        return;
+    }
+
     if ((*speed != prevSpeed || *spacing != prevSpacing ||
         *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
     {

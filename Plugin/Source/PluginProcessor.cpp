@@ -13,6 +13,7 @@
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/MixGroupViz.h"
+#include "GUI/PowerButton.h"
 #include "GUI/ScreenshotHelper.h"
 
 namespace
@@ -39,7 +40,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     degrade (vts),
     chewer (vts),
     flutter (vts),
-    mixGroupsController (vts, this)
+    mixGroupsController (vts, this),
+    onOffManager (vts, this)
 {
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch].reset (new LossFilter (vts));
@@ -268,10 +270,9 @@ void ChowtapeModelAudioProcessor::latencyCompensation()
     dryDelay.process (dsp::ProcessContextReplacing<float> { block });
 }
 
-//==============================================================================
 bool ChowtapeModelAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return true;
 }
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
@@ -283,6 +284,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("InfoComp", &InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
+    builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());

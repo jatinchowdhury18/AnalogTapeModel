@@ -11,6 +11,7 @@ InputFilters::InputFilters (AudioProcessorValueTreeState& vts)
     lowCutParam  = vts.getRawParameterValue ("ifilt_low");
     highCutParam = vts.getRawParameterValue ("ifilt_high");
     makeupParam  = vts.getRawParameterValue ("ifilt_makeup");
+    onOffParam   = vts.getRawParameterValue ("ifilt_onoff");
 }
 
 void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -40,6 +41,7 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
     params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "High Cut", highFreqRange,
         maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
     params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_makeup", "Cut Makeup", false));
+    params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_onoff", "On/Off", true));
 }
 
 void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -59,13 +61,9 @@ void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 void InputFilters::processBlock (AudioBuffer<float>& buffer)
 {
-    if (*lowCutParam == minFreq && *highCutParam == maxFreq)
-    {
-        internalBypass = true;
+    internalBypass = onOffParam->load() == 0.0f || (*lowCutParam == minFreq && *highCutParam == maxFreq);
+    if (internalBypass)
         return;
-    }
-
-    internalBypass = false;
 
     lowCutFilter.setCutoff (lowCutParam->load());
     highCutFilter.setCutoff (jmin (highCutParam->load(), fs * 0.48f));

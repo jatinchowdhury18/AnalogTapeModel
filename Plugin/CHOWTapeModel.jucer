@@ -12,6 +12,7 @@
           <FILE id="DzcyPN" name="gui.xml" compile="0" resource="1" file="Source/GUI/Assets/gui.xml"/>
           <FILE id="xzpwn3" name="knob.svg" compile="0" resource="1" file="Source/GUI/Assets/knob.svg"/>
           <FILE id="VVaf9c" name="pointer.svg" compile="0" resource="1" file="Source/GUI/Assets/pointer.svg"/>
+          <FILE id="kPu6oB" name="powerswitch.svg" compile="0" resource="1" file="Source/GUI/Assets/powerswitch.svg"/>
           <FILE id="th5YSa" name="RobotoCondensed-Bold.ttf" compile="0" resource="1"
                 file="Source/GUI/Assets/RobotoCondensed-Bold.ttf"/>
           <FILE id="bQP3yl" name="RobotoCondensed-Regular.ttf" compile="0" resource="1"
@@ -32,6 +33,11 @@
               file="Source/GUI/ScreenshotHelper.cpp"/>
         <FILE id="Vw0Q80" name="ScreenshotHelper.h" compile="0" resource="0"
               file="Source/GUI/ScreenshotHelper.h"/>
+        <FILE id="jFuKe3" name="OnOffManager.cpp" compile="1" resource="0"
+              file="Source/GUI/OnOffManager.cpp"/>
+        <FILE id="yLv4BP" name="OnOffManager.h" compile="0" resource="0" file="Source/GUI/OnOffManager.h"/>
+        <FILE id="dOs7G8" name="PowerButton.cpp" compile="1" resource="0" file="Source/GUI/PowerButton.cpp"/>
+        <FILE id="tNdX49" name="PowerButton.h" compile="0" resource="0" file="Source/GUI/PowerButton.h"/>
         <FILE id="yy3bQ7" name="TapeScope.cpp" compile="1" resource="0" file="Source/GUI/TapeScope.cpp"/>
         <FILE id="zDg8Lf" name="TapeScope.h" compile="0" resource="0" file="Source/GUI/TapeScope.h"/>
         <FILE id="WfCYvA" name="TitleComp.cpp" compile="1" resource="0" file="Source/GUI/TitleComp.cpp"/>
