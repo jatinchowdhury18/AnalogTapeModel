@@ -13,6 +13,7 @@
 % Manage spacing
 \def\newpar{\newline\newline}
 \usepackage[skip=2.5pt]{caption}
+\setlength{\belowcaptionskip}{-12pt}
 
 % Needed to manage fonts
 \RequirePackage[default,opentype]{sourcesanspro}

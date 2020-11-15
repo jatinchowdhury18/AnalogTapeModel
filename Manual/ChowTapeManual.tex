@@ -38,11 +38,15 @@ Linux users may download builds from the
 
 \begin{figure}[ht]
     \center
-    \includegraphics[width=0.55\columnwidth]{../Refs/Pictures/sony_tc-260.jpg}
+    \includegraphics[width=0.45\columnwidth]{../Refs/Pictures/sony_tc-260.jpg}
     \caption{\label{TapeMachine}{\it A Sony TC 260 reel-to-reel tape machine}}
 \end{figure}
 
-% @TODO: figures for controls...
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.6\columnwidth]{../Plugin/Screenshots/full_gui.png}
+    \caption{\label{h_bias}{\it ChowTape User Interface}}
+\end{figure}
 
 \subsection{Controls}
 ChowTape contains a wide range of controls allowing the
@@ -76,6 +80,46 @@ instances belonging to the same mix group. Essentially, all
 the plugin instances in the same mix group will share the same
 parameters.
 
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Filters.png}
+    \caption{\label{h_bias}{\it Input filter controls}}
+\end{figure}
+
+\subsubsection{Input Filter Controls}
+The ChowTape input filters apply a low-cut and high-cut filter
+to the input signal before it is passed on to the rest of the
+plugin. The \boldtheme{Low Cut} and \boldtheme{High Cut} knobs
+control the cutoff frequencies of the two filters. The
+\boldtheme{Makeup} control allows the signal cut out by the
+input filters to be added back to the output of the plugin.
+This can be useful for allowing sub-bass frequencies to pass
+through the plugin unaffected.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Tape.png}
+    \caption{\label{h_bias}{\it Tape hysteresis controls}}
+\end{figure}
+%
+% \begin{figure}[ht]
+%     \center
+%     \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/drive.png}
+%     \caption{\label{h_drive}{\it Hysteresis curves with varying drive}}
+% \end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/Hysteresis/sat.png}
+    \caption{\label{h_sat}{\it Hysteresis curves with varying saturation}}
+\end{figure}
+%
+\begin{figure}[]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/Hysteresis/bias.png}
+    \caption{\label{h_bias}{\it Hysteresis curves with varying bias}}
+\end{figure}
+
 \subsubsection{Hysteresis Controls}
 The hysteresis processing is the most important section of the
 plugin. \href{https://en.wikipedia.org/wiki/Hysteresis}{Hysteresis}
@@ -92,36 +136,18 @@ analog tape distortion.
 \boldtheme{Drive} controls the level of amplification done by
 the hysteresis process. This differs from the input gain in that
 it affects the nonlinear characteristic of the hysteresis process.
-
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/drive.png}
-    \caption{\label{h_drive}{\it Hysteresis curves with varying drive}}
-\end{figure}
-
-\boldtheme{Saturation} controls the levelat which the hysteresis
+\newpar
+\boldtheme{Saturation} controls the level at which the hysteresis
 function saturates. Higher values correspond to a lower Saturation
 point, resulting in a more distorted sound.
-
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/sat.png}
-    \caption{\label{h_sat}{\it Hysteresis curves with varying saturation}}
-\end{figure}
-
+\newpar
 \boldtheme{Bias} controls the amount of bias used by the tape
 recorder. Tape bias is the addition of an inaudible high-frequency
 signal to the audio signal\footnote{\href{https://hccc.org.uk/acbias.html}{More information on tape biasing}}.
 At lower bias levels, the hysteresis curve becomes ``wider'',
 thus creating the ``deadzone'' effect often associated with
 underbiased tape.
-
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/bias.png}
-    \caption{\label{h_bias}{\it Hysteresis curves with varying bias}}
-\end{figure}
-
+\newpar
 \boldtheme{Hysteresis Mode} selects the equation solver used
 to solve the Jiles-Atherton equation in real time. ChowTape
 currently supports the following hysteresis modes:
@@ -159,6 +185,24 @@ post-emphasis filter will automatically adjust. The
 \boldtheme{Frequency} knob controls the transition frequency
 between the bass and treble sections of the filter.
 
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Loss.png}
+    \caption{\label{h_bias}{\it Loss filter controls}}
+\end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/LossEffects/space_loss.png}
+    \caption{\label{spacing_loss}{\it Spacing loss at 7.5 ips}}
+\end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/LossEffects/speed_thickness.png}
+    \caption{\label{thick_loss}{\it Thickness loss for 5 micron tape}}
+\end{figure}
+
 \subsubsection{Playhead Controls}
 Physical tape machines also have a frequency response that
 is affected by the amount of space between the playhead and
@@ -169,14 +213,7 @@ effects'' is also dependent on the tape speed.
 \boldtheme{Spacing}
 controls the amount of space between the playhead and the tape,
 measured in centiimeters.
-
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=0.9\columnwidth]{../Simulations/LossEffects/space_loss.png}
-    \caption{\label{spacing_loss}{\it Spacing loss at 7.5 ips}}
-\end{figure}
-
-\noindent
+\newpar
 \boldtheme{Thickness} controls the thickness
 of the tape, measured in centiimeters.
 \newpar
@@ -187,42 +224,33 @@ the width of the playhead gap, measured in millimeters.
 controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
 continuous, standard tape speeds are 7.5, 15, and 30 ips.
-\begin{figure}[ht]
-    \center
-    \includegraphics[width=0.9\columnwidth]{../Simulations/LossEffects/speed_thickness.png}
-    \caption{\label{thick_loss}{\it Thickness loss for 5 micron tape}}
-\end{figure}
+
 
 \subsubsection{Tape Degradation Controls}
 The degradation parameters control a simulation of old, degraded
-tape.
-\newpar
-\boldtheme{Depth} and \boldtheme{Amount} control the amount of
-degradation that is added to the tape, while \boldtheme{Variance}
+tape. \boldtheme{Depth} and \boldtheme{Amount} control the amount
+of degradation that is added to the tape, while \boldtheme{Variance}
 adds a time-varying randomness to the degradatation.
 
 \subsubsection{Chew Controls}
 The chew parameters simulate tape that has been chewed up by
-a broken tape machine.
-\newpar
-\boldtheme{Depth} controls how deep the tape is chewed;
-\newpar
-\boldtheme{Frequency} controls how much space there is between
-bits of tape that have been chewed up.
+a broken tape machine. \boldtheme{Depth} controls how deep the
+tape is chewed, \boldtheme{Frequency} controls how much space
+there is between bits of tape that have been chewed up, and
+\boldtheme{Variance} determines how much randomness there is
+in determining the amount of space between chewed up sections.
 
 \subsubsection{Wow and Flutter Controls}
 Tape machines also exhibit timing irregularities, often due
 to small imperfections in the mechanics of the machine causing
 the tape to subtly speed up and slow down while being
 played back. The flutter characteristic in this plugin was
-measured from an original Sony TC-260 tape machine.
+captured from an original Sony TC-260 tape machine.
 \newpar
 \boldtheme{Rate} controls the rate of flutter, with higher values
-causing the flutter to occur faster.
-\newpar
-\boldtheme{Depth} controls the depth of the flutter, with 0 meaning
-that no flutter is occuring, and higher values making the flutter
-more noticeable.
+causing the flutter to occur faster. \boldtheme{Depth} controls the
+depth of the flutter, with 0 meaning that no flutter is occuring, and
+higher values making the flutter more noticeable.
 \newpar
 "\boldtheme{Wow}" is similar to flutter but on a much longer time scale,
 and contains similar controls.
@@ -235,7 +263,7 @@ to the factory presets list for future releases, see the
 \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues/30}{Presets GitHub issue}.
 
 \subsubsection{User Presets}
-To save the currenet plugin state as a user preset, open
+To save the current plugin state as a user preset, open
 the presets menu, and select ``Save''. The first time a
 preset is saved, you will be asked to choose a preset
 folder. All future presets will be saved to this folder,
@@ -257,6 +285,7 @@ project, ChowTape is open to outside contributors. For more
 information, see our
 \href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md}{Contributing}
 page.
+\newpar
 
 \subsection{Feedback}
 If you notice any bugs, or have any questions, feel free

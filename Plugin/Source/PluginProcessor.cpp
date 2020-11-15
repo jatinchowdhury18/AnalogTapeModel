@@ -13,6 +13,7 @@
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/MixGroupViz.h"
+#include "GUI/ScreenshotHelper.h"
 
 namespace
 {
@@ -331,5 +332,9 @@ void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int siz
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
+#ifdef TAKE_SCREENSHOTS
+    ScreenshotHelper::takeScreenshots (std::make_unique<ChowtapeModelAudioProcessor>());
+#endif
+
     return new ChowtapeModelAudioProcessor();
 }
