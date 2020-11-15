@@ -12,6 +12,8 @@
 
 % Manage spacing
 \def\newpar{\newline\newline}
+\usepackage[skip=2.5pt]{caption}
+\setlength{\belowcaptionskip}{-12pt}
 
 % Needed to manage fonts
 \RequirePackage[default,opentype]{sourcesanspro}
@@ -46,13 +48,12 @@
 
 % fancy footer
 \usepackage{fancyhdr}
-\usepackage[bottom]{footmisc}
+\usepackage[bottom,flushmargin]{footmisc}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyfoot[RO]{\color{gray}\textbf{\@pluginname} Plugin User Manual \textasciitilde \thepage/{\the\numexpr\value{page}+1\relax}}
+\fancyfoot[RO]{\color{gray}\textbf{\@pluginname} Plugin User Manual \textasciitilde \ {\the\numexpr2*\value{page}-1\relax}/{\the\numexpr2*\value{page}\relax}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{1pt}
 \def\footrule{{\if@fancyplain\let\footrulewidth\plainfootrulewidth\fi
-    % \vskip-\footruleskip\vskip-\footrulewidth
     \leavevmode\rlap{\color{theme}\rule{\textwidth}{\footrulewidth}}
     \vskip\footruleskip}}

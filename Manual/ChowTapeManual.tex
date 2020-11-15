@@ -38,11 +38,15 @@ Linux users may download builds from the
 
 \begin{figure}[ht]
     \center
-    \includegraphics[width=0.55\columnwidth]{../Refs/Pictures/sony_tc-260.jpg}
+    \includegraphics[width=0.45\columnwidth]{../Refs/Pictures/sony_tc-260.jpg}
     \caption{\label{TapeMachine}{\it A Sony TC 260 reel-to-reel tape machine}}
 \end{figure}
 
-% @TODO: figures for controls...
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.6\columnwidth]{../Plugin/Screenshots/full_gui.png}
+    \caption{\label{h_bias}{\it ChowTape User Interface}}
+\end{figure}
 
 \subsection{Controls}
 ChowTape contains a wide range of controls allowing the
@@ -55,9 +59,8 @@ results than would be possible with a physical tape machine.
 \boldtheme{Input Gain} controls the gain level going into the
 rest of the plugin. Note that abnormally large levels can
 cause the plugin to become unstable, so it is recommended
-that your levels are below unity gain going into the plugin,
-and any extra gain you wish to add should come from the input
-gain control. %@TODO: more notes on stability
+that sound levels are below unity gain going into the plugin,
+and any extra gain should come from the input gain control. %@TODO: more notes on stability
 \newpar
 \boldtheme{Dry/Wet} allows the user to choose how much of the
 signal they want to the plugin's processing to affect.
@@ -68,21 +71,105 @@ signal they want to the plugin's processing to affect.
 being done internally within the plugin. More oversampling
 will result in a higher quality sound with fewer aliasing
 artifacts and better noise characteristics, but will also
-use more of your CPU. It is recommended to use as much
-oversampling as your CPU will allow.
+use more CPU. It is recommended to use as much oversampling
+as your CPU will allow.
 \newpar
 \boldtheme{Mix Group}: When using ChowTape on multiple channels
-in your mix, you can synchronize parameters between plugin
+in a mix, you can synchronize parameters between plugin
 instances belonging to the same mix group. Essentially, all
 the plugin instances in the same mix group will share the same
 parameters.
 
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Filters.png}
+    \caption{\label{h_bias}{\it Input filter controls}}
+\end{figure}
+
+\subsubsection{Input Filter Controls}
+The ChowTape input filters apply a low-cut and high-cut filter
+to the input signal before it is passed on to the rest of the
+plugin. The \boldtheme{Low Cut} and \boldtheme{High Cut} knobs
+control the cutoff frequencies of the two filters. The
+\boldtheme{Makeup} control allows the signal cut out by the
+input filters to be added back to the output of the plugin.
+This can be useful for allowing sub-bass frequencies to pass
+through the plugin unaffected.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Tape.png}
+    \caption{\label{h_bias}{\it Tape hysteresis controls}}
+\end{figure}
+%
+% \begin{figure}[ht]
+%     \center
+%     \includegraphics[width=0.9\columnwidth]{../Simulations/Hysteresis/drive.png}
+%     \caption{\label{h_drive}{\it Hysteresis curves with varying drive}}
+% \end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/Hysteresis/sat.png}
+    \caption{\label{h_sat}{\it Hysteresis curves with varying saturation}}
+\end{figure}
+%
+\begin{figure}[]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/Hysteresis/bias.png}
+    \caption{\label{h_bias}{\it Hysteresis curves with varying bias}}
+\end{figure}
+
 \subsubsection{Hysteresis Controls}
-@TODO
-\boldtheme{Hysteresis Mode}
-\boldtheme{Drive}
-\boldtheme{Saturation}
-\boldtheme{Bias}
+The hysteresis processing is the most important section of the
+plugin. \href{https://en.wikipedia.org/wiki/Hysteresis}{Hysteresis}
+is a complex nonlinear phenomenon that describes many
+natural processes in physics, biology, economics, and more.
+In particular, magnetic hysteresis describes the process by
+which tape becomes magnetised when subjected to a strong magnetic
+field. ChowTape emulates magnetic hysteresis, using the
+Jiles-Atherton\footnote{Jiles, D.C.; Atherton, D.L. (1984) ``Theory of ferromagnetic hysteresis'' \textit{Journal of Applied Physics}.}
+model of magnetic hysteresis. Magnetic hysteresis is largely
+responsible for the ``warm'' sound often associated with
+analog tape distortion.
+\newpar
+\boldtheme{Drive} controls the level of amplification done by
+the hysteresis process. This differs from the input gain in that
+it affects the nonlinear characteristic of the hysteresis process.
+\newpar
+\boldtheme{Saturation} controls the level at which the hysteresis
+function saturates. Higher values correspond to a lower Saturation
+point, resulting in a more distorted sound.
+\newpar
+\boldtheme{Bias} controls the amount of bias used by the tape
+recorder. Tape bias is the addition of an inaudible high-frequency
+signal to the audio signal\footnote{\href{https://hccc.org.uk/acbias.html}{More information on tape biasing}}.
+At lower bias levels, the hysteresis curve becomes ``wider'',
+thus creating the ``deadzone'' effect often associated with
+underbiased tape.
+\newpar
+\boldtheme{Hysteresis Mode} selects the equation solver used
+to solve the Jiles-Atherton equation in real time. ChowTape
+currently supports the following hysteresis modes:
+\renewcommand{\labelitemi}{\textendash}
+\begin{itemize}
+    \itemsep-1mm
+    \item 2nd-order Runge Kutta (RK2)
+    \item 4th-order Runge Kutta (RK4)
+    \item 4-iteration Newton Raphson (NR4)
+    \item 8-iteration Newton Raphson (NR8)
+    \item Version 1.0 processing (V1)
+\end{itemize}
+%
+The Runge-Kutta solvers are computationally cheaper, but
+somewhat less accurate than the Newton-Raphson solvers.
+Similarly, the higher-order solvers will be more accurate,
+but will also consume more compute resources. The V1 mode
+reverts to a different parameterization of the hysteresis
+equation that was used in earlier versions of the plugin. It
+is recommended to use higher-order solvers for mix busses
+and key tracks in a mix, while using lower-order solvers for
+less important tracks.
 
 \subsubsection{Tone Controls}
 The tone section applies a set of pre-/post-emphasis filters
@@ -97,6 +184,24 @@ the frequency response of the pre-emphasis filter, and the
 post-emphasis filter will automatically adjust. The
 \boldtheme{Frequency} knob controls the transition frequency
 between the bass and treble sections of the filter.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Loss.png}
+    \caption{\label{h_bias}{\it Loss filter controls}}
+\end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/LossEffects/space_loss.png}
+    \caption{\label{spacing_loss}{\it Spacing loss at 7.5 ips}}
+\end{figure}
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.85\columnwidth]{../Simulations/LossEffects/speed_thickness.png}
+    \caption{\label{thick_loss}{\it Thickness loss for 5 micron tape}}
+\end{figure}
 
 \subsubsection{Playhead Controls}
 Physical tape machines also have a frequency response that
@@ -120,39 +225,84 @@ controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
 continuous, standard tape speeds are 7.5, 15, and 30 ips.
 
+
 \subsubsection{Tape Degradation Controls}
 The degradation parameters control a simulation of old, degraded
-tape.
-\newpar
-\boldtheme{Depth} and \boldtheme{Amount} control the amount of
-degradation that is added to the tape, while \boldtheme{Variance}
+tape. \boldtheme{Depth} and \boldtheme{Amount} control the amount
+of degradation that is added to the tape, while \boldtheme{Variance}
 adds a time-varying randomness to the degradatation.
 
 \subsubsection{Chew Controls}
 The chew parameters simulate tape that has been chewed up by
-a broken tape machine.
-\newpar
-\boldtheme{Depth} controls how deep the tape is chewed;
-\newpar
-\boldtheme{Frequency} controls how much space there is between
-bits of tape that have been chewed up.
+a broken tape machine. \boldtheme{Depth} controls how deep the
+tape is chewed, \boldtheme{Frequency} controls how much space
+there is between bits of tape that have been chewed up, and
+\boldtheme{Variance} determines how much randomness there is
+in determining the amount of space between chewed up sections.
 
 \subsubsection{Wow and Flutter Controls}
 Tape machines also exhibit timing irregularities, often due
 to small imperfections in the mechanics of the machine causing
 the tape to subtly speed up and slow down while being
 played back. The flutter characteristic in this plugin was
-measured from an original Sony TC-260 tape machine.
+captured from an original Sony TC-260 tape machine.
 \newpar
 \boldtheme{Rate} controls the rate of flutter, with higher values
-causing the flutter to occur faster.
-\newpar
-\boldtheme{Depth} controls the depth of the flutter, with 0 meaning
-that no flutter is occuring, and higher values making the flutter
-more noticeable.
+causing the flutter to occur faster. \boldtheme{Depth} controls the
+depth of the flutter, with 0 meaning that no flutter is occuring, and
+higher values making the flutter more noticeable.
 \newpar
 "\boldtheme{Wow}" is similar to flutter but on a much longer time scale,
 and contains similar controls.
 
+\subsection{Presets}
+Presets provide a quick way to achieve a specific sound
+with the plugin. ChowTape comes with a set of built-in
+factory presets. To contribute your presets to be added
+to the factory presets list for future releases, see the
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues/30}{Presets GitHub issue}.
+
+\subsubsection{User Presets}
+To save the current plugin state as a user preset, open
+the presets menu, and select ``Save''. The first time a
+preset is saved, you will be asked to choose a preset
+folder. All future presets will be saved to this folder,
+and when the plugin opens, it will search this folder, as
+well as any subfolders, to load new user presets.
+Presets located in subfolders will be placed in their
+own groups in the preset menu.
+
+\subsection{Open Source}
+ChowTape is open-source software that is free (as in ``free
+beer''), and free (as in ``free speech''), under the
+\href{https://www.gnu.org/licenses/gpl-3.0}{General Public License}.
+As a research project, the goal of developing this plugin is
+to help advance the body of knowledge of real-time audio
+signal processing. Therefore, keeping any part of this project
+behind a paywall, or licensing this software under a proprietary
+license would be antithetical to that goal. As an open-source
+project, ChowTape is open to outside contributors. For more
+information, see our
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md}{Contributing}
+page.
+\newpar
+
+\subsection{Feedback}
+If you notice any bugs, or have any questions, feel free
+to \href{mailto:jatin@ccrma.stanford.edu}{email me directly},
+or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
+on GitHub. GitHub issues are preferred, since they are publicly
+visible.
+
+\subsection{Acknowledgements}
+Thanks to Yann for helping to write this user manual,
+as well as all the users of ChowTape who have made
+efforts to help improve the plugin.
+\newpar
+Enjoy!
+\newpar
+Jatin Chowdhury
+\newpar
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel}{https://github.com/jatinchowdhury18/AnalogTapeModel}
 
 \end{document}

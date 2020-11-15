@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy import signal
 
 # %%
-FREQS = np.logspace(1.3, 4.3, 50)
+FREQS = np.logspace(1.3, 4.3, 200)
 N = 128
 FS = 48000.0
 f = np.linspace (0, FS, N)
@@ -56,27 +56,38 @@ def spacing_loss(tape_speed_ips, dist_meter, freqs):
 for dist in [1.0e-6, 5e-6, 10e-6]:
     for SPEED in [7.5]: #, 15, 30]:
         space_loss = spacing_loss(SPEED, dist, FREQS)
-        plt.semilogx(FREQS, gain_to_db(space_loss), label=f'{SPEED}, {dist}')
-        plot_test(SPEED, lambda k : np.exp(-k * dist))
+        plt.semilogx(FREQS, gain_to_db(space_loss), label=f'{dist*1.0e6:.1f} microns')
+        # plot_test(SPEED, lambda k : np.exp(-k * dist))
 
-# plt.ylim(-6, 0)
-# plt.ylim(0, 3.5)
-plt.legend()
-plt.title('Spacing Loss')
+plt.ylim(-5, 0.5)
+plt.xlim(20, 20.e3)
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Magnitude [db]')
+plt.legend(loc='lower left')
+plt.grid()
+plt.title('Spacing Loss, 7.5 ips')
+plt.tight_layout()
+plt.savefig('space_loss.png')
 
 # %%
 def thickness_loss(tape_speed_ips, thick_meter):
     K = freq_to_k(tape_speed_ips, FREQS)
     return (1 - np.exp(-1 * K * thick_meter)) / (K * thick_meter)
 
-for thick in [1.0e-6, 10.e-6]:
-    for SPEED in [7.5, 15, 30]:
+for thick in [5.0e-6]: # [1.0e-6, 5.0e-6, 10.e-6, 15.0e-6]:
+    for SPEED in [3.75, 7.5, 15, 30]:
         loss = thickness_loss(SPEED, thick)
-        plt.semilogx(FREQS, gain_to_db(loss), label=f'{SPEED}, {thick}')
+        plt.semilogx(FREQS, gain_to_db(loss), label=f'{SPEED:.2f} ips')
 
-plt.ylim(-6, 1)
-plt.legend()
-plt.title('Thickness Loss')
+plt.ylim(-3, 0.5)
+plt.xlim(20, 20.e3)
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Magnitude [db]')
+plt.legend(loc='lower left')
+plt.grid()
+plt.title('Thickness Loss, 5 microns')
+plt.tight_layout()
+plt.savefig('speed_thickness.png')
 # %%
 def gap_loss(tape_speed_ips, gap_meter):
     K = freq_to_k(tape_speed_ips, FREQS)
@@ -96,7 +107,7 @@ def head_bump(tape_speed_ips, gap_meter):
     bump_freq = tape_speed_ips * 0.0254 / (gap_meter * 5e2)
     print(bump_freq)
     width = bump_freq * 0.4
-    gain = 1.5 * (2e3 - abs(bump_freq - 100)) / 2e3
+    gain = 1.1 * (2e3 - abs(bump_freq - 100)) / 2e3
     A = -(gain - 1) / (width/ 2)**2
     H = np.zeros_like(FREQS)
     for i, f in enumerate(FREQS):
@@ -106,13 +117,16 @@ def head_bump(tape_speed_ips, gap_meter):
             H[i] = max(A * (f - bump_freq)**2 + gain, 1)
     return H
 
+# %%
 for gap in [5.0e-6, 10.0e-6, 20.e-6]:
-    for SPEED in [7.5, 15, 30]:
-        loss = head_bump(SPEED, gap)
-        plt.semilogx(FREQS, gain_to_db(loss), label=f'{SPEED}, {gap}')
+    for SPEED in [15]: #, 15, 30]:
+        loss = head_bump(SPEED, gap) * gap_loss(SPEED, gap)
+        plt.semilogx(FREQS, gain_to_db(loss), label=f'{gap*1.0e6:.1f} microns')
 
-# plt.ylim(-6, 0)
-plt.legend()
-plt.title('Head Bump')
+plt.ylim(-6, 2.0)
+plt.xlim(20, 20.e3)
+plt.legend(loc='lower left')
+plt.grid()
+plt.title('Gap Loss')
 
 # %%
