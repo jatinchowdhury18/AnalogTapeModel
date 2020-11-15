@@ -28,6 +28,10 @@
         <FILE id="YzAgWK" name="MixGroupViz.h" compile="0" resource="0" file="Source/GUI/MixGroupViz.h"/>
         <FILE id="IgOtsG" name="MyLNF.cpp" compile="1" resource="0" file="Source/GUI/MyLNF.cpp"/>
         <FILE id="pj6eEc" name="MyLNF.h" compile="0" resource="0" file="Source/GUI/MyLNF.h"/>
+        <FILE id="Y0Fi0f" name="ScreenshotHelper.cpp" compile="1" resource="0"
+              file="Source/GUI/ScreenshotHelper.cpp"/>
+        <FILE id="Vw0Q80" name="ScreenshotHelper.h" compile="0" resource="0"
+              file="Source/GUI/ScreenshotHelper.h"/>
         <FILE id="yy3bQ7" name="TapeScope.cpp" compile="1" resource="0" file="Source/GUI/TapeScope.cpp"/>
         <FILE id="zDg8Lf" name="TapeScope.h" compile="0" resource="0" file="Source/GUI/TapeScope.h"/>
         <FILE id="WfCYvA" name="TitleComp.cpp" compile="1" resource="0" file="Source/GUI/TitleComp.cpp"/>

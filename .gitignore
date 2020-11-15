@@ -2,7 +2,7 @@
 Refs
 
 # Tex artifacts
-*.synctex.gz*
+*.synctex*
 *.aux
 *.bbl
 *.blg
