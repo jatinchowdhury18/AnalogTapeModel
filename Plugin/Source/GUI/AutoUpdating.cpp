@@ -7,6 +7,7 @@ namespace
     const String versionURL = "https://api.github.com/repos/jatinchowdhury18/AnalogTapeModel/releases/latest";
     const String updateURL = "https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest";
     const Colour backgroundColour = Colour (0xFF31323A).withAlpha (0.9f);
+    const Colour textColour = Colour (0xFFEAA92C);
 }
 
 AutoUpdater::AutoUpdater()
@@ -15,7 +16,7 @@ AutoUpdater::AutoUpdater()
     {
         addAndMakeVisible (button);
         button.setColour (TextButton::buttonColourId, backgroundColour);
-        button.setColour (TextButton::textColourOffId, Colour (0xFFEAA92C));
+        button.setColour (TextButton::textColourOffId, textColour);
         button.setColour (ComboBox::outlineColourId, Colours::transparentBlack);
         button.setOpaque (false);
         button.setMouseCursor (MouseCursor::PointingHandCursor);
@@ -27,6 +28,8 @@ AutoUpdater::AutoUpdater()
 
     yesButton.onClick = std::bind (&AutoUpdater::yesButtonPressed, this);
     noButton.onClick = std::bind (&AutoUpdater::noButtonPressed, this);
+
+    needsUpdate = std::async (std::launch::async, &AutoUpdater::runAutoUpdateCheck, this);
 }
 
 AutoUpdater::~AutoUpdater()
@@ -79,6 +82,18 @@ void AutoUpdater::resized()
 
     yesButton.setBounds (getWidth() / 2 - width - pad, y, width, height);
     noButton.setBounds (getWidth() / 2 + pad, y, width, height);
+}
+
+void AutoUpdater::showUpdaterScreen (Component* parent)
+{
+    if (! needsUpdate.valid())
+        return;
+
+    if (needsUpdate.get())
+    {
+        parent->addAndMakeVisible (this);
+        setBounds (0, 0, parent->getWidth(), parent->getHeight());
+    }
 }
 
 bool AutoUpdater::runAutoUpdateCheck()

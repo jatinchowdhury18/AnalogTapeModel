@@ -47,8 +47,6 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     flutter.initialisePlots (magicState);
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
-
-    needsUpdate = updater.runAutoUpdateCheck();
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
@@ -302,15 +300,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     }
 
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
-    
-    if (needsUpdate)
-    {
-        needsUpdate = false;
-
-        editor->addAndMakeVisible (updater);
-        updater.setBounds (0, 0, editor->getWidth(), editor->getHeight());
-    }
-
+    updater.showUpdaterScreen (editor);
     return editor;
 }
 

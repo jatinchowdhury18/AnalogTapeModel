@@ -98,10 +98,7 @@ private:
 
     PresetManager presetManager;
     MyLNF myLNF;
-
     AutoUpdater updater;
-    bool needsUpdate = false;
-
     MixGroupsController mixGroupsController;
 
     //==============================================================================

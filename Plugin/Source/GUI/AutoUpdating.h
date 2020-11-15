@@ -2,6 +2,7 @@
 #define AUTOUPDATING_H_INCLUDED
 
 #include <JuceHeader.h>
+#include <future>
 #include "MyLNF.h"
 
 struct UpdateButtonLNF : public MyLNF
@@ -31,6 +32,8 @@ public:
     void paint (Graphics& g) override;
     void resized() override;
 
+    void showUpdaterScreen (Component* parent);
+
     bool runAutoUpdateCheck();
     void noButtonPressed();
     void yesButtonPressed();
@@ -48,8 +51,9 @@ private:
     TextButton noButton { "No" };
     UpdateButtonLNF ubLNF;
 
+    std::future<bool> needsUpdate;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AutoUpdater)
 };
-
 
 #endif // AUTOUPDATING_H_INCLUDED
