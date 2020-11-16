@@ -19,6 +19,7 @@ public:
     void processBypassed (AudioBuffer<float>& buffer);
 
 private:
+    std::atomic<float>* flutterOnOff = nullptr;
     std::atomic<float>* flutterRate  = nullptr;
     std::atomic<float>* flutterDepth = nullptr;
     std::atomic<float>* wowRate  = nullptr;

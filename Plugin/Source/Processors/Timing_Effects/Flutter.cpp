@@ -14,6 +14,8 @@ Flutter::Flutter (AudioProcessorValueTreeState& vts)
     wowRate = vts.getRawParameterValue ("wow_rate");
     wowDepth = vts.getRawParameterValue ("wow_depth");
 
+    flutterOnOff = vts.getRawParameterValue ("flutter_onoff");
+
     depthSlewWow[0].setCurrentAndTargetValue (*wowDepth);
     depthSlewWow[1].setCurrentAndTargetValue (*wowDepth);
 
@@ -37,6 +39,8 @@ void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioPara
 
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.25f));
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Depth", 0.0f, 1.0f, 0.0f));
+
+    params.push_back (std::make_unique<AudioParameterBool> ("flutter_onoff", "On/Off", true));
 }
 
 void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -102,8 +106,8 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     flutterBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
     flutterBuffer.clear();
 
-    bool shouldTurnOff = depthSlewWow[0].getTargetValue() == depthSlewMin
-                      && depthSlewFlutter[0].getTargetValue() == depthSlewMin;
+    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) ||
+        (depthSlewWow[0].getTargetValue() == depthSlewMin && depthSlewFlutter[0].getTargetValue() == depthSlewMin);
     if (! isOff && ! shouldTurnOff) // process normally
     {
         processWetBuffer (buffer);

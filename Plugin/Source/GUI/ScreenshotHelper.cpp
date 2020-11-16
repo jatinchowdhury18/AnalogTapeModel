@@ -61,7 +61,18 @@ void screenshotTab (foleys::Container* container, int tabIdx)
 void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
 {
     processAudio (plugin.get());
-    std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditor());
+    std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());
+
+    // make sure all plugin sections are enabled
+    StringArray onOffIDs { "ifilt_onoff", "hyst_onoff", "tone_onoff", "loss_onoff", "chew_onoff", "deg_onoff", "flutter_onoff" };
+    for (auto param : plugin->getParameters())
+    {
+        if (auto* paramCast = dynamic_cast<RangedAudioParameter*> (param))
+        {
+            if (onOffIDs.contains (paramCast->paramID))
+                paramCast->setValueNotifyingHost (1.0f);
+        }
+    }
 
     // full screenshot
     screenshotForBounds (editor.get(), editor->getLocalBounds(), "full_gui.png");
@@ -73,6 +84,8 @@ void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
     for (auto c : tabbedComps)
         for (int i = 0; i < c->tabbedButtons->getNumTabs(); ++i)
             screenshotTab (c, i);
+
+    plugin->editorBeingDeleted (editor.get());
 }
 
 File getScreenshotFolder()

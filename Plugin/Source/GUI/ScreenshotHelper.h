@@ -10,7 +10,7 @@
 #define _XKEYCHECK_H
 #define private public
 #include "../PluginProcessor.h"
-#define private private
+#undef private
 
 namespace ScreenshotHelper
 {

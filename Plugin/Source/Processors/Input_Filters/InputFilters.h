@@ -2,6 +2,7 @@
 #define INPUTFILTERS_H_INCLUDED
 
 #include "LinkwitzRileyFilter.h"
+#include "../BypassProcessor.h"
 
 class InputFilters
 {
@@ -16,10 +17,10 @@ public:
     void processBlockMakeup (AudioBuffer<float>& buffer);
 
 private:
+    std::atomic<float>* onOffParam   = nullptr;
     std::atomic<float>* lowCutParam  = nullptr;
     std::atomic<float>* highCutParam = nullptr;
     std::atomic<float>* makeupParam  = nullptr;
-    bool internalBypass = false;
 
     float fs = 44100.0f;
     LinkwitzRileyFilter<float, 2> lowCutFilter;
@@ -27,6 +28,8 @@ private:
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> makeupDelay { 1 << 21 };
 
     AudioBuffer<float> lowCutBuffer, highCutBuffer, makeupBuffer;
+    BypassProcessor bypass;
+    BypassProcessor makeupBypass;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InputFilters)
 };

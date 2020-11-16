@@ -19,12 +19,13 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
-#include "Processors/InputFilters.h"
+#include "Processors/Input_Filters/InputFilters.h"
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"
 #include "GUI/TapeScope.h"
 #include "MixGroups/MixGroupsController.h"
+#include "GUI/OnOffManager.h"
 
 //==============================================================================
 /**
@@ -45,6 +46,7 @@ public:
    #endif
 
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
+    void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
 
     //==============================================================================
     AudioProcessorEditor* createEditor() override;
@@ -90,6 +92,7 @@ private:
     DryWetProcessor dryWet;
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
     GainProcessor outGain;
+    OnOffManager onOffManager;
 
     AudioBuffer<float> dryBuffer;
     

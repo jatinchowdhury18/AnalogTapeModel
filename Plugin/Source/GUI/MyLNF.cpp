@@ -18,7 +18,7 @@ Typeface::Ptr MyLNF::getTypefaceForFont (const Font& font)
 
 void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
                               float sliderPos, float rotaryStartAngle,
-                              float rotaryEndAngle, juce::Slider&)
+                              float rotaryEndAngle, juce::Slider& s)
 {
     int diameter = (width > height)? height : width;
     if (diameter < 16) return;
@@ -35,21 +35,23 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
     pointer->setTransform (AffineTransform::rotation (MathConstants<float>::twoPi * ((sliderPos - 0.5f) * 300.0f / 360.0f),
         b.getCentreX(), b.getCentreY()));
 
+    const auto alpha = s.isEnabled() ? 1.0f : 0.4f;
+
     auto knobBounds = (bounds * 0.75f).withCentre (centre);
-    knob->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, 1.0f);
-    pointer->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, 1.0f);
+    knob->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, alpha);
+    pointer->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, alpha);
 
     const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
     constexpr float arcFactor = 0.9f;
 
     Path valueArc;
     valueArc.addPieSegment (bounds, rotaryStartAngle, rotaryEndAngle, arcFactor);
-    g.setColour (Colour (0xff595c6b));
+    g.setColour (Colour (0xff595c6b).withAlpha (alpha));
     g.fillPath (valueArc);
     valueArc.clear();
 
     valueArc.addPieSegment (bounds, rotaryStartAngle, toAngle, arcFactor);
-    g.setColour (Colour (0xff9cbcbd));
+    g.setColour (Colour (0xff9cbcbd).withAlpha (alpha));
     g.fillPath (valueArc);
 }
 
@@ -171,10 +173,12 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
     Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
         slider.isHorizontal() ? startPoint.y : (float) y);
 
+    const auto alpha = slider.isEnabled() ? 1.0f : 0.4f;
+
     Path backgroundTrack;
     backgroundTrack.startNewSubPath (startPoint);
     backgroundTrack.lineTo (endPoint);
-    g.setColour (slider.findColour (Slider::backgroundColourId));
+    g.setColour (slider.findColour (Slider::backgroundColourId).withAlpha (alpha));
     g.strokePath (backgroundTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
     Path valueTrack;
@@ -192,12 +196,12 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
 
     valueTrack.startNewSubPath (minPoint);
     valueTrack.lineTo (maxPoint);
-    g.setColour (slider.findColour (Slider::trackColourId));
+    g.setColour (slider.findColour (Slider::trackColourId).withAlpha (alpha));
     g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
     auto thumbRect = Rectangle<float> (static_cast<float> (thumbWidth),
                                        static_cast<float> (thumbWidth)).withCentre (maxPoint);
-    knob->drawWithin (g, thumbRect, RectanglePlacement::stretchToFit, 1.0f);
+    knob->drawWithin (g, thumbRect, RectanglePlacement::stretchToFit, alpha);
 }
 
 Slider::SliderLayout MyLNF::getSliderLayout (Slider& slider)
