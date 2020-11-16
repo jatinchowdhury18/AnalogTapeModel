@@ -3,6 +3,7 @@
 
 #include "Dropout.h"
 #include "../Degrade/DegradeFilter.h"
+#include "../BypassProcessor.h"
 
 class ChewProcessor
 {
@@ -11,7 +12,7 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
-    void prepare (double sr);
+    void prepare (double sr, int samplesPerBlock);
     void processBlock (AudioBuffer<float>& buffer);
     void processShortBlock (AudioBuffer<float>& buffer);
 
@@ -32,6 +33,7 @@ private:
     int sampleCounter = 0;
 
     float sampleRate = 44100.0f;
+    BypassProcessor bypass;
 
     inline int getDryTime()
     {

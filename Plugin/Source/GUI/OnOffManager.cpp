@@ -46,6 +46,16 @@ OnOffManager::~OnOffManager()
         vts.removeParameterListener (trigger.first, this);
 }
 
+void OnOffManager::setOnOffForNewEditor (AudioProcessorEditor* editor)
+{
+    for (auto& trigger : triggerMap)
+    {
+        auto paramValue = vts.getRawParameterValue (trigger.first)->load();
+        StringArray compNames (trigger.second);
+        toggleEnableDisable (editor, compNames, (bool) paramValue);
+    }
+}
+
 void OnOffManager::parameterChanged (const String &paramID, float newValue)
 {
     if (triggerMap.find (paramID) == triggerMap.end()) // unknown trigger key

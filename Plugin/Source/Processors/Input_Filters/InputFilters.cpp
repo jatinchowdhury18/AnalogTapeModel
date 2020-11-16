@@ -41,7 +41,7 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
     params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "High Cut", highFreqRange,
         maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
     params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_makeup", "Cut Makeup", false));
-    params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_onoff", "On/Off", true));
+    params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_onoff", "On/Off", false));
 }
 
 void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -56,13 +56,13 @@ void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
     highCutBuffer.setSize (2, samplesPerBlock);
     makeupBuffer .setSize (2, samplesPerBlock);
 
-    internalBypass = false;
+    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+    makeupBypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
 }
 
 void InputFilters::processBlock (AudioBuffer<float>& buffer)
 {
-    internalBypass = onOffParam->load() == 0.0f || (*lowCutParam == minFreq && *highCutParam == maxFreq);
-    if (internalBypass)
+    if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
 
     lowCutFilter.setCutoff (lowCutParam->load());
@@ -81,14 +81,22 @@ void InputFilters::processBlock (AudioBuffer<float>& buffer)
         }
     }
 
+    bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
+
     lowCutFilter.snapToZero();
     highCutFilter.snapToZero();
 }
 
 void InputFilters::processBlockMakeup (AudioBuffer<float>& buffer)
 {
-    if (! static_cast<bool> (makeupParam->load()) || internalBypass)
+    if (! makeupBypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
+
+    if (! static_cast<bool> (makeupParam->load()))
+    {
+        makeupBypass.processBlockOut (buffer, bypass.toBool (onOffParam));
+        return;
+    }
 
     // compile makeup signal
     dsp::AudioBlock<float> lowCutBlock  (lowCutBuffer);
@@ -106,4 +114,6 @@ void InputFilters::processBlockMakeup (AudioBuffer<float>& buffer)
     // add makeup back to main buffer
     dsp::AudioBlock<float> outputBlock (buffer);
     outputBlock += makeupBlock;
+
+    makeupBypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }

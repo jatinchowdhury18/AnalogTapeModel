@@ -13,7 +13,7 @@ void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<Ranged
     params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Depth",    0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt",   "Amount",   0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("deg_var",   "Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool>  ("deg_onoff", "On/Off", true));
+    params.push_back (std::make_unique<AudioParameterBool>  ("deg_onoff", "On/Off", false));
 }
 
 void DegradeProcessor::cookParams()
@@ -42,11 +42,12 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     }
 
     gainProc.prepareToPlay (sampleRate, samplesPerBlock);
+    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
 }
 
 void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
 {
-    if (onOffParam->load() == 0.0f || (depthParam->load() == 0.0f && amtParam->load() == 0.0f))
+    if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
 
     cookParams();
@@ -58,4 +59,5 @@ void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& mid
     }
 
     gainProc.processBlock (buffer, midi);
+    bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }

@@ -19,7 +19,7 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/DryWetProcessor.h"
-#include "Processors/InputFilters.h"
+#include "Processors/Input_Filters/InputFilters.h"
 #include "Presets/PresetManager.h"
 #include "GUI/MyLNF.h"
 #include "GUI/AutoUpdating.h"

@@ -153,6 +153,8 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int ch = 0; ch < 2; ++ch)
         dcBlocker[ch].prepare (sampleRate, dcFreq);
+
+    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
 }
 
 void HysteresisProcessor::releaseResources()
@@ -169,7 +171,7 @@ float HysteresisProcessor::getLatencySamples() const noexcept
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
-    if (! static_cast<bool> (onOffParam->load()))
+    if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
 
     setSolver ((int) *modeParam);
@@ -214,6 +216,8 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     overSample[curOS]->processSamplesDown (block);
 
     applyDCBlockers (buffer);
+
+    bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }
 
 void HysteresisProcessor::process (dsp::AudioBlock<float>& block)

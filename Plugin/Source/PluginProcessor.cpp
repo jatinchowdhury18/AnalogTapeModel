@@ -162,7 +162,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     toneControl.prepare (sampleRate);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate);
+    chewer.prepare (sampleRate, samplesPerBlock);
 
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
@@ -303,6 +303,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     }
 
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+    onOffManager.setOnOffForNewEditor (editor);
     updater.showUpdaterScreen (editor);
     return editor;
 }

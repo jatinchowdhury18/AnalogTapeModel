@@ -2,6 +2,7 @@
 #define DEGRADEPROCESSOR_H_INCLUDED
 
 #include "../GainProcessor.h"
+#include "../BypassProcessor.h"
 #include "DegradeNoise.h"
 #include "DegradeFilter.h"
 
@@ -29,6 +30,8 @@ private:
     Random random;
 
     float fs = 44100.0f;
+
+    BypassProcessor bypass;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DegradeProcessor)
 };

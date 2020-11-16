@@ -7,9 +7,11 @@ this file.
 - Added high/low-cut filters for the input section.
 - Updated presets menu: now supports saving presets, and managing user preset folder.
 - Tone section: added transition frequency control, and made bass/treble controls more extreme.
+- Added bypass switches for plugin sections.
 - Added visualizations for Wow and Flutter.
 - Added buttons to snap tape speed to conventional values.
 - Added coloured circle on bottom bar to visualize mix group.
+- Added a new official user manual.
 
 ## [2.6.0] - 2020-09-29
 - Added Pre/post emphasis filters for the hysteresis stage.

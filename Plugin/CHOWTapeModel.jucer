@@ -124,6 +124,13 @@
           <FILE id="vd8RTB" name="ToneControl.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneControl.h"/>
           <FILE id="Gxo9aB" name="ToneFilter.h" compile="0" resource="0" file="Source/Processors/Hysteresis/ToneFilter.h"/>
         </GROUP>
+        <GROUP id="{7D3433B2-4187-FE49-3315-E6F91824ED66}" name="Input_Filters">
+          <FILE id="UEN8uY" name="InputFilters.cpp" compile="1" resource="0"
+                file="Source/Processors/Input_Filters/InputFilters.cpp"/>
+          <FILE id="WU560t" name="InputFilters.h" compile="0" resource="0" file="Source/Processors/Input_Filters/InputFilters.h"/>
+          <FILE id="TgI8iY" name="LinkwitzRileyFilter.h" compile="0" resource="0"
+                file="Source/Processors/Input_Filters/LinkwitzRileyFilter.h"/>
+        </GROUP>
         <GROUP id="{37F4BCFA-28D3-CD4D-17AF-3C696E7EC8DA}" name="Loss_Effects">
           <FILE id="gJA2Gi" name="FIRFilter.h" compile="0" resource="0" file="Source/Processors/Loss_Effects/FIRFilter.h"/>
           <FILE id="gjr7ub" name="LossFilter.cpp" compile="1" resource="0" file="Source/Processors/Loss_Effects/LossFilter.cpp"/>
@@ -134,15 +141,12 @@
           <FILE id="Wz3lz6" name="Flutter.h" compile="0" resource="0" file="Source/Processors/Timing_Effects/Flutter.h"/>
         </GROUP>
         <FILE id="jlO9LL" name="BilinearUtils.h" compile="0" resource="0" file="Source/Processors/BilinearUtils.h"/>
+        <FILE id="D6lRuQ" name="BypassProcessor.h" compile="0" resource="0"
+              file="Source/Processors/BypassProcessor.h"/>
         <FILE id="YNkJOh" name="DryWetProcessor.h" compile="0" resource="0"
               file="Source/Processors/DryWetProcessor.h"/>
         <FILE id="zwLvQ9" name="GainProcessor.h" compile="0" resource="0" file="Source/Processors/GainProcessor.h"/>
         <FILE id="SSnw2J" name="IIRFilter.h" compile="0" resource="0" file="Source/Processors/IIRFilter.h"/>
-        <FILE id="ArGmHO" name="InputFilters.cpp" compile="1" resource="0"
-              file="Source/Processors/InputFilters.cpp"/>
-        <FILE id="ipAPk7" name="InputFilters.h" compile="0" resource="0" file="Source/Processors/InputFilters.h"/>
-        <FILE id="U8pzHn" name="LinkwitzRileyFilter.h" compile="0" resource="0"
-              file="Source/Processors/LinkwitzRileyFilter.h"/>
       </GROUP>
       <FILE id="zPJjtw" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

@@ -2,6 +2,7 @@
 #define LOSSFILTER_H_INCLUDED
 
 #include "FIRFilter.h"
+#include "../BypassProcessor.h"
 
 class LossFilter
 {
@@ -23,7 +24,6 @@ private:
     int fadeCount = 0;
     const int fadeLength = 1024;
     AudioBuffer<float> fadeBuffer;
-    bool starting = false;
 
     std::atomic<float>* onOff = nullptr;
     std::atomic<float>* speed = nullptr;
@@ -44,6 +44,8 @@ private:
     int curOrder;
     Array<float> currentCoefs;
     Array<float> Hcoefs;
+
+    BypassProcessor bypass;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LossFilter)
 };
