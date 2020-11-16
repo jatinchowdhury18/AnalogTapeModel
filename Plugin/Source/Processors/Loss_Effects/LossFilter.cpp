@@ -7,6 +7,7 @@ LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) :
     spacing = vts.getRawParameterValue ("spacing");
     thickness = vts.getRawParameterValue ("thick");
     gap = vts.getRawParameterValue ("gap");
+    onOff = vts.getRawParameterValue ("loss_onoff");
 
     filters.add (new FIRFilter (order));
     filters.add (new FIRFilter (order));
@@ -25,10 +26,10 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     speedRange.setSkewForCentre (15.0f);
 
     NormalisableRange<float> spaceRange (minDist, 20.0f);
-    spaceRange.setSkewForCentre (5.0f);
+    spaceRange.setSkewForCentre (10.0f);
 
     NormalisableRange<float> thickRange (minDist, 50.0f);
-    thickRange.setSkewForCentre (5.0f);
+    thickRange.setSkewForCentre (15.0f);
 
     NormalisableRange<float> gapRange (1.0f, 50.0f);
     gapRange.setSkewForCentre (10.0f);
@@ -48,6 +49,14 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Gap [microns]",
         gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter,
         valueToString, stringToValue));
+
+    params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "On/Off", true));
+}
+
+float LossFilter::getLatencySamples() const noexcept
+{
+    return onOff->load() == 1.0f ? (float) curOrder / 2.0f // on
+                                 : 0.0f;                   // off
 }
 
 void LossFilter::prepare (float sampleRate, int samplesPerBlock)
@@ -77,7 +86,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
     prevThickness = *thickness;
     prevGap = *gap;
 
-    starting = true;
+    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
 }
 
 static void calcHeadBumpFilter (float speedIps, float gapMeters, double fs, dsp::IIR::Filter<float>& filter)
@@ -123,6 +132,10 @@ void LossFilter::calcCoefs()
 
 void LossFilter::processBlock (float* buffer, const int numSamples)
 {
+    AudioBuffer<float> bufferCast (&buffer, 1, numSamples);
+    if (! bypass.processBlockIn (bufferCast, bypass.toBool (onOff)))
+        return;
+
     if ((*speed != prevSpeed || *spacing != prevSpacing ||
         *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
     {
@@ -147,17 +160,11 @@ void LossFilter::processBlock (float* buffer, const int numSamples)
         filters[! activeFilter]->processBypassed (buffer, numSamples);
     }
 
-    if (! starting)
     {
         filters[activeFilter]->process (buffer, numSamples);
         dsp::AudioBlock<float> block (&buffer, 1, numSamples);
         dsp::ProcessContextReplacing<float> ctx (block);
         bumpFilter[activeFilter].process (ctx);
-    }
-    else
-    {
-        starting = false;
-        filters[activeFilter]->processBypassed (buffer, numSamples);
     }
 
     if (fadeCount > 0)
@@ -181,4 +188,6 @@ void LossFilter::processBlock (float* buffer, const int numSamples)
         if (fadeCount == 0)
             activeFilter = ! activeFilter;
     }
+
+    bypass.processBlockOut (bufferCast, bypass.toBool (onOff));
 }

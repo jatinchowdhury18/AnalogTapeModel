@@ -12,6 +12,7 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     widthParam = vts.getRawParameterValue ("width");
     osParam = vts.getRawParameterValue ("os");
     modeParam = vts.getRawParameterValue ("mode");
+    onOffParam = vts.getRawParameterValue ("hyst_onoff");
 
     for (int i = 0; i < 5; ++i)
         overSample[i] = std::make_unique<dsp::Oversampling<float>>
@@ -34,6 +35,7 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
 
     params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({"RK2", "RK4", "NR4", "NR8", "V1"}), 0));
     params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
+    params.push_back (std::make_unique<AudioParameterBool>   ("hyst_onoff", "On/Off", true));
 }
 
 void HysteresisProcessor::setSolver (int newSolver)
@@ -151,6 +153,8 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     for (int ch = 0; ch < 2; ++ch)
         dcBlocker[ch].prepare (sampleRate, dcFreq);
+
+    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
 }
 
 void HysteresisProcessor::releaseResources()
@@ -162,11 +166,15 @@ void HysteresisProcessor::releaseResources()
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for hysteresis
-    return overSample[curOS]->getLatencyInSamples() + 1.4f;
+    return onOffParam->load() == 1.0f ? overSample[curOS]->getLatencyInSamples() + 1.4f // on
+                                      : 0.0f;                                           // off
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
+    if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
+        return;
+
     setSolver ((int) *modeParam);
     setDrive (*driveParam);
     setSaturation (*satParam);
@@ -209,6 +217,8 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     overSample[curOS]->processSamplesDown (block);
 
     applyDCBlockers (buffer);
+
+    bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }
 
 void HysteresisProcessor::process (dsp::AudioBlock<float>& block)

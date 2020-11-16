@@ -45,6 +45,7 @@ void MixGroupViz::setMixGroupColour (int mixGroupIdx)
         circleColour = Colour (0x00000000);
     };
 
+    MessageManagerLock mml;
     repaint();
 }
 

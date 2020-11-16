@@ -3,6 +3,7 @@
 
 #include "HysteresisProcessing.h"
 #include "DCBlocker.h"
+#include "../BypassProcessor.h"
 
 /* Hysteresis Processor for tape. */
 class HysteresisProcessor
@@ -43,6 +44,7 @@ private:
     std::atomic<float>* widthParam = nullptr;
     std::atomic<float>* osParam = nullptr;
     std::atomic<float>* modeParam = nullptr;
+    std::atomic<float>* onOffParam = nullptr;
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> drive[2];
     SmoothedValue<float, ValueSmoothingTypes::Linear> width[2];
@@ -63,6 +65,8 @@ private:
     float biasAngle[2];
     bool wasV1 = false, useV1 = false;
     float clipLevel = 20.0f;
+
+    BypassProcessor bypass;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
 };

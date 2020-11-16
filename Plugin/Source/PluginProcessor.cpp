@@ -13,6 +13,7 @@
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/MixGroupViz.h"
+#include "GUI/PowerButton.h"
 #include "GUI/ScreenshotHelper.h"
 
 namespace
@@ -39,6 +40,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     degrade (vts),
     chewer (vts),
     flutter (vts),
+    onOffManager (vts, this),
     mixGroupsController (vts, this)
 {
     for (int ch = 0; ch < 2; ++ch)
@@ -160,7 +162,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     toneControl.prepare (sampleRate);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate);
+    chewer.prepare (sampleRate, samplesPerBlock);
 
     for (int ch = 0; ch < 2; ++ch)
         lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
@@ -213,6 +215,15 @@ bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
   #endif
 }
 #endif
+
+void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer&)
+{
+    ScopedNoDenormals noDenormals;
+
+    dryBuffer.makeCopyOf (buffer, true);
+    latencyCompensation();
+    buffer.makeCopyOf (dryBuffer, true);
+}
 
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
@@ -268,10 +279,9 @@ void ChowtapeModelAudioProcessor::latencyCompensation()
     dryDelay.process (dsp::ProcessContextReplacing<float> { block });
 }
 
-//==============================================================================
 bool ChowtapeModelAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return true;
 }
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
@@ -283,6 +293,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("InfoComp", &InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
+    builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
@@ -301,6 +312,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     }
 
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+    onOffManager.setOnOffForNewEditor (editor);
     updater.showUpdaterScreen (editor);
     return editor;
 }

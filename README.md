@@ -58,6 +58,7 @@ see the
 
 - GUI Design - [Margus Mets](mailto:hello@mmcreative.eu)
 - GUI Framework - [Plugin GUI Magic](https://github.com/ffAudio/PluginGUIMagic)
+- Power Switch Icon - [FontAudio](https://github.com/fefanto/fontaudio)
 - Open Build Service Builds - [Konstantin Voinov](https://github.com/lv2-porting-project)
 - User Manual - Yann
 
