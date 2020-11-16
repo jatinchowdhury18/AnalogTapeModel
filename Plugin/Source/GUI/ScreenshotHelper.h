@@ -1,7 +1,7 @@
 #ifndef SCREENSHOTHELPER_H_INCLUDED
 #define SCREENSHOTHELPER_H_INCLUDED
 
-#define TAKE_SCREENSHOTS
+// #define TAKE_SCREENSHOTS
 
 #ifdef TAKE_SCREENSHOTS
 
@@ -10,7 +10,7 @@
 #define _XKEYCHECK_H
 #define private public
 #include "../PluginProcessor.h"
-#define private private
+#undef private
 
 namespace ScreenshotHelper
 {
