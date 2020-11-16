@@ -23,6 +23,7 @@ namespace
             auto compName = child->getName();
             if (compNames.contains (compName))
             {
+                MessageManagerLock mml;
                 compNames.removeString (compName);
                 child->setEnabled (shouldBeEnabled);
                 continue;

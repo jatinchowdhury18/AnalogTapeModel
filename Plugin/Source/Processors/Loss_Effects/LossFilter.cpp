@@ -53,6 +53,12 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "On/Off", true));
 }
 
+float LossFilter::getLatencySamples() const noexcept
+{
+    return onOff->load() == 1.0f ? (float) curOrder / 2.0f // on
+                                 : 0.0f;                   // off
+}
+
 void LossFilter::prepare (float sampleRate, int samplesPerBlock)
 {
     fs = sampleRate;

@@ -216,6 +216,15 @@ bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 }
 #endif
 
+void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer&)
+{
+    ScopedNoDenormals noDenormals;
+
+    dryBuffer.makeCopyOf (buffer, true);
+    latencyCompensation();
+    buffer.makeCopyOf (dryBuffer, true);
+}
+
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;

@@ -15,7 +15,7 @@ public:
     void prepare (float sampleRate, int samplesPerBlock);
     void calcCoefs();
     void processBlock (float* buffer, const int numSamples);
-    float getLatencySamples() const noexcept { return (float) curOrder / 2.0f; }
+    float getLatencySamples() const noexcept;
 
 private:
     OwnedArray<FIRFilter> filters;

@@ -166,7 +166,8 @@ void HysteresisProcessor::releaseResources()
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for hysteresis
-    return overSample[curOS]->getLatencyInSamples() + 1.4f;
+    return onOffParam->load() == 1.0f ? overSample[curOS]->getLatencyInSamples() + 1.4f // on
+                                      : 0.0f;                                           // off
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
