@@ -14,6 +14,9 @@ void TooltipComponent::paint (Graphics& g)
 {
     g.fillAll (findColour (backgroundColourID));
 
+    if (tip.isEmpty())
+        return;
+
     if (showTip.load())
     {
         auto b = getLocalBounds();
