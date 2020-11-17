@@ -8,6 +8,7 @@ this file.
 - Updated presets menu: now supports saving presets, and managing user preset folder.
 - Tone section: added transition frequency control, and made bass/treble controls more extreme.
 - Added bypass switches for plugin sections.
+- Fixed loss filter issues at higher sample rates.
 - Added visualizations for Wow and Flutter.
 - Added buttons to snap tape speed to conventional values.
 - Added coloured circle on bottom bar to visualize mix group.

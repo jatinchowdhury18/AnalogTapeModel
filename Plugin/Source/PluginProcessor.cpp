@@ -39,13 +39,11 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     hysteresis (vts),
     degrade (vts),
     chewer (vts),
+    lossFilter (vts),
     flutter (vts),
     onOffManager (vts, this),
     mixGroupsController (vts, this)
-{
-    for (int ch = 0; ch < 2; ++ch)
-        lossFilter[ch].reset (new LossFilter (vts));
-    
+{    
     scope = magicState.createAndAddObject<TapeScope> ("scope");
     flutter.initialisePlots (magicState);
 
@@ -163,9 +161,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate, samplesPerBlock);
-
-    for (int ch = 0; ch < 2; ++ch)
-        lossFilter[ch]->prepare ((float) sampleRate, samplesPerBlock);
+    lossFilter.prepare ((float) sampleRate, samplesPerBlock);
 
     dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
     dryDelay.setDelay (calcLatencySamples());
@@ -189,7 +185,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
 
 float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 {
-    return lossFilter[0]->getLatencySamples() + hysteresis.getLatencySamples();
+    return lossFilter.getLatencySamples() + hysteresis.getLatencySamples();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -245,9 +241,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     chewer.processBlock (buffer);
     degrade.processBlock (buffer, midiMessages);
     flutter.processBlock (buffer, midiMessages);
-    
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-        lossFilter[ch]->processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+    lossFilter.processBlock (buffer);
     
     latencyCompensation();
 
