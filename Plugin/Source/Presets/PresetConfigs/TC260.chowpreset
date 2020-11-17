@@ -11,7 +11,7 @@
     <PARAM id="depth" value="0.199999988079071"/>
     <PARAM id="drive" value="0.6599999666213989"/>
     <PARAM id="drywet" value="100.0"/>
-    <PARAM id="gap" value="1.614829443497001e-6"/>
+    <PARAM id="gap" value="1.6"/>
     <PARAM id="h_bass" value="0.0"/>
     <PARAM id="h_treble" value="0.0"/>
     <PARAM id="ingain" value="0.0"/>
@@ -20,9 +20,9 @@
     <PARAM id="outgain" value="-2.0"/>
     <PARAM id="rate" value="0.199999988079071"/>
     <PARAM id="sat" value="0.75"/>
-    <PARAM id="spacing" value="0.0002769171842373908"/>
+    <PARAM id="spacing" value="0.2769171842373908"/>
     <PARAM id="speed" value="15.00000095367432"/>
-    <PARAM id="thick" value="0.004748197738081217"/>
+    <PARAM id="thick" value="4.748197738081217"/>
     <PARAM id="width" value="0.3599999845027924"/>
     <PARAM id="wow_depth" value="0.2"/>
     <PARAM id="wow_rate" value="0.2"/>

@@ -53,11 +53,12 @@ public:
         }
     }
 
-    inline void processBypassed (float* buffer, int numSamples)
+    inline void processBypassed (const float* buffer, int numSamples)
     {
         for (int n = 0; n < numSamples; ++n)
         {
             z[zPtr] = buffer[n];
+            z[zPtr + order] = buffer[n];
             zPtr = (zPtr == 0 ? order - 1 : zPtr - 1);
         }
     }

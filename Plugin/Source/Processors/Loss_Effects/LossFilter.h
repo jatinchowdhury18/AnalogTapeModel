@@ -13,13 +13,17 @@ public:
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     void prepare (float sampleRate, int samplesPerBlock);
-    void calcCoefs();
-    void processBlock (float* buffer, const int numSamples);
+    void processBlock (AudioBuffer<float>& buffer);
     float getLatencySamples() const noexcept;
 
 private:
-    OwnedArray<FIRFilter> filters;
-    dsp::IIR::Filter<float> bumpFilter[2];
+    using StereoIIR = dsp::ProcessorDuplicator<dsp::IIR::Filter<float>, dsp::IIR::Coefficients<float>>;
+
+    void calcCoefs (StereoIIR& filter);
+    static void calcHeadBumpFilter (float speedIps, float gapMeters, double fs, StereoIIR& filter);
+
+    OwnedArray<FIRFilter> filters[2];
+    StereoIIR bumpFilter[2];
     int activeFilter = 0;
     int fadeCount = 0;
     const int fadeLength = 1024;

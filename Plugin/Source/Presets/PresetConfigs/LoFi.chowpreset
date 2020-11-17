@@ -20,9 +20,9 @@
     <PARAM id="outgain" value="-3.5"/>
     <PARAM id="rate" value="0.2999999821186066"/>
     <PARAM id="sat" value="1.0"/>
-    <PARAM id="spacing" value="0.002999998396262527"/>
+    <PARAM id="spacing" value="2.999998396262527"/>
     <PARAM id="speed" value="7.500000476837158"/>
-    <PARAM id="thick" value="0.004999995231628418"/>
+    <PARAM id="thick" value="4.999995231628418"/>
     <PARAM id="width" value="0.5999999642372131"/>
     <PARAM id="wow_depth" value="0.0"/>
     <PARAM id="wow_rate" value="0.25"/>

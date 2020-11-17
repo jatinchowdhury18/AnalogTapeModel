@@ -87,7 +87,7 @@ private:
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
     ChewProcessor chewer;
-    std::unique_ptr<LossFilter> lossFilter[2];
+    LossFilter lossFilter;
     Flutter flutter;
     DryWetProcessor dryWet;
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
