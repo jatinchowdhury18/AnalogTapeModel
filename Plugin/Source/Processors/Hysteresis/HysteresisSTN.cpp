@@ -10,8 +10,7 @@ namespace
     constexpr float widthIdxMult = (float) HysteresisSTN::numWidthModels - 1.0f;
 
     static std::array<String, HysteresisSTN::numWidthModels> widthTags
-        { "50", "50", "50", "50", "50", "50", "60", "70", "80", "90", "100"};
-        // { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
+        { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
 
     static std::array<String, HysteresisSTN::numSatModels> satTags
         { "0",  "5", "10", "15", "20", "25", "30", "35", "40", "45",
