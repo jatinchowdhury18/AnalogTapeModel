@@ -32,6 +32,8 @@ CHOW Tape is currently available in the following formats:
   - LV2
   - Standalone plugin
 
+For more information, see the [User Manual](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf)
+
 ## Installation
 
 Download the latest release
@@ -60,7 +62,7 @@ see the
 - GUI Framework - [Plugin GUI Magic](https://github.com/ffAudio/PluginGUIMagic)
 - Power Switch Icon - [FontAudio](https://github.com/fefanto/fontaudio)
 - Open Build Service Builds - [Konstantin Voinov](https://github.com/lv2-porting-project)
-- User Manual - Yann
+- User Manual - Yann from SINK Music
 
 ## License
 CHOW Tape is licensed under the GNU General Public License agreement. Enjoy!
