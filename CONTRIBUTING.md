@@ -17,16 +17,6 @@ page can be used for reporting bugs or posting feature requests.
 All feedback is useful and most welcome!
 
 
-## Documentation
-
-If you've been using the plugin for a while and are pretty
-familiar with it, please consider contributing to the plugin
-[documentation](https://github.com/jatinchowdhury18/AnalogTapeModel/wiki/User-Manual).
-Additionally, if someone would want to make a YouTube video
-giving a demo or a walkthrough of the plugin features, that
-would most welcome.
-
-
 ## Presets
 
 If you have a favorite setting for the plugin, consider

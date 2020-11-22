@@ -29,6 +29,7 @@
     linkcolor=blue,
     filecolor=magenta,      
     urlcolor=blue,
+    pdfstartview=FitW
 }
 
 % manage title formats
@@ -42,7 +43,7 @@
     \bodyfont\color{black}\bfseries\raggedright}{}{0em}%
     {}[\color{theme}{\titlerule[1pt]}]
 
-\titleformat{\subsubsection}[hang]{\fontsize{13pt}{1em}%
+\titleformat{\subsubsection}[hang]{\fontsize{11pt}{1em}%
     \bodyfont\color{black}\bfseries\raggedright}{}{0em}%
     {}[\color{theme}{\titlerule[1pt]}]
 
