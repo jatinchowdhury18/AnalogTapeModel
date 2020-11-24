@@ -2,6 +2,7 @@
 #define HYSTERESISPROCESSING_H_INCLUDED
 
 #include "JuceHeader.h"
+#include "HysteresisSTN.h"
 
 enum SolverType
 {
@@ -9,6 +10,8 @@ enum SolverType
     RK4,
     NR4,
     NR8,
+    STN,
+    NUM_SOLVERS
 };
 
 /*
@@ -59,7 +62,7 @@ private:
     inline double hysteresisFunc (double M, double H, double H_d) noexcept;
 
     // derivative of hysteresis func w.r.t M (depends on cached values from computing hysteresisFunc)
-    inline double hysteresisFuncPrime (double H_d, double dMdt) noexcept;
+    inline double hysteresisFuncPrime (double H_d, double dMdt) const noexcept;
 
     // runge-kutta solvers
     inline double RK2 (double H, double H_d) noexcept;
@@ -68,6 +71,10 @@ private:
     // newton-raphson solvers
     inline double NR (double H, double H_d) noexcept;
     int numIter = 0;
+
+    // state transition network solver
+    inline double STN (double H, double H_d) noexcept;
+    HysteresisSTN hysteresisSTN;
 
     // solver function pointer
     using Solver = double (HysteresisProcessing::*) (double, double);
