@@ -158,13 +158,17 @@ currently supports the following hysteresis modes:
     \item 4th-order Runge Kutta (RK4)
     \item 4-iteration Newton Raphson (NR4)
     \item 8-iteration Newton Raphson (NR8)
+    \item State Transition Network\footnote{Parker, J.D. et. al. (2019) ``Modelling of Nonlinear State-Space Systems using a Deep Neural Network'' \textit{Proc. 22\textsuperscript{nd} Int. Conference on Digital Audio Effects}.} (STN)
     \item Version 1.0 processing (V1)
 \end{itemize}
 %
 The Runge-Kutta solvers are computationally cheaper, but
 somewhat less accurate than the Newton-Raphson solvers.
 Similarly, the higher-order solvers will be more accurate,
-but will also consume more compute resources. The V1 mode
+but will also consume more compute resources. The State
+Transition Network is designed to be a computationally
+cheaper approximation of the NR8 solver; although it
+distorts more harshly at extreme settings. The V1 mode
 reverts to a different parameterization of the hysteresis
 equation that was used in earlier versions of the plugin. It
 is recommended to use higher-order solvers for mix busses
@@ -231,6 +235,8 @@ The degradation parameters control a simulation of old, degraded
 tape. \boldtheme{Depth} and \boldtheme{Amount} control the amount
 of degradation that is added to the tape, while \boldtheme{Variance}
 adds a time-varying randomness to the degradatation.
+
+\vspace{2em}
 
 \subsubsection{Chew Controls}
 The chew parameters simulate tape that has been chewed up by

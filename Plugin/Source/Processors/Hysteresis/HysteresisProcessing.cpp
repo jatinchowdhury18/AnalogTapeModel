@@ -1,5 +1,6 @@
-#include "HysteresisProcessing.h"
 #include <math.h>
+#include "HysteresisProcessing.h"
+#include "RTNeural/src/Json2RnnParser.h"
 
 namespace
 {
@@ -32,10 +33,13 @@ void HysteresisProcessing::setSampleRate (double newSR)
     fs = newSR;
     T = 1.0 / fs;
     Talpha = T / 1.9;
+    hysteresisSTN.prepare (newSR);
 }
 
 void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
 {
+    hysteresisSTN.setParams (sat, width);
+
     M_s = 0.5 + 1.5 * (1.0 - (double) sat);
     a = M_s / (0.01 + 6.0 * (double) drive);
     c = std::sqrt (1.0f - (double) width) - 0.01;
@@ -70,6 +74,10 @@ void HysteresisProcessing::setSolver (SolverType solverType)
     {
     case SolverType::RK4:
         solver = &HysteresisProcessing::RK4;
+        return;
+
+    case SolverType::STN:
+        solver = &HysteresisProcessing::STN;
         return;
 
     case SolverType::NR4:
@@ -131,7 +139,7 @@ inline double HysteresisProcessing::hysteresisFunc (double M, double H, double H
     return H_d * (f1 + f2) / f3;
 }
 
-inline double HysteresisProcessing::hysteresisFuncPrime (double H_d, double dMdt) noexcept
+inline double HysteresisProcessing::hysteresisFuncPrime (double H_d, double dMdt) const noexcept
 {
     const double L_prime2 = langevinD2 (Q);
     const double M_diff2 = M_s_oa_talpha * L_prime - 1.0;
@@ -198,4 +206,16 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
     }
 
     return M;
+}
+
+inline double HysteresisProcessing::STN (double H, double H_d) noexcept
+{
+    std::array<double, HysteresisSTN::inputSize> input { H, H_d, H_n1, H_d_n1, M_n1 };
+
+    // scale derivatives
+    input[1] *= HysteresisSTN::diffMakeup;
+    input[3] *= HysteresisSTN::diffMakeup;
+    FloatVectorOperations::multiply (input.data(), 0.7071 / a, 4); // scale by drive param
+
+    return hysteresisSTN.process (input) + M_n1;
 }

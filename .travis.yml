@@ -76,7 +76,7 @@ script:
       curl -L "https://github.com/Tracktion/pluginval/releases/download/latest_release/pluginval_macOS.zip" -o pluginval.zip
       unzip pluginval
       pluginval_command="pluginval.app/Contents/MacOS/pluginval --strictness-level 8 --validate-in-process --validate '${TRAVIS_BUILD_DIR}/Plugin/Builds/MacOSX/build/Release/CHOWTapeModel.vst3'"
-      max_retry=5
+      max_retry=2
       counter=0
       until $pluginval_command
       do 
