@@ -47,7 +47,6 @@ std::unique_ptr<MemoryInputStream> getModelFileStream (const String& modelFile)
 HysteresisSTN::HysteresisSTN()
 {
     // load models
-    auto start = Time::getMillisecondCounterHiRes();
     size_t widthLoadIdx = 0;
     for (const auto& width : widthTags)
     {
@@ -68,10 +67,6 @@ HysteresisSTN::HysteresisSTN()
         }
         widthLoadIdx++;
     }
-
-    auto dur = Time::getMillisecondCounterHiRes() - start;
-    Logger::writeToLog ("Loaded " + String (widthTags.size() * satTags.size())
-        + " models in " + String (dur / 1000.0) + " seconds");
 }
 
 void HysteresisSTN::prepare (double sampleRate)
