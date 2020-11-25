@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in
 this file.
 
-## [Unreleased]
+## [2.7.0] - 2020-11-25
+- Added new hysteresis mode: State Transition Network (STN)
 - Updated Loss Filters to improve frequency response and phase response.
 - Added high/low-cut filters for the input section.
 - Updated presets menu: now supports saving presets, and managing user preset folder.

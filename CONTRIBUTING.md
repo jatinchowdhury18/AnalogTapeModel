@@ -1,7 +1,7 @@
 # Contributing to CHOW Tape
 
 The goal of this project is to create a high-quality,
-open source tape emulation plugin. Here's how you can
+open-source tape emulation plugin. Here's how you can
 help:
 
 
@@ -23,6 +23,16 @@ If you have a favorite setting for the plugin, consider
 adding it as a preset so other users can try it as well!
 For more information on contributing presets, see the
 [presets issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/30).
+
+
+## Documentation
+
+If you've been using the plugin for a while and are pretty
+familiar with it, please consider contributing to the plugin
+[documentation](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf).
+Additionally, if someone would want to make a YouTube video
+giving a demo or a walkthrough of the plugin features, that
+would be most welcome.
 
 
 ## Plugin Development
