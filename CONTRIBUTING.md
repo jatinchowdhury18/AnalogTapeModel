@@ -63,7 +63,7 @@ create a website for the plugin, please [contact](#Contact) me.
 ## Donating
 
 If you feel so inclined, feel free to
-[buy me a drink](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=93S67ZSKMBG68&source=url).
+[buy me a drink](https://patreon.com/chowdsp).
 Note that I am making this software purely out of enjoyment,
 and I certainly do not expect any monetary compensation. Also
 note that donating will not give you any priority in determining
