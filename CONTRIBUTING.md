@@ -40,9 +40,7 @@ would be most welcome.
 If you'd like to contribute to the development of the plugin,
 start by checking out the
 [issues](https://github.com/jatinchowdhury18/AnalogTapeModel/issues)
-page. Bug fixes and new features are always welcome. Simply
-make a pull request: once your code has been reviewed and all
-checks have passed, your changes will be merged.
+page. Bug fixes and new features are always welcome.
 
 CHOW Tape is built using the [JUCE](https://github.com/juce-framework/JUCE)
 framework, and accordingly, we follow the
@@ -53,6 +51,14 @@ page. If you plan to implement a new feature, please create a
 [feature request](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/new?assignees=jatinchowdhury18&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D)
 first, so the feature can be discussed by the community.
 
+Once your development environment is set up, we recommend
+creating a feature branch for each change you wish to make.
+This branch should be based off of the `origin/develop`
+branch on GitHub. When you're ready to make a pull request,
+be sure to make `origin/develop` the target branch for your
+pull request as well. Once your pull request has been
+reviewed and all automated checks have passed, your changes
+will be merged!
 
 ## Website
 
