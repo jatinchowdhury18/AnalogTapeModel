@@ -3,4 +3,4 @@
 	url = https://github.com/jatinchowdhury18/JUCE.git
 [submodule "Plugin/foleys_gui_magic"]
 	path = Plugin/foleys_gui_magic
-	url = https://github.com/ffAudio/foleys_gui_magic.git
+	url = https://github.com/jatinchowdhury18/foleys_gui_magic.git
