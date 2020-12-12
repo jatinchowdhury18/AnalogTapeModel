@@ -34,10 +34,23 @@ These can be installed with the following command:
 ```
 sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev freeglut3-dev libjack-jackd2-dev
 ```
+Depending on your Linux distribution, you may also need to install:
+- freetype
+- libGL
+- libXext
+- libcurl
+- python3 (only if you plan to build LV2)
 
-Then to build the plugin (Standalone, VST/ LV2), run
+Then to build the plugin (Standalone, VST3, LV2), run
 ```
 cd Plugin/ && bash build_linux.sh
+```
+
+If you would like to customise which plugin formats are
+built, you may edit line 23 of `build_linux.sh`, to select
+your desired plugin format targets (LV2, VST, VST3, Standalone).
+```bash
+CONFIG=Release make LV2 VST3 Standalone # replace this with a list of your preferred targets
 ```
 
 Builds can be found in `Builds/LinuxMakefile/build/`.
