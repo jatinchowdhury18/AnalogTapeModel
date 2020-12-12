@@ -20,7 +20,7 @@ echo "include ../../LV2.mak" >> Builds/LinuxMakefile/Makefile
 
 (
     cd Builds/LinuxMakefile
-    CONFIG=Release make
+    CONFIG=Release make LV2 VST3 Standalone
 )
 
 rm LV2.mak
