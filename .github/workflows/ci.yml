@@ -77,7 +77,6 @@ jobs:
     - name: Resave (Windows)
       if: runner.os == 'Windows'
       working-directory: ${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App
-      shell: bash
       run: |
         ./Projucer.exe --set-global-search-path windows defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
         ./Projucer.exe --set-global-search-path windows vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
