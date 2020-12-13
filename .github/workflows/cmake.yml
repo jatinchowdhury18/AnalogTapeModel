@@ -50,9 +50,6 @@ jobs:
         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
 
-    - name: Get latest CMake
-      uses: lukka/get-cmake@latest 
-
     - name: Checkout code
       uses: actions/checkout@v2
       with:
@@ -65,17 +62,26 @@ jobs:
     - name: Build Projucer
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
-      run: make
+      run: |
+        pwd
+        ls
+        make
 
     - name: Build Projucer
       if: runner.os == 'MacOS'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
-      run: xcodebuild -project Projucer.xcodeproj > /dev/null
+      run: |
+        pwd
+        ls
+        xcodebuild -project Projucer.xcodeproj > /dev/null
 
     - name: Build Projucer
       if: runner.os == 'Windows'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
-      run: msbuild.exe -v:quiet Projucer.sln
+      run: |
+        pwd
+        ls
+        msbuild.exe -v:quiet Projucer.sln
 
     - name: Resave
       run: |
