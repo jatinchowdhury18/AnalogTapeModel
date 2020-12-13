@@ -24,22 +24,6 @@ jobs:
       fail-fast: false # show all errors for each platform (vs. cancel jobs on error)
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        include:
-        - os: windows-latest
-          env:
-            BUILD_FOLDER: VisualStudio2017
-            PROJUCER: ${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
-            OS: win
-        - os: ubuntu-latest
-          env:
-            BUILD_FOLDER: LinuxMakefile
-            PROJUCER: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
-            OS: linux
-        - os: macos-latest
-          env:
-            BUILD_FOLDER: MacOSX
-            PROJUCER: ${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
-            OS: osx
     
     steps:
     - name: Install Linux Deps
@@ -59,51 +43,69 @@ jobs:
       if: runner.os == 'Windows'
       uses: microsoft/setup-msbuild@v1
 
-    - name: Build Projucer
+    - name: Build Projucer (Linux)
       if: runner.os == 'Linux'
-      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
+      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile
       run: |
         pwd
         ls
         make
 
-    - name: Build Projucer
+    - name: Build Projucer (MacOS)
       if: runner.os == 'MacOS'
-      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
+      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/MacOSX
       run: |
         pwd
         ls
         xcodebuild -project Projucer.xcodeproj > /dev/null
 
-    - name: Build Projucer
+    - name: Build Projucer (Windows)
       if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/${{env.BUILD_FOLDER}}
+      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/VisualStudio2017
       run: |
         pwd
         ls
         msbuild.exe -v:quiet Projucer.sln
 
-    - name: Resave
+    - name: Resave (Linux)
+      if: runner.os == 'Linux'
       run: |
-        ${{env.PROJUCER}} --set-global-search-path ${{env.OS}} defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
-        ${{env.PROJUCER}} --set-global-search-path ${{env.OS}} vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
-        ${{env.PROJUCER}} --resave Plugin/CHOWTapeModel.jucer
+        PROJUCER="${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile/build/Projucer"
+        $PROJUCER --set-global-search-path linux defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
+        $PROJUCER --set-global-search-path linux vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
+        $PROJUCER --resave Plugin/CHOWTapeModel.jucer
 
-    - name: Build
+    - name: Resave (MacOS)
+      if: runner.os == 'MacOS'
+      run: |
+        PROJUCER="${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer"
+        $PROJUCER --set-global-search-path osx defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
+        $PROJUCER --set-global-search-path osx vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
+        $PROJUCER --resave Plugin/CHOWTapeModel.jucer
+
+    - name: Resave (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        PROJUCER="${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
+        $PROJUCER --set-global-search-path win defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
+        $PROJUCER --set-global-search-path win vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
+        $PROJUCER --resave Plugin/CHOWTapeModel.jucer
+
+    - name: Build (Linux)
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin
       run: bash build_linux.sh
       
-    - name: Build
+    - name: Build (MacOS)
       if: runner.os == 'MacOS'
-      working-directory: ${{github.workspace}}/Plugin/Builds/${{env.BUILD_FOLDER}}
+      working-directory: ${{github.workspace}}/Plugin/Builds/VisualStudio2017
       run: |
         xcodebuild -project CHOWTapeModel.xcodeproj/ clean
         xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release
 
-    - name: Build
+    - name: Build (Windows)
       if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/Builds/${{env.BUILD_FOLDER}}
+      working-directory: ${{github.workspace}}/Plugin/Builds/MacOSX
       run: msbuild.exe -v:normal CHOWTapeModel.sln
 
     # - name: Validate
