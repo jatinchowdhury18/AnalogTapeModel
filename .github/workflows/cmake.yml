@@ -46,26 +46,17 @@ jobs:
     - name: Build Projucer (Linux)
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile
-      run: |
-        pwd
-        ls
-        make
+      run: make
 
     - name: Build Projucer (MacOS)
       if: runner.os == 'MacOS'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/MacOSX
-      run: |
-        pwd
-        ls
-        xcodebuild -project Projucer.xcodeproj > /dev/null
+      run: xcodebuild -project Projucer.xcodeproj > /dev/null
 
     - name: Build Projucer (Windows)
       if: runner.os == 'Windows'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/VisualStudio2017
-      run: |
-        pwd
-        ls
-        msbuild.exe -v:quiet Projucer.sln
+      run: msbuild.exe -v:quiet Projucer.sln
 
     - name: Resave (Linux)
       if: runner.os == 'Linux'
@@ -85,6 +76,7 @@ jobs:
 
     - name: Resave (Windows)
       if: runner.os == 'Windows'
+      shell: bash
       run: |
         PROJUCER="${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App/Projucer.exe"
         $PROJUCER --set-global-search-path win defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
@@ -98,14 +90,14 @@ jobs:
       
     - name: Build (MacOS)
       if: runner.os == 'MacOS'
-      working-directory: ${{github.workspace}}/Plugin/Builds/VisualStudio2017
+      working-directory: ${{github.workspace}}/Plugin/Builds/MacOSX
       run: |
         xcodebuild -project CHOWTapeModel.xcodeproj/ clean
         xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release
 
     - name: Build (Windows)
       if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/Builds/MacOSX
+      working-directory: ${{github.workspace}}/Plugin/Builds/VisualStudio2017
       run: msbuild.exe -v:normal CHOWTapeModel.sln
 
     # - name: Validate
