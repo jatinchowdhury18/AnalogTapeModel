@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false # show all errors for each platform (vs. cancel jobs on error)
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, macOS-latest]
     
     steps:
     - name: Install Linux Deps
@@ -39,10 +39,6 @@ jobs:
       with:
         submodules: true
 
-    - name: Add MSBuild to PATH
-      if: runner.os == 'Windows'
-      uses: microsoft/setup-msbuild@v1
-
     - name: Build Projucer (Linux)
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/LinuxMakefile
@@ -52,11 +48,6 @@ jobs:
       if: runner.os == 'MacOS'
       working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/MacOSX
       run: xcodebuild -project Projucer.xcodeproj > /dev/null
-
-    - name: Build Projucer (Windows)
-      if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/Juce/extras/Projucer/Builds/VisualStudio2017
-      run: msbuild.exe -v:quiet Projucer.sln
 
     - name: Resave (Linux)
       if: runner.os == 'Linux'
@@ -74,14 +65,6 @@ jobs:
         $PROJUCER --set-global-search-path osx vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
         $PROJUCER --resave Plugin/CHOWTapeModel.jucer
 
-    - name: Resave (Windows)
-      if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/JUCE/extras/Projucer/Builds/VisualStudio2017/x64/Debug/App
-      run: |
-        ./Projucer.exe --set-global-search-path windows defaultJuceModulePath ${{github.workspace}}/Plugin/Juce/modules
-        ./Projucer.exe --set-global-search-path windows vstLegacyPath ${{github.workspace}}/Plugin/Juce/VST2_SDK
-        ./Projucer.exe --resave ${{github.workspace}}/Plugin/CHOWTapeModel.jucer
-
     - name: Build (Linux)
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin
@@ -93,11 +76,6 @@ jobs:
       run: |
         xcodebuild -project CHOWTapeModel.xcodeproj/ clean
         xcodebuild -project CHOWTapeModel.xcodeproj/ -configuration Release
-
-    - name: Build (Windows)
-      if: runner.os == 'Windows'
-      working-directory: ${{github.workspace}}/Plugin/Builds/VisualStudio2017
-      run: msbuild.exe -v:normal CHOWTapeModel.sln
 
     # - name: Validate
     #   run: bash validate.sh
