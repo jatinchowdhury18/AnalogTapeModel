@@ -1,6 +1,6 @@
 # Physical Modeling for Analog Tape Machines
 [![Download Latest](https://img.shields.io/badge/download-latest-blue.svg)](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest)
-[![Build Status](https://travis-ci.com/jatinchowdhury18/AnalogTapeModel.svg?token=Ub9niJrqG1Br1qaaxp7E&branch=master)](https://travis-ci.com/jatinchowdhury18/AnalogTapeModel)
+![CI](https://github.com/jatinchowdhury18/AnalogTapeModel/workflows/CI/badge.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Downloads](https://img.shields.io/github/downloads/jatinchowdhury18/AnalogTapeModel/total)](https://somsubhra.com/github-release-stats/?username=jatinchowdhury18&repository=AnalogTapeModel&page=1&per_page=30)
 
