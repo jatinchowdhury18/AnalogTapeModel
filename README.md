@@ -2,7 +2,7 @@
 [![Download Latest](https://img.shields.io/badge/download-latest-blue.svg)](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest)
 ![CI](https://github.com/jatinchowdhury18/AnalogTapeModel/workflows/CI/badge.svg)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Downloads](https://img.shields.io/github/downloads/jatinchowdhury18/AnalogTapeModel/total)](https://somsubhra.com/github-release-stats/?username=jatinchowdhury18&repository=AnalogTapeModel&page=1&per_page=30)
+[![Downloads](https://img.shields.io/github/downloads/jatinchowdhury18/AnalogTapeModel/total)](https://somsubhra.github.io/github-release-stats/?username=jatinchowdhury18&repository=AnalogTapeModel&page=1&per_page=30)
 
 CHOW Tape Model is a physical model of an analog tape machine,
 implemented as an audio plugin. The physical model is described
