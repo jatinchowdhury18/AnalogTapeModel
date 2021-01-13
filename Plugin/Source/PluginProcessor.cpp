@@ -48,6 +48,12 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     flutter.initialisePlots (magicState);
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
+
+    PluginHostType hostType;
+    if (hostType.isRenoise()) // Renoise has different gain staging, so we handle that here
+        toneControl.setDBScale (12.0f);
+    else
+        toneControl.setDBScale (18.0f);
 }
 
 ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()

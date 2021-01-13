@@ -27,6 +27,7 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
     void prepare (double sampleRate);
+    void setDBScale (float newDBScale) { dbScale = newDBScale; };
 
     void processBlockIn (AudioBuffer<float>& buffer);
     void processBlockOut (AudioBuffer<float>& buffer);
@@ -38,6 +39,8 @@ private:
     std::atomic<float>* bassParam = nullptr;
     std::atomic<float>* trebleParam = nullptr;
     std::atomic<float>* tFreqParam = nullptr;
+
+    float dbScale = 1.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ToneControl)
 };
