@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 project(CHOWTapeModel VERSION 2.7.0)
 
 # set up JUCE and modules
-add_subdirectory(JUCE)
+add_subdirectory(Juce)
 juce_add_modules(foleys_gui_magic)
 
 add_library(juce_plugin_modules STATIC)
