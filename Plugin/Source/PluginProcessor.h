@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 #include "Processors/GainProcessor.h"
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/Hysteresis/ToneControl.h"
