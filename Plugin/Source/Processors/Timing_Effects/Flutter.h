@@ -1,7 +1,7 @@
 #ifndef FLUTTER_H_INCLUDED
 #define FLUTTER_H_INCLUDED
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 #include "../Hysteresis/DCBlocker.h"
 
 class Flutter

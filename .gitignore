@@ -14,6 +14,7 @@ Refs
 Builds
 BinaryData.h
 BinaryData*.cpp
+build
 JuceLibraryCode
 LV2.mak
 
