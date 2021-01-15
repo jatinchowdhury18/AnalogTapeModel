@@ -4,7 +4,6 @@ namespace
 {
     constexpr double slewTime = 0.05;
     constexpr float transFreq = 500.0f;
-    constexpr float dbScale = 18.0f;
 }
 
 ToneStage::ToneStage()
