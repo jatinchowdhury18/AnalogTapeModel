@@ -3,7 +3,7 @@
 void LightMeter::pushSamples (const juce::AudioBuffer<float>& buffer)
 {
     rms = buffer.getRMSLevel (0, 0, buffer.getNumSamples());
-    
+
     if (std::isnan (rms.load()))
         rms = 0.0f;
 

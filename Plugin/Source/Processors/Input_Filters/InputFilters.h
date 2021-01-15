@@ -1,8 +1,8 @@
 #ifndef INPUTFILTERS_H_INCLUDED
 #define INPUTFILTERS_H_INCLUDED
 
-#include "LinkwitzRileyFilter.h"
 #include "../BypassProcessor.h"
+#include "LinkwitzRileyFilter.h"
 
 class InputFilters
 {
@@ -17,10 +17,10 @@ public:
     void processBlockMakeup (AudioBuffer<float>& buffer);
 
 private:
-    std::atomic<float>* onOffParam   = nullptr;
-    std::atomic<float>* lowCutParam  = nullptr;
+    std::atomic<float>* onOffParam = nullptr;
+    std::atomic<float>* lowCutParam = nullptr;
     std::atomic<float>* highCutParam = nullptr;
-    std::atomic<float>* makeupParam  = nullptr;
+    std::atomic<float>* makeupParam = nullptr;
 
     float fs = 44100.0f;
     LinkwitzRileyFilter<float, 2> lowCutFilter;
@@ -35,4 +35,3 @@ private:
 };
 
 #endif // !INPUTFILTERS_H_INCLUDED
-

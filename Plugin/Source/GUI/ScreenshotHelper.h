@@ -14,13 +14,13 @@
 
 namespace ScreenshotHelper
 {
-    /** Take a series of screenshots used for the plugin documentation */
-    void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin);
+/** Take a series of screenshots used for the plugin documentation */
+void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin);
 
-    /** Take a single screenshot for a given rectangle */
-    void screenshotForBounds (Component* editor, Rectangle<int> bounds, const String& filename);
+/** Take a single screenshot for a given rectangle */
+void screenshotForBounds (Component* editor, Rectangle<int> bounds, const String& filename);
 
-} // ScreenshotHelper
+} // namespace ScreenshotHelper
 
 #endif // TAKE_SCREENSHOTS
 

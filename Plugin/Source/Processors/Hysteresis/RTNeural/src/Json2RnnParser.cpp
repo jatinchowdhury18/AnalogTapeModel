@@ -63,13 +63,13 @@ template <typename T>
 std::unique_ptr<Dense<T>> Json2RnnParser::createDense (size_t in_size, size_t out_size, var& weights)
 {
     auto dense = std::make_unique<Dense<T>> (in_size, out_size);
-    
+
     // load kernel weights
     T** denseWeights;
-    denseWeights = new T* [out_size];
+    denseWeights = new T*[out_size];
     for (size_t i = 0; i < out_size; ++i)
         denseWeights[i] = new T[in_size];
-        
+
     auto layerWeights = weights.getArray()->getUnchecked (0);
     for (int i = 0; i < layerWeights.getArray()->size(); ++i)
     {
@@ -102,10 +102,10 @@ std::unique_ptr<GRULayer<T>> Json2RnnParser::createGRU (size_t in_size, size_t o
 
     // load kernel weights
     T** kernelWeights;
-    kernelWeights = new T* [in_size];
+    kernelWeights = new T*[in_size];
     for (size_t i = 0; i < in_size; ++i)
-        kernelWeights[i] = new T[3*out_size];
-        
+        kernelWeights[i] = new T[3 * out_size];
+
     auto layerWeights = weights.getArray()->getUnchecked (0);
     for (int i = 0; i < layerWeights.getArray()->size(); ++i)
     {
@@ -122,10 +122,10 @@ std::unique_ptr<GRULayer<T>> Json2RnnParser::createGRU (size_t in_size, size_t o
 
     // load recurrent weights
     T** recurrentWeights;
-    recurrentWeights = new T* [out_size];
+    recurrentWeights = new T*[out_size];
     for (size_t i = 0; i < out_size; ++i)
-        recurrentWeights[i] = new T[3*out_size];
-        
+        recurrentWeights[i] = new T[3 * out_size];
+
     auto layerWeights2 = weights.getArray()->getUnchecked (1);
     for (int i = 0; i < layerWeights2.getArray()->size(); ++i)
     {
@@ -142,10 +142,10 @@ std::unique_ptr<GRULayer<T>> Json2RnnParser::createGRU (size_t in_size, size_t o
 
     // load biases
     T** gruBias;
-    gruBias = new T* [2];
+    gruBias = new T*[2];
     for (size_t i = 0; i < 2; ++i)
-        gruBias[i] = new T[3*out_size];
-        
+        gruBias[i] = new T[3 * out_size];
+
     auto layerBias = weights.getArray()->getUnchecked (2);
     for (int i = 0; i < layerBias.getArray()->size(); ++i)
     {

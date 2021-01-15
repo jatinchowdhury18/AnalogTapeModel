@@ -1,8 +1,8 @@
 #ifndef FLUTTER_H_INCLUDED
 #define FLUTTER_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "../Hysteresis/DCBlocker.h"
+#include <JuceHeader.h>
 
 class Flutter
 {
@@ -20,11 +20,11 @@ public:
 
 private:
     std::atomic<float>* flutterOnOff = nullptr;
-    std::atomic<float>* flutterRate  = nullptr;
+    std::atomic<float>* flutterRate = nullptr;
     std::atomic<float>* flutterDepth = nullptr;
-    std::atomic<float>* wowRate  = nullptr;
+    std::atomic<float>* wowRate = nullptr;
     std::atomic<float>* wowDepth = nullptr;
-    
+
     bool isOff = false;
     AudioBuffer<float> dryBuffer;
 
@@ -53,7 +53,7 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlewFlutter[2];
 
     AudioBuffer<float> wowBuffer, flutterBuffer;
-    foleys::MagicPlotSource* wowPlot = nullptr, *flutterPlot = nullptr;
+    foleys::MagicPlotSource *wowPlot = nullptr, *flutterPlot = nullptr;
 
     enum
     {

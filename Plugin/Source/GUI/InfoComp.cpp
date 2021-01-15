@@ -1,7 +1,6 @@
 #include "InfoComp.h"
 
-InfoComp::InfoComp (const AudioProcessor::WrapperType wrapperType) :
-    wrapperType (wrapperType)
+InfoComp::InfoComp (const AudioProcessor::WrapperType wrapperType) : wrapperType (wrapperType)
 {
     setColour (text1ColourID, Colours::grey);
     setColour (text2ColourID, Colours::white);
@@ -16,10 +15,9 @@ void InfoComp::paint (Graphics& g)
     auto font = g.getCurrentFont();
     auto b = getLocalBounds();
 
-    auto drawText = [=, &g, &b] (const String& text)
-    {
+    auto drawText = [=, &g, &b] (const String& text) {
         auto width = font.getStringWidth (text);
-        g.drawFittedText (text, b.removeFromLeft (width), Justification::left, 1);  
+        g.drawFittedText (text, b.removeFromLeft (width), Justification::left, 1);
     };
 
     auto typeStr = String (AudioProcessor::getWrapperTypeDescription (wrapperType));
@@ -32,7 +30,7 @@ void InfoComp::paint (Graphics& g)
     g.setColour (findColour (text1ColourID));
     drawText (String ("~ DSP by "));
 
-    linkX =  b.getX() - 2;
+    linkX = b.getX() - 2;
     linkButton.setColour (HyperlinkButton::ColourIds::textColourId, findColour (text2ColourID));
     resized();
 }

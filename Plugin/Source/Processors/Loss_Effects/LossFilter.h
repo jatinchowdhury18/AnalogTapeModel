@@ -1,8 +1,8 @@
 #ifndef LOSSFILTER_H_INCLUDED
 #define LOSSFILTER_H_INCLUDED
 
-#include "FIRFilter.h"
 #include "../BypassProcessor.h"
+#include "FIRFilter.h"
 
 class LossFilter
 {
@@ -41,7 +41,7 @@ private:
     float prevGap;
 
     float fs = 44100.0f;
-    float fsFactor =  1.0f;
+    float fsFactor = 1.0f;
     float binWidth = fs / 100.0f;
 
     const int order;

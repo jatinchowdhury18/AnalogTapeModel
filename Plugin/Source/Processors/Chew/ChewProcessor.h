@@ -1,9 +1,9 @@
 #ifndef CHEWPROCESSOR_H_INCLUDED
 #define CHEWPROCESSOR_H_INCLUDED
 
-#include "Dropout.h"
-#include "../Degrade/DegradeFilter.h"
 #include "../BypassProcessor.h"
+#include "../Degrade/DegradeFilter.h"
+#include "Dropout.h"
 
 class ChewProcessor
 {
@@ -40,7 +40,7 @@ private:
         auto tScale = pow (*freq, 0.1f);
         auto varScale = pow (random.nextFloat() * 2.0f, var->load());
         return random.nextInt (Range<int> ((int) ((1.0 - tScale) * sampleRate * varScale),
-            (int) ((2 - 1.99 * tScale) * sampleRate * varScale)));
+                                           (int) ((2 - 1.99 * tScale) * sampleRate * varScale)));
     }
 
     inline int getWetTime()
@@ -51,7 +51,7 @@ private:
         auto varScale = pow (random.nextFloat() * 2.0f, var->load());
 
         return random.nextInt (Range<int> ((int) ((1.0 - tScale) * sampleRate * varScale),
-            (int) (((1.0 - tScale) + start - end * tScale) * sampleRate * varScale)));
+                                           (int) (((1.0 - tScale) + start - end * tScale) * sampleRate * varScale)));
     }
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChewProcessor)

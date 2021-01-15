@@ -4,16 +4,16 @@ DegradeProcessor::DegradeProcessor (AudioProcessorValueTreeState& vts)
 {
     onOffParam = vts.getRawParameterValue ("deg_onoff");
     depthParam = vts.getRawParameterValue ("deg_depth");
-    amtParam   = vts.getRawParameterValue ("deg_amt");
-    varParam   = vts.getRawParameterValue ("deg_var");
+    amtParam = vts.getRawParameterValue ("deg_amt");
+    varParam = vts.getRawParameterValue ("deg_var");
 }
 
 void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Depth",    0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt",   "Amount",   0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_var",   "Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool>  ("deg_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt", "Amount", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_var", "Variance", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterBool> ("deg_onoff", "On/Off", false));
 }
 
 void DegradeProcessor::cookParams()

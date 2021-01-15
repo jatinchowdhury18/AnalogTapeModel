@@ -1,8 +1,8 @@
 #ifndef TONEFILTER_H_INCLUDED
 #define TONEFILTER_H_INCLUDED
 
-#include "../IIRFilter.h"
 #include "../BilinearUtils.h"
+#include "../IIRFilter.h"
 
 /** A first order shelving filter, with a set gain at DC,
 * a set gain at high frequencies, and a transition frequency.
@@ -23,13 +23,15 @@ public:
         // reduce to simple gain element
         if (lowGain == highGain)
         {
-            this->b[0] = lowGain; this->b[1] = 0.0f;
-            this->a[0] = 1.0f; this->a[1] = 0.0f;
+            this->b[0] = lowGain;
+            this->b[1] = 0.0f;
+            this->a[0] = 1.0f;
+            this->a[1] = 0.0f;
             return;
         }
 
         auto wc = MathConstants<float>::twoPi * fc;
-        auto p = std::sqrt (wc*wc * (highGain*highGain - lowGain*highGain) / (lowGain*highGain - lowGain*lowGain));
+        auto p = std::sqrt (wc * wc * (highGain * highGain - lowGain * highGain) / (lowGain * highGain - lowGain * lowGain));
         auto K = p / std::tan (p / (2.0f * fs));
 
         float bs[2] { highGain / p, lowGain };

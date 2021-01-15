@@ -1,7 +1,6 @@
 #include "PowerButton.h"
 
-PowerButton::PowerButton() :
-    button ("", DrawableButton::ImageStretched)
+PowerButton::PowerButton() : button ("", DrawableButton::ImageStretched)
 {
     setColour (buttonColourId, Colours::blue);
     setColour (buttonOnColourId, Colours::red);
@@ -18,32 +17,26 @@ void PowerButton::resized()
     auto dim = (int) ((float) jmin (getWidth(), getHeight()) * 0.6f);
     auto centre = getLocalBounds().getCentre();
     auto topLeft = centre.translated (-dim / 2, -dim / 2);
-    
+
     button.setBounds (topLeft.x, topLeft.y, dim, dim);
 }
 
 void PowerButton::updateColours()
 {
-    std::unique_ptr<Drawable> onImage (Drawable::createFromImageData
-        (BinaryData::powerswitch_svg, BinaryData::powerswitch_svgSize));
+    std::unique_ptr<Drawable> onImage (Drawable::createFromImageData (BinaryData::powerswitch_svg, BinaryData::powerswitch_svgSize));
     auto offImage = onImage->createCopy();
 
     onImage->replaceColour (Colours::black, findColour (buttonOnColourId));
     offImage->replaceColour (Colours::black, findColour (buttonColourId));
-    button.setImages (offImage.get(), offImage.get(), onImage.get(),
-        offImage.get(), onImage.get(), onImage.get(), offImage.get());
+    button.setImages (offImage.get(), offImage.get(), onImage.get(), offImage.get(), onImage.get(), onImage.get(), offImage.get());
 }
 
 //===============================================================
-PowerButtonItem::PowerButtonItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node) :
-    foleys::GuiItem (builder, node)
+PowerButtonItem::PowerButtonItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node) : foleys::GuiItem (builder, node)
 {
     setColourTranslation (
-        {
-            { "button-color",    PowerButton::buttonColourId },
-            { "button-on-color", PowerButton::buttonOnColourId }
-        }
-    );
+        { { "button-color", PowerButton::buttonColourId },
+          { "button-on-color", PowerButton::buttonOnColourId } });
 
     addAndMakeVisible (button);
 }

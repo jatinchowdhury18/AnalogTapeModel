@@ -10,22 +10,22 @@
 
 #pragma once
 
-#include <JuceHeader.h>
+#include "GUI/AutoUpdating.h"
+#include "GUI/MyLNF.h"
+#include "GUI/OnOffManager.h"
+#include "GUI/TapeScope.h"
+#include "MixGroups/MixGroupsController.h"
+#include "Presets/PresetManager.h"
+#include "Processors/Chew/ChewProcessor.h"
+#include "Processors/Degrade/DegradeProcessor.h"
+#include "Processors/DryWetProcessor.h"
 #include "Processors/GainProcessor.h"
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/Hysteresis/ToneControl.h"
+#include "Processors/Input_Filters/InputFilters.h"
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/Flutter.h"
-#include "Processors/Degrade/DegradeProcessor.h"
-#include "Processors/Chew/ChewProcessor.h"
-#include "Processors/DryWetProcessor.h"
-#include "Processors/Input_Filters/InputFilters.h"
-#include "Presets/PresetManager.h"
-#include "GUI/MyLNF.h"
-#include "GUI/AutoUpdating.h"
-#include "GUI/TapeScope.h"
-#include "MixGroups/MixGroupsController.h"
-#include "GUI/OnOffManager.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
@@ -41,9 +41,9 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-   #ifndef JucePlugin_PreferredChannelConfigurations
+#ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-   #endif
+#endif
 
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
@@ -74,7 +74,7 @@ public:
 
     PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() { return vts; }
-    
+
 private:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void latencyCompensation();
@@ -95,7 +95,7 @@ private:
     OnOffManager onOffManager;
 
     AudioBuffer<float> dryBuffer;
-    
+
     foleys::MagicProcessorState magicState { *this, vts };
     TapeScope* scope = nullptr;
 

@@ -15,14 +15,13 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
     onOffParam = vts.getRawParameterValue ("hyst_onoff");
 
     for (int i = 0; i < 5; ++i)
-        overSample[i] = std::make_unique<dsp::Oversampling<float>>
-            (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
+        overSample[i] = std::make_unique<dsp::Oversampling<float>> (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
 
     for (int ch = 0; ch < 2; ++ch)
     {
-        drive[ch].reset  (numSteps);
-        width[ch].reset  (numSteps);
-        sat[ch].reset    (numSteps);
+        drive[ch].reset (numSteps);
+        width[ch].reset (numSteps);
+        sat[ch].reset (numSteps);
         makeup[ch].reset (numSteps);
     }
 }
@@ -33,9 +32,9 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Saturation", 0.0f, 1.0f, 0.5f));
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Bias", 0.0f, 1.0f, 0.5f));
 
-    params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({"RK2", "RK4", "NR4", "NR8", "STN", "V1"}), 0));
-    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({"1x", "2x", "4x", "8x", "16x"}), 1));
-    params.push_back (std::make_unique<AudioParameterBool>   ("hyst_onoff", "On/Off", true));
+    params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Mode", StringArray ({ "RK2", "RK4", "NR4", "NR8", "STN", "V1" }), 0));
+    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({ "1x", "2x", "4x", "8x", "16x" }), 1));
+    params.push_back (std::make_unique<AudioParameterBool> ("hyst_onoff", "On/Off", true));
 }
 
 void HysteresisProcessor::setSolver (int newSolver)
@@ -56,18 +55,18 @@ void HysteresisProcessor::setSolver (int newSolver)
     // set clip level for solver
     switch (newSolver)
     {
-    case 0: // RK2
-    case 1: // RK4
-        clipLevel = 10.0f;
-        return;
+        case 0: // RK2
+        case 1: // RK4
+            clipLevel = 10.0f;
+            return;
 
-    case 2: // NR4
-    case 3: // NR8
-        clipLevel = 12.5f;
-        return;
+        case 2: // NR4
+        case 3: // NR8
+            clipLevel = 12.5f;
+            return;
 
-    default:
-        clipLevel = 20.0f;
+        default:
+            clipLevel = 20.0f;
     };
 }
 
@@ -167,7 +166,7 @@ float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for hysteresis
     return onOffParam->load() == 1.0f ? overSample[curOS]->getLatencyInSamples() + 1.4f // on
-                                      : 0.0f;                                           // off
+                                      : 0.0f; // off
 }
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
@@ -194,11 +193,14 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     // clip input to avoid unstable hysteresis
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         FloatVectorOperations::clip (buffer.getWritePointer (ch),
-            buffer.getWritePointer (ch), -clipLevel, clipLevel, buffer.getNumSamples());
+                                     buffer.getWritePointer (ch),
+                                     -clipLevel,
+                                     clipLevel,
+                                     buffer.getNumSamples());
 
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock = overSample[curOS]->processSamplesUp (block);
-    
+
     if (needsSmoothing)
     {
         if (useV1)
@@ -213,7 +215,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         else
             process (osBlock);
     }
-    
+
     overSample[curOS]->processSamplesDown (block);
 
     applyDCBlockers (buffer);

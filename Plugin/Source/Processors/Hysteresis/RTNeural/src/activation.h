@@ -1,20 +1,19 @@
 #ifndef ACTIVATION_H_INCLUDED
 #define ACTIVATION_H_INCLUDED
 
-#include <functional>
 #include "Layer.h"
+#include <functional>
 
 namespace MLUtils
 {
-
-template<typename T>
+template <typename T>
 class Activation : public Layer<T>
 {
 public:
-    Activation (size_t size, std::function<T(T)> func) :
-        Layer<T> (size, size),
-        func (func)
-    {}
+    Activation (size_t size, std::function<T (T)> func) : Layer<T> (size, size),
+                                                          func (func)
+    {
+    }
 
     virtual ~Activation() {}
 
@@ -25,7 +24,7 @@ public:
     }
 
 private:
-    const std::function<T(T)> func;
+    const std::function<T (T)> func;
 };
 
 } // namespace MLUtils
@@ -35,13 +34,11 @@ private:
 
 namespace MLUtils
 {
-
-template<typename T>
+template <typename T>
 class TanhActivation : public Activation<T>
 {
 public:
-    TanhActivation (size_t size) :
-        Activation<T> (size, {})
+    TanhActivation (size_t size) : Activation<T> (size, {})
     {
         inVec.resize (size, 1);
         outVec.resize (size, 1);
@@ -66,14 +63,13 @@ public:
 
 namespace MLUtils
 {
-
-template<typename T>
+template <typename T>
 class TanhActivation : public Activation<T>
 {
 public:
-    TanhActivation (size_t size) :
-        Activation<T> (size, [] (T x) { return std::tanh (x); })
-    {}
+    TanhActivation (size_t size) : Activation<T> (size, [] (T x) { return std::tanh (x); })
+    {
+    }
 
     inline void forward (const T* input, T* out) override
     {

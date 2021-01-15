@@ -1,12 +1,12 @@
-#include <math.h>
 #include "HysteresisProcessing.h"
 #include "RTNeural/src/Json2RnnParser.h"
+#include <math.h>
 
 namespace
 {
-    constexpr double ONE_THIRD =  1.0 / 3.0;
-    constexpr double NEG_TWO_OVER_15 = -2.0 / 15.0;
-}
+constexpr double ONE_THIRD = 1.0 / 3.0;
+constexpr double NEG_TWO_OVER_15 = -2.0 / 15.0;
+} // namespace
 
 inline int sign (double x)
 {
@@ -29,7 +29,7 @@ void HysteresisProcessing::reset()
 }
 
 void HysteresisProcessing::setSampleRate (double newSR)
-{ 
+{
     fs = newSR;
     T = 1.0 / fs;
     Talpha = T / 1.9;
@@ -72,24 +72,24 @@ void HysteresisProcessing::setSolver (SolverType solverType)
 
     switch (solverType)
     {
-    case SolverType::RK4:
-        solver = &HysteresisProcessing::RK4;
-        return;
+        case SolverType::RK4:
+            solver = &HysteresisProcessing::RK4;
+            return;
 
-    case SolverType::STN:
-        solver = &HysteresisProcessing::STN;
-        return;
+        case SolverType::STN:
+            solver = &HysteresisProcessing::STN;
+            return;
 
-    case SolverType::NR4:
-        numIter = 4;
-        return;
+        case SolverType::NR4:
+            numIter = 4;
+            return;
 
-    case SolverType::NR8:
-        numIter = 8;
-        return;
+        case SolverType::NR8:
+            numIter = 8;
+            return;
 
-    default: // RK2
-        solver = &HysteresisProcessing::RK2;
+        default: // RK2
+            solver = &HysteresisProcessing::RK2;
     };
 }
 
@@ -114,7 +114,8 @@ inline double HysteresisProcessing::langevinD2 (double x) const noexcept
     if (! nearZero)
         return 2.0 * coth * (coth * coth - 1.0) - (2.0 / (x * x * x));
     else
-        return NEG_TWO_OVER_15 * x;;
+        return NEG_TWO_OVER_15 * x;
+    ;
 }
 
 inline double HysteresisProcessing::hysteresisFunc (double M, double H, double H_d) noexcept

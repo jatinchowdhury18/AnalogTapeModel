@@ -1,8 +1,8 @@
 #ifndef HYSTERESISSTN_H_INCLUDED
 #define HYSTERESISSTN_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "RTNeural/src/Model.h"
+#include <JuceHeader.h>
 
 /**
  * Class that implements a "State Transition Network" for
@@ -23,10 +23,14 @@ public:
 
     inline double process (const std::array<double, inputSize>& input) const noexcept
     {
-        return stnModels[widthIdx][satIdx]->forward(input.data()) * sampleRateCorr;
+        return stnModels[widthIdx][satIdx]->forward (input.data()) * sampleRateCorr;
     }
 
-    enum { numWidthModels = 11, numSatModels = 21 };
+    enum
+    {
+        numWidthModels = 11,
+        numSatModels = 21
+    };
 
 private:
     std::unique_ptr<MLUtils::Model<double>> stnModels[numWidthModels][numSatModels];

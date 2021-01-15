@@ -1,8 +1,8 @@
 #ifndef MIXGROUPVIZ_H_INCLUDED
 #define MIXGROUPVIZ_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "../MixGroups/MixGroupsController.h"
+#include <JuceHeader.h>
 
 class MixGroupViz : public Component,
                     private AudioProcessorParameter::Listener
@@ -28,9 +28,8 @@ class MixGroupVizItem : public foleys::GuiItem
 public:
     FOLEYS_DECLARE_GUI_FACTORY (MixGroupVizItem)
 
-    MixGroupVizItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
-        foleys::GuiItem (builder, node),
-        viz (builder.getMagicState().getParameter (MixGroupsConstants::mixGroupParamID))
+    MixGroupVizItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node),
+                                                                                viz (builder.getMagicState().getParameter (MixGroupsConstants::mixGroupParamID))
     {
         addAndMakeVisible (viz);
     }
@@ -45,4 +44,3 @@ private:
 };
 
 #endif // !MIXGROUPVIZ_H_INCLUDED
-

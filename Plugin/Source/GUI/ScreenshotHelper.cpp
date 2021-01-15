@@ -4,7 +4,6 @@
 
 namespace ScreenshotHelper
 {
-
 /**
   * Process audio through the plugin so the screenshots have
   * some signal show up in the meters and scopes.
@@ -80,7 +79,7 @@ void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
     // get tabbed components
     Array<foleys::Container*> tabbedComps;
     findTabbedComponents (editor.get(), tabbedComps);
-    
+
     for (auto c : tabbedComps)
         for (int i = 0; i < c->tabbedButtons->getNumTabs(); ++i)
             screenshotTab (c, i);
@@ -109,6 +108,6 @@ void screenshotForBounds (Component* editor, Rectangle<int> bounds, const String
     }
 }
 
-} // ScreenshotHelper
+} // namespace ScreenshotHelper
 
 #endif // TAKE_SCREENSHOTS

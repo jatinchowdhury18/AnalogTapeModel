@@ -21,7 +21,7 @@ public:
     void createPlotPaths (Path& path, Path& filledPath, Rectangle<float> bounds, foleys::MagicPlotComponent& component) override;
 
 private:
-    foleys::MagicLevelSource  inputSource;
+    foleys::MagicLevelSource inputSource;
     foleys::MagicLevelSource outputSource;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TapeScope)
