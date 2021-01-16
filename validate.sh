@@ -38,9 +38,10 @@ echo "Pluginval installed at ${pluginval}"
 echo "Validating ${plugin}"
 
 n_tries=0
-until [ "$n_tries" -ge 3 ]
+result=1
+until [ "$n_tries" -ge 4 ] || [ "$result" -eq 0 ]
 do
-   $pluginval --strictness-level 8 --validate-in-process --validate $plugin && break
+   $pluginval --strictness-level 8 --validate-in-process --validate $plugin
    result=$?
    n_tries=$((n_tries+1))
 done
