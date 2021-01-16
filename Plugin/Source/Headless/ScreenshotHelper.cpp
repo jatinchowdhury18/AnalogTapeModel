@@ -70,7 +70,7 @@ void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
         outputDir = args.getExistingFolderForOption ("--out");
 
     std::cout << "Generating screenshots... Saving to " << outputDir.getFullPathName() << std::endl;
-    
+
     auto plugin = std::make_unique<ChowtapeModelAudioProcessor>();
     processAudio (plugin.get());
     std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());

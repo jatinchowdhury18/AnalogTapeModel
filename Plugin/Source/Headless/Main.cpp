@@ -1,6 +1,6 @@
-#include <JuceHeader.h>
 #include "Benchmarks.h"
 #include "ScreenshotHelper.h"
+#include <JuceHeader.h>
 
 String getVersion()
 {
@@ -17,9 +17,9 @@ int main (int argc, char* argv[])
     std::cout << "Running ChowTapeModel in headless mode..." << std::endl;
 
 #if JUCE_MAC
-    Process::setDockIconVisible (false);    // hide dock icon
+    Process::setDockIconVisible (false); // hide dock icon
 #endif
-    ScopedJuceInitialiser_GUI scopedJuce;   // creates MessageManager
+    ScopedJuceInitialiser_GUI scopedJuce; // creates MessageManager
 
     ConsoleApplication app;
     app.addVersionCommand ("--version", getVersion());

@@ -1,12 +1,12 @@
 #include "Benchmarks.h"
 #include "../PluginProcessor.h"
 
-namespace 
+namespace
 {
-    constexpr double pluginSampleRate = 44100.0;
-    constexpr int samplesPerBlock = 256;
-    constexpr int numChannels = 2;
-}
+constexpr double pluginSampleRate = 44100.0;
+constexpr int samplesPerBlock = 256;
+constexpr int numChannels = 2;
+} // namespace
 
 Benchmarks::Benchmarks()
 {
@@ -43,14 +43,14 @@ void setParameters (AudioProcessor* plugin)
         {
             param->setValue (3.0f / 4.0f); // 8x
             std::cout << "Setting parameter " << param->getName (1024)
-                << ": " << param->getText (param->getValue(), 1024) << std::endl;
+                      << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
 
         if (param->getName (1024) == "Mode")
         {
             param->setValue (4.0f / 5.0f); // STN
             std::cout << "Setting parameter " << param->getName (1024)
-                << ": " << param->getText (param->getValue(), 1024) << std::endl;
+                      << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
     }
 }
