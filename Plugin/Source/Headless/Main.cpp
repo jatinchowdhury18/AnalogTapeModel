@@ -1,4 +1,5 @@
 #include <JuceHeader.h>
+#include "Benchmarks.h"
 #include "ScreenshotHelper.h"
 
 String getVersion()
@@ -26,6 +27,9 @@ int main (int argc, char* argv[])
 
     ScreenshotHelper screenshooter;
     app.addCommand (screenshooter);
+
+    Benchmarks benchmarks;
+    app.addCommand (benchmarks);
 
     return app.findAndRunCommand (argc, argv);
 }

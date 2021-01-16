@@ -11,6 +11,8 @@ add_custom_command(TARGET ChowTapeModel_Headless
 
 target_sources(ChowTapeModel_Headless PRIVATE
     Main.cpp
+
+    Benchmarks.cpp
     ScreenshotHelper.cpp
 )
 
