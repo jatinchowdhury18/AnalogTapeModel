@@ -11,7 +11,7 @@ constexpr int numChannels = 2;
 Benchmarks::Benchmarks()
 {
     this->commandOption = "--bench";
-    this->argumentDescription = "--bench --file=FILE";
+    this->argumentDescription = "--bench --file=FILE --mode=MODE";
     this->shortDescription = "Runs benchmarks for ChowTapeModel documentation";
     this->longDescription = "";
     this->command = std::bind (&Benchmarks::runBenchmarks, this, std::placeholders::_1);
@@ -30,11 +30,11 @@ void getAudioFile (AudioBuffer<float>& buffer, const File& file)
     if (reader == nullptr)
         return;
 
-    buffer.setSize (reader->numChannels, (int) reader->lengthInSamples);
+    buffer.setSize ((int) reader->numChannels, (int) reader->lengthInSamples);
     reader->read (buffer.getArrayOfWritePointers(), buffer.getNumChannels(), 0, buffer.getNumSamples());
 }
 
-void setParameters (AudioProcessor* plugin)
+void setParameters (AudioProcessor* plugin, int mode)
 {
     auto params = plugin->getParameters();
     for (auto param : params)
@@ -48,7 +48,7 @@ void setParameters (AudioProcessor* plugin)
 
         if (param->getName (1024) == "Mode")
         {
-            param->setValue (4.0f / 5.0f); // STN
+            param->setValue ((float) mode / 5.0f); // STN
             std::cout << "Setting parameter " << param->getName (1024)
                       << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
@@ -111,7 +111,10 @@ void Benchmarks::runBenchmarks (const ArgumentList& args)
     }
 
     std::cout << "Setting parameters..." << std::endl;
-    setParameters (plugin.get());
+    int mode = 4; // STN
+    if (args.containsOption ("--mode"))
+        mode = args.getValueForOption ("--mode").getIntValue();
+    setParameters (plugin.get(), mode);
 
     std::cout << "Processing audio..." << std::endl;
     plugin->prepareToPlay (pluginSampleRate, samplesPerBlock);
@@ -120,5 +123,5 @@ void Benchmarks::runBenchmarks (const ArgumentList& args)
 
     std::cout << "Results:" << std::endl;
     std::cout << audioLength / time << "x real-time" << std::endl;
-    std::cout << time << " seconds" std::endl;
+    std::cout << time << " seconds" << std::endl;
 }
