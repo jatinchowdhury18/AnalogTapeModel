@@ -1,0 +1,45 @@
+name: Auto-formatter
+
+on:
+  pull_request:
+    branches:
+    - main
+    - develop
+    paths:
+    - '**.cpp'
+    - '**.h'
+
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
+    name: Apply clang-format to pull request
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install Linux Deps
+      run: |
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 12
+        sudo apt-get install clang-format-12
+        clang-format-12 --version
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+
+    - name: Run clang-format
+      shell: bash
+      working-directory: ${{github.workspace}}/Plugin
+      run: find Source/ -iname *.h -o -iname *.cpp | xargs clang-format-12 -style=file -verbose -i
+
+    - name: Commit & Push changes
+      uses: actions-js/push@master
+      with:
+        message: "Apply clang-format"
+        branch: ${{ github.head_ref }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}

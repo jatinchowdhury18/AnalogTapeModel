@@ -23,7 +23,7 @@ private:
     String subtitle;
     float font = 0.0f;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TitleComp)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TitleComp)
 };
 
 class TitleItem : public foleys::GuiItem
@@ -45,7 +45,7 @@ public:
 private:
     TitleComp comp;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TitleItem)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TitleItem)
 };
 
 #endif // TITLECOMP_H_INCLUDED

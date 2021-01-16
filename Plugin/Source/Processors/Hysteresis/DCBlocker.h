@@ -1,8 +1,8 @@
 #ifndef DCBLOCKER_H_INCLUDED
 #define DCBLOCKER_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "../IIRFilter.h"
+#include <JuceHeader.h>
 
 /** DC blocking filter */
 class DCBlocker
@@ -27,7 +27,7 @@ public:
     void calcCoefs (float fc)
     {
         // Q values for 4th-order Butterworth filter
-        // (https://en.wikipedia.org/wiki/Butterworth_filter#Normalized_Butterworth_polynomials) 
+        // (https://en.wikipedia.org/wiki/Butterworth_filter#Normalized_Butterworth_polynomials)
         constexpr float Qs[] = { 1.0f / 0.7654f, 1.0f / 1.8478f };
 
         float wc = MathConstants<float>::twoPi * fc / fs;

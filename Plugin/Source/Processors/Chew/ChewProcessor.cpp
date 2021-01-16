@@ -3,17 +3,17 @@
 ChewProcessor::ChewProcessor (AudioProcessorValueTreeState& vts)
 {
     depth = vts.getRawParameterValue ("chew_depth");
-    freq  = vts.getRawParameterValue ("chew_freq");
-    var   = vts.getRawParameterValue ("chew_var");
+    freq = vts.getRawParameterValue ("chew_freq");
+    var = vts.getRawParameterValue ("chew_var");
     onOff = vts.getRawParameterValue ("chew_onoff");
 }
 
 void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth",    0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq",  "Freq",     0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var",   "Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool>  ("chew_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq", "Freq", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var", "Variance", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterBool> ("chew_onoff", "On/Off", false));
 }
 
 void ChewProcessor::prepare (double sr, int samplesPerBlock)
@@ -44,10 +44,12 @@ void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
     else
     {
         int sampleIdx = 0;
-        for(; sampleIdx + shortBlockSize <= buffer.getNumSamples(); sampleIdx += shortBlockSize)
+        for (; sampleIdx + shortBlockSize <= buffer.getNumSamples(); sampleIdx += shortBlockSize)
         {
             AudioBuffer<float> shortBuff (buffer.getArrayOfWritePointers(),
-                buffer.getNumChannels(), sampleIdx, shortBlockSize);
+                                          buffer.getNumChannels(),
+                                          sampleIdx,
+                                          shortBlockSize);
 
             processShortBlock (shortBuff);
         }
@@ -55,7 +57,9 @@ void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
         if (sampleIdx < buffer.getNumSamples())
         {
             AudioBuffer<float> shortBuff (buffer.getArrayOfWritePointers(),
-                buffer.getNumChannels(), sampleIdx, buffer.getNumSamples() - sampleIdx);
+                                          buffer.getNumChannels(),
+                                          sampleIdx,
+                                          buffer.getNumSamples() - sampleIdx);
 
             processShortBlock (shortBuff);
         }
@@ -86,7 +90,7 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
     {
         sampleCounter = 0;
         isCrinkled = ! isCrinkled;
-    
+
         if (isCrinkled) // start crinkle
         {
             mix = 1.0f;
@@ -95,7 +99,7 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
             filt[1].setFreq (highFreq - freqChange * *depth);
             samplesUntilChange = getWetTime();
         }
-        else            // end crinkle
+        else // end crinkle
         {
             mix = 0.0f;
             filt[0].setFreq (highFreq);

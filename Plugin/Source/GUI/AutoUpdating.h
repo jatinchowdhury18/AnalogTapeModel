@@ -1,9 +1,9 @@
 #ifndef AUTOUPDATING_H_INCLUDED
 #define AUTOUPDATING_H_INCLUDED
 
+#include "MyLNF.h"
 #include <JuceHeader.h>
 #include <future>
-#include "MyLNF.h"
 
 struct UpdateButtonLNF : public MyLNF
 {

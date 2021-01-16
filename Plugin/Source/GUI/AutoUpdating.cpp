@@ -2,18 +2,17 @@
 
 namespace
 {
-    const String updateFilePath = "ChowdhuryDSP/ChowTape/UpdateManage.txt";
-    const String currentVersion = "v" + String (JucePlugin_VersionString);
-    const String versionURL = "https://api.github.com/repos/jatinchowdhury18/AnalogTapeModel/releases/latest";
-    const String updateURL = "https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest";
-    const Colour backgroundColour = Colour (0xFF31323A).withAlpha (0.9f);
-    const Colour textColour = Colour (0xFFEAA92C);
-}
+const String updateFilePath = "ChowdhuryDSP/ChowTape/UpdateManage.txt";
+const String currentVersion = "v" + String (JucePlugin_VersionString);
+const String versionURL = "https://api.github.com/repos/jatinchowdhury18/AnalogTapeModel/releases/latest";
+const String updateURL = "https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest";
+const Colour backgroundColour = Colour (0xFF31323A).withAlpha (0.9f);
+const Colour textColour = Colour (0xFFEAA92C);
+} // namespace
 
 AutoUpdater::AutoUpdater()
 {
-    auto setupButton = [=] (TextButton& button)
-    {
+    auto setupButton = [=] (TextButton& button) {
         addAndMakeVisible (button);
         button.setColour (TextButton::buttonColourId, backgroundColour);
         button.setColour (TextButton::textColourOffId, textColour);
@@ -109,7 +108,7 @@ bool AutoUpdater::runAutoUpdateCheck()
 
     String updateVersion = getUpdateFileVersion (updateFile);
     bool lastYesNo = getUpdateFileYesNo (updateFile);
-    
+
     // you've already said you don't want to update to this version
     if ((updateVersion == latestVersion) && (lastYesNo == false))
         return false;

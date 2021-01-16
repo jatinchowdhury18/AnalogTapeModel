@@ -43,7 +43,7 @@ public:
     /** Performs the filter operation on a single sample at a time, and returns both
     the low-pass and the high-pass outputs of the TPT structure.
     */
-    inline void processSample (size_t ch, SampleType x, SampleType &outputLow, SampleType &outputHigh) noexcept
+    inline void processSample (size_t ch, SampleType x, SampleType& outputLow, SampleType& outputHigh) noexcept
     {
         auto yH = (x - (R2 + g) * state[ch][0] - state[ch][1]) * h;
 
@@ -83,8 +83,8 @@ public:
 private:
     void update()
     {
-        g  = (SampleType) std::tan (MathConstants<double>::pi * cutoffFrequency / sampleRate);
-        h  = (SampleType) (1.0 / (1.0 + R2 * g + g * g));
+        g = (SampleType) std::tan (MathConstants<double>::pi * cutoffFrequency / sampleRate);
+        h = (SampleType) (1.0 / (1.0 + R2 * g + g * g));
     }
 
     SampleType g, h;

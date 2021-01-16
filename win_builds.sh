@@ -1,20 +1,59 @@
 #!/bin/sh
 
-export PATH="/c/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/":$PATH
+cd Plugin
 
-echo "Building 64-bit..."
-cd Plugin/Builds/VisualStudio2017/
-MSBuild.exe -v:quiet -t:rebuild -p:Configuration=Release -p:Platform=x64 CHOWTapeModel.sln
+build64(){
+    cmake -Bbuild -G"Visual Studio 15 2017 Win64"
+    cmake --build build --config Release -j4
+}
 
-echo "Building 32-bit..."
-MSBuild.exe -v:quiet -t:rebuild -p:Configuration=Release32 -p:Platform=Win32 CHOWTapeModel.sln
-cd ../../
+build32(){
+    cmake -Bbuild32 -G"Visual Studio 15 2017"
+    cmake --build build32 --config Release -j4
+}
 
-echo "Copying Files..."
-cp Builds/VisualStudio2017/x64/Release/VST/CHOWTapeModel.dll Bin/Win64/
-cp Builds/VisualStudio2017/x64/Release/VST3/CHOWTapeModel.vst3 Bin/Win64/
-cp Builds/VisualStudio2017/x64/Release/Standalone\ Plugin/CHOWTapeModel.exe Bin/Win64/
+# exit on failure
+set -e
 
-cp Builds/VisualStudio2017/Win32/Release32/VST/CHOWTapeModel.dll Bin/Win32/
-cp Builds/VisualStudio2017/Win32/Release32/VST3/CHOWTapeModel.vst3 Bin/Win32/
-cp Builds/VisualStudio2017/Win32/Release32/Standalone\ Plugin/CHOWTapeModel.exe Bin/Win32/
+# clean up old builds
+rm -Rf build/
+rm -Rf build32/
+rm -Rf Bin/*Win64*
+rm -Rf Bin/*Win32*
+
+# set up VST and ASIO paths
+sed -i -e "56s/#//" CMakeLists.txt
+sed -i -e "57s/#//" CMakeLists.txt
+sed -i -e '63s/#//' CMakeLists.txt
+
+# cmake new builds
+build64 &
+build32 &
+wait
+
+# copy builds to bin
+mkdir -p Bin/Win64
+mkdir -p Bin/Win32
+declare -a plugins=("CHOWTapeModel")
+for plugin in "${plugins[@]}"; do
+    cp -R build/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win64/${plugin}.exe
+    cp -R build/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win64/${plugin}.dll
+    cp -R build/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win64/${plugin}.vst3
+
+    cp -R build32/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win32/${plugin}.exe
+    cp -R build32/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win32/${plugin}.dll
+    cp -R build32/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win32/${plugin}.vst3
+done
+
+# reset CMakeLists.txt
+git restore CMakeLists.txt
+
+# zip builds
+VERSION=$(cut -f 2 -d '=' <<< "$(grep 'CMAKE_PROJECT_VERSION:STATIC' build/CMakeCache.txt)")
+(
+    cd bin
+    rm -f "CHOWTapeModel-Win64-${VERSION}.zip"
+    rm -f "CHOWTapeModel-Win32-${VERSION}.zip"
+    zip -r "CHOWTapeModel-Win64-${VERSION}.zip" Win64
+    zip -r "CHOWTapeModel-Win32-${VERSION}.zip" Win32
+)
