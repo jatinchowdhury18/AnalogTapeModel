@@ -1,18 +1,16 @@
 #ifndef DENSEEIGEN_H_INCLUDED
 #define DENSEEIGEN_H_INCLUDED
 
-#include <Eigen/Dense>
 #include "Layer.h"
+#include <Eigen/Dense>
 
 namespace MLUtils
 {
-
-template<typename T>
+template <typename T>
 class Dense : public Layer<T>
 {
 public:
-    Dense (size_t in_size, size_t out_size) :
-        Layer<T> (in_size, out_size)
+    Dense (size_t in_size, size_t out_size) : Layer<T> (in_size, out_size)
     {
         weights.resize (out_size, in_size);
         bias.resize (out_size, 1);
@@ -31,32 +29,33 @@ public:
         std::copy (outVec.data(), outVec.data() + Layer<T>::out_size, out);
     }
 
-    void setWeights(const std::vector<std::vector<T>>& newWeights)
+    void setWeights (const std::vector<std::vector<T>>& newWeights)
     {
         for (size_t i = 0; i < Layer<T>::out_size; ++i)
             for (size_t k = 0; k < Layer<T>::in_size; ++k)
                 weights (i, k) = newWeights[i][k];
     }
 
-    void setWeights(T** newWeights)
+    void setWeights (T** newWeights)
     {
         for (size_t i = 0; i < Layer<T>::out_size; ++i)
             for (size_t k = 0; k < Layer<T>::in_size; ++k)
                 weights (i, k) = newWeights[i][k];
     }
 
-    void setBias(T* b)
+    void setBias (T* b)
     {
         for (size_t i = 0; i < Layer<T>::out_size; ++i)
             bias (i, 0) = b[i];
     }
 
-    T getWeight(size_t i, size_t k) const noexcept {
+    T getWeight (size_t i, size_t k) const noexcept
+    {
         return weights (i, k);
     }
 
-
-    T getBias(size_t i) const noexcept {
+    T getBias (size_t i) const noexcept
+    {
         return bias (i, 0);
     }
 

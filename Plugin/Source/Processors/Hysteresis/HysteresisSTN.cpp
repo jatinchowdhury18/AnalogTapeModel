@@ -1,21 +1,18 @@
-#include <future>
 #include "HysteresisSTN.h"
 #include "RTNeural/src/Json2RnnParser.h"
+#include <future>
 
 namespace
 {
-    constexpr double trainingSampleRate = 96e3;
-    
-    constexpr float satIdxMult   = (float) HysteresisSTN::numSatModels   - 1.0f;
-    constexpr float widthIdxMult = (float) HysteresisSTN::numWidthModels - 1.0f;
+constexpr double trainingSampleRate = 96e3;
 
-    static std::array<String, HysteresisSTN::numWidthModels> widthTags
-        { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
+constexpr float satIdxMult = (float) HysteresisSTN::numSatModels - 1.0f;
+constexpr float widthIdxMult = (float) HysteresisSTN::numWidthModels - 1.0f;
 
-    static std::array<String, HysteresisSTN::numSatModels> satTags
-        { "0",  "5", "10", "15", "20", "25", "30", "35", "40", "45",
-         "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" };
-}
+static std::array<String, HysteresisSTN::numWidthModels> widthTags { "0", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100" };
+
+static std::array<String, HysteresisSTN::numSatModels> satTags { "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100" };
+} // namespace
 
 constexpr size_t getSatIdx (float satParam)
 {

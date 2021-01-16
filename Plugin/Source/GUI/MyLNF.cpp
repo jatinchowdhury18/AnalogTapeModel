@@ -16,24 +16,24 @@ Typeface::Ptr MyLNF::getTypefaceForFont (const Font& font)
     return font.isBold() ? robotoBold : roboto;
 }
 
-void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height,
-                              float sliderPos, float rotaryStartAngle,
-                              float rotaryEndAngle, juce::Slider& s)
+void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float rotaryStartAngle, float rotaryEndAngle, juce::Slider& s)
 {
-    int diameter = (width > height)? height : width;
-    if (diameter < 16) return;
+    int diameter = (width > height) ? height : width;
+    if (diameter < 16)
+        return;
 
     juce::Point<float> centre (x + std::floor (width * 0.5f + 0.5f), y + std::floor (height * 0.5f + 0.5f));
-    diameter -= (diameter % 2)? 9 : 8;
+    diameter -= (diameter % 2) ? 9 : 8;
     float radius = diameter * 0.5f;
     x = int (centre.x - radius);
     y = int (centre.y - radius);
 
-    const auto bounds = juce::Rectangle<int> (x, y, diameter, diameter).toFloat();   
+    const auto bounds = juce::Rectangle<int> (x, y, diameter, diameter).toFloat();
 
     auto b = pointer->getBounds().toFloat();
     pointer->setTransform (AffineTransform::rotation (MathConstants<float>::twoPi * ((sliderPos - 0.5f) * 300.0f / 360.0f),
-        b.getCentreX(), b.getCentreY()));
+                                                      b.getCentreX(),
+                                                      b.getCentreY()));
 
     const auto alpha = s.isEnabled() ? 1.0f : 0.4f;
 
@@ -55,18 +55,12 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
     g.fillPath (valueArc);
 }
 
-void MyLNF::drawToggleButton (Graphics& g, ToggleButton& button,
-                              bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
+void MyLNF::drawToggleButton (Graphics& g, ToggleButton& button, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {
     auto fontSize = jmin (15.0f, (float) button.getHeight() * 0.75f);
     auto tickWidth = fontSize * 1.1f;
 
-    drawTickBox (g, button, 4.0f, ((float) button.getHeight() - tickWidth) * 0.5f,
-                 tickWidth, tickWidth,
-                 button.getToggleState(),
-                 button.isEnabled(),
-                 shouldDrawButtonAsHighlighted,
-                 shouldDrawButtonAsDown);
+    drawTickBox (g, button, 4.0f, ((float) button.getHeight() - tickWidth) * 0.5f, tickWidth, tickWidth, button.getToggleState(), button.isEnabled(), shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown);
 
     g.setColour (button.findColour (ToggleButton::textColourId));
     g.setFont (Font (fontSize).boldened());
@@ -75,13 +69,12 @@ void MyLNF::drawToggleButton (Graphics& g, ToggleButton& button,
         g.setOpacity (0.5f);
 
     g.drawFittedText (button.getButtonText(),
-                      button.getLocalBounds().withTrimmedLeft (roundToInt (tickWidth) + 10)
-                                             .withTrimmedRight (2),
-                      Justification::centredLeft, 10);
+                      button.getLocalBounds().withTrimmedLeft (roundToInt (tickWidth) + 10).withTrimmedRight (2),
+                      Justification::centredLeft,
+                      10);
 }
 
-void MyLNF::createTabTextLayout (const TabBarButton& button, float length, float depth,
-                                 Colour colour, TextLayout& textLayout)
+void MyLNF::createTabTextLayout (const TabBarButton& button, float length, float depth, Colour colour, TextLayout& textLayout)
 {
     Font font (depth * 0.45f, Font::bold);
     font.setUnderline (button.hasKeyboardFocus (false));
@@ -111,15 +104,28 @@ void MyLNF::drawTabButton (TabBarButton& button, Graphics& g, bool /*isMouseOver
 
         switch (o)
         {
-        case TabbedButtonBar::TabsAtBottom:   p1 = activeArea.getBottomLeft(); p2 = activeArea.getTopLeft();    break;
-        case TabbedButtonBar::TabsAtTop:      p1 = activeArea.getTopLeft();    p2 = activeArea.getBottomLeft(); break;
-        case TabbedButtonBar::TabsAtRight:    p1 = activeArea.getTopRight();   p2 = activeArea.getTopLeft();    break;
-        case TabbedButtonBar::TabsAtLeft:     p1 = activeArea.getTopLeft();    p2 = activeArea.getTopRight();   break;
-        default:                              jassertfalse; break;
+            case TabbedButtonBar::TabsAtBottom:
+                p1 = activeArea.getBottomLeft();
+                p2 = activeArea.getTopLeft();
+                break;
+            case TabbedButtonBar::TabsAtTop:
+                p1 = activeArea.getTopLeft();
+                p2 = activeArea.getBottomLeft();
+                break;
+            case TabbedButtonBar::TabsAtRight:
+                p1 = activeArea.getTopRight();
+                p2 = activeArea.getTopLeft();
+                break;
+            case TabbedButtonBar::TabsAtLeft:
+                p1 = activeArea.getTopLeft();
+                p2 = activeArea.getTopRight();
+                break;
+            default:
+                jassertfalse;
+                break;
         }
 
-        g.setGradientFill (ColourGradient (bkg.brighter (0.2f), p1.toFloat(),
-            bkg.darker (0.1f),   p2.toFloat(), false));
+        g.setGradientFill (ColourGradient (bkg.brighter (0.2f), p1.toFloat(), bkg.darker (0.1f), p2.toFloat(), false));
     }
 
     g.fillRect (activeArea);
@@ -138,7 +144,7 @@ void MyLNF::drawTabButton (TabBarButton& button, Graphics& g, bool /*isMouseOver
     const Rectangle<float> area (button.getTextArea().toFloat());
 
     float length = area.getWidth();
-    float depth  = area.getHeight();
+    float depth = area.getHeight();
 
     if (button.getTabbedButtonBar().isVertical())
         std::swap (length, depth);
@@ -150,28 +156,34 @@ void MyLNF::drawTabButton (TabBarButton& button, Graphics& g, bool /*isMouseOver
 
     switch (o)
     {
-    case TabbedButtonBar::TabsAtLeft:   t = t.rotated (MathConstants<float>::pi * -0.5f).translated (area.getX(), area.getBottom()); break;
-    case TabbedButtonBar::TabsAtRight:  t = t.rotated (MathConstants<float>::pi *  0.5f).translated (area.getRight(), area.getY()); break;
-    case TabbedButtonBar::TabsAtTop:
-    case TabbedButtonBar::TabsAtBottom: t = t.translated (area.getX(), area.getY()); break;
-    default:                            jassertfalse; break;
+        case TabbedButtonBar::TabsAtLeft:
+            t = t.rotated (MathConstants<float>::pi * -0.5f).translated (area.getX(), area.getBottom());
+            break;
+        case TabbedButtonBar::TabsAtRight:
+            t = t.rotated (MathConstants<float>::pi * 0.5f).translated (area.getRight(), area.getY());
+            break;
+        case TabbedButtonBar::TabsAtTop:
+        case TabbedButtonBar::TabsAtBottom:
+            t = t.translated (area.getX(), area.getY());
+            break;
+        default:
+            jassertfalse;
+            break;
     }
 
     g.addTransform (t);
     textLayout.draw (g, Rectangle<float> (length, depth));
 }
 
-void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
-                              float sliderPos, float /*minSliderPos*/, float /*maxSliderPos*/,
-                              const Slider::SliderStyle, Slider& slider)
+void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, float sliderPos, float /*minSliderPos*/, float /*maxSliderPos*/, const Slider::SliderStyle, Slider& slider)
 {
     auto trackWidth = jmin (6.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
 
     Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
-        slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
+                             slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
 
     Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
-        slider.isHorizontal() ? startPoint.y : (float) y);
+                           slider.isHorizontal() ? startPoint.y : (float) y);
 
     const auto alpha = slider.isEnabled() ? 1.0f : 0.4f;
 
@@ -200,7 +212,8 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height,
     g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
     auto thumbRect = Rectangle<float> (static_cast<float> (thumbWidth),
-                                       static_cast<float> (thumbWidth)).withCentre (maxPoint);
+                                       static_cast<float> (thumbWidth))
+                         .withCentre (maxPoint);
     knob->drawWithin (g, thumbRect, RectanglePlacement::stretchToFit, alpha);
 }
 

@@ -9,7 +9,7 @@ public:
     GainProcessor() {}
 
     void prepareToPlay (double /*sampleRate*/, int /*maximumExpectedSamplesPerBlock*/)
-    { 
+    {
         oldGain = curGain;
     }
 
@@ -21,7 +21,7 @@ public:
             oldGain = curGain;
             return;
         }
-        
+
         buffer.applyGain (curGain);
     }
 

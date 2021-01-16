@@ -1,8 +1,7 @@
 #include "PresetComp.h"
 
-PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager) :
-    proc (proc),
-    manager (manager)
+PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager) : proc (proc),
+                                                                                     manager (manager)
 {
     manager.addListener (this);
 
@@ -28,7 +27,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetNameEditor.setJustification (Justification::centred);
 
     presetUpdated();
-    presetBox.onChange  = [=, &proc] { 
+    presetBox.onChange = [=, &proc] {
         const auto selectedId = presetBox.getSelectedId();
         if (selectedId >= 1000 || selectedId <= 0)
             return;
@@ -56,11 +55,11 @@ void PresetComp::loadPresetChoices()
             continue;
         category = (category == choice) ? "CHOW" : category;
         String presetName = choice.fromLastOccurrenceOf ("_", false, false);
-        
+
         if (presetChoicesMap.find (category) == presetChoicesMap.end())
             presetChoicesMap[category] = PopupMenu();
 
-        presetChoicesMap[category].addItem (i+1, presetName);
+        presetChoicesMap[category].addItem (i + 1, presetName);
     }
 
     for (auto& presetGroup : presetChoicesMap)
@@ -104,7 +103,7 @@ void PresetComp::addPresetOptions()
 
 void PresetComp::paint (Graphics& g)
 {
-    constexpr auto cornerSize = 5.0f;   
+    constexpr auto cornerSize = 5.0f;
 
     presetBox.setColour (PopupMenu::ColourIds::backgroundColourId, findColour (backgroundColourId));
     g.setColour (findColour (backgroundColourId));
@@ -133,7 +132,7 @@ void PresetComp::saveUserPreset()
     presetNameEditor.onReturnKey = [=] {
         auto presetName = presetNameEditor.getText();
         presetNameEditor.setVisible (false);
-        
+
         if (manager.saveUserPreset (presetName, proc.getVTS()))
         {
             loadPresetChoices();

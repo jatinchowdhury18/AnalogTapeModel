@@ -20,10 +20,10 @@ public:
 private:
     const AudioProcessor::WrapperType wrapperType;
     HyperlinkButton linkButton { JucePlugin_Manufacturer, URL ("https://ccrma.stanford.edu/~jatin/chowdsp") };
-    
+
     int linkX = 0;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InfoComp)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InfoComp)
 };
 
 class InfoItem : public foleys::GuiItem
@@ -31,12 +31,11 @@ class InfoItem : public foleys::GuiItem
 public:
     FOLEYS_DECLARE_GUI_FACTORY (InfoItem)
 
-    InfoItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
-        foleys::GuiItem (builder, node)
+    InfoItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
     {
         setColourTranslation ({
-            {"text1", InfoComp::text1ColourID},
-            {"text2", InfoComp::text2ColourID},
+            { "text1", InfoComp::text1ColourID },
+            { "text2", InfoComp::text2ColourID },
         });
 
         infoComp = std::make_unique<InfoComp> (builder.getMagicState().getProcessor()->wrapperType);
@@ -55,7 +54,7 @@ public:
 private:
     std::unique_ptr<InfoComp> infoComp;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(InfoItem)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (InfoItem)
 };
 
 #endif // INFOCOMP_H_INCLUDED

@@ -1,8 +1,8 @@
 #ifndef HYSTERESISPROCESSING_H_INCLUDED
 #define HYSTERESISPROCESSING_H_INCLUDED
 
-#include "JuceHeader.h"
 #include "HysteresisSTN.h"
+#include "JuceHeader.h"
 
 enum SolverType
 {
@@ -49,9 +49,9 @@ public:
     }
 
 private:
-    inline double langevin (double x) const noexcept;    // Langevin function
-    inline double langevinD (double x) const noexcept;   // Derivative of Langevin function
-    inline double langevinD2 (double x) const noexcept;  // 2nd derivative of Langevin function
+    inline double langevin (double x) const noexcept; // Langevin function
+    inline double langevinD (double x) const noexcept; // Derivative of Langevin function
+    inline double langevinD2 (double x) const noexcept; // 2nd derivative of Langevin function
     inline double deriv (double x_n, double x_n1, double x_d_n1) const noexcept // Derivative by alpha transform
     {
         constexpr double dAlpha = 0.75;
@@ -92,7 +92,7 @@ private:
     double upperLim = 20.0;
 
     // Save calculations
-    double nc = 1-c;
+    double nc = 1 - c;
     double M_s_oa = M_s / a;
     double M_s_oa_talpha = alpha * M_s / a;
     double M_s_oa_tc = c * M_s / a;

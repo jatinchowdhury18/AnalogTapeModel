@@ -1,10 +1,10 @@
 #ifndef DEGRADEPROCESSOR_H_INCLUDED
 #define DEGRADEPROCESSOR_H_INCLUDED
 
-#include "../GainProcessor.h"
 #include "../BypassProcessor.h"
-#include "DegradeNoise.h"
+#include "../GainProcessor.h"
 #include "DegradeFilter.h"
+#include "DegradeNoise.h"
 
 class DegradeProcessor
 {
@@ -20,8 +20,8 @@ public:
 private:
     std::atomic<float>* onOffParam = nullptr;
     std::atomic<float>* depthParam = nullptr;
-    std::atomic<float>* amtParam   = nullptr;
-    std::atomic<float>* varParam   = nullptr;
+    std::atomic<float>* amtParam = nullptr;
+    std::atomic<float>* varParam = nullptr;
 
     DegradeNoise noiseProc[2];
     DegradeFilter filterProc[2];

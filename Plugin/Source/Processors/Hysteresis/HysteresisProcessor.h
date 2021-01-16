@@ -1,9 +1,9 @@
 #ifndef HYSTERESISPROCESSOR_H_INCLUDED
 #define HYSTERESISPROCESSOR_H_INCLUDED
 
-#include "HysteresisProcessing.h"
-#include "DCBlocker.h"
 #include "../BypassProcessor.h"
+#include "DCBlocker.h"
+#include "HysteresisProcessing.h"
 
 /* Hysteresis Processor for tape. */
 class HysteresisProcessor

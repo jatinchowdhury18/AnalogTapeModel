@@ -22,7 +22,7 @@ public:
 
     StringArray getPresetChoices();
     void loadPresets();
-    
+
     int getNumPresets() const { return presets.size(); }
     String getPresetName (int idx);
     bool setPreset (AudioProcessorValueTreeState& vts, int idx);

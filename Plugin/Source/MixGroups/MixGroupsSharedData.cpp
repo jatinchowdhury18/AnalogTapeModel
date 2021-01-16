@@ -19,7 +19,7 @@ void MixGroupsSharedData::loadParameterList (Array<String>& paramList)
         for (const auto& paramID : paramList)
             paramMap->set (paramID, 0.0f);
 
-        paramMaps.push_back(std::move (paramMap));
+        paramMaps.push_back (std::move (paramMap));
     }
 }
 
@@ -29,7 +29,7 @@ void MixGroupsSharedData::pluginGroupChanged (const String& pluginID, int mixGro
     for (auto& group : pluginsInGroup)
         group->removeString (pluginID);
 
-    if (mixGroup == 0) 
+    if (mixGroup == 0)
         return;
 
     // add plugin to new group

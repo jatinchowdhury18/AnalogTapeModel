@@ -3,8 +3,7 @@
 using namespace MixGroupsConstants;
 
 MixGroupsController::MixGroupsController (AudioProcessorValueTreeState& vts,
-                                          AudioProcessor* proc) :
-    vts (vts)
+                                          AudioProcessor* proc) : vts (vts)
 {
     // load parameters
     auto params = proc->getParameters();
@@ -24,7 +23,7 @@ MixGroupsController::~MixGroupsController()
 
 void MixGroupsController::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterChoice> (mixGroupParamID, "Mix Group", StringArray ({"N/A", "1", "2", "3", "4"}), 0));
+    params.push_back (std::make_unique<AudioParameterChoice> (mixGroupParamID, "Mix Group", StringArray ({ "N/A", "1", "2", "3", "4" }), 0));
 }
 
 void MixGroupsController::loadParameterList (Array<AudioProcessorParameter*>& params)
@@ -69,7 +68,7 @@ void MixGroupsController::parameterChanged (const String& parameterID, float new
         }
         else if (numPluginsInGroup > 1) // there are already plugins in this group
         {
-            // copy shared state to me     
+            // copy shared state to me
             for (const auto& paramID : paramList)
             {
                 auto param = vts.getParameter (paramID);
@@ -104,7 +103,7 @@ void MixGroupsController::mixGroupParamChanged (const String& paramID, int mixGr
 
     if (mixGroup != (int) mixGroupParam->load()) // received message does not apply to this mix group
         return;
-    
+
     // set parameter value
     lastParameterChanged = paramID;
     param->setValueNotifyingHost (param->convertTo0to1 (value));

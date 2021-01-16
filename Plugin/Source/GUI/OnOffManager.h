@@ -11,7 +11,7 @@ public:
     ~OnOffManager();
 
     void setOnOffForNewEditor (AudioProcessorEditor* editor);
-    void parameterChanged (const String &parameterID, float newValue) override;
+    void parameterChanged (const String& parameterID, float newValue) override;
 
 private:
     AudioProcessorValueTreeState& vts;

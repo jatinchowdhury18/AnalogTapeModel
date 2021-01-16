@@ -30,10 +30,9 @@ public:
             for (int ch = 0; ch < wetBuffer.getNumChannels(); ++ch)
             {
                 wetBuffer.applyGainRamp (ch, 0, wetBuffer.getNumSamples(), lastDryWet, dryWet);
-                wetBuffer.addFromWithRamp (ch, 0, dryBuffer.getReadPointer (ch), wetBuffer.getNumSamples(),
-                                           (1.0f - lastDryWet), (1.0f -  dryWet));
+                wetBuffer.addFromWithRamp (ch, 0, dryBuffer.getReadPointer (ch), wetBuffer.getNumSamples(), (1.0f - lastDryWet), (1.0f - dryWet));
             }
-        
+
             lastDryWet = dryWet;
         }
     }

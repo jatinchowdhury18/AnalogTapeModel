@@ -4,14 +4,14 @@ using namespace foleys;
 
 namespace
 {
-    constexpr int rmsMS = 5000; // rms window milliseconds
-    constexpr float xPad = 3.0f;
-}
+constexpr int rmsMS = 5000; // rms window milliseconds
+constexpr float xPad = 3.0f;
+} // namespace
 
 void TapeScope::prepareToPlay (int numChannels, double newSampleRate, int samplesPerBlockExpected)
 {
     MagicOscilloscope::prepareToPlay (newSampleRate, samplesPerBlockExpected);
-    inputSource.setupSource  (numChannels, newSampleRate, rmsMS, rmsMS);
+    inputSource.setupSource (numChannels, newSampleRate, rmsMS, rmsMS);
     outputSource.setupSource (numChannels, newSampleRate, rmsMS, rmsMS);
 }
 
@@ -19,13 +19,13 @@ void TapeScope::pushSamples (const AudioBuffer<float>& buffer, AudioType type)
 {
     switch (type)
     {
-    case Input:
-        inputSource.pushSamples (buffer);
-        return;
+        case Input:
+            inputSource.pushSamples (buffer);
+            return;
 
-    case Output:
-        outputSource.pushSamples (buffer);
-        MagicOscilloscope::pushSamples (buffer);
+        case Output:
+            outputSource.pushSamples (buffer);
+            MagicOscilloscope::pushSamples (buffer);
     }
 }
 
@@ -36,8 +36,7 @@ void TapeScope::createPlotPaths (Path& path, Path& filledPath, Rectangle<float> 
     filledPath.clear();
 
     // get strings for I/O dB meters
-    auto getDBString = [] (const MagicLevelSource& source, AudioType type) -> String
-    {
+    auto getDBString = [] (const MagicLevelSource& source, AudioType type) -> String {
         String prefix = type == Input ? "IN: " : "OUT: ";
         auto dBVal = Decibels::gainToDecibels (source.getRMSvalue (0), -80.0f);
         return prefix + String (dBVal, 1) + " dB";
@@ -52,8 +51,7 @@ void TapeScope::createPlotPaths (Path& path, Path& filledPath, Rectangle<float> 
     const auto fontHeight = labelHeight * 0.9f;
     const auto font = Font (fontHeight);
 
-    auto drawLabel = [b, &filledPath, labelHeight, font] (const String& textStr, float x)
-    {
+    auto drawLabel = [b, &filledPath, labelHeight, font] (const String& textStr, float x) {
         auto width = font.getStringWidthFloat (textStr);
         x = x < b.getCentreX() ? x : x - width;
 

@@ -4,7 +4,7 @@
 
 namespace
 {
-    static String userPresetPath = "ChowdhuryDSP/ChowTape/UserPresets.txt";
+static String userPresetPath = "ChowdhuryDSP/ChowTape/UserPresets.txt";
 }
 
 Preset::Preset (String presetFile)
@@ -22,7 +22,6 @@ Preset::Preset (String presetFile)
 
     jassert (xmlText.isNotEmpty()); // preset does not exist!!
     initialise (ValueTree::fromXml (xmlText));
-    
 }
 
 Preset::Preset (const File& presetFile)
@@ -149,7 +148,7 @@ bool PresetManager::saveUserPreset (const String& name, const AudioProcessorValu
     // create preset XML
     auto presetXml = std::make_unique<XmlElement> ("Preset");
     presetXml->setAttribute ("name", "User_" + name);
-        
+
     auto xmlParameters = std::make_unique<XmlElement> ("Parameters");
     forEachXmlChildElementWithTagName (*stateXml, p, "PARAM")
     {
