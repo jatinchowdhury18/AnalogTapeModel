@@ -53,3 +53,7 @@ juce_add_binary_data(BinaryData SOURCES
 # Need to build BinaryData with -fPIC flag on Linux
 set_target_properties(BinaryData PROPERTIES
     POSITION_INDEPENDENT_CODE TRUE)
+
+if(${BUILD_HEADLESS})
+    add_subdirectory(Headless)
+endif()

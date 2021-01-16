@@ -1,9 +1,15 @@
 #include "ScreenshotHelper.h"
+#include "../PluginProcessor.h"
 
-#ifdef TAKE_SCREENSHOTS
-
-namespace ScreenshotHelper
+ScreenshotHelper::ScreenshotHelper()
 {
+    this->commandOption = "--screenshots";
+    this->argumentDescription = "--screenshots --out=[DIR]";
+    this->shortDescription = "Generates screenshots for ChowTapeModel documentation";
+    this->longDescription = "";
+    this->command = std::bind (&ScreenshotHelper::takeScreenshots, this, std::placeholders::_1);
+}
+
 /**
   * Process audio through the plugin so the screenshots have
   * some signal show up in the meters and scopes.
@@ -45,7 +51,7 @@ void findTabbedComponents (Component* root, Array<foleys::Container*>& tabbedCom
     }
 }
 
-void screenshotTab (foleys::Container* container, int tabIdx)
+void ScreenshotHelper::screenshotTab (foleys::Container* container, int tabIdx, const File& outDir)
 {
     container->tabbedButtons->setCurrentTabIndex (tabIdx);
     auto name = container->tabbedButtons->getTabButton (tabIdx)->getName();
@@ -54,11 +60,18 @@ void screenshotTab (foleys::Container* container, int tabIdx)
     for (auto& child : container->children)
         child->setVisible (tabIdx == index++);
 
-    screenshotForBounds (container, container->getLocalBounds(), name + ".png");
+    screenshotForBounds (container, container->getLocalBounds(), outDir, name + ".png");
 }
 
-void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
+void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
 {
+    File outputDir = File::getCurrentWorkingDirectory();
+    if (args.containsOption ("--out"))
+        outputDir = args.getExistingFolderForOption ("--out");
+
+    std::cout << "Generating screenshots... Saving to " << outputDir.getFullPathName() << std::endl;
+    
+    auto plugin = std::make_unique<ChowtapeModelAudioProcessor>();
     processAudio (plugin.get());
     std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());
 
@@ -74,7 +87,7 @@ void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
     }
 
     // full screenshot
-    screenshotForBounds (editor.get(), editor->getLocalBounds(), "full_gui.png");
+    screenshotForBounds (editor.get(), editor->getLocalBounds(), outputDir, "full_gui.png");
 
     // get tabbed components
     Array<foleys::Container*> tabbedComps;
@@ -82,21 +95,16 @@ void takeScreenshots (std::unique_ptr<ChowtapeModelAudioProcessor> plugin)
 
     for (auto c : tabbedComps)
         for (int i = 0; i < c->tabbedButtons->getNumTabs(); ++i)
-            screenshotTab (c, i);
+            screenshotTab (c, i, outputDir);
 
     plugin->editorBeingDeleted (editor.get());
 }
 
-File getScreenshotFolder()
-{
-    return File ("D:/Documents/CCRMA/Music 420/AnalogTapeModel/Plugin/Screenshots");
-}
-
-void screenshotForBounds (Component* editor, Rectangle<int> bounds, const String& filename)
+void ScreenshotHelper::screenshotForBounds (Component* editor, Rectangle<int> bounds, const File& dir, const String& filename)
 {
     auto screenshot = editor->createComponentSnapshot (bounds);
 
-    File pngFile = getScreenshotFolder().getChildFile (filename);
+    File pngFile = dir.getChildFile (filename);
     pngFile.deleteFile();
     pngFile.create();
     auto pngStream = pngFile.createOutputStream();
@@ -107,7 +115,3 @@ void screenshotForBounds (Component* editor, Rectangle<int> bounds, const String
         pngImage.writeImageToStream (screenshot, *pngStream.get());
     }
 }
-
-} // namespace ScreenshotHelper
-
-#endif // TAKE_SCREENSHOTS
