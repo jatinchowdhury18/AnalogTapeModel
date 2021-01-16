@@ -32,13 +32,12 @@ class TooltipItem : public foleys::GuiItem
 public:
     FOLEYS_DECLARE_GUI_FACTORY (TooltipItem)
 
-    TooltipItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
-        foleys::GuiItem (builder, node)
+    TooltipItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
     {
         setColourTranslation ({
-            {"tooltip-background", TooltipComponent::backgroundColourID},
-            {"tooltip-text",       TooltipComponent::textColourID},
-            {"tooltip-name",       TooltipComponent::nameColourID},
+            { "tooltip-background", TooltipComponent::backgroundColourID },
+            { "tooltip-text", TooltipComponent::textColourID },
+            { "tooltip-name", TooltipComponent::nameColourID },
         });
 
         addAndMakeVisible (tooltipComp);

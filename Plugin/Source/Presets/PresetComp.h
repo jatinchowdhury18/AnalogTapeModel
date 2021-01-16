@@ -1,8 +1,8 @@
 #ifndef PRESETCOMP_H_INCLUDED
 #define PRESETCOMP_H_INCLUDED
 
-#include "PresetManager.h"
 #include "../PluginProcessor.h"
+#include "PresetManager.h"
 
 class PresetComp : public Component,
                    private PresetManager::Listener
@@ -39,13 +39,10 @@ class PresetComponentItem : public foleys::GuiItem
 public:
     FOLEYS_DECLARE_GUI_FACTORY (PresetComponentItem)
 
-    PresetComponentItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) :
-        foleys::GuiItem (builder, node)
+    PresetComponentItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
     {
-        setColourTranslation ({
-            {"presets-background", PresetComp::backgroundColourId},
-            {"presets-text", PresetComp::textColourId}
-        });
+        setColourTranslation ({ { "presets-background", PresetComp::backgroundColourId },
+                                { "presets-text", PresetComp::textColourId } });
 
         if (auto* proc = dynamic_cast<ChowtapeModelAudioProcessor*> (builder.getMagicState().getProcessor()))
         {

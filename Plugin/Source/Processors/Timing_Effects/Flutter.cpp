@@ -3,7 +3,7 @@
 
 namespace
 {
-    constexpr float depthSlewMin = 0.001f;
+constexpr float depthSlewMin = 0.001f;
 }
 
 Flutter::Flutter (AudioProcessorValueTreeState& vts)
@@ -34,7 +34,7 @@ void Flutter::initialisePlots (foleys::MagicGUIState& magicState)
 
 void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("rate",  "Rate",  0.0f, 1.0f, 0.3f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("rate", "Rate", 0.0f, 1.0f, 0.3f));
     params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.0f));
 
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.25f));
@@ -66,11 +66,11 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
         dcBlocker[ch].prepare (sampleRate, 15.0f);
     }
 
-    wowAmp   = 1000.0f * 1000.0f / (float) sampleRate;
-    amp1     = -230.0f * 1000.0f / (float) sampleRate;
-    amp2     = -80.0f  * 1000.0f / (float) sampleRate;
-    amp3     = -99.0f  * 1000.0f / (float) sampleRate;
-    dcOffset =  350.0f * 1000.0f / (float) sampleRate;
+    wowAmp = 1000.0f * 1000.0f / (float) sampleRate;
+    amp1 = -230.0f * 1000.0f / (float) sampleRate;
+    amp2 = -80.0f * 1000.0f / (float) sampleRate;
+    amp3 = -99.0f * 1000.0f / (float) sampleRate;
+    dcOffset = 350.0f * 1000.0f / (float) sampleRate;
 
     isOff = true;
     dryBuffer.setSize (2, samplesPerBlock);
@@ -106,8 +106,7 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     flutterBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
     flutterBuffer.clear();
 
-    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) ||
-        (depthSlewWow[0].getTargetValue() == depthSlewMin && depthSlewFlutter[0].getTargetValue() == depthSlewMin);
+    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) || (depthSlewWow[0].getTargetValue() == depthSlewMin && depthSlewFlutter[0].getTargetValue() == depthSlewMin);
     if (! isOff && ! shouldTurnOff) // process normally
     {
         processWetBuffer (buffer);
@@ -164,9 +163,9 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
 
             auto wowLFO = depthSlewWow[ch].getNextValue() * wowAmp * cosf (wowPhase[ch]);
             auto flutterLFO = depthSlewFlutter[ch].getNextValue()
-                * (amp1 * cosf (phase1[ch] + phaseOff1)
-                + amp2 * cosf (phase2[ch] + phaseOff2)
-                + amp3 * cosf (phase3[ch] + phaseOff3));
+                              * (amp1 * cosf (phase1[ch] + phaseOff1)
+                                 + amp2 * cosf (phase2[ch] + phaseOff2)
+                                 + amp3 * cosf (phase3[ch] + phaseOff3));
 
             auto newLength = (wowLFO + flutterLFO + dcOffset + depthSlewWow[ch].getCurrentValue() * wowAmp) * (float) fs / 1000.0f;
             newLength = jlimit (0.0f, (float) HISTORY_SIZE, newLength);

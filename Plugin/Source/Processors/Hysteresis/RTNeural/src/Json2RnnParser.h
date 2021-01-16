@@ -1,8 +1,8 @@
 #ifndef JSON2RNNPARSER_H_INCLUDED
 #define JSON2RNNPARSER_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "Model.h"
+#include <JuceHeader.h>
 
 class Json2RnnParser
 {

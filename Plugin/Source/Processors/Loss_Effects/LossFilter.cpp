@@ -1,7 +1,6 @@
 ﻿#include "LossFilter.h"
 
-LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) :
-    order (order)
+LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) : order (order)
 {
     speed = vts.getRawParameterValue ("speed");
     spacing = vts.getRawParameterValue ("spacing");
@@ -37,21 +36,13 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     NormalisableRange<float> gapRange (1.0f, 50.0f);
     gapRange.setSkewForCentre (10.0f);
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Speed [ips]",
-        speedRange, 30.0f, String(), AudioProcessorParameter::genericParameter,
-        [] (float value, int) { return String (value, 2); }));
+    params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Speed [ips]", speedRange, 30.0f, String(), AudioProcessorParameter::genericParameter, [] (float value, int) { return String (value, 2); }));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Spacing [microns]",
-        spaceRange, minDist, String(), AudioProcessorParameter::genericParameter,
-        valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Spacing [microns]", spaceRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Thickness [microns]",
-        thickRange, minDist, String(), AudioProcessorParameter::genericParameter,
-        valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Thickness [microns]", thickRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Gap [microns]",
-        gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter,
-        valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Gap [microns]", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
     params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "On/Off", true));
 }
@@ -59,7 +50,7 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
 float LossFilter::getLatencySamples() const noexcept
 {
     return onOff->load() == 1.0f ? (float) curOrder / 2.0f // on
-                                 : 0.0f;                   // off
+                                 : 0.0f; // off
 }
 
 void LossFilter::prepare (float sampleRate, int samplesPerBlock)
@@ -84,7 +75,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
 
         filters[ch][0]->reset();
         filters[ch][1]->reset();
-        
+
         filters[ch][0]->setCoefs (currentCoefs.getRawDataPointer());
         filters[ch][1]->setCoefs (currentCoefs.getRawDataPointer());
     }
@@ -117,8 +108,8 @@ void LossFilter::calcCoefs (StereoIIR& filter)
         const auto kGapOverTwo = waveNumber * (*gap * (float) 1.0e-6) / 2.0f;
 
         H[k] = expf (-waveNumber * (*spacing * (float) 1.0e-6)); // Spacing loss
-        H[k] *= (1.0f - expf (-thickTimesK)) / thickTimesK;      // Thickness loss
-        H[k] *= sinf (kGapOverTwo) / kGapOverTwo;   // Gap loss
+        H[k] *= (1.0f - expf (-thickTimesK)) / thickTimesK; // Thickness loss
+        H[k] *= sinf (kGapOverTwo) / kGapOverTwo; // Gap loss
         H[curOrder - k - 1] = H[k];
     }
 
@@ -146,8 +137,7 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOff)))
         return;
 
-    if ((*speed != prevSpeed || *spacing != prevSpacing ||
-        *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
+    if ((*speed != prevSpeed || *spacing != prevSpacing || *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
     {
         calcCoefs (bumpFilter[! activeFilter]);
         for (int ch = 0; ch < numChannels; ++ch)

@@ -44,14 +44,13 @@ public:
         const auto numChannels = block.getNumChannels();
         const auto numSamples = block.getNumSamples();
 
-        float startGain = onOffParam == false ? 1.0f  // fade out
+        float startGain = onOffParam == false ? 1.0f // fade out
                                               : 0.0f; // fade in
         float endGain = 1.0f - startGain;
 
         block.applyGainRamp (0, numSamples, startGain, endGain);
         for (int ch = 0; ch < numChannels; ++ch)
-            block.addFromWithRamp (ch, 0, fadeBuffer.getReadPointer (ch), numSamples,
-                1.0f - startGain, 1.0f - endGain);
+            block.addFromWithRamp (ch, 0, fadeBuffer.getReadPointer (ch), numSamples, 1.0f - startGain, 1.0f - endGain);
 
         prevOnOffParam = onOffParam;
     }

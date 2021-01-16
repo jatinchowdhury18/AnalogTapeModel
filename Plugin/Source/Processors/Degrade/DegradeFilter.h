@@ -10,7 +10,7 @@ public:
     DegradeFilter() { freq.reset (numSteps); }
     ~DegradeFilter() {}
 
-    void reset (float sampleRate, int steps=0)
+    void reset (float sampleRate, int steps = 0)
     {
         fs = sampleRate;
         for (int n = 0; n < 2; ++n)
@@ -47,13 +47,13 @@ public:
 
     inline float processSample (float x)
     {
-        float y = z[1] + x*b[0];
-        z[1] = x*b[1] - y*a[1];
+        float y = z[1] + x * b[0];
+        z[1] = x * b[1] - y * a[1];
         return y;
     }
 
     void setFreq (float newFreq)
-    { 
+    {
         freq.setTargetValue (newFreq);
     }
 

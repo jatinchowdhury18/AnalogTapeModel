@@ -8,8 +8,7 @@
 class FIRFilter
 {
 public:
-    FIRFilter (int order) :
-        order (order)
+    FIRFilter (int order) : order (order)
     {
         h = new float[order];
         z = new float[2 * order];

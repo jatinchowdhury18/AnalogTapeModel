@@ -2,16 +2,16 @@
 
 namespace
 {
-    constexpr float minFreq = 20.0f;
-    constexpr float maxFreq = 22000.0f;
-}
+constexpr float minFreq = 20.0f;
+constexpr float maxFreq = 22000.0f;
+} // namespace
 
 InputFilters::InputFilters (AudioProcessorValueTreeState& vts)
 {
-    lowCutParam  = vts.getRawParameterValue ("ifilt_low");
+    lowCutParam = vts.getRawParameterValue ("ifilt_low");
     highCutParam = vts.getRawParameterValue ("ifilt_high");
-    makeupParam  = vts.getRawParameterValue ("ifilt_makeup");
-    onOffParam   = vts.getRawParameterValue ("ifilt_onoff");
+    makeupParam = vts.getRawParameterValue ("ifilt_makeup");
+    onOffParam = vts.getRawParameterValue ("ifilt_onoff");
 }
 
 void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -24,7 +24,11 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
 
     auto freqToString = [] (float freq, int) -> String {
         String suffix = " Hz";
-        if (freq > 1000.0f) { freq /= 1000.0f; suffix = " kHz"; }
+        if (freq > 1000.0f)
+        {
+            freq /= 1000.0f;
+            suffix = " kHz";
+        }
         return String (freq, 2, false) + suffix;
     };
 
@@ -36,25 +40,23 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
         return freq;
     };
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_low", "Low Cut", lowFreqRange,
-        minFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "High Cut", highFreqRange,
-        maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_makeup", "Cut Makeup", false));
-    params.push_back (std::make_unique<AudioParameterBool>  ("ifilt_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_low", "Low Cut", lowFreqRange, minFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "High Cut", highFreqRange, maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
+    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_makeup", "Cut Makeup", false));
+    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_onoff", "On/Off", false));
 }
 
 void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
     dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, 2 };
-    lowCutFilter.prepare  (spec);
+    lowCutFilter.prepare (spec);
     highCutFilter.prepare (spec);
-    makeupDelay.prepare   (spec);
+    makeupDelay.prepare (spec);
 
-    lowCutBuffer .setSize (2, samplesPerBlock);
+    lowCutBuffer.setSize (2, samplesPerBlock);
     highCutBuffer.setSize (2, samplesPerBlock);
-    makeupBuffer .setSize (2, samplesPerBlock);
+    makeupBuffer.setSize (2, samplesPerBlock);
 
     bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
     makeupBypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
@@ -71,12 +73,12 @@ void InputFilters::processBlock (AudioBuffer<float>& buffer)
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         auto* data = buffer.getWritePointer (ch);
-        auto* cutLowSignal  = lowCutBuffer.getWritePointer (ch);
+        auto* cutLowSignal = lowCutBuffer.getWritePointer (ch);
         auto* cutHighSignal = highCutBuffer.getWritePointer (ch);
 
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
-            lowCutFilter.processSample  (ch, data[n], cutLowSignal[n], data[n]);
+            lowCutFilter.processSample (ch, data[n], cutLowSignal[n], data[n]);
             highCutFilter.processSample (ch, data[n], data[n], cutHighSignal[n]);
         }
     }
@@ -99,10 +101,10 @@ void InputFilters::processBlockMakeup (AudioBuffer<float>& buffer)
     }
 
     // compile makeup signal
-    dsp::AudioBlock<float> lowCutBlock  (lowCutBuffer);
+    dsp::AudioBlock<float> lowCutBlock (lowCutBuffer);
     dsp::AudioBlock<float> highCutBlock (highCutBuffer);
-    dsp::AudioBlock<float> makeupBlock  (makeupBuffer);
-    
+    dsp::AudioBlock<float> makeupBlock (makeupBuffer);
+
     makeupBlock.fill (0.0f);
     makeupBlock += lowCutBlock;
     makeupBlock += highCutBlock;

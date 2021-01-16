@@ -5,9 +5,9 @@
 
 namespace MixGroupsConstants
 {
-    constexpr int numMixGroups = 4;
-    const String mixGroupParamID = "mix_group";    
-}
+constexpr int numMixGroups = 4;
+const String mixGroupParamID = "mix_group";
+} // namespace MixGroupsConstants
 
 /** Class to control syncing parameters between multiple mix groups */
 class MixGroupsController : private AudioProcessorValueTreeState::Listener,

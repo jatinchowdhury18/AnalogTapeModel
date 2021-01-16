@@ -5,16 +5,15 @@
 
 namespace MLUtils
 {
-
 /** Neural network layer */
-template<typename T>
+template <typename T>
 class Layer
 {
 public:
-    Layer (size_t in_size, size_t out_size) :
-        in_size (in_size),
-        out_size (out_size)
-    {}
+    Layer (size_t in_size, size_t out_size) : in_size (in_size),
+                                              out_size (out_size)
+    {
+    }
 
     virtual ~Layer() {}
 
