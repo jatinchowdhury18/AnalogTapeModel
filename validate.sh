@@ -36,8 +36,14 @@ fi
 
 echo "Pluginval installed at ${pluginval}"
 echo "Validating ${plugin}"
-$pluginval --strictness-level 6 --validate-in-process --validate $plugin
-result=$?
+
+n_tries=0
+until [ "$n_tries" -ge 3 ]
+do
+   $pluginval --strictness-level 8 --validate-in-process --validate $plugin && break
+   result=$?
+   n_tries=$((n_tries+1))
+done
 
 # clean up
 rm -Rf pluginval*
