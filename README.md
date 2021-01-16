@@ -45,6 +45,8 @@ please see the [building instructions](https://github.com/jatinchowdhury18/Analo
 Alternatively, Linux users may download builds from the
 [Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/CHOWTapeModel).
 
+**Note: If you have a computer with Applie Silicon, please try the [experimental build](./Plugin/Bin/CHOWTapeMode-Mac-2.7.0.zip)! Please note your experiences using the plugin on Apple Silicon in this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/124).**
+
 Note for FL Studio users: If you're experiencing pops and click while using
 the plugin, try enabling the "used fixed size buffers" setting. For more
 information, see this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/17#issuecomment-640199581).
