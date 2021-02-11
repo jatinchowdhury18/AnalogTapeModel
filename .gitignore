@@ -14,7 +14,7 @@ Refs
 Builds
 BinaryData.h
 BinaryData*.cpp
-build
+build*
 JuceLibraryCode
 LV2.mak
 
@@ -33,3 +33,4 @@ LV2.mak
 # Other files I don't want
 *.asd
 *.mp4
+bin/*[!.zip]
