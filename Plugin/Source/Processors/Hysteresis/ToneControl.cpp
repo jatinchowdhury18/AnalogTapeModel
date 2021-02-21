@@ -83,10 +83,10 @@ void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudio
     NormalisableRange freqRange { 100.0f, 4000.0f };
     freqRange.setSkewForCentre (transFreq);
 
-    params.push_back (std::make_unique<AudioParameterBool> ("tone_onoff", "On/Off", true));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_bass", "Bass", -1.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_treble", "Treble", -1.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_tfreq", "Frequency", freqRange, transFreq, String(), AudioProcessorParameter::genericParameter, [=] (float val, int) {
+    params.push_back (std::make_unique<AudioParameterBool> ("tone_onoff", "Tone On/Off", true));
+    params.push_back (std::make_unique<AudioParameterFloat> ("h_bass", "Tone Bass", -1.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("h_treble", "Tone Treble", -1.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("h_tfreq", "Tone Transition Frequency", freqRange, transFreq, String(), AudioProcessorParameter::genericParameter, [=] (float val, int) {
         String suffix = " Hz";
         if (val > 1000.0f)
         {

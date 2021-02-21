@@ -10,10 +10,10 @@ ChewProcessor::ChewProcessor (AudioProcessorValueTreeState& vts)
 
 void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq", "Freq", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var", "Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool> ("chew_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterBool> ("chew_onoff", "Chew On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Chew Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq", "Chew Freq", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var", "Chew Variance", 0.0f, 1.0f, 0.0f));
 }
 
 void ChewProcessor::prepare (double sr, int samplesPerBlock)
