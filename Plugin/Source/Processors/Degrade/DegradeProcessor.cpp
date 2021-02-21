@@ -10,10 +10,10 @@ DegradeProcessor::DegradeProcessor (AudioProcessorValueTreeState& vts)
 
 void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt", "Amount", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_var", "Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterBool> ("deg_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterBool> ("deg_onoff", "Degrade On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Degrade Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt", "Degrade Amount", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("deg_var", "Degrade Variance", 0.0f, 1.0f, 0.0f));
 }
 
 void DegradeProcessor::cookParams()

@@ -22,9 +22,9 @@ jobs:
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
-        sudo ./llvm.sh 12
-        sudo apt-get install clang-format-12
-        clang-format-12 --version
+        sudo ./llvm.sh 11
+        sudo apt-get install clang-format-11
+        clang-format-11 --version
 
     - name: Checkout code
       uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
     - name: Run clang-format
       shell: bash
       working-directory: ${{github.workspace}}/Plugin
-      run: find Source/ -iname *.h -o -iname *.cpp | xargs clang-format-12 -style=file -verbose -i
+      run: find Source/ -iname *.h -o -iname *.cpp | xargs clang-format-11 -style=file -verbose -i
 
     - name: Commit & Push changes
       uses: actions-js/push@master
