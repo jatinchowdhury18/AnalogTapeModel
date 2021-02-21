@@ -55,5 +55,6 @@ set_target_properties(BinaryData PROPERTIES
     POSITION_INDEPENDENT_CODE TRUE)
 
 if(${BUILD_HEADLESS})
+    message(STATUS "Configuring ChowTape Headless")
     add_subdirectory(Headless)
 endif()
