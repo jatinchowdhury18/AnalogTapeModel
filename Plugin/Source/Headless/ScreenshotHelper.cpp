@@ -14,7 +14,7 @@ ScreenshotHelper::ScreenshotHelper()
   * Process audio through the plugin so the screenshots have
   * some signal show up in the meters and scopes.
   */
-void processAudio (ChowtapeModelAudioProcessor* plugin)
+void processAudio (AudioProcessor* plugin)
 {
     constexpr double fs = 48000.0;
     constexpr int blockSize = 1024;
@@ -71,7 +71,8 @@ void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
 
     std::cout << "Generating screenshots... Saving to " << outputDir.getFullPathName() << std::endl;
 
-    auto plugin = std::make_unique<ChowtapeModelAudioProcessor>();
+    // auto plugin = std::make_unique<ChowtapeModelAudioProcessor>();
+    std::unique_ptr<AudioProcessor> plugin (createPluginFilterOfType (AudioProcessor::WrapperType::wrapperType_Standalone));
     processAudio (plugin.get());
     std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());
 
