@@ -40,10 +40,10 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
         return freq;
     };
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_low", "Low Cut", lowFreqRange, minFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "High Cut", highFreqRange, maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_makeup", "Cut Makeup", false));
-    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_onoff", "On/Off", false));
+    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_onoff", "Input Filters On/Off", false));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_low", "Input Low Cut", lowFreqRange, minFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "Input High Cut", highFreqRange, maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
+    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_makeup", "Input Cut Makeup", false));
 }
 
 void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)

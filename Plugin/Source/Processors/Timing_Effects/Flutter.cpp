@@ -34,13 +34,13 @@ void Flutter::initialisePlots (foleys::MagicGUIState& magicState)
 
 void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterFloat> ("rate", "Rate", 0.0f, 1.0f, 0.3f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterBool> ("flutter_onoff", "Wow/Flutter On/Off", true));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Rate", 0.0f, 1.0f, 0.25f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Depth", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("rate", "Flutter Rate", 0.0f, 1.0f, 0.3f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Flutter Depth", 0.0f, 1.0f, 0.0f));
 
-    params.push_back (std::make_unique<AudioParameterBool> ("flutter_onoff", "On/Off", true));
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Wow Rate", 0.0f, 1.0f, 0.25f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Wow Depth", 0.0f, 1.0f, 0.0f));
 }
 
 void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
