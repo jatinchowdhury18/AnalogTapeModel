@@ -1,5 +1,5 @@
 # set up JUCE and modules
-add_subdirectory(Juce)
+add_subdirectory(JUCE)
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
 
