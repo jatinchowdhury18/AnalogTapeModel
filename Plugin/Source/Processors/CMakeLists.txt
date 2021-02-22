@@ -6,7 +6,6 @@ target_sources(CHOWTapeModel PRIVATE
     Hysteresis/HysteresisProcessor.cpp
     Hysteresis/HysteresisSTN.cpp
     Hysteresis/ToneControl.cpp
-    Hysteresis/RTNeural/src/Json2RnnParser.cpp
 
     Input_Filters/InputFilters.cpp
     Loss_Effects/LossFilter.cpp

@@ -1,7 +1,8 @@
 #ifndef HYSTERESISSTN_H_INCLUDED
 #define HYSTERESISSTN_H_INCLUDED
 
-#include "RTNeural/src/Model.h"
+// #include "RTNeural/src/Model.h"
+#include <RTNeural/RTNeural.h>
 #include <JuceHeader.h>
 
 /**
@@ -33,7 +34,7 @@ public:
     };
 
 private:
-    std::unique_ptr<MLUtils::Model<double>> stnModels[numWidthModels][numSatModels];
+    std::unique_ptr<RTNeural::Model<double>> stnModels[numWidthModels][numSatModels];
     double sampleRateCorr = 1.0;
     size_t widthIdx = 0;
     size_t satIdx = 0;

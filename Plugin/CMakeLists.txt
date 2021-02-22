@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 project(CHOWTapeModel VERSION 2.7.0)
 
 add_subdirectory(modules)
+include_directories(modules/RTNeural)
 
 # set up plugin project
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)

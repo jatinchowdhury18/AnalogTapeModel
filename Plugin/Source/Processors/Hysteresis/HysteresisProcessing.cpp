@@ -1,5 +1,4 @@
 #include "HysteresisProcessing.h"
-#include "RTNeural/src/Json2RnnParser.h"
 #include <math.h>
 
 namespace

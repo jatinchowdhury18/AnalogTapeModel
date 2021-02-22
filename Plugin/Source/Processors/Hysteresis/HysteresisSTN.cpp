@@ -1,5 +1,4 @@
 #include "HysteresisSTN.h"
-#include "RTNeural/src/Json2RnnParser.h"
 #include <future>
 
 namespace
@@ -43,31 +42,42 @@ std::unique_ptr<MemoryInputStream> getModelFileStream (const String& modelFile)
 
 HysteresisSTN::HysteresisSTN()
 {
-    // load models
+    // Since we have a lot of models to load
+    // let's split them up and load them asychronously!
+    // This cuts down the model loading time for both
+    // channels from ~100 ms to ~30 ms
     size_t widthLoadIdx = 0;
+    std::vector<std::future<void>> futures;
     for (const auto& width : widthTags)
     {
-        auto modelsStream = getModelFileStream ("hyst_width_" + width + ".json");
-        jassert (modelsStream != nullptr);
+        auto loadModelSet = [=] (size_t widthModelIdx) {
+            auto modelsStream = getModelFileStream ("hyst_width_" + width + ".json");
+            jassert (modelsStream != nullptr);
 
-        auto modelsJson = JSON::parse (*modelsStream.get());
-        size_t satLoadIdx = 0;
-        for (const auto& sat : satTags)
-        {
-            String modelTag = "drive_" + sat + "_" + width;
-            auto modelJson = modelsJson[modelTag.toRawUTF8()];
-            stnModels[widthLoadIdx][satLoadIdx] = Json2RnnParser::parseJson<double> (modelJson);
+            auto modelsJson = nlohmann::json::parse (modelsStream->readEntireStreamAsString().toStdString());
+            size_t satLoadIdx = 0;
+            for (const auto& sat : satTags)
+            {
+                String modelTag = "drive_" + sat + "_" + width;
+                auto thisModelJson = modelsJson[modelTag.toStdString()];
+                stnModels[widthModelIdx][satLoadIdx] = RTNeural::json_parser::parseJson<double> (thisModelJson);
 
-            jassert (stnModels[widthLoadIdx][satLoadIdx] != nullptr);
-            jassert (stnModels[widthLoadIdx][satLoadIdx]->layers[0]->in_size == inputSize);
-            satLoadIdx++;
-        }
-        widthLoadIdx++;
+                jassert (stnModels[widthModelIdx][satLoadIdx] != nullptr);
+                jassert (stnModels[widthModelIdx][satLoadIdx]->layers[0]->in_size == inputSize);
+                satLoadIdx++;
+            }
+        };
+
+        futures.push_back (std::async (std::launch::async,
+            [=, &widthLoadIdx] { loadModelSet (widthLoadIdx++); }));
     }
+
+    for (auto& f : futures)
+        f.wait();
 }
 
 void HysteresisSTN::prepare (double sampleRate)
-{
+{  
     sampleRateCorr = trainingSampleRate / sampleRate;
 }
 
