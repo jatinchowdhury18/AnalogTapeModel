@@ -43,9 +43,9 @@ jobs:
       with:
         submodules: true
 
-    - name: Setup debug session
-      if: runner.os == 'Linux'
-      uses: mxschmitt/action-tmate@v3
+    # - name: Setup debug session
+    #   if: runner.os == 'Linux'
+    #   uses: mxschmitt/action-tmate@v3
 
     - name: Configure
       shell: bash
