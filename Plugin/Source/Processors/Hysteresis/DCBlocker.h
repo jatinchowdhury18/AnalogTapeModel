@@ -1,7 +1,6 @@
 #ifndef DCBLOCKER_H_INCLUDED
 #define DCBLOCKER_H_INCLUDED
 
-#include "../IIRFilter.h"
 #include <JuceHeader.h>
 
 /** DC blocking filter */
