@@ -4,8 +4,12 @@ this file.
 
 
 ## [Unreleased]
-- Migrated build pipeline to CMake.
+- Fixed stability issue in tone filters.
+- Improved parameter names for automation menus.
+- Fixed GUI freezing bug in Cakewalk.
 - Fixed gain staging bug in Renoise.
+- Migrated build pipeline to CMake.
+
 ## [2.7.0] - 2020-11-25
 - Added new hysteresis mode: State Transition Network (STN)
 - Updated Loss Filters to improve frequency response and phase response.

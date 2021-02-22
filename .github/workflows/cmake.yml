@@ -44,6 +44,7 @@ jobs:
         submodules: true
 
     # - name: Setup debug session
+    #   if: runner.os == 'Linux'
     #   uses: mxschmitt/action-tmate@v3
 
     - name: Configure
@@ -54,7 +55,7 @@ jobs:
     - name: Build
       shell: bash
       working-directory: ${{github.workspace}}/Plugin
-      run: cmake --build build --config Release --parallel
+      run: cmake --build build --config Release --parallel 4
 
     - name: Pluginval
       if: runner.os == 'Windows' || runner.os == 'MacOS'

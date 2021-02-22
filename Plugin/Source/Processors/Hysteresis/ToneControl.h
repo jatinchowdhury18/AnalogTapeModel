@@ -1,13 +1,14 @@
 #ifndef TONECONTROL_H_INCLUDED
 #define TONECONTROL_H_INCLUDED
 
-#include "ToneFilter.h"
+#include <JuceHeader.h>
 
 using SmoothGain = SmoothedValue<float, ValueSmoothingTypes::Multiplicative>;
 
 struct ToneStage
 {
-    ToneFilter tone[2];
+    // ToneFilter tone[2];
+    chowdsp::ShelfFilter<float> tone[2];
     SmoothGain lowGain[2], highGain[2], tFreq[2];
     float fs = 44100.0f;
 
