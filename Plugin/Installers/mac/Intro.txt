@@ -1,0 +1,1 @@
+This application will install the ChowTapeModel audio plugin version ##APPVERSION## to your computer.

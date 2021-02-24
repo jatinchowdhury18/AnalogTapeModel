@@ -34,3 +34,6 @@ LV2.mak
 *.asd
 *.mp4
 bin/*[!.zip]
+*_Packaged
+*.dmg
+
