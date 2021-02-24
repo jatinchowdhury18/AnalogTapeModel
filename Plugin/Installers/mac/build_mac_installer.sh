@@ -34,5 +34,5 @@ INSTALLER_PASS=$(more ~/Developer/mac_installer_pass)
 npx notarize-cli --file $pkg_dir/CHOWTapeModel-signed.pkg --bundle-id com.chowdsp.CHOWTapeModel --username chowdsp@gmail.com --password "$INSTALLER_PASS"
 
 echo "Building disk image..."
-vol_name=CHOWTapeModel-Mac-$app_version
+vol_name=ChowTapeModel-Mac-$app_version
 hdiutil create "$vol_name.dmg" -fs HFS+ -srcfolder $pkg_dir -format UDZO -volname "$vol_name"

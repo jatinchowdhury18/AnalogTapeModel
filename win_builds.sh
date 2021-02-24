@@ -22,9 +22,9 @@ rm -Rf Bin/*Win64*
 rm -Rf Bin/*Win32*
 
 # set up VST and ASIO paths
-sed -i -e "56s/#//" CMakeLists.txt
-sed -i -e "57s/#//" CMakeLists.txt
-sed -i -e '63s/#//' CMakeLists.txt
+sed -i -e "10s/#//" CMakeLists.txt
+sed -i -e "11s/#//" CMakeLists.txt
+sed -i -e '17s/#//' CMakeLists.txt
 
 # cmake new builds
 build64 &
@@ -34,16 +34,15 @@ wait
 # copy builds to bin
 mkdir -p Bin/Win64
 mkdir -p Bin/Win32
-declare -a plugins=("CHOWTapeModel")
-for plugin in "${plugins[@]}"; do
-    cp -R build/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win64/${plugin}.exe
-    cp -R build/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win64/${plugin}.dll
-    cp -R build/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win64/${plugin}.vst3
+plugin="CHOWTapeModel"
 
-    cp -R build32/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win32/${plugin}.exe
-    cp -R build32/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win32/${plugin}.dll
-    cp -R build32/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win32/${plugin}.vst3
-done
+cp -R build/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win64/${plugin}.exe
+cp -R build/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win64/${plugin}.dll
+cp -R build/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win64/${plugin}.vst3
+
+cp -R build32/${plugin}_artefacts/Release/Standalone/${plugin}.exe Bin/Win32/${plugin}.exe
+cp -R build32/${plugin}_artefacts/Release/VST/${plugin}.dll Bin/Win32/${plugin}.dll
+cp -R build32/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win32/${plugin}.vst3
 
 # reset CMakeLists.txt
 git restore CMakeLists.txt
@@ -56,4 +55,11 @@ VERSION=$(cut -f 2 -d '=' <<< "$(grep 'CMAKE_PROJECT_VERSION:STATIC' build/CMake
     rm -f "CHOWTapeModel-Win32-${VERSION}.zip"
     zip -r "CHOWTapeModel-Win64-${VERSION}.zip" Win64
     zip -r "CHOWTapeModel-Win32-${VERSION}.zip" Win32
+)
+
+# create installer
+echo "Creating installer..."
+(
+    cd Installers/windows
+    bash build_win_installer.sh
 )
