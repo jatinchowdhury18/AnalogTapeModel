@@ -46,7 +46,7 @@ void setParameters (AudioProcessor* plugin, int mode)
                       << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
 
-        if (param->getName (1024) == "Mode")
+        if (param->getName (1024) == "Tape Mode")
         {
             param->setValue ((float) mode / 5.0f); // STN
             std::cout << "Setting parameter " << param->getName (1024)
