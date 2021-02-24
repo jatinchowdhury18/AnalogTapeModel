@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12" CACHE STRING "Minimum OS X deployment target")
 set(CMAKE_CXX_STANDARD 17)
-project(CHOWTapeModel VERSION 2.7.0)
+project(CHOWTapeModel VERSION 2.7.2)
 
 add_subdirectory(modules)
 include_directories(modules/RTNeural)
@@ -36,3 +36,13 @@ target_compile_definitions(CHOWTapeModel
 target_link_libraries(CHOWTapeModel PUBLIC
     juce_plugin_modules
 )
+
+# we need these flags for notarization on MacOS
+option(MACOS_RELEASE "Set build flags for MacOS Release" OFF)
+if(MACOS_RELEASE)
+    message(STATUS "Setting MacOS release flags...")
+    set_target_properties(CHOWTapeModel_Standalone PROPERTIES
+        XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+    # set_target_properties(ChowCentaur_AUv3 PROPERTIES
+    #     XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+endif()
