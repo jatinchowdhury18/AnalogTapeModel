@@ -69,7 +69,7 @@ HysteresisSTN::HysteresisSTN()
         };
 
         futures.push_back (std::async (std::launch::async,
-            [=, &widthLoadIdx] { loadModelSet (widthLoadIdx++); }));
+                                       [=, &widthLoadIdx] { loadModelSet (widthLoadIdx++); }));
     }
 
     for (auto& f : futures)
@@ -77,7 +77,7 @@ HysteresisSTN::HysteresisSTN()
 }
 
 void HysteresisSTN::prepare (double sampleRate)
-{  
+{
     sampleRateCorr = trainingSampleRate / sampleRate;
 }
 
