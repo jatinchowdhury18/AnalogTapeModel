@@ -14,7 +14,7 @@ Refs
 Builds
 BinaryData.h
 BinaryData*.cpp
-build*
+build*/
 JuceLibraryCode
 LV2.mak
 
@@ -34,3 +34,7 @@ LV2.mak
 *.asd
 *.mp4
 bin/*[!.zip]
+*.exe
+*_Packaged
+*.dmg
+
