@@ -7,3 +7,6 @@
 [submodule "Plugin/modules/chowdsp_utils"]
 	path = Plugin/modules/chowdsp_utils
 	url = https://github.com/Chowdhury-DSP/chowdsp_utils
+[submodule "Plugin/modules/RTNeural"]
+	path = Plugin/modules/RTNeural
+	url = https://github.com/jatinchowdhury18/RTNeural

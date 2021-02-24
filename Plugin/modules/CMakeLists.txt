@@ -3,6 +3,10 @@ add_subdirectory(JUCE)
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
 
+# Using RTNeural with XSimd backend
+set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
+add_subdirectory(RTNeural)
+
 add_library(juce_plugin_modules STATIC)
 target_link_libraries(juce_plugin_modules
     PRIVATE
@@ -11,6 +15,7 @@ target_link_libraries(juce_plugin_modules
         juce::juce_audio_plugin_client
         foleys_gui_magic
         chowdsp_utils
+        RTNeural
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
