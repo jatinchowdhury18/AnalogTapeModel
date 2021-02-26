@@ -7,9 +7,6 @@ on:
     - develop
     paths:
     - 'Manual/**'
-  pull_request:
-    branches:
-    - develop
 
   workflow_dispatch:
 
