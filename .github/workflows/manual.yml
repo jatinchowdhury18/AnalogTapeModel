@@ -1,0 +1,39 @@
+name: manual
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    paths:
+    - 'Manual/**'
+
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    name: Build and deploy manual
+    runs-on: ubuntu-latest
+  
+    steps:
+    - name: Install Linux Deps
+      run: sudo apt install texlive-xetex
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: false
+
+    - name: Build manual
+      working-directory: ${{github.workspace}}/Manual
+      run: make
+
+    - name: Deploy manual
+      uses: appleboy/scp-action@master
+      with:
+        host: ccrma-gate.stanford.edu
+        username: jatin
+        password: ${{ secrets.CCRMA_PASS }}
+        source: "Manual/ChowTapeManual.pdf"
+        target: "~/Library/Web/chowdsp/Products"
+        strip_components: 1
