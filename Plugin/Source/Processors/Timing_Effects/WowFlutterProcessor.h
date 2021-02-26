@@ -1,13 +1,13 @@
-#ifndef FLUTTER_H_INCLUDED
-#define FLUTTER_H_INCLUDED
+#ifndef WOWFLUTTERPROCESSOR_H_INCLUDED
+#define WOWFLUTTERPROCESSOR_H_INCLUDED
 
 #include "../Hysteresis/DCBlocker.h"
 #include <JuceHeader.h>
 
-class Flutter
+class WowFlutterProcessor
 {
 public:
-    Flutter (AudioProcessorValueTreeState& vts);
+    WowFlutterProcessor (AudioProcessorValueTreeState& vts);
 
     void initialisePlots (foleys::MagicGUIState& magicState);
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
@@ -63,8 +63,7 @@ private:
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
     DCBlocker dcBlocker[2];
 
-    //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Flutter)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WowFlutterProcessor)
 };
 
-#endif //FLUTTER_H_INCLUDED
+#endif //WOWFLUTTRPROCESSOR_H_INCLUDED

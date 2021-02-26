@@ -1,4 +1,4 @@
-#include "Flutter.h"
+#include "WowFlutterProcessor.h"
 #include "../../GUI/LightMeter.h"
 
 namespace
@@ -6,7 +6,7 @@ namespace
 constexpr float depthSlewMin = 0.001f;
 }
 
-Flutter::Flutter (AudioProcessorValueTreeState& vts)
+WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
 {
     flutterRate = vts.getRawParameterValue ("rate");
     flutterDepth = vts.getRawParameterValue ("depth");
@@ -23,7 +23,7 @@ Flutter::Flutter (AudioProcessorValueTreeState& vts)
     depthSlewFlutter[1].setCurrentAndTargetValue (*flutterDepth);
 }
 
-void Flutter::initialisePlots (foleys::MagicGUIState& magicState)
+void WowFlutterProcessor::initialisePlots (foleys::MagicGUIState& magicState)
 {
     wowPlot = magicState.createAndAddObject<LightMeter> ("wow");
     magicState.addBackgroundProcessing (wowPlot);
@@ -32,7 +32,7 @@ void Flutter::initialisePlots (foleys::MagicGUIState& magicState)
     magicState.addBackgroundProcessing (flutterPlot);
 }
 
-void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void WowFlutterProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
     params.push_back (std::make_unique<AudioParameterBool> ("flutter_onoff", "Wow/Flutter On/Off", true));
 
@@ -43,7 +43,7 @@ void Flutter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioPara
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Wow Depth", 0.0f, 1.0f, 0.0f));
 }
 
-void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
+void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
 
@@ -81,7 +81,7 @@ void Flutter::prepareToPlay (double sampleRate, int samplesPerBlock)
     flutterPlot->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
-void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
+void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
 {
     ScopedNoDenormals noDenormals;
 
@@ -147,7 +147,7 @@ void Flutter::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessag
     flutterPlot->pushSamples (flutterBuffer);
 }
 
-void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
+void WowFlutterProcessor::processWetBuffer (AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
@@ -189,7 +189,7 @@ void Flutter::processWetBuffer (AudioBuffer<float>& buffer)
     }
 }
 
-void Flutter::processBypassed (AudioBuffer<float>& buffer)
+void WowFlutterProcessor::processBypassed (AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
