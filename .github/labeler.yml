@@ -1,0 +1,22 @@
+# labeler.yml:
+# Assign labels to pull requests that change various files
+# For more information, see https://github.com/actions/labeler
+
+dsp:
+  - Plugin/Source/Processors/**/*
+
+gui:
+  - Plugin/Source/GUI/**/*
+
+presets:
+  - - Plugin/Source/Presets/**/*
+
+documentation:
+  - Manual/**/*
+  - README.md
+
+ci-pipeline:
+  - .github/workflows/*
+
+installers:
+  - Plugin/Installers/**/*
