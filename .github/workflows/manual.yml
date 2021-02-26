@@ -28,7 +28,7 @@ jobs:
         submodules: false
 
     - name: Build manual
-      working-directory: ${{github.workspace}}/manual
+      working-directory: ${{github.workspace}}/Manual
       run: make
 
     - name: Deploy manual
