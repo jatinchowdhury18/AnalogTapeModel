@@ -1,8 +1,8 @@
 #ifndef WOWFLUTTERPROCESSOR_H_INCLUDED
 #define WOWFLUTTERPROCESSOR_H_INCLUDED
 
-#include "../Hysteresis/DCBlocker.h"
 #include "../BypassProcessor.h"
+#include "../Hysteresis/DCBlocker.h"
 #include "FlutterProcess.h"
 #include "WowProcess.h"
 
