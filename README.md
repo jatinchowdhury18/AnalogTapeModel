@@ -11,6 +11,11 @@ presented at the 2019 DAFx conference. This work began part of a
 class project for [Music 420](https://ccrma.stanford.edu/courses/420/)
 at Stanford University (CCRMA).
 
+### Quick Links
+- [Latest Release](https://chowdsp.com/products.html#tape)
+- [Nightly Builds](https://chowdsp.com/nightly.html#tape)
+- [User Manual](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf)
+
 ## Definition
 **magnetic tape** noun<br/>
 mag·net·​ic tape | \ˈnedik 'tāp\
@@ -32,20 +37,18 @@ CHOW Tape is currently available in the following formats:
   - LV2
   - Standalone plugin
 
-For more information, see the [User Manual](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf)
-
 ## Installation
 
 Download the latest release
-[here](https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest).
-If you would like to try the most recent builds (potentially unstable),
-see [here](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/develop/Plugin/Bin).
+[here](https://chowdsp.com/products.html#tape).
+If you would like to try the nightly builds (potentially unstable),
+see [here](https://chowdsp.com/nightly.html#tape).
 If you need Linux builds, or if you prefer to build the plugin for yourself,
 please see the [building instructions](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md).
 Alternatively, Linux users may download builds from the
 [Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/CHOWTapeModel).
 
-**Note: If you have a computer with Applie Silicon, please try the [experimental build](https://github.com/jatinchowdhury18/AnalogTapeModel/tree/develop/Plugin/Bin)! Please note your experiences using the plugin on Apple Silicon in this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/124).**
+**Note: If you have a computer with Applie Silicon, please try the [experimental build](https://chowdsp.com/nightly.html#tape)! Please note your experiences using the plugin on Apple Silicon in this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/124).**
 
 Note for FL Studio users: If you're experiencing pops and click while using
 the plugin, try enabling the "used fixed size buffers" setting. For more

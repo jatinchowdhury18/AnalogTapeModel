@@ -1,6 +1,5 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
-    InfoComp.cpp
     LightMeter.cpp
     MixGroupViz.cpp
     MyLNF.cpp
