@@ -2,6 +2,7 @@
 #define WOWFLUTTERPROCESSOR_H_INCLUDED
 
 #include "../Hysteresis/DCBlocker.h"
+#include "../BypassProcessor.h"
 #include "FlutterProcess.h"
 #include "WowProcess.h"
 
@@ -26,8 +27,7 @@ private:
     std::atomic<float>* wowRate = nullptr;
     std::atomic<float>* wowDepth = nullptr;
 
-    bool isOff = false;
-    AudioBuffer<float> fadeBuffer;
+    BypassProcessor bypass;
     float fs = 48000.0f;
 
     WowProcess wowProcessor;

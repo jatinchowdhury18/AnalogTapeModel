@@ -41,6 +41,7 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
 
+    bypass.prepare (samplesPerBlock, bypass.toBool (flutterOnOff));
     wowProcessor.prepare (sampleRate, samplesPerBlock);
     flutterProcessor.prepare (sampleRate, samplesPerBlock);
 
@@ -51,9 +52,6 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
         dcBlocker[ch].prepare (sampleRate, 15.0f);
     }
-
-    isOff = true;
-    fadeBuffer.setSize (2, samplesPerBlock);
 
     wowPlot->prepareToPlay (sampleRate, samplesPerBlock);
     flutterPlot->prepareToPlay (sampleRate, samplesPerBlock);
@@ -71,24 +69,15 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
     flutterProcessor.prepareBlock (curDepthFlutter, flutterFreq, buffer.getNumSamples());
 
-    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) || (wowProcessor.shouldTurnOff() && flutterProcessor.shouldTurnOff());
-    if (! isOff && ! shouldTurnOff) // process normally
-        processWetBuffer (buffer);
-    else if (isOff && shouldTurnOff) // off
-        processBypassed (buffer);
-    else if (isOff != shouldTurnOff) // fade between states
+    bool shouldTurnOff = ! bypass.toBool (flutterOnOff) || (wowProcessor.shouldTurnOff() && flutterProcessor.shouldTurnOff());
+    if (bypass.processBlockIn (buffer, shouldTurnOff))
     {
-        fadeBuffer.makeCopyOf (buffer, true);
         processWetBuffer (buffer);
-
-        float startGain = shouldTurnOff == false ? 1.0f : 0.0f;
-        float endGain = 1.0f - startGain;
-
-        buffer.applyGainRamp (0, buffer.getNumSamples(), startGain, endGain);
-        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-            buffer.addFromWithRamp (ch, 0, fadeBuffer.getWritePointer (ch), buffer.getNumSamples(), 1.0f - startGain, 1.0f - endGain);
-
-        isOff = shouldTurnOff;
+        bypass.processBlockOut (buffer, shouldTurnOff);
+    }
+    else
+    {
+        processBypassed (buffer);
     }
 
     // dc block
