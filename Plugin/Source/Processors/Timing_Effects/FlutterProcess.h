@@ -14,7 +14,7 @@ public:
 
     inline bool shouldTurnOff() const noexcept { return depthSlew[0].getTargetValue() == depthSlewMin; }
     inline void updatePhase (int ch) noexcept
-    { 
+    {
         phase1[ch] += angleDelta1;
         phase2[ch] += angleDelta2;
         phase3[ch] += angleDelta3;
@@ -24,9 +24,9 @@ public:
     {
         updatePhase (ch);
         flutterPtrs[ch][n] = depthSlew[ch].getNextValue()
-                           * (amp1 * std::cos (phase1[ch] + phaseOff1)
-                            + amp2 * std::cos (phase2[ch] + phaseOff2)
-                            + amp3 * std::cos (phase3[ch] + phaseOff3));
+                             * (amp1 * std::cos (phase1[ch] + phaseOff1)
+                                + amp2 * std::cos (phase2[ch] + phaseOff2)
+                                + amp3 * std::cos (phase3[ch] + phaseOff3));
         return std::make_pair (flutterPtrs[ch][n], dcOffset);
     }
 

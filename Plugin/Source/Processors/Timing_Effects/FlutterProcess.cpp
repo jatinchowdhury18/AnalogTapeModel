@@ -4,7 +4,7 @@ void FlutterProcess::prepare (double sampleRate, int samplesPerBlock)
 {
     fs = fs;
 
-    for (int ch = 0; ch <2; ++ch)
+    for (int ch = 0; ch < 2; ++ch)
     {
         depthSlew[ch].reset (sampleRate, 0.05);
         depthSlew[ch].setCurrentAndTargetValue (depthSlewMin);

@@ -86,9 +86,8 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
         buffer.applyGainRamp (0, buffer.getNumSamples(), startGain, endGain);
         for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-            buffer.addFromWithRamp (ch, 0, fadeBuffer.getWritePointer (ch), buffer.getNumSamples(),
-                                    1.0f - startGain, 1.0f - endGain);
-        
+            buffer.addFromWithRamp (ch, 0, fadeBuffer.getWritePointer (ch), buffer.getNumSamples(), 1.0f - startGain, 1.0f - endGain);
+
         isOff = shouldTurnOff;
     }
 
