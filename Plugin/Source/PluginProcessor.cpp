@@ -62,8 +62,8 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("ingain", "Input Gain [dB]", -30.0f, 6.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain [dB]", -30.0f, 30.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("ingain", "Input Gain", -30.0f, 6.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("drywet", "Dry/Wet", 0.0f, 100.0f, 100.0f));
     params.push_back (std::make_unique<AudioParameterInt> ("preset", "Preset", 0, maxNumPresets, 0));
 

@@ -38,13 +38,13 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
 
     params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "Loss On/Off", true));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Tape Speed [ips]", speedRange, 30.0f, String(), AudioProcessorParameter::genericParameter, [] (float value, int) { return String (value, 2); }));
+    params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Tape Speed", speedRange, 30.0f, String(), AudioProcessorParameter::genericParameter, [] (float value, int) { return String (value, 2); }));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Tape Spacing [microns]", spaceRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Tape Spacing", spaceRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Tape Thickness [microns]", thickRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Tape Thickness", thickRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Playhead Gap [microns]", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
+    params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Playhead Gap", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 }
 
 float LossFilter::getLatencySamples() const noexcept
