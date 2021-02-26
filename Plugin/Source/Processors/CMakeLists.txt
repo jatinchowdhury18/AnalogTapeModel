@@ -10,4 +10,5 @@ target_sources(CHOWTapeModel PRIVATE
     Input_Filters/InputFilters.cpp
     Loss_Effects/LossFilter.cpp
     Timing_Effects/WowFlutterProcessor.cpp
+    Timing_Effects/WowProcess.cpp
 )

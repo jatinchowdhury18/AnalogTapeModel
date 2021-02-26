@@ -16,9 +16,6 @@ WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
 
     flutterOnOff = vts.getRawParameterValue ("flutter_onoff");
 
-    depthSlewWow[0].setCurrentAndTargetValue (*wowDepth);
-    depthSlewWow[1].setCurrentAndTargetValue (*wowDepth);
-
     depthSlewFlutter[0].setCurrentAndTargetValue (*flutterDepth);
     depthSlewFlutter[1].setCurrentAndTargetValue (*flutterDepth);
 }
@@ -47,18 +44,16 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
 
+    wowProcessor.prepare (sampleRate, samplesPerBlock);
+
     for (int ch = 0; ch < 2; ++ch)
     {
         delay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
         delay.setDelay (0.0f);
 
-        depthSlewWow[ch].reset (sampleRate, 0.05);
-        depthSlewWow[ch].setCurrentAndTargetValue (depthSlewMin);
-
         depthSlewFlutter[ch].reset (sampleRate, 0.05);
         depthSlewFlutter[ch].setCurrentAndTargetValue (depthSlewMin);
 
-        wowPhase[ch] = 0.0f;
         phase1[ch] = 0.0f;
         phase2[ch] = 0.0f;
         phase3[ch] = 0.0f;
@@ -66,7 +61,6 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         dcBlocker[ch].prepare (sampleRate, 15.0f);
     }
 
-    wowAmp = 1000.0f * 1000.0f / (float) sampleRate;
     amp1 = -230.0f * 1000.0f / (float) sampleRate;
     amp2 = -80.0f * 1000.0f / (float) sampleRate;
     amp3 = -99.0f * 1000.0f / (float) sampleRate;
@@ -74,7 +68,6 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     isOff = true;
     dryBuffer.setSize (2, samplesPerBlock);
-    wowBuffer.setSize (2, samplesPerBlock);
     flutterBuffer.setSize (2, samplesPerBlock);
 
     wowPlot->prepareToPlay (sampleRate, samplesPerBlock);
@@ -86,27 +79,22 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     ScopedNoDenormals noDenormals;
 
     auto curDepthWow = powf (*wowDepth, 3.0f);
-    depthSlewWow[0].setTargetValue (jmax (depthSlewMin, curDepthWow));
-    depthSlewWow[1].setTargetValue (jmax (depthSlewMin, curDepthWow));
+    auto wowFreq = powf (4.5, *wowRate) - 1.0f;
+    wowProcessor.prepareBlock (curDepthWow, wowFreq, buffer.getNumSamples());
 
     auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     depthSlewFlutter[0].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
     depthSlewFlutter[1].setTargetValue (jmax (depthSlewMin, curDepthFlutter));
-
-    auto wowFreq = powf (4.5, *wowRate) - 1.0f;
-    angleDeltaWow = MathConstants<float>::twoPi * wowFreq / fs;
 
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
     angleDelta1 = MathConstants<float>::twoPi * 1.0f * flutterFreq / fs;
     angleDelta2 = MathConstants<float>::twoPi * 2.0f * flutterFreq / fs;
     angleDelta3 = MathConstants<float>::twoPi * 3.0f * flutterFreq / fs;
 
-    wowBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
-    wowBuffer.clear();
     flutterBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
     flutterBuffer.clear();
 
-    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) || (depthSlewWow[0].getTargetValue() == depthSlewMin && depthSlewFlutter[0].getTargetValue() == depthSlewMin);
+    bool shouldTurnOff = ! static_cast<bool> (flutterOnOff->load()) || (wowProcessor.shouldTurnOff() && depthSlewFlutter[0].getTargetValue() == depthSlewMin);
     if (! isOff && ! shouldTurnOff) // process normally
     {
         processWetBuffer (buffer);
@@ -140,8 +128,7 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
-    wowBuffer.applyGain (0.83333f / wowAmp);
-    wowPlot->pushSamples (wowBuffer);
+    wowProcessor.plotBuffer (wowPlot);
 
     flutterBuffer.applyGain (1.3333f / amp1);
     flutterPlot->pushSamples (flutterBuffer);
@@ -152,34 +139,31 @@ void WowFlutterProcessor::processWetBuffer (AudioBuffer<float>& buffer)
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
         auto* x = buffer.getWritePointer (ch);
-        auto* wowPtr = wowBuffer.getWritePointer (ch);
         auto* flutterPtr = flutterBuffer.getWritePointer (ch);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
-            wowPhase[ch] += angleDeltaWow;
+            auto [wowLFO, wowOffset] = wowProcessor.getLFO (n, ch);
+
             phase1[ch] += angleDelta1;
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
 
-            auto wowLFO = depthSlewWow[ch].getNextValue() * wowAmp * cosf (wowPhase[ch]);
             auto flutterLFO = depthSlewFlutter[ch].getNextValue()
                               * (amp1 * cosf (phase1[ch] + phaseOff1)
                                  + amp2 * cosf (phase2[ch] + phaseOff2)
                                  + amp3 * cosf (phase3[ch] + phaseOff3));
 
-            auto newLength = (wowLFO + flutterLFO + dcOffset + depthSlewWow[ch].getCurrentValue() * wowAmp) * (float) fs / 1000.0f;
+            auto newLength = (wowLFO + flutterLFO + dcOffset + wowOffset) * (float) fs / 1000.0f;
             newLength = jlimit (0.0f, (float) HISTORY_SIZE, newLength);
 
             delay.setDelay (newLength);
             delay.pushSample (ch, x[n]);
             x[n] = delay.popSample (ch);
 
-            wowPtr[n] = wowLFO;
             flutterPtr[n] = flutterLFO;
         }
 
-        while (wowPhase[ch] >= MathConstants<float>::twoPi)
-            wowPhase[ch] -= MathConstants<float>::twoPi;
+        wowProcessor.boundPhase (ch);
         while (phase1[ch] >= MathConstants<float>::twoPi)
             phase1[ch] -= MathConstants<float>::twoPi;
         while (phase2[ch] >= MathConstants<float>::twoPi)
@@ -196,7 +180,7 @@ void WowFlutterProcessor::processBypassed (AudioBuffer<float>& buffer)
         delay.setDelay (0.0f);
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
-            wowPhase[ch] += angleDeltaWow;
+            wowProcessor.updatePhase (ch);
             phase1[ch] += angleDelta1;
             phase2[ch] += angleDelta2;
             phase3[ch] += angleDelta3;
@@ -205,8 +189,7 @@ void WowFlutterProcessor::processBypassed (AudioBuffer<float>& buffer)
             delay.popSample (ch);
         }
 
-        while (wowPhase[ch] >= MathConstants<float>::twoPi)
-            wowPhase[ch] -= MathConstants<float>::twoPi;
+        wowProcessor.updatePhase (ch);
         while (phase1[ch] >= MathConstants<float>::twoPi)
             phase1[ch] -= MathConstants<float>::twoPi;
         while (phase2[ch] >= MathConstants<float>::twoPi)
