@@ -17,6 +17,7 @@ juce_add_plugin(CHOWTapeModel
     FORMATS AU VST3 Standalone LV2 #VST
     ProductName "CHOWTapeModel"
     LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+    ICON_BIG Source/GUI/Assets/logo.png
 )
 
 # create JUCE header

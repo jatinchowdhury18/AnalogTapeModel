@@ -9,7 +9,6 @@
 */
 
 #include "PluginProcessor.h"
-#include "GUI/InfoComp.h"
 #include "GUI/MixGroupViz.h"
 #include "GUI/PowerButton.h"
 #include "GUI/TitleComp.h"
@@ -289,7 +288,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCEFactories();
     presetManager.registerPresetsComponent (*builder);
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
-    builder->registerFactory ("InfoComp", &InfoItem::factory);
+    builder->registerFactory ("InfoComp", &chowdsp::InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);

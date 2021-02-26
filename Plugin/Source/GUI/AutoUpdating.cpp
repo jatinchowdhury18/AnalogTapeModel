@@ -5,7 +5,7 @@ namespace
 const String updateFilePath = "ChowdhuryDSP/ChowTape/UpdateManage.txt";
 const String currentVersion = "v" + String (JucePlugin_VersionString);
 const String versionURL = "https://api.github.com/repos/jatinchowdhury18/AnalogTapeModel/releases/latest";
-const String updateURL = "https://github.com/jatinchowdhury18/AnalogTapeModel/releases/latest";
+const String updateURL = "https://chowdsp.com/products.html#tape";
 const Colour backgroundColour = Colour (0xFF31323A).withAlpha (0.9f);
 const Colour textColour = Colour (0xFFEAA92C);
 } // namespace
