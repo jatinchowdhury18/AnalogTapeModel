@@ -18,7 +18,7 @@ public:
         dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, 1 };
 
         noiseGen.setNoiseType (chowdsp::Noise<float>::Normal);
-        noiseGen.setGainLinear (1.0f); // / 2.23f);
+        noiseGen.setGainLinear (1.0f / 2.33f);
         noiseGen.prepare (spec);
 
         lpf.prepare (spec);
@@ -52,7 +52,7 @@ public:
     {
         y[ch] += sqrtdelta * rPtr[n] * amt;
         y[ch] += damping * (mean - y[ch]) * T;
-        return lpf.processSample (y[ch]);
+        return lpf.processSample (y[ch] + 0.1f);
     }
 
 private:

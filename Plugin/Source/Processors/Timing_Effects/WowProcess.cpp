@@ -17,11 +17,13 @@ void WowProcess::prepare (double sampleRate, int samplesPerBlock)
     ohProc.prepare (sampleRate, samplesPerBlock);
 }
 
-void WowProcess::prepareBlock (float curDepth, float wowFreq, float wowVar, int numSamples)
+void WowProcess::prepareBlock (float curDepth, float wowFreq, float wowVar, float wowDrift, int numSamples)
 {
     depthSlew[0].setTargetValue (jmax (depthSlewMin, curDepth));
     depthSlew[1].setTargetValue (jmax (depthSlewMin, curDepth));
-    angleDelta = MathConstants<float>::twoPi * wowFreq / fs;
+
+    auto freqAdjust = wowFreq * (1.0f + std::pow (driftRand.nextFloat(), 1.25f) * wowDrift);
+    angleDelta = MathConstants<float>::twoPi * freqAdjust / fs;
 
     wowBuffer.setSize (2, numSamples, false, false, true);
     wowBuffer.clear();

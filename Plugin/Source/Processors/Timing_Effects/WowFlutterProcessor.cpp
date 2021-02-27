@@ -14,6 +14,7 @@ WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
     wowRate = vts.getRawParameterValue ("wow_rate");
     wowDepth = vts.getRawParameterValue ("wow_depth");
     wowVariance = vts.getRawParameterValue ("wow_var");
+    wowDrift = vts.getRawParameterValue ("wow_drift");
 
     flutterOnOff = vts.getRawParameterValue ("flutter_onoff");
 }
@@ -37,6 +38,7 @@ void WowFlutterProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Wow Rate", 0.0f, 1.0f, 0.25f));
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Wow Depth", 0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_var", "Wow Variance", 0.0f, 1.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("wow_drift", "Wow Drift", 0.0f, 1.0f, 0.0f));
 }
 
 void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -66,7 +68,8 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     auto curDepthWow = powf (*wowDepth, 3.0f);
     auto wowFreq = powf (4.5, *wowRate) - 1.0f;
     wowProcessor.prepareBlock (curDepthWow, wowFreq,
-                               wowVariance->load(), buffer.getNumSamples());
+                               wowVariance->load(), wowDrift->load(),
+                               buffer.getNumSamples());
 
     auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);

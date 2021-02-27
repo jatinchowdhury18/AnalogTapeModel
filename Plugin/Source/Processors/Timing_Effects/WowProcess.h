@@ -10,7 +10,7 @@ public:
     WowProcess() = default;
 
     void prepare (double sampleRate, int samplesPerBlock);
-    void prepareBlock (float curDepth, float wowFreq, float wowVar, int numSamples);
+    void prepareBlock (float curDepth, float wowFreq, float wowVar, float wowDrift, int numSamples);
     void plotBuffer (foleys::MagicPlotSource* plot);
 
     inline bool shouldTurnOff() const noexcept { return depthSlew[0].getTargetValue() == depthSlewMin; }
@@ -41,6 +41,7 @@ private:
     float fs = 44100.0f;
 
     OHProcess ohProc;
+    Random driftRand;
 
     static constexpr float depthSlewMin = 0.001f;
 
