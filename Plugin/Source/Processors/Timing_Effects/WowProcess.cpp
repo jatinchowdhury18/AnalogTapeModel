@@ -13,9 +13,11 @@ void WowProcess::prepare (double sampleRate, int samplesPerBlock)
 
     amp = 1000.0f * 1000.0f / (float) sampleRate;
     wowBuffer.setSize (2, samplesPerBlock);
+
+    ohProc.prepare (sampleRate, samplesPerBlock);
 }
 
-void WowProcess::prepareBlock (float curDepth, float wowFreq, int numSamples)
+void WowProcess::prepareBlock (float curDepth, float wowFreq, float wowVar, int numSamples)
 {
     depthSlew[0].setTargetValue (jmax (depthSlewMin, curDepth));
     depthSlew[1].setTargetValue (jmax (depthSlewMin, curDepth));
@@ -24,6 +26,8 @@ void WowProcess::prepareBlock (float curDepth, float wowFreq, int numSamples)
     wowBuffer.setSize (2, numSamples, false, false, true);
     wowBuffer.clear();
     wowPtrs = wowBuffer.getArrayOfWritePointers();
+
+    ohProc.prepareBlock (wowVar, numSamples);
 }
 
 void WowProcess::plotBuffer (foleys::MagicPlotSource* plot)

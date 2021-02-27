@@ -185,10 +185,13 @@
         <View tab-caption="Wow" flex-direction="column" background-color="FF31323A">
           <Slider caption="Depth" parameter="wow_depth" max-height="150" class="Slider"
                   name="Wow Depth" tooltip="Sets the depth of the tape wow." margin="0"
-                  padding="0"/>
+                  padding="0" slider-type="linear-horizontal"/>
           <Slider caption="Rate" parameter="wow_rate" class="Slider" max-height="150"
                   name="Wow Rate" tooltip="Sets the rate of the tape wow." margin="0"
-                  padding="0"/>
+                  padding="0" slider-type="linear-horizontal"/>
+          <Slider caption="Variance" parameter="wow_var" class="Slider" max-height="150"
+                  name="Wow Variance" tooltip="Sets the amount of variance in the tape wow." margin="0"
+                  padding="0" slider-type="linear-horizontal"/>
           <Plot source="wow" plot-decay="0.8" flex-grow="0.8" background-color="FF1E1F22"
                 plot-color="FFEAA92C" plot-fill-color="CC8B3232"/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"

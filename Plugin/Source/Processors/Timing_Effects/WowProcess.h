@@ -2,6 +2,7 @@
 #define WOWPROCESS_H_INCLUDED
 
 #include <JuceHeader.h>
+#include "OHProcess.h"
 
 class WowProcess
 {
@@ -9,7 +10,7 @@ public:
     WowProcess() = default;
 
     void prepare (double sampleRate, int samplesPerBlock);
-    void prepareBlock (float curDepth, float wowFreq, int numSamples);
+    void prepareBlock (float curDepth, float wowFreq, float wowVar, int numSamples);
     void plotBuffer (foleys::MagicPlotSource* plot);
 
     inline bool shouldTurnOff() const noexcept { return depthSlew[0].getTargetValue() == depthSlewMin; }
@@ -19,7 +20,7 @@ public:
     {
         updatePhase (ch);
         auto curDepth = depthSlew[ch].getNextValue() * amp;
-        wowPtrs[ch][n] = curDepth * std::cos (phase[ch]);
+        wowPtrs[ch][n] = curDepth * (std::cos (phase[ch]) + ohProc.process (n, ch));
         return std::make_pair (wowPtrs[ch][n], curDepth);
     }
 
@@ -38,6 +39,8 @@ private:
     AudioBuffer<float> wowBuffer;
     float** wowPtrs = nullptr;
     float fs = 44100.0f;
+
+    OHProcess ohProc;
 
     static constexpr float depthSlewMin = 0.001f;
 

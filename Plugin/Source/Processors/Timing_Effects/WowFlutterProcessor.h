@@ -26,6 +26,7 @@ private:
     std::atomic<float>* flutterDepth = nullptr;
     std::atomic<float>* wowRate = nullptr;
     std::atomic<float>* wowDepth = nullptr;
+    std::atomic<float>* wowVariance = nullptr;
 
     BypassProcessor bypass;
     float fs = 48000.0f;
