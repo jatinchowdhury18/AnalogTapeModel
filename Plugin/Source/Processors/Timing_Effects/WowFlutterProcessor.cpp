@@ -67,9 +67,7 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     auto curDepthWow = powf (*wowDepth, 3.0f);
     auto wowFreq = powf (4.5, *wowRate) - 1.0f;
-    wowProcessor.prepareBlock (curDepthWow, wowFreq,
-                               wowVariance->load(), wowDrift->load(),
-                               buffer.getNumSamples());
+    wowProcessor.prepareBlock (curDepthWow, wowFreq, wowVariance->load(), wowDrift->load(), buffer.getNumSamples());
 
     auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);

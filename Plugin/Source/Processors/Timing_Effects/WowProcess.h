@@ -1,8 +1,8 @@
 #ifndef WOWPROCESS_H_INCLUDED
 #define WOWPROCESS_H_INCLUDED
 
-#include <JuceHeader.h>
 #include "OHProcess.h"
+#include <JuceHeader.h>
 
 class WowProcess
 {

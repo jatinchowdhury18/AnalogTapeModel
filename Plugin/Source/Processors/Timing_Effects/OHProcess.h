@@ -7,7 +7,7 @@
  * Class to simulate the Ornstein-Uhlenbeck process.
  * Mostly lifted from https://github.com/mhampton/ZetaCarinaeModules
  * under the GPLv3 license.
- */ 
+ */
 class OHProcess
 {
 public:
