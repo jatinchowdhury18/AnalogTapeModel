@@ -18,13 +18,15 @@ Name: "VST3_64"; Description: "VST3 Plugin 64-bit"; Types: full
 Name: "VST_64"; Description: "VST Plugin 64-bit"; Types: full
 Name: "VST3_32"; Description: "VST3 Plugin 32-bit"; Types: full
 Name: "VST_32"; Description: "VST Plugin 32-bit"; Types: full
+Name: "Standalone"; Description: "Standalone Plugin"; Types: full
 ; Name: "AAX"; Description: "AAX Plugin"; Types: full
 
 [Files]
 Source: "../../Bin/Win64/CHOWTapeModel.vst3"; DestDir: "{code:GetDir|VST3_64}"; Components: VST3_64; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../../Bin/Win64/CHOWTapeModel.dll"; DestDir: "{code:GetDir|VST_64}"; Components: VST_64; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win64/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code:GetDir|VST_64}"; Components: VST_64; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.vst3"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../../Bin/Win32/CHOWTapeModel.dll"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win32/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win64/CHOWTapeModel.exe"; Excludes: "*.vst3"; DestDir: "{code:GetDir|Standalone}"; Components: Standalone; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Code]
 var
@@ -33,6 +35,7 @@ var
   Vst_64DirPage: TinputDirWizardPage;
   Vst3_32DirPage: TinputDirWizardPage;
   Vst_32DirPage: TinputDirWizardPage;
+  StandaloneDirPage: TinputDirWizardPage;
 
 procedure InitializeWizard;
 begin
@@ -77,7 +80,7 @@ begin
   Vst3_32DirPage.add('');
   Vst3_32DirPage.values[0] := ExpandConstant('{commoncf32}\VST3');
 
-  //VST 64-bit Dir Page
+  //VST 32-bit Dir Page
   Vst_32DirPage := CreateInputDirPage(Vst3_32DirPage.ID,
     'Select Install Location for VST 32-bit', 'Where would you like to install the plugin?',
     'VST 32-bit plugin will be installed in the following folder.'#13#10#13#10 +
@@ -86,6 +89,15 @@ begin
 
   Vst_32DirPage.add('');
   Vst_32DirPage.values[0] := ExpandConstant('{commoncf32}\VST');
+
+  //Standalone Dir Page
+  StandaloneDirPage := CreateInputDirPage(Vst_32DirPage.ID,
+    'Select Install Location for Standalone', 'Where would you like to install the plugin?',
+    'Standalone plugin will be installed in the following folder.'#13#10#13#10 +
+    'To continue, click Next. If you would like to select a different folder, click Browse.',
+    False, 'New Folder');
+  StandaloneDirPage.add('');
+  StandaloneDirPage.values[0] := ExpandConstant('{pf64}\Chowdhury DSP');
 end;
 
 function IsSelected(Param: String) : Boolean;
@@ -158,6 +170,17 @@ begin
         Result := False;
       end
   end
+  
+  else if (PageID = StandaloneDirPage.ID) then
+  begin
+      Result := True;
+      Log('Selected 6: ' + WizardSelectedComponents(False));
+      if IsSelected ('standalone') then
+      begin
+        Log('Not Skipping');
+        Result := False;
+      end
+  end
 end;
 
 function GetDir(Param: String) : String;
@@ -172,6 +195,8 @@ begin
     Result := Vst_64DirPage.values[0]
   else if (Param = 'VST_32') then
     Result := Vst_32DirPage.values[0]
+  else if (Param = 'Standalone') then
+    Result := StandaloneDirPage.values[0]
 end;
 
 function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
@@ -199,6 +224,9 @@ begin
 
   if IsSelected('vst_32') then
     S := S + Space +  GetDir('VST_32') + ' (VST 32-bit)' + NewLine;
+
+  if IsSelected('standalone') then
+    S := S + Space +  GetDir('Standalone') + ' (Standalone)' + NewLine;
 
   Result := S;
 end;

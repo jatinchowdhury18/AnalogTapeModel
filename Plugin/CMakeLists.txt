@@ -8,7 +8,7 @@ include_directories(modules/RTNeural)
 
 # set up plugin project
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
-# include_directories(C:/SDKs/asiosdk2.3/common)
+# include_directories(ASIO_SDK)
 
 juce_add_plugin(CHOWTapeModel
     COMPANY_NAME chowdsp
