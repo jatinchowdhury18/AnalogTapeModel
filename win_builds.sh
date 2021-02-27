@@ -22,9 +22,10 @@ rm -Rf Bin/*Win64*
 rm -Rf Bin/*Win32*
 
 # set up VST and ASIO paths
-sed -i -e "10s/#//" CMakeLists.txt
-sed -i -e "11s/#//" CMakeLists.txt
-sed -i -e '17s/#//' CMakeLists.txt
+sed -i -e "s~# juce_set_vst2_sdk_path.*~juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)~" CMakeLists.txt
+# sed -i -e "s~.*ASIO_SDK.*~include_directories(C:/SDKs/ASIO_SDK/common)~" CMakeLists.txt
+sed -i -e 's/#.*VST/VST/' CMakeLists.txt
+# sed -i -e 's/# JUCE_ASIO.*/JUCE_ASIO=1/' modules/CMakeLists.txt
 
 # cmake new builds
 build64 &
@@ -46,6 +47,7 @@ cp -R build32/${plugin}_artefacts/Release/VST3/${plugin}.vst3 Bin/Win32/${plugin
 
 # reset CMakeLists.txt
 git restore CMakeLists.txt
+git restore modules/CMakeLists.txt
 
 # zip builds
 VERSION=$(cut -f 2 -d '=' <<< "$(grep 'CMAKE_PROJECT_VERSION:STATIC' build/CMakeCache.txt)")
