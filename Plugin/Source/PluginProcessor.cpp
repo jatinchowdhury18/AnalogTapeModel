@@ -71,7 +71,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     ToneControl::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
-    Flutter::createParameterLayout (params);
+    WowFlutterProcessor::createParameterLayout (params);
     DegradeProcessor::createParameterLayout (params);
     ChewProcessor::createParameterLayout (params);
     MixGroupsController::createParameterLayout (params);

@@ -18,6 +18,7 @@ juce_add_plugin(CHOWTapeModel
     ProductName "CHOWTapeModel"
     LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
     ICON_BIG Source/GUI/Assets/logo.png
+    MICROPHONE_PERMISSION_ENABLED TRUE
 )
 
 # create JUCE header
