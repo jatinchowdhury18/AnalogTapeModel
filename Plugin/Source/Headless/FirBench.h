@@ -4,7 +4,7 @@ namespace
 {
 constexpr double pluginSampleRate = 48000.0;
 constexpr int samplesPerBlock = 256;
-}
+} // namespace
 
 class FirBench : public ConsoleApplication::Command
 {

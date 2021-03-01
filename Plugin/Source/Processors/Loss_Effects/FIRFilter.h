@@ -3,11 +3,11 @@
 
 // include <Accelerate> on Apple devices so we can use vDSP_dotpr
 #if JUCE_MAC || JUCE_IOS
- #define Point CarbonDummyPointName
- #define Component CarbonDummyCompName
- #include <Accelerate/Accelerate.h>
- #undef Point
- #undef Component
+#define Point CarbonDummyPointName
+#define Component CarbonDummyCompName
+#include <Accelerate/Accelerate.h>
+#undef Point
+#undef Component
 #endif
 
 #include <JuceHeader.h>

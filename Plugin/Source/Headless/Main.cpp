@@ -1,6 +1,6 @@
 #include "Benchmarks.h"
-#include "ScreenshotHelper.h"
 #include "FirBench.h"
+#include "ScreenshotHelper.h"
 
 String getVersion()
 {
