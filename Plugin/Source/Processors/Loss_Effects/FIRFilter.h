@@ -1,34 +1,37 @@
 #ifndef FIRFILTER_H_INCLUDED
 #define FIRFILTER_H_INCLUDED
 
-#include "JuceHeader.h"
+// include <Accelerate> on Apple devices so we can use vDSP_dotpr
+#if JUCE_MAC || JUCE_IOS
+ #define Point CarbonDummyPointName
+ #define Component CarbonDummyCompName
+ #include <Accelerate/Accelerate.h>
+ #undef Point
+ #undef Component
+#endif
+
+#include <JuceHeader.h>
 #include <numeric>
 
 /** FIR filter using a double-buffer and std::inner_product */
 class FIRFilter
 {
 public:
-    FIRFilter (int order) : order (order)
+    FIRFilter (int filter_order) : order ((size_t) filter_order)
     {
-        h = new float[order];
-        z = new float[2 * order];
-    }
-
-    ~FIRFilter()
-    {
-        delete[] h;
-        delete[] z;
+        h.resize (order);
+        z.resize (2 * order);
     }
 
     void reset()
     {
         zPtr = 0;
-        FloatVectorOperations::fill (z, 0.0f, 2 * order);
+        FloatVectorOperations::fill (z.data(), 0.0f, 2 * (int) order);
     }
 
     void setCoefs (float* coefs)
     {
-        FloatVectorOperations::copy (h, coefs, order);
+        FloatVectorOperations::copy (h.data(), coefs, (int) order);
     }
 
     inline void process (float* buffer, int numSamples)
@@ -40,11 +43,11 @@ public:
             z[zPtr] = buffer[n];
             z[zPtr + order] = buffer[n];
 
-#ifdef JUCE_USE_VDSP_FRAMEWORK
+#if JUCE_MAC || JUCE_IOS
             y = 0.0f;
-            vDSP_dotpr (z + zPtr, 1, h, 1, &y, order); // use Acclerate inner product (if available)
+            vDSP_dotpr (z.data() + zPtr, 1, h.data(), 1, &y, order); // use Acclerate inner product (if available)
 #else
-            y = std::inner_product (z + zPtr, z + zPtr + order, h, 0.0f); // comput inner product
+            y = std::inner_product (z.data() + zPtr, z.data() + zPtr + order, h.data(), 0.0f); // comput inner product
 #endif
 
             zPtr = (zPtr == 0 ? order - 1 : zPtr - 1); // iterate state pointer in reverse
@@ -63,12 +66,12 @@ public:
     }
 
 protected:
-    float* h;
-    const int order;
+    std::vector<float> h;
+    const size_t order;
 
 private:
-    float* z;
-    int zPtr = 0;
+    std::vector<float> z;
+    size_t zPtr = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FIRFilter)
 };
