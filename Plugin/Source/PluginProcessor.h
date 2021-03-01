@@ -24,7 +24,7 @@
 #include "Processors/Hysteresis/ToneControl.h"
 #include "Processors/Input_Filters/InputFilters.h"
 #include "Processors/Loss_Effects/LossFilter.h"
-#include "Processors/Timing_Effects/Flutter.h"
+#include "Processors/Timing_Effects/WowFlutterProcessor.h"
 #include <JuceHeader.h>
 
 //==============================================================================
@@ -88,7 +88,7 @@ private:
     DegradeProcessor degrade;
     ChewProcessor chewer;
     LossFilter lossFilter;
-    Flutter flutter;
+    WowFlutterProcessor flutter;
     DryWetProcessor dryWet;
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
     GainProcessor outGain;
