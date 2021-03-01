@@ -1,6 +1,6 @@
 #include "Benchmarks.h"
+#include "FirBench.h"
 #include "ScreenshotHelper.h"
-#include <JuceHeader.h>
 
 String getVersion()
 {
@@ -30,6 +30,9 @@ int main (int argc, char* argv[])
 
     Benchmarks benchmarks;
     app.addCommand (benchmarks);
+
+    FirBench firBench;
+    app.addCommand (firBench);
 
     return app.findAndRunCommand (argc, argv);
 }
