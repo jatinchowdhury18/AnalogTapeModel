@@ -9,7 +9,7 @@ gui:
   - Plugin/Source/GUI/**/*
 
 presets:
-  - - Plugin/Source/Presets/**/*
+  - Plugin/Source/Presets/**/*
 
 documentation:
   - Manual/**/*
