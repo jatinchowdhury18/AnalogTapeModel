@@ -2,13 +2,15 @@
 All notable changes to this project will be documented in
 this file.
 
-
 ## [Unreleased]
+- Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
 - Improved parameter names for automation menus.
 - Fixed GUI freezing bug in Cakewalk.
 - Fixed gain staging bug in Renoise.
 - Migrated build pipeline to CMake.
+- Updated "STN" hysteresis mode to use XSIMD backend.
+- Created installer packages for Windows/Mac.
 
 ## [2.7.0] - 2020-11-25
 - Added new hysteresis mode: State Transition Network (STN)

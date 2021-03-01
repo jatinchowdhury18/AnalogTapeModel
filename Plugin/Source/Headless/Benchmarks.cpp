@@ -12,7 +12,7 @@ Benchmarks::Benchmarks()
 {
     this->commandOption = "--bench";
     this->argumentDescription = "--bench --file=FILE --mode=MODE";
-    this->shortDescription = "Runs benchmarks for ChowTapeModel documentation";
+    this->shortDescription = "Runs benchmarks for ChowTapeModel";
     this->longDescription = "";
     this->command = std::bind (&Benchmarks::runBenchmarks, this, std::placeholders::_1);
 }
