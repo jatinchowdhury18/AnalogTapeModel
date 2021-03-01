@@ -30,7 +30,6 @@ public:
             phase[ch] -= MathConstants<float>::twoPi;
     }
 
-
 private:
     float angleDelta = 0.0f;
     float amp = 0.0f;
