@@ -34,6 +34,9 @@ void WowProcess::prepareBlock (float curDepth, float wowFreq, float wowVar, floa
 
 void WowProcess::plotBuffer (foleys::MagicPlotSource* plot)
 {
+    if (shouldTurnOff())
+        wowBuffer.clear();
+
     wowBuffer.applyGain (0.83333f / amp);
     plot->pushSamples (wowBuffer);
 }

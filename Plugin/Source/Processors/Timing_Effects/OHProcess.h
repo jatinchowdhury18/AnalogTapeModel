@@ -21,8 +21,11 @@ public:
         noiseGen.setGainLinear (1.0f / 2.33f);
         noiseGen.prepare (spec);
 
-        lpf.prepare (spec);
-        lpf.coefficients = dsp::IIR::Coefficients<float>::makeLowPass (sampleRate, 20.0f);
+        for (int ch = 0; ch < 2; ++ch)
+        {
+            lpf[ch].prepare (spec);
+            lpf[ch].coefficients = dsp::IIR::Coefficients<float>::makeLowPass (sampleRate, 10.0f);
+        }
 
         noiseBuffer.setSize (1, samplesPerBlock);
         rPtr = noiseBuffer.getReadPointer (0);
@@ -42,9 +45,9 @@ public:
         dsp::AudioBlock<float> noiseBlock (noiseBuffer);
         noiseGen.process (dsp::ProcessContextReplacing<float> (noiseBlock));
 
-        amtParam = std::pow (amtParam, 2.0f);
-        amt = amtParam * 0.5f;
-        damping = amtParam * 0.5f + 0.25f;
+        amtParam = std::pow (amtParam, 1.25f);
+        amt = amtParam;
+        damping = amtParam * 20.0f + 1.0f;
         mean = amtParam;
     }
 
@@ -52,7 +55,7 @@ public:
     {
         y[ch] += sqrtdelta * rPtr[n] * amt;
         y[ch] += damping * (mean - y[ch]) * T;
-        return lpf.processSample (y[ch] + 0.1f);
+        return lpf[ch].processSample (y[ch]);
     }
 
 private:
@@ -68,7 +71,7 @@ private:
     AudioBuffer<float> noiseBuffer;
     const float* rPtr = nullptr;
 
-    dsp::IIR::Filter<float> lpf;
+    dsp::IIR::Filter<float> lpf[2];
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OHProcess)
 };

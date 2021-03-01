@@ -73,11 +73,11 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
     flutterProcessor.prepareBlock (curDepthFlutter, flutterFreq, buffer.getNumSamples());
 
-    bool shouldTurnOff = bypass.toBool (flutterOnOff) || (wowProcessor.shouldTurnOff() && flutterProcessor.shouldTurnOff());
-    if (bypass.processBlockIn (buffer, shouldTurnOff))
+    bool shouldTurnOff = ! bypass.toBool (flutterOnOff) || (wowProcessor.shouldTurnOff() && flutterProcessor.shouldTurnOff());
+    if (bypass.processBlockIn (buffer, ! shouldTurnOff))
     {
         processWetBuffer (buffer);
-        bypass.processBlockOut (buffer, shouldTurnOff);
+        bypass.processBlockOut (buffer, ! shouldTurnOff);
     }
     else
     {
@@ -129,7 +129,7 @@ void WowFlutterProcessor::processBypassed (AudioBuffer<float>& buffer)
             delay.popSample (ch);
         }
 
-        wowProcessor.updatePhase (ch);
-        flutterProcessor.updatePhase (ch);
+        wowProcessor.boundPhase (ch);
+        flutterProcessor.boundPhase (ch);
     }
 }

@@ -38,6 +38,9 @@ void FlutterProcess::prepareBlock (float curDepth, float flutterFreq, int numSam
 
 void FlutterProcess::plotBuffer (foleys::MagicPlotSource* plot)
 {
+    if (shouldTurnOff())
+        flutterBuffer.clear();
+
     flutterBuffer.applyGain (1.3333f / amp1);
     plot->pushSamples (flutterBuffer);
 }
