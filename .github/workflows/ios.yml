@@ -60,4 +60,4 @@ jobs:
 
     - name: Build
       shell: bash
-      run: cmake --build Plugin/build-ios --config Release --parallel 4 | xcpretty
+      run: cmake --build build-ios --config Release --parallel 4 | xcpretty
