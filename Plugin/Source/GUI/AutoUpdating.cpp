@@ -60,16 +60,27 @@ void AutoUpdater::paint (Graphics& g)
     g.fillAll (backgroundColour);
 
     g.setColour (Colours::white);
+#if JUCE_IOS
+    g.setFont (Font (22.0f));
+    const auto promptHeight = 80;
+#else
     g.setFont (Font (36.0f));
+    const auto promptHeight = 50;
+#endif
 
     String updatePrompt = String ("Version " + newVersion.removeCharacters ("v") + " of CHOW Tape is available. Would you like to download?");
 
     const auto promptWidth = getWidth() * 2 / 3;
     const auto promptX = getWidth() / 6;
-    const auto promptHeight = 50;
     const auto promptY = getHeight() / 2 - promptHeight;
 
     g.drawFittedText (updatePrompt, promptX, promptY, promptWidth, promptHeight, Justification::centred, 2);
+}
+
+void AutoUpdater::parentSizeChanged()
+{
+    setSize (getParentWidth(), getParentHeight());
+    repaint();
 }
 
 void AutoUpdater::resized()
