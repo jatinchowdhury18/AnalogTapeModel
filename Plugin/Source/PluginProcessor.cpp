@@ -309,7 +309,11 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
         });
     }
 
+#if JUCE_IOS
+    auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_ios_xml, BinaryData::gui_ios_xmlSize, std::move (builder));
+#else
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
+#endif
     onOffManager.setOnOffForNewEditor (editor);
     updater.showUpdaterScreen (editor);
     return editor;

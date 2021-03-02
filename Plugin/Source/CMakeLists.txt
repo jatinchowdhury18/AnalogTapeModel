@@ -14,6 +14,7 @@ target_sources(CHOWTapeModel PRIVATE
 juce_add_binary_data(BinaryData SOURCES
     GUI/Assets/Background.svg
     GUI/Assets/gui.xml
+    GUI/Assets/gui_ios.xml
     GUI/Assets/knob.svg
     GUI/Assets/pointer.svg
     GUI/Assets/powerswitch.svg

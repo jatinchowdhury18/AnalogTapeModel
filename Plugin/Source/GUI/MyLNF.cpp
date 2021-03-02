@@ -241,6 +241,18 @@ Label* MyLNF::createSliderTextBox (Slider& slider)
     return l;
 }
 
+Component* MyLNF::getParentComponentForMenuOptions (const PopupMenu::Options& options)
+{
+#if JUCE_IOS
+    if (PluginHostType::getPluginLoadedAs() == AudioProcessor::wrapperType_AudioUnitv3)
+    {
+        if (options.getParentComponent() == nullptr && options.getTargetComponent() != nullptr)
+            return options.getTargetComponent()->getTopLevelComponent();
+    }
+#endif
+    return LookAndFeel_V2::getParentComponentForMenuOptions (options);
+}
+
 void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box)
 {
     auto cornerSize = 5.0f;

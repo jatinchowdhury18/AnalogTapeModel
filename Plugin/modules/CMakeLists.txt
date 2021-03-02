@@ -1,5 +1,9 @@
 # set up JUCE and modules
-add_subdirectory(JUCE)
+if(UNIX AND NOT APPLE)
+    add_subdirectory(DISTRHO-JUCE)
+else()
+    add_subdirectory(JUCE)
+endif()
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
 
