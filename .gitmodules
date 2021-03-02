@@ -1,5 +1,5 @@
 [submodule "Plugin/Juce"]
-	path = Plugin/modules/JUCE
+	path = Plugin/modules/DISTRHO-JUCE
 	url = https://github.com/Chowdhury-DSP/DISTRHO-JUCE.git
 [submodule "Plugin/foleys_gui_magic"]
 	path = Plugin/modules/foleys_gui_magic
@@ -10,3 +10,6 @@
 [submodule "Plugin/modules/RTNeural"]
 	path = Plugin/modules/RTNeural
 	url = https://github.com/jatinchowdhury18/RTNeural
+[submodule "Plugin/modules/JUCE"]
+	path = Plugin/modules/JUCE
+	url = https://github.com/juce-framework/JUCE
