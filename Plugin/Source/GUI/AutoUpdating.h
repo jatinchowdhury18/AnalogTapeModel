@@ -31,6 +31,7 @@ public:
 
     void paint (Graphics& g) override;
     void resized() override;
+    void parentSizeChanged() override;
 
     void showUpdaterScreen (Component* parent);
 

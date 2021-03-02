@@ -22,6 +22,8 @@ public:
     Slider::SliderLayout getSliderLayout (Slider& slider) override;
     Label* createSliderTextBox (Slider& slider) override;
 
+    Component* getParentComponentForMenuOptions (const PopupMenu::Options& options) override;
+
 private:
     std::unique_ptr<Drawable> knob = Drawable::createFromImageData (BinaryData::knob_svg, BinaryData::knob_svgSize);
     std::unique_ptr<Drawable> pointer = Drawable::createFromImageData (BinaryData::pointer_svg, BinaryData::pointer_svgSize);

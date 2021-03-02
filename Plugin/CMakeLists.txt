@@ -10,16 +10,28 @@ include_directories(modules/RTNeural)
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
 # include_directories(ASIO_SDK)
 
-juce_add_plugin(CHOWTapeModel
-    COMPANY_NAME chowdsp
-    PLUGIN_MANUFACTURER_CODE Chow
-    PLUGIN_CODE Jdox
-    FORMATS AU VST3 Standalone LV2 #VST
-    ProductName "CHOWTapeModel"
-    LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
-    ICON_BIG Source/GUI/Assets/logo.png
-    MICROPHONE_PERMISSION_ENABLED TRUE
-)
+if(IOS)
+    juce_add_plugin(CHOWTapeModel
+        COMPANY_NAME chowdsp
+        PLUGIN_MANUFACTURER_CODE Chow
+        PLUGIN_CODE Jdox
+        FORMATS Standalone AUv3
+        ProductName "CHOWTapeModel"
+        ICON_BIG Source/GUI/Assets/logo.png
+        MICROPHONE_PERMISSION_ENABLED TRUE
+    )
+else()
+    juce_add_plugin(CHOWTapeModel
+        COMPANY_NAME chowdsp
+        PLUGIN_MANUFACTURER_CODE Chow
+        PLUGIN_CODE Jdox
+        FORMATS AU VST3 Standalone LV2 #VST
+        ProductName "CHOWTapeModel"
+        LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+        ICON_BIG Source/GUI/Assets/logo.png
+        MICROPHONE_PERMISSION_ENABLED TRUE
+    )
+endif()
 
 # create JUCE header
 juce_generate_juce_header(CHOWTapeModel)
@@ -47,4 +59,24 @@ if(MACOS_RELEASE)
         XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
     # set_target_properties(ChowCentaur_AUv3 PROPERTIES
     #     XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
+endif()
+
+if(IOS)
+    message(STATUS "Setting iOS-specific properties...")
+
+    foreach(target IN ITEMS BinaryData juce_plugin_modules CHOWTapeModel CHOWTapeModel_Standalone CHOWTapeModel_AUv3)
+        set_target_properties(${target}
+            PROPERTIES
+                RUNTIME_OUTPUT_DIRECTORY "./"
+                ARCHIVE_OUTPUT_DIRECTORY "./"
+                LIBRARY_OUTPUT_DIRECTORY "./")
+    endforeach()
+
+    set_target_properties(CHOWTapeModel_Standalone PROPERTIES
+            XCODE_ATTRIBUTE_INSTALL_PATH "$(LOCAL_APPS_DIR)"
+            XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
+
+    set_target_properties(CHOWTapeModel_AUv3 PROPERTIES
+            XCODE_ATTRIBUTE_INSTALL_PATH "$(LOCAL_APPS_DIR)/CHOWTapeModel.app/PlugIns"
+            XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
 endif()
