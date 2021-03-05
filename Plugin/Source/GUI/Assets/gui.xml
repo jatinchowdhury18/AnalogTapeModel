@@ -115,7 +115,7 @@
                   caption-placement="top-left"/>
           <Slider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect."
+                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds."
                   caption-placement="top-left"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"

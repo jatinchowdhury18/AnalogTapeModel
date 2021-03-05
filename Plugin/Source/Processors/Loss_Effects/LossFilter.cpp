@@ -47,7 +47,7 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
 
     params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Playhead Gap", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("azimuth", "Azimuth", -45.0f, 45.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> ("azimuth", "Azimuth", -75.0f, 75.0f, 0.0f));
 }
 
 float LossFilter::getLatencySamples() const noexcept

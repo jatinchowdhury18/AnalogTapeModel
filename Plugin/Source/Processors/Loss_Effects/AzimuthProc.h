@@ -15,6 +15,9 @@ public:
 private:
     using ADelayLine = dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd>;
     std::unique_ptr<ADelayLine> delays[2];
+    SmoothedValue<float, ValueSmoothingTypes::Linear> delaySampSmooth[2];
+
+    float fs = 48000.0f;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AzimuthProc)
 };
