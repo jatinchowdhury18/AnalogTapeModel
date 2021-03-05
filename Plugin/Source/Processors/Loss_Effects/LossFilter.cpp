@@ -7,6 +7,7 @@ LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) : order (o
     thickness = vts.getRawParameterValue ("thick");
     gap = vts.getRawParameterValue ("gap");
     onOff = vts.getRawParameterValue ("loss_onoff");
+    azimuth = vts.getRawParameterValue ("azimuth");
 
     for (int ch = 0; ch < 2; ++ch)
     {
@@ -45,6 +46,8 @@ void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioP
     params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Tape Thickness", thickRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
 
     params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Playhead Gap", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
+
+    params.push_back (std::make_unique<AudioParameterFloat> ("azimuth", "Azimuth", -45.0f, 45.0f, 0.0f));
 }
 
 float LossFilter::getLatencySamples() const noexcept
@@ -85,6 +88,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
     prevThickness = *thickness;
     prevGap = *gap;
 
+    azimuthProc.prepare (sampleRate, samplesPerBlock);
     bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
 }
 
@@ -195,6 +199,9 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
         if (fadeCount == 0)
             activeFilter = ! activeFilter;
     }
+
+    azimuthProc.setAzimuthAngle (azimuth->load(), speed->load());
+    azimuthProc.processBlock (buffer);
 
     bypass.processBlockOut (buffer, bypass.toBool (onOff));
 }
