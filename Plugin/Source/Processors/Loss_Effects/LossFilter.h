@@ -2,8 +2,8 @@
 #define LOSSFILTER_H_INCLUDED
 
 #include "../BypassProcessor.h"
-#include "FIRFilter.h"
 #include "AzimuthProc.h"
+#include "FIRFilter.h"
 
 class LossFilter
 {

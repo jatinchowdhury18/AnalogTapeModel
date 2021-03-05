@@ -13,7 +13,7 @@ static constexpr float deg2rad (float deg)
 }
 
 constexpr float tapeWidth = inches2meters (0.25f);
-}
+} // namespace
 
 void AzimuthProc::prepare (double sampleRate, int samplesPerBlock)
 {
