@@ -8,6 +8,7 @@ target_sources(CHOWTapeModel PRIVATE
     Hysteresis/ToneControl.cpp
 
     Input_Filters/InputFilters.cpp
+    Loss_Effects/AzimuthProc.cpp
     Loss_Effects/LossFilter.cpp
     Timing_Effects/WowFlutterProcessor.cpp
     Timing_Effects/FlutterProcess.cpp

@@ -3,6 +3,7 @@
 
 #include "../BypassProcessor.h"
 #include "FIRFilter.h"
+#include "AzimuthProc.h"
 
 class LossFilter
 {
@@ -34,6 +35,7 @@ private:
     std::atomic<float>* spacing = nullptr;
     std::atomic<float>* thickness = nullptr;
     std::atomic<float>* gap = nullptr;
+    std::atomic<float>* azimuth = nullptr;
 
     float prevSpeed;
     float prevSpacing;
@@ -49,6 +51,7 @@ private:
     Array<float> currentCoefs;
     Array<float> Hcoefs;
 
+    AzimuthProc azimuthProc;
     BypassProcessor bypass;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LossFilter)
