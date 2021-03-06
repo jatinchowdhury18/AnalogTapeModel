@@ -5,7 +5,6 @@ if((CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") OR (CMAKE_CXX_SIMULATE_ID STREQUAL "M
         /W4     # base warning level
         /wd4458 # declaration hides class member (from Foley's GUI Magic)
         /wd4505 # since VS2019 doesn't handle [[ maybe_unused ]] for static functions (RTNeural::debug_print)
-        /wd4530 # Unwind semantics for exception handler (nlohmann::json)
     )
 elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"))
     target_compile_options(warning_flags INTERFACE
@@ -29,13 +28,12 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         -Wsign-compare -Woverloaded-virtual -Wreorder -Wunreachable-code
         -Wzero-as-null-pointer-constant -Wcast-align -Wno-implicit-fallthrough
         -Wno-maybe-uninitialized -Wno-missing-field-initializers -Wno-pedantic
-        -Wno-ignored-qualifiers -Wredundant-decls -Wno-unused-function
-        -Wno-pessimizing-move -Wno-overloaded-virtual
+        -Wno-ignored-qualifiers -Wno-unused-function -Wno-pessimizing-move
         # These lines suppress some warnings from Foley's GUI Magic and RTNeural.
         # Comment them out to be more strict.
-        -Wno-sign-conversion -Wno-switch-enum
+        -Wno-sign-conversion -Wno-switch-enum -Wno-overloaded-virtual
         # From LV2 Wrapper
-        -Wno-parentheses -Wno-deprecated-declarations
+        -Wno-parentheses -Wno-deprecated-declarations -Wno-redundant-decls
     )
 
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "7.0.0")
