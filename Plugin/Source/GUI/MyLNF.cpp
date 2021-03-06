@@ -194,7 +194,7 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
     g.strokePath (backgroundTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
     Path valueTrack;
-    Point<float> minPoint, maxPoint, thumbPoint;
+    Point<float> minPoint, maxPoint;
 
     {
         auto kx = slider.isHorizontal() ? sliderPos : ((float) x + (float) width * 0.5f);

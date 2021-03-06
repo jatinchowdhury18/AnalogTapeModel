@@ -42,7 +42,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       onOffManager (vts, this),
       mixGroupsController (vts, this)
 {
-    scope = magicState.createAndAddObject<TapeScope> ("scope");
+    scope = magicState.createAndAddObject<TapeScope> ("scope", getMainBusNumInputChannels());
     flutter.initialisePlots (magicState);
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
@@ -173,7 +173,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     flutter.prepareToPlay (sampleRate, samplesPerBlock);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
 
-    scope->prepareToPlay (getMainBusNumInputChannels(), sampleRate, samplesPerBlock);
+    scope->prepareToPlay (sampleRate, samplesPerBlock);
 
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     dryWet.reset();
@@ -237,7 +237,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     inGain.processBlock (buffer, midiMessages);
     inputFilters.processBlock (buffer);
 
-    scope->pushSamples (buffer, TapeScope::AudioType::Input);
+    scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
     toneControl.processBlockIn (buffer);
     hysteresis.processBlock (buffer, midiMessages);
@@ -253,7 +253,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
 
-    scope->pushSamples (buffer, TapeScope::AudioType::Output);
+    scope->pushSamplesIO (buffer, TapeScope::AudioType::Output);
 }
 
 void ChowtapeModelAudioProcessor::latencyCompensation()
