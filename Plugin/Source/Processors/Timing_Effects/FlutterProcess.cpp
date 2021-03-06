@@ -2,7 +2,7 @@
 
 void FlutterProcess::prepare (double sampleRate, int samplesPerBlock)
 {
-    fs = fs;
+    fs = (float) sampleRate;
 
     for (int ch = 0; ch < 2; ++ch)
     {
