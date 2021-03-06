@@ -78,8 +78,8 @@ void InputFilters::processBlock (AudioBuffer<float>& buffer)
 
         for (int n = 0; n < buffer.getNumSamples(); ++n)
         {
-            lowCutFilter.processSample (ch, data[n], cutLowSignal[n], data[n]);
-            highCutFilter.processSample (ch, data[n], data[n], cutHighSignal[n]);
+            lowCutFilter.processSample ((size_t) ch, data[n], cutLowSignal[n], data[n]);
+            highCutFilter.processSample ((size_t) ch, data[n], data[n], cutHighSignal[n]);
         }
     }
 

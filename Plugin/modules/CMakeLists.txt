@@ -6,6 +6,7 @@ else()
 endif()
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
+include(WarningFlags.cmake)
 
 # Using RTNeural with XSimd backend
 set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
@@ -23,7 +24,7 @@ target_link_libraries(juce_plugin_modules
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
-        juce::juce_recommended_warning_flags
+        warning_flags
 )
 
 target_compile_definitions(juce_plugin_modules
@@ -42,10 +43,6 @@ target_compile_definitions(juce_plugin_modules
     INTERFACE
         $<TARGET_PROPERTY:juce_plugin_modules,COMPILE_DEFINITIONS>
 )
-
-if(MSVC)
-    target_compile_options(juce_plugin_modules PRIVATE /wd4458) # supress "declaration hides class member" for Foley's
-endif()
 
 target_include_directories(juce_plugin_modules
     INTERFACE

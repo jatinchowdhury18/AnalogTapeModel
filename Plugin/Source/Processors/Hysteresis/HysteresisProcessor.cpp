@@ -147,7 +147,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     }
 
     for (int i = 0; i < 5; ++i)
-        overSample[i]->initProcessing (samplesPerBlock);
+        overSample[i]->initProcessing ((size_t) samplesPerBlock);
     prevOS = curOS;
 
     for (int ch = 0; ch < 2; ++ch)
@@ -225,10 +225,10 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
 void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
 {
-    for (int channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (int samp = 0; samp < block.getNumSamples(); samp++)
+        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
         {
             x[samp] = (float) hProcs[channel].process ((double) x[samp]) * makeup[channel].getNextValue();
         }
@@ -237,10 +237,10 @@ void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
 
 void HysteresisProcessor::processSmooth (dsp::AudioBlock<float>& block)
 {
-    for (int channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (int samp = 0; samp < block.getNumSamples(); samp++)
+        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
         {
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), false);
 
@@ -253,10 +253,10 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
 {
     const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * overSamplingFactor);
 
-    for (int channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (int samp = 0; samp < block.getNumSamples(); samp++)
+        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
         {
             float bias = biasGain * (1.0f - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
             biasAngle[channel] += angleDelta;
@@ -273,10 +273,10 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
 {
     const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * overSamplingFactor);
 
-    for (int channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (int samp = 0; samp < block.getNumSamples(); samp++)
+        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
         {
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), true);
 

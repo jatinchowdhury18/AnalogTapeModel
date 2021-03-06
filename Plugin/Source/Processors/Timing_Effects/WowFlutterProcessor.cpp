@@ -1,11 +1,6 @@
 #include "WowFlutterProcessor.h"
 #include "../../GUI/LightMeter.h"
 
-namespace
-{
-constexpr float depthSlewMin = 0.001f;
-}
-
 WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
 {
     flutterRate = vts.getRawParameterValue ("rate");

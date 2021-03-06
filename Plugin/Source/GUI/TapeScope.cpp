@@ -8,14 +8,18 @@ constexpr int rmsMS = 5000; // rms window milliseconds
 constexpr float xPad = 3.0f;
 } // namespace
 
-void TapeScope::prepareToPlay (int numChannels, double newSampleRate, int samplesPerBlockExpected)
+TapeScope::TapeScope (int numChannels) : numChannels (numChannels)
+{
+}
+
+void TapeScope::prepareToPlay (double newSampleRate, int samplesPerBlockExpected)
 {
     MagicOscilloscope::prepareToPlay (newSampleRate, samplesPerBlockExpected);
     inputSource.setupSource (numChannels, newSampleRate, rmsMS, rmsMS);
     outputSource.setupSource (numChannels, newSampleRate, rmsMS, rmsMS);
 }
 
-void TapeScope::pushSamples (const AudioBuffer<float>& buffer, AudioType type)
+void TapeScope::pushSamplesIO (const AudioBuffer<float>& buffer, AudioType type)
 {
     switch (type)
     {

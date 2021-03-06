@@ -15,12 +15,12 @@ static std::array<String, HysteresisSTN::numSatModels> satTags { "0", "5", "10",
 
 constexpr size_t getSatIdx (float satParam)
 {
-    return std::clamp (static_cast<int> (satIdxMult * satParam), 0, HysteresisSTN::numSatModels - 1);
+    return (size_t) std::clamp (static_cast<int> (satIdxMult * satParam), 0, HysteresisSTN::numSatModels - 1);
 }
 
 constexpr size_t getWidthIdx (float widthParam)
 {
-    return std::clamp (static_cast<int> (widthIdxMult * widthParam), 0, HysteresisSTN::numWidthModels - 1);
+    return (size_t) std::clamp (static_cast<int> (widthIdxMult * widthParam), 0, HysteresisSTN::numWidthModels - 1);
 }
 
 std::unique_ptr<MemoryInputStream> getModelFileStream (const String& modelFile)

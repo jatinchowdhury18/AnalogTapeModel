@@ -43,7 +43,7 @@ int MixGroupsSharedData::getNumPluginsInGroup (int mixGroup) const
 
 void MixGroupsSharedData::copyPluginState (int mixGroup, AudioProcessorValueTreeState& vts)
 {
-    auto paramMap = paramMaps[mixGroup - 1].get();
+    auto paramMap = paramMaps[(size_t) mixGroup - 1].get();
     auto mapIter = paramMap->begin();
     while (mapIter.next())
     {
@@ -54,11 +54,11 @@ void MixGroupsSharedData::copyPluginState (int mixGroup, AudioProcessorValueTree
 
 void MixGroupsSharedData::setParameter (const String& paramID, int mixGroup, float value, String uuid)
 {
-    paramMaps[mixGroup - 1]->set (paramID, value);
+    paramMaps[(size_t) mixGroup - 1]->set (paramID, value);
     listeners.call (&Listener::mixGroupParamChanged, paramID, mixGroup, value, uuid);
 }
 
 float MixGroupsSharedData::getParameter (const String& paramID, int mixGroup) const
 {
-    return paramMaps[mixGroup - 1]->operator[] (paramID);
+    return paramMaps[(size_t) mixGroup - 1]->operator[] (paramID);
 }
