@@ -27,7 +27,7 @@ private:
     StereoIIR bumpFilter[2];
     int activeFilter = 0;
     int fadeCount = 0;
-    const int fadeLength = 1024;
+    int fadeLength = 1024;
     AudioBuffer<float> fadeBuffer;
 
     std::atomic<float>* onOff = nullptr;
