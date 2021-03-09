@@ -18,6 +18,8 @@ juce_add_binary_data(BinaryData SOURCES
     GUI/Assets/knob.svg
     GUI/Assets/pointer.svg
     GUI/Assets/powerswitch.svg
+    GUI/Assets/LeftArrow.svg
+    GUI/Assets/RightArrow.svg
     GUI/Assets/RobotoCondensed-Bold.ttf
     GUI/Assets/RobotoCondensed-Regular.ttf
 
