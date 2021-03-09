@@ -60,6 +60,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
 {
     fs = sampleRate;
     fadeBuffer.setSize (2, samplesPerBlock);
+    fadeLength = jmax (1024, samplesPerBlock);
 
     fsFactor = (float) fs / 44100.0f;
     curOrder = int (order * fsFactor);
