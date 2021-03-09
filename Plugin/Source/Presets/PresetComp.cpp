@@ -28,8 +28,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetNameEditor.setMultiLine (false, false);
     presetNameEditor.setJustification (Justification::centred);
 
-    auto setupButton = [=, &manager] (DrawableButton& button, Drawable* image, int presetOffset)
-    {
+    auto setupButton = [=, &manager] (DrawableButton& button, Drawable* image, int presetOffset) {
         addAndMakeVisible (button);
         button.setImages (image, image, image);
         button.setWantsKeyboardFocus (false);
