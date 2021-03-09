@@ -36,7 +36,12 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
         button.setColour (ComboBox::outlineColourId, Colours::transparentBlack);
         button.setColour (TextButton::buttonColourId, Colours::transparentBlack);
         button.onClick = [=, &manager] {
-            auto idx = negativeAwareModulo (presetBox.getSelectedId() + presetOffset, manager.getNumPresets());
+            auto idx = presetBox.getSelectedId() + presetOffset;
+            while (idx <= 0)
+                idx += manager.getNumPresets();
+            while (idx > manager.getNumPresets())
+                idx -= manager.getNumPresets();
+
             presetBox.setSelectedId (idx, sendNotification);
         };
     };
