@@ -1,7 +1,9 @@
 #include "PresetComp.h"
 
 PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager) : proc (proc),
-                                                                                     manager (manager)
+                                                                                     manager (manager),
+                                                                                     presetsLeft ("", DrawableButton::ImageOnButtonBackground),
+                                                                                     presetsRight ("", DrawableButton::ImageOnButtonBackground)
 {
     manager.addListener (this);
 
@@ -25,6 +27,29 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetNameEditor.setFont (Font (16.0f).boldened());
     presetNameEditor.setMultiLine (false, false);
     presetNameEditor.setJustification (Justification::centred);
+
+    auto setupButton = [=, &manager] (DrawableButton& button, Drawable* image, int presetOffset) {
+        addAndMakeVisible (button);
+        button.setImages (image, image, image);
+        button.setWantsKeyboardFocus (false);
+        button.setColour (ComboBox::outlineColourId, Colours::transparentBlack);
+        button.setColour (TextButton::buttonColourId, Colours::transparentBlack);
+        button.onClick = [=, &manager] {
+            auto idx = presetBox.getSelectedId() + presetOffset;
+            while (idx <= 0)
+                idx += manager.getNumPresets();
+            while (idx > manager.getNumPresets())
+                idx -= manager.getNumPresets();
+
+            presetBox.setSelectedId (idx, sendNotification);
+        };
+    };
+
+    std::unique_ptr<Drawable> leftImage (Drawable::createFromImageData (BinaryData::LeftArrow_svg, BinaryData::LeftArrow_svgSize));
+    std::unique_ptr<Drawable> rightImage (Drawable::createFromImageData (BinaryData::RightArrow_svg, BinaryData::RightArrow_svgSize));
+
+    setupButton (presetsLeft, leftImage.get(), -1);
+    setupButton (presetsRight, rightImage.get(), 1);
 
     presetUpdated();
     presetBox.onChange = [=, &proc] {
@@ -107,13 +132,19 @@ void PresetComp::paint (Graphics& g)
 
     presetBox.setColour (PopupMenu::ColourIds::backgroundColourId, findColour (backgroundColourId));
     g.setColour (findColour (backgroundColourId));
-    g.fillRoundedRectangle (getLocalBounds().toFloat(), cornerSize);
+
+    g.fillRoundedRectangle (getLocalBounds().toFloat().reduced (22.0f, 0.0f), cornerSize);
 }
 
 void PresetComp::resized()
 {
-    presetBox.setBounds (getLocalBounds());
-    presetNameEditor.setBounds (getLocalBounds());
+    auto b = getLocalBounds();
+    presetsLeft.setBounds (b.removeFromLeft (20));
+    presetsRight.setBounds (b.removeFromRight (20));
+
+    Rectangle<int> presetsBound { 22, 0, getWidth() - 44, getHeight() };
+    presetBox.setBounds (presetsBound);
+    presetNameEditor.setBounds (presetsBound);
     repaint();
 }
 

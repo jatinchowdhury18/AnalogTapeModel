@@ -78,8 +78,7 @@ public:
 
     void positionComboBoxText (ComboBox& box, Label& label) override
     {
-        auto b = box.getBounds();
-        label.setBounds (b);
+        label.setBounds (3, 1, box.getWidth(), box.getHeight() - 2);
         label.setFont (getComboBoxFont (box).boldened());
     }
 
