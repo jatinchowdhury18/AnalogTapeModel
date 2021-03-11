@@ -10,8 +10,8 @@ rm -Rf Bin/*Mac*
 
 # set up build VST
 VST_PATH=~/Developer/Plugin_SDKs/VST2_SDK/
-sed -i -e "s~# juce_set_vst2_sdk_path.*~juce_set_vst2_sdk_path(${SDK_PATH}/VST2_SDK)~" CMakeLists.txt
-sed -i -e 's/#.*VST/VST/' CMakeLists.txt
+sed -i '' "s~# juce_set_vst2_sdk_path.*~juce_set_vst2_sdk_path(${VST_PATH})~" CMakeLists.txt
+sed -i '' 's/#.*VST/VST/' CMakeLists.txt
 
 # cmake new builds
 TEAM_ID=$(more ~/Developer/mac_id)
@@ -38,9 +38,10 @@ git restore CMakeLists.txt
 # run auval
 echo "Running AU validation..."
 rm -Rf ~/Library/Audio/Plug-Ins/Components/${plugin}.component
+sudo rm -Rf /Library/Audio/Plug-Ins/Components/${plugin}.component
 cp -R build/${plugin}_artefacts/Release/AU/${plugin}.component ~/Library/Audio/Plug-Ins/Components
-manu=$(cut -f 6 -d ' ' <<< "$(grep 'PLUGIN_MANUFACTURER_CODE' CMakeLists.txt)")
-code=$(cut -f 6 -d ' ' <<< "$(grep 'PLUGIN_CODE' CMakeLists.txt)")
+manu=$(cut -f 10 -d ' ' <<< "$(grep 'PLUGIN_MANUFACTURER_CODE' CMakeLists.txt | head -1)")
+code=$(cut -f 10 -d ' ' <<< "$(grep 'PLUGIN_CODE' CMakeLists.txt | head -1)")
 
 set +e
 auval_result=$(auval -v aufx "$code" "$manu")
