@@ -21,16 +21,8 @@ constexpr int maxNumPresets = 999;
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
-#ifndef JucePlugin_PreferredChannelConfigurations
-    : AudioProcessor (BusesProperties()
-#if ! JucePlugin_IsMidiEffect
-#if ! JucePlugin_IsSynth
-                          .withInput ("Input", AudioChannelSet::stereo(), true)
-#endif
-                          .withOutput ("Output", AudioChannelSet::stereo(), true)
-#endif
-                          ),
-#endif
+    : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true)
+                                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
       toneControl (vts),
@@ -322,13 +314,27 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 //==============================================================================
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
+#if JUCE_IOS
+    auto state = vts.copyState();
+    std::unique_ptr<XmlElement> xml (state.createXml());
+    copyXmlToBinary (*xml, destData);
+#else
     magicState.getStateInformation (destData);
+#endif
 }
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
+#if JUCE_IOS
+    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+
+    if (xmlState.get() != nullptr)
+        if (xmlState->hasTagName (vts.state.getType()))
+            vts.replaceState (juce::ValueTree::fromXml (*xmlState));
+#else
     MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
+#endif
     presetManager.presetUpdated();
 }
 

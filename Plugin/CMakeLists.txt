@@ -57,14 +57,12 @@ if(MACOS_RELEASE)
     message(STATUS "Setting MacOS release flags...")
     set_target_properties(CHOWTapeModel_Standalone PROPERTIES
         XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
-    # set_target_properties(ChowCentaur_AUv3 PROPERTIES
-    #     XCODE_ATTRIBUTE_ENABLE_HARDENED_RUNTIME YES)
 endif()
 
 if(IOS)
     message(STATUS "Setting iOS-specific properties...")
 
-    foreach(target IN ITEMS BinaryData juce_plugin_modules CHOWTapeModel CHOWTapeModel_Standalone CHOWTapeModel_AUv3)
+    foreach(target IN ITEMS BinaryData RTNeural juce_plugin_modules CHOWTapeModel CHOWTapeModel_Standalone CHOWTapeModel_AUv3)
         set_target_properties(${target}
             PROPERTIES
                 RUNTIME_OUTPUT_DIRECTORY "./"
