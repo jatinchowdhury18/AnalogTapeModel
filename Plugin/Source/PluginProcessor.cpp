@@ -21,8 +21,7 @@ constexpr int maxNumPresets = 999;
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
-    : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true)
-                                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
+    : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true).withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
       toneControl (vts),
