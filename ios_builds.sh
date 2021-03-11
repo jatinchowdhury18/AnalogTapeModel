@@ -25,9 +25,9 @@ cmake -Bbuild-ios -GXcode -DCMAKE_SYSTEM_NAME=iOS \
     -DCMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY="1,2" \
     -DCMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE="NO"
 
-# xcodebuild -project build-ios/CHOWTapeModel.xcodeproj \
-#   -scheme ChowCentaur_Standalone archive -configuration Release \
-#   -sdk iphoneos -jobs 12 -archivePath CHOWTapeModel.xcarchive | xcpretty
+xcodebuild -project build-ios/CHOWTapeModel.xcodeproj \
+  -scheme CHOWTapeModel_Standalone archive -configuration Release \
+  -sdk iphoneos -jobs 12 -archivePath CHOWTapeModel.xcarchive | xcpretty
 fi
 
 if [ "$1" == "version" ]; then
