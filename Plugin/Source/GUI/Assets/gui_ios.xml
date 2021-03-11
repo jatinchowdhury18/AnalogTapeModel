@@ -101,27 +101,27 @@
             lookAndFeel="MyLNF">
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
               padding="0" margin="0">
-          <View flex-grow="0.05" background-color="00000000"/>
           <Slider caption="Gap [microns]" parameter="gap" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
                   slidertext-height="18" caption-placement="top-left"/>
-          <View flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Thickness [microns]" parameter="thick" class="Slider"
                   slider-type="linear-horizontal" padding="0" slider-background="ff595c6b"
                   slider-track="ff9cbcbd" name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
                   caption-placement="top-left"/>
-          <View flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Spacing [microns]" parameter="spacing" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
                   caption-placement="top-left"/>
-          <View flex-grow="0.1" background-color="00000000"/>
+          <Slider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
+                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
+                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds."
+                  caption-placement="top-left"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
                   caption-placement="top-left"/>
-          <View flex-grow="0.57" margin="0" padding="2" background-color="00000000">
+          <View flex-grow="0.53" margin="0" padding="2" background-color="00000000">
             <TextButton margin="0" padding="2" text="3.75" button-color="00000000" background-color="00000000"
                         onClick="set_speed_3.75" lookAndFeel="SpeedButtonLNF" button-on-color="00000000"
                         name="3.75 ips" tooltip="Snaps the tape speed to 3.75 inches per second."/>
