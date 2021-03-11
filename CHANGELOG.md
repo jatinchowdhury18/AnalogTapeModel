@@ -6,6 +6,7 @@ this file.
 - Added Azimuth parameter for playhead loss controls.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
+- Fixed glitches when adjusting loss parameters at large buffer sizes.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
 - Fixed GUI freezing bug in Cakewalk.
