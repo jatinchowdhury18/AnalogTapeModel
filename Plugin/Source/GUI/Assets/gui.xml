@@ -156,7 +156,7 @@
                   slider-type="linear-horizontal" max-height="70"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider parameter="deg_env" caption="Envelope" class="Slider" name="Envelope"
-                  margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation."
+                  margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation. At 0, the degradation will have no envelope."
                   slider-type="linear-horizontal" max-height="70"/>
           <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
