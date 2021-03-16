@@ -22,10 +22,16 @@ private:
     std::atomic<float>* depthParam = nullptr;
     std::atomic<float>* amtParam = nullptr;
     std::atomic<float>* varParam = nullptr;
+    std::atomic<float>* envParam = nullptr;
 
-    DegradeNoise noiseProc[2];
     DegradeFilter filterProc[2];
     GainProcessor gainProc;
+
+    AudioBuffer<float> noiseBuffer;
+    DegradeNoise noiseProc[2];
+
+    AudioBuffer<float> levelBuffer;
+    chowdsp::LevelDetector<float> levelDetector;
 
     Random random;
 
