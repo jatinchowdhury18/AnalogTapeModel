@@ -76,6 +76,8 @@ public:
     const AudioProcessorValueTreeState& getVTS() { return vts; }
 
 private:
+    using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
+
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void latencyCompensation();
 
@@ -90,7 +92,7 @@ private:
     LossFilter lossFilter;
     WowFlutterProcessor flutter;
     DryWetProcessor dryWet;
-    dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> dryDelay { 1 << 21 };
+    DryDelayType dryDelay { 1 << 21 };
     GainProcessor outGain;
     OnOffManager onOffManager;
 
