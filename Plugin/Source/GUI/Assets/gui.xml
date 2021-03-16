@@ -142,14 +142,23 @@
         </View>
         <View tab-caption="Degrade" padding="0" flex-direction="column" background-color="FF31323A"
               margin="0">
-          <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
+          <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
           <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
-                  tooltip="Sets the depth of the tape degradation." padding="0"
-                  margin="0"/>
+                  tooltip="Sets the depth of the tape degradation."
+                  margin="0" slider-type="linear-horizontal" max-height="70"/>
+          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
-                  padding="0" margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."/>
+                  margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."
+                  slider-type="linear-horizontal" max-height="70"/>
+          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
-                  padding="0" margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."/>
+                  margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."
+                  slider-type="linear-horizontal" max-height="70"/>
+          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
+          <Slider parameter="deg_env" caption="Envelope" class="Slider" name="Envelope"
+                  margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation. At 0, the degradation will have no envelope."
+                  slider-type="linear-horizontal" max-height="70"/>
+          <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="deg_onoff" name="Degrade On/Off" tooltip="Turns the degradation processing on or off."/>

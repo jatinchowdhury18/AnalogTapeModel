@@ -7,6 +7,7 @@ this file.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
 - Fixed glitches when adjusting loss parameters at large buffer sizes.
+- Added Envelope parameter for Degrade section.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
 - Fixed GUI freezing bug in Cakewalk.
