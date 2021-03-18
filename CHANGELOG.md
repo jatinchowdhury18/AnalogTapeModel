@@ -3,6 +3,7 @@ All notable changes to this project will be documented in
 this file.
 
 ## [Unreleased]
+- Added support for Apple Silicon.
 - Added Azimuth parameter for playhead loss controls.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
@@ -10,6 +11,7 @@ this file.
 - Added Envelope parameter for Degrade section.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
+- Added support for OSX versions 10.9 and up.
 - Fixed GUI freezing bug in Cakewalk.
 - Fixed gain staging bug in Renoise.
 - Migrated build pipeline to CMake.
