@@ -42,6 +42,11 @@ float flutterFreqToParam (float freq)
 {
     return 0.144765f * std::log (10.0f * freq);
 }
+
+float wowFreqToParam (float freq)
+{
+    return 0.664859f * std::log (freq + 1.0f);
+}
 }
 
 WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const String& type) :
@@ -57,8 +62,9 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
         auto speedParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));
         auto speedIps = speedParam->get();
 
-        auto newFreq = isFlutter ? speedIps / (6.0f * MathConstants<float>::pi) : 0.5f;
-        auto newRate = isFlutter ? flutterFreqToParam (newFreq) : 0.5f;
+        auto motorFreq = speedIps / (6.0f * MathConstants<float>::pi);
+        auto newRate = isFlutter ? flutterFreqToParam (motorFreq)
+            : wowFreqToParam (std::sqrt (motorFreq));
         setRateValue (newRate);
     };
 
@@ -67,7 +73,7 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
         auto quarterNoteTime = 60.0f / (float) posInfo.bpm;
 
         auto newFreq = 1.0f / (quarterNoteTime * multipleOfQuarterNote);
-        auto newRate = isFlutter ? flutterFreqToParam (newFreq) : 0.5f;
+        auto newRate = isFlutter ? flutterFreqToParam (newFreq) : wowFreqToParam (newFreq);
         setRateValue (newRate);
     };
 
@@ -83,7 +89,10 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
     }
     else
     {
-        
+        menu->addItem ("Sync to one bar", std::bind (syncToRhythm, 1.0f));
+        menu->addItem ("Sync to two bars", std::bind (syncToRhythm, 2.0f));
+        menu->addItem ("Sync to four bars", std::bind (syncToRhythm, 4.0f));
+        menu->addItem ("Sync to eight bars", std::bind (syncToRhythm, 8.0f));
     }
 }
 
