@@ -8,4 +8,5 @@ target_sources(CHOWTapeModel PRIVATE
     TapeScope.cpp
     TitleComp.cpp
     TooltipComp.cpp
+    WowFlutterMenu.cpp
 )

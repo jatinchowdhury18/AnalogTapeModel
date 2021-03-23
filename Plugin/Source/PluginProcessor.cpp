@@ -13,6 +13,7 @@
 #include "GUI/PowerButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
+#include "GUI/WowFlutterMenu.h"
 
 namespace
 {
@@ -283,6 +284,14 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
+
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (builder, node, "Flutter");
+    });
+
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (builder, node, "Wow");
+    });
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());

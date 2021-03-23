@@ -73,7 +73,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     PresetManager& getPresetManager() { return presetManager; }
-    const AudioProcessorValueTreeState& getVTS() { return vts; }
+    const AudioProcessorValueTreeState& getVTS() const { return vts; }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
