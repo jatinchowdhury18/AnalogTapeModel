@@ -47,10 +47,9 @@ float wowFreqToParam (float freq)
 {
     return 0.664859f * std::log (freq + 1.0f);
 }
-}
+} // namespace
 
-WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const String& type) :
-    proc (proc)
+WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const String& type) : proc (proc)
 {
     setupUI();
 
@@ -64,7 +63,7 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
 
         auto motorFreq = speedIps / (6.0f * MathConstants<float>::pi);
         auto newRate = isFlutter ? flutterFreqToParam (motorFreq)
-            : wowFreqToParam (std::sqrt (motorFreq));
+                                 : wowFreqToParam (std::sqrt (motorFreq));
         setRateValue (newRate);
     };
 
@@ -119,7 +118,7 @@ void WowFlutterMenu::setupRateParam (bool isFlutter)
         rateParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("rate"));
     else // "Wow"
         rateParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("wow_rate"));
-    
+
     jassert (rateParam); // this should never be nullptr!
 }
 

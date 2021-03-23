@@ -1,7 +1,7 @@
 #pragma once
 
-#include "MyLNF.h"
 #include "../PluginProcessor.h"
+#include "MyLNF.h"
 
 class WowFlutterMenuLNF;
 class WowFlutterMenu : public ComboBox
@@ -26,8 +26,7 @@ private:
 class WowFlutterMenuItem : public foleys::GuiItem
 {
 public:
-    WowFlutterMenuItem (foleys::MagicGUIBuilder& builder, const ValueTree& node, const String& type) :
-        foleys::GuiItem (builder, node)
+    WowFlutterMenuItem (foleys::MagicGUIBuilder& builder, const ValueTree& node, const String& type) : foleys::GuiItem (builder, node)
     {
         const auto* proc = dynamic_cast<ChowtapeModelAudioProcessor*> (builder.getMagicState().getProcessor());
         jassert (proc); // this should never be nullptr!
