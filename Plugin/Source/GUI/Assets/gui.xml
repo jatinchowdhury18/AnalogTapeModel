@@ -179,6 +179,9 @@
       </View>
       <View display="tabbed" padding="0" margin="2" background-color="FF31323A" lookAndFeel="MyLNF">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
+          <FlutterMenu margin="0" padding="0" background-color="00000000"
+                       max-height="30" name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
+          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Depth" parameter="depth" max-height="150" class="Slider"
                   name="Flutter Depth" tooltip="Sets depth of the tape flutter."
                   margin="0" padding="0"/>
@@ -192,6 +195,9 @@
                        parameter="flutter_onoff" name="Wow/Flutter On/Off" tooltip="Turns the wow and flutter processing on or off."/>
         </View>
         <View tab-caption="Wow" flex-direction="column" background-color="FF31323A" padding="0" margin="3">
+          <WowMenu margin="0" padding="0" background-color="00000000"
+                       max-height="30" name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
+          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Depth" parameter="wow_depth" max-height="150" class="Slider"
                   name="Wow Depth" tooltip="Sets the depth of the tape wow." margin="0"
                   padding="0" slider-type="linear-horizontal"/>
