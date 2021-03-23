@@ -34,6 +34,9 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       onOffManager (vts, this),
       mixGroupsController (vts, this)
 {
+    positionInfo.bpm = 120.0;
+    positionInfo.timeSigNumerator = 4;
+
     scope = magicState.createAndAddObject<TapeScope> ("scope", getMainBusNumInputChannels());
     flutter.initialisePlots (magicState);
 
@@ -220,6 +223,9 @@ void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buff
 void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
+
+    if (auto playhead = getPlayHead())
+        playhead->getCurrentPosition (positionInfo);
 
     inGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));

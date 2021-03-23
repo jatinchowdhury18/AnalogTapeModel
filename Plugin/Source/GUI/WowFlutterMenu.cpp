@@ -36,6 +36,14 @@ private:
 };
 
 //============================================================================
+namespace
+{
+float flutterFreqToParam (float freq)
+{
+    return 0.144765f * std::log (10.0f * freq);
+}
+}
+
 WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const String& type) :
     proc (proc)
 {
@@ -45,23 +53,38 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
     setupRateParam (isFlutter);
 
     auto snycToTapeSpeed = [=, &proc] {
-        auto& vts = proc.getVTS();
+        const auto& vts = proc.getVTS();
         auto speedParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));
         auto speedIps = speedParam->get();
 
         auto newFreq = isFlutter ? speedIps / (6.0f * MathConstants<float>::pi) : 0.5f;
-        auto newRate = isFlutter ? 0.144765f * std::log (10.0f * newFreq) : 0.5f;
+        auto newRate = isFlutter ? flutterFreqToParam (newFreq) : 0.5f;
         setRateValue (newRate);
     };
 
-    auto syncToRhythm = [=] (float fractionOfWholeNote) {
-        ignoreUnused (fractionOfWholeNote);
-        setRateValue (0.5f);
+    auto syncToRhythm = [=, &proc] (float multipleOfQuarterNote) {
+        const auto& posInfo = proc.getPositionInfo();
+        auto quarterNoteTime = 60.0f / (float) posInfo.bpm;
+
+        auto newFreq = 1.0f / (quarterNoteTime * multipleOfQuarterNote);
+        auto newRate = isFlutter ? flutterFreqToParam (newFreq) : 0.5f;
+        setRateValue (newRate);
     };
 
     auto menu = getRootMenu();
     menu->addItem ("Sync to tape speed", snycToTapeSpeed);
-    menu->addItem ("Sync to quarter note", std::bind (syncToRhythm, 0.25f));
+
+    if (isFlutter)
+    {
+        menu->addItem ("Sync to eighth note", std::bind (syncToRhythm, 0.125f));
+        menu->addItem ("Sync to quarter note", std::bind (syncToRhythm, 0.25f));
+        menu->addItem ("Sync to half note", std::bind (syncToRhythm, 0.5f));
+        menu->addItem ("Sync to whole note", std::bind (syncToRhythm, 1.0f));
+    }
+    else
+    {
+        
+    }
 }
 
 WowFlutterMenu::~WowFlutterMenu()
@@ -94,6 +117,6 @@ void WowFlutterMenu::setupRateParam (bool isFlutter)
 void WowFlutterMenu::setRateValue (float value)
 {
     rateParam->beginChangeGesture();
-    rateParam->setValueNotifyingHost (value);
+    rateParam->setValueNotifyingHost (jlimit (0.0f, 1.0f, value));
     rateParam->endChangeGesture();
 }

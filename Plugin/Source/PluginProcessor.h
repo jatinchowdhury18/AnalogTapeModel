@@ -74,6 +74,7 @@ public:
 
     PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
+    const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
@@ -105,6 +106,7 @@ private:
     MyLNF myLNF;
     AutoUpdater updater;
     MixGroupsController mixGroupsController;
+    AudioPlayHead::CurrentPositionInfo positionInfo;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
