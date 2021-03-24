@@ -13,6 +13,7 @@
 #include "GUI/PowerButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
+#include "GUI/WowFlutterMenu.h"
 
 namespace
 {
@@ -33,6 +34,9 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       onOffManager (vts, this),
       mixGroupsController (vts, this)
 {
+    positionInfo.bpm = 120.0;
+    positionInfo.timeSigNumerator = 4;
+
     scope = magicState.createAndAddObject<TapeScope> ("scope", getMainBusNumInputChannels());
     flutter.initialisePlots (magicState);
 
@@ -220,6 +224,9 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 {
     ScopedNoDenormals noDenormals;
 
+    if (auto playhead = getPlayHead())
+        playhead->getCurrentPosition (positionInfo);
+
     inGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
@@ -283,6 +290,14 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
+
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (builder, node, "Flutter");
+    });
+
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (builder, node, "Wow");
+    });
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
