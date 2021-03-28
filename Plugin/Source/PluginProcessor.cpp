@@ -291,12 +291,12 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
 
-    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (builder, node, "Flutter");
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter");
     });
 
-    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& builder, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (builder, node, "Wow");
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
+        return std::make_unique<WowFlutterMenuItem> (b, node, "Wow");
     });
 
     builder->registerJUCELookAndFeels();
