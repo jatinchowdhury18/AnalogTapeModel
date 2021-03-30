@@ -2,12 +2,13 @@
 All notable changes to this project will be documented in
 this file.
 
-## [Unreleased]
+## [2.8.0] - Unreleased
 - Added support for Apple Silicon.
 - Added Azimuth parameter for playhead loss controls.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
 - Fixed glitches when adjusting loss parameters at large buffer sizes.
+- Added sync options for Wow/Flutter rate.
 - Added Envelope parameter for Degrade section.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
