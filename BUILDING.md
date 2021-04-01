@@ -22,6 +22,23 @@ cmake -Bbuild
 cmake --build build/ --config Release
 ```
 
+## Building for iOS
+
+To build for iOS, you can use the following CMake configuration command:
+```bash
+cmake -Bbuild-ios -GXcode -DCMAKE_SYSTEM_NAME=iOS \
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=11.4 \
+    -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM="$YOUR_TEAM_ID" \
+    -DCMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY="1,2" \
+    -DCMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE="NO"
+```
+Then, go to the `build-ios/` directory, open the Xcode project,
+and build. Note that you may not need to pass the 
+`XCODE_ATTRIBUTE_DEVELOPMENT_TEAM` argument if you're 
+building for your own local device, or using the Xcode simulator.
+Alternatively, you could set the development team manually from
+within Xcode.
+
 ## Linux Dependencies
 The Linux build utilises the following dependencies:
 - libasound
