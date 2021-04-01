@@ -23,18 +23,17 @@ machines. As well as a tool for mixing engineers and producers,
 ChowTape is a research project on developing physics-based
 models of analog tape emulation\footnote{The plugin is based off a 2019 DAFx paper
 \href{http://dafx2019.bcu.ac.uk/papers/DAFx2019_paper_3.pdf}{``Real-time Physical Modelling for Analog Tape Machines''}.}.
-The plugin is currently available as VST/VST3/AU/LV2 for
-Windows, Linux, and Mac.
+The plugin is currently available as VST/VST3/AU/LV2/AUv3 for
+Windows, Linux, Mac, and iOS.
 
 \subsection{Installation}
-To install ChowTape for Mac or Windows, download the
-\dllink{latest release}, unzip the downloaded file, and copy
-the plugin files to your \pluginfolder. Note that Macintosh
-users may need to
-\href{https://www.imore.com/how-open-apps-anywhere-macos-catalina-and-mojave}{allow applications from unidentified developers}.
-Linux users may download builds from the
-\href{https://build.opensuse.org/package/show/home:kill_it:JUCE/CHOWTapeModel}{Open Build Service}, or
-\href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md}{compile from source}.
+To install ChowTape for desktop, download the plugin installer
+from the \href{https://chowdsp.com/products.html#tape}{ChowDSP website}.
+If you would like to try the latest changes (unstable), you can
+download the latest \href{https://chowdsp.com/nightly.html}{Nightly build}.
+It is also possible to compile the plugin
+\href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md}{from the source code}.
+ChowTape for iOS can be downloaded from the \href{@TODO}{App Store}.
 
 \begin{figure}[ht]
     \center
@@ -45,7 +44,7 @@ Linux users may download builds from the
 \begin{figure}[ht]
     \center
     \includegraphics[width=0.6\columnwidth]{../Plugin/Screenshots/full_gui.png}
-    \caption{\label{h_bias}{\it ChowTape User Interface}}
+    \caption{\label{full_gui}{\it ChowTape User Interface}}
 \end{figure}
 
 \subsection{Controls}
@@ -224,19 +223,42 @@ of the tape, measured in centiimeters.
 \boldtheme{Gap} controls
 the width of the playhead gap, measured in millimeters.
 \newpar
+\boldtheme{Azimuth}
+controls the playhead alignment angle.\footnote{\href{https://blog.weareavp.com/azimuth-adjustment-for-magnetic-audio-recordings}{More information on playhead azimuth}.}
+A misalignment between the playhead and the tape causes a
+corresponding time misalignment between the two stereo tracks
+on the tape, resulting in a stereo ``widening'' effect.
+\newpar
 \boldtheme{Speed}
 controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
-continuous, standard tape speeds are 7.5, 15, and 30 ips.
+continuous, standard speeds for reel-to-reel tape machines
+are 7.5, 15, and 30 ips.
 
 
 \subsubsection{Tape Degradation Controls}
-The degradation parameters control a simulation of old, degraded
-tape. \boldtheme{Depth} and \boldtheme{Amount} control the amount
-of degradation that is added to the tape, while \boldtheme{Variance}
+The degradatation parameters control a simulation of
+old tape that has been used over and over, and has started
+to degrade.
+\newline
+\boldtheme{Depth}
+controls the intensity of the wear on the tape.
+\newpar
+\boldtheme{Amount}
+controls the amount of wear, typically corresponding to
+the age of the tape.
+\newpar
+\boldtheme{Variance}
 adds a time-varying randomness to the degradatation.
+\newpar
+\boldtheme{Envelope}
+applies an amplitude envelope to the tape noise.
 
-\vspace{2em}
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Degrade.png}
+    \caption{\label{h_bias}{\it Degradation controls.}}
+\end{figure}
 
 \subsubsection{Chew Controls}
 The chew parameters simulate tape that has been chewed up by
@@ -253,13 +275,23 @@ the tape to subtly speed up and slow down while being
 played back. The flutter characteristic in this plugin was
 captured from an original Sony TC-260 tape machine.
 \newpar
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Wow.png}
+    \caption{\label{h_bias}{\it Wow controls.}}
+\end{figure}
+%
+\boldtheme{Depth} controls the depth of the flutter and
 \boldtheme{Rate} controls the rate of flutter, with higher values
-causing the flutter to occur faster. \boldtheme{Depth} controls the
-depth of the flutter, with 0 meaning that no flutter is occuring, and
-higher values making the flutter more noticeable.
+causing the flutter to occur faster. Note that the
+flutter rate can be synchronized to the tape speed, or to the
+tempo of the song.
 \newpar
 "\boldtheme{Wow}" is similar to flutter but on a much longer time scale,
-and contains similar controls.
+and contains similar controls, as well as \boldtheme{Variance} and
+\boldtheme{Drift} which control the random irregularities that
+cause the wow characteristic.
 
 \subsection{Presets}
 Presets provide a quick way to achieve a specific sound
@@ -291,14 +323,15 @@ project, ChowTape is open to outside contributors. For more
 information, see our
 \href{https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/CONTRIBUTING.md}{Contributing}
 page.
-\newpar
 
 \subsection{Feedback}
 If you notice any bugs, or have any questions, feel free
-to \href{mailto:jatin@ccrma.stanford.edu}{email me directly},
+to \href{mailto:chowdsp@gmail.com}{email me directly},
 or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
 on GitHub. GitHub issues are preferred, since they are publicly
 visible.
+
+\vspace{8em}
 
 \subsection{Acknowledgements}
 Thanks to Yann from SINK Music for helping to create this
