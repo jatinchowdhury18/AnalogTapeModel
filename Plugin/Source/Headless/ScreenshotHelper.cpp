@@ -1,6 +1,8 @@
 #include "ScreenshotHelper.h"
 #include "../PluginProcessor.h"
 
+#if ! JUCE_LINUX
+
 ScreenshotHelper::ScreenshotHelper()
 {
     this->commandOption = "--screenshots";
@@ -116,3 +118,5 @@ void ScreenshotHelper::screenshotForBounds (Component* editor, Rectangle<int> bo
         pngImage.writeImageToStream (screenshot, *pngStream.get());
     }
 }
+
+#endif // ! JUCE_LINUX
