@@ -12,7 +12,7 @@ const Colour textColour = Colour (0xFFEAA92C);
 // Method to compare two versions.
 // Returns 1 if v2 is smaller, -1 if v1 is smaller, 0 if equal
 // Adapted from: https://www.geeksforgeeks.org/compare-two-version-numbers/
-int compareVersions (String v1, String v2)
+[[maybe_unused]] int compareVersions (String v1, String v2)
 {
     v1.removeCharacters ("v");
     v2.removeCharacters ("v");

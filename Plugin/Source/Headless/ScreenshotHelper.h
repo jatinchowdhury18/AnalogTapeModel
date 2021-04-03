@@ -1,12 +1,17 @@
 #ifndef SCREENSHOTHELPER_H_INCLUDED
 #define SCREENSHOTHELPER_H_INCLUDED
 
+#if JUCE_LINUX
+#include "JuceHeader.h"
+#else
 // weird hack, but I need acces to some private
 // member variables from foleys::Container
+// @TODO: figure out a better way!
 #define _XKEYCHECK_H
 #define private public
 #include <JuceHeader.h>
 #undef private
+#endif
 
 class ScreenshotHelper : public ConsoleApplication::Command
 {

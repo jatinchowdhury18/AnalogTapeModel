@@ -36,6 +36,9 @@ void processAudio (AudioProcessor* plugin)
 
 void findTabbedComponents (Component* root, Array<foleys::Container*>& tabbedComps)
 {
+#if JUCE_LINUX
+    return;
+#else
     if (root == nullptr)
         return;
 
@@ -49,10 +52,12 @@ void findTabbedComponents (Component* root, Array<foleys::Container*>& tabbedCom
 
         findTabbedComponents (child, tabbedComps);
     }
+#endif
 }
 
 void ScreenshotHelper::screenshotTab (foleys::Container* container, int tabIdx, const File& outDir)
 {
+#if ! JUCE_LINUX
     container->tabbedButtons->setCurrentTabIndex (tabIdx);
     auto name = container->tabbedButtons->getTabButton (tabIdx)->getName();
 
@@ -61,10 +66,15 @@ void ScreenshotHelper::screenshotTab (foleys::Container* container, int tabIdx, 
         child->setVisible (tabIdx == index++);
 
     screenshotForBounds (container, container->getLocalBounds(), outDir, name + ".png");
+#endif
 }
 
 void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
 {
+#if JUCE_LINUX
+    std::cout << "ScreenshotHelper currently does not work on Linux!" << std::endl;
+    return;
+#else
     File outputDir = File::getCurrentWorkingDirectory();
     if (args.containsOption ("--out"))
         outputDir = args.getExistingFolderForOption ("--out");
@@ -99,6 +109,7 @@ void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
             screenshotTab (c, i, outputDir);
 
     plugin->editorBeingDeleted (editor.get());
+#endif
 }
 
 void ScreenshotHelper::screenshotForBounds (Component* editor, Rectangle<int> bounds, const File& dir, const String& filename)
