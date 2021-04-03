@@ -1,9 +1,8 @@
 #ifndef SCREENSHOTHELPER_H_INCLUDED
 #define SCREENSHOTHELPER_H_INCLUDED
 
-#if JUCE_LINUX
-#include "JuceHeader.h"
-#else
+#if ! (defined (LINUX) || defined (__linux__))
+
 // weird hack, but I need acces to some private
 // member variables from foleys::Container
 // @TODO: figure out a better way!
@@ -11,7 +10,6 @@
 #define private public
 #include <JuceHeader.h>
 #undef private
-#endif
 
 class ScreenshotHelper : public ConsoleApplication::Command
 {
@@ -31,4 +29,5 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ScreenshotHelper)
 };
 
+#endif // defined (LINUX) || defined (__linux__)
 #endif // SCREENSHOTHELPER_H_INCLUDED
