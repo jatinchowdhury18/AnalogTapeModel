@@ -1,9 +1,10 @@
-#include "PluginProcessor.h"
 #include "MixGroups/MixGroupsController.h"
+#include "PluginProcessor.h"
 
 class MixGroupsTest : public UnitTest
 {
     using Proc = ChowtapeModelAudioProcessor;
+
 public:
     MixGroupsTest() : UnitTest ("MixGroupsTest")
     {
@@ -38,8 +39,7 @@ public:
             if (! param1 || ! param2)
                 continue;
 
-            expectWithinAbsoluteError (param1->getValue(), param2->getValue(), 0.001f,
-                "Parameter " + param1->name + " is not linked correctly!");
+            expectWithinAbsoluteError (param1->getValue(), param2->getValue(), 0.001f, "Parameter " + param1->name + " is not linked correctly!");
         }
     }
 
