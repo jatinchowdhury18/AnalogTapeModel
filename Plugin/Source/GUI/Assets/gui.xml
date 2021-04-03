@@ -142,10 +142,19 @@
         </View>
         <View tab-caption="Degrade" padding="0" flex-direction="column" background-color="FF31323A"
               margin="0">
-          <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
-          <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
-                  tooltip="Sets the depth of the tape degradation."
-                  margin="0" slider-type="linear-horizontal" max-height="70"/>
+          <View flex-direction="column" max-height="140" background-color="FF1E1F22"
+                flex-grow="2.0" flex-shrink="2.0" padding="0">
+            <View max-height="5"/>
+            <Slider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
+                    tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
+                    max-height="70" margin="0" min-height="0" slidertext-width="80"
+                    flex-grow="2.5" flex-shrink="2.5" padding=""/>
+            <TextButton flex-align-self="auto" max-height="160" background-color="FF31323A"
+                        button-on-color="FF8B3232" button-color="FF31323A" text="0.1x"
+                        button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
+                        width="" min-height="0.0" padding="0" caption-placement="centred"
+                        min-width="" margin="10" caption="" flex-grow="1.0" flex-shrink="0.1"/>
+          </View>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
                   margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."
@@ -177,10 +186,11 @@
                        parameter="chew_onoff" name="Chew On/Off" tooltip="Turns the chew processing on or off."/>
         </View>
       </View>
-      <View display="tabbed" padding="0" margin="2" background-color="FF31323A" lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" margin="2" background-color="FF31323A"
+            lookAndFeel="MyLNF">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
-          <FlutterMenu margin="0" padding="0" background-color="00000000"
-                       max-height="30" name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
+          <FlutterMenu margin="0" padding="0" background-color="00000000" max-height="30"
+                       name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Depth" parameter="depth" max-height="150" class="Slider"
                   name="Flutter Depth" tooltip="Sets depth of the tape flutter."
@@ -194,9 +204,10 @@
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="flutter_onoff" name="Wow/Flutter On/Off" tooltip="Turns the wow and flutter processing on or off."/>
         </View>
-        <View tab-caption="Wow" flex-direction="column" background-color="FF31323A" padding="0" margin="3">
-          <WowMenu margin="0" padding="0" background-color="00000000"
-                       max-height="30" name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
+        <View tab-caption="Wow" flex-direction="column" background-color="FF31323A"
+              padding="0" margin="3">
+          <WowMenu margin="0" padding="0" background-color="00000000" max-height="30"
+                   name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Depth" parameter="wow_depth" max-height="150" class="Slider"
                   name="Wow Depth" tooltip="Sets the depth of the tape wow." margin="0"
@@ -205,11 +216,11 @@
                   name="Wow Rate" tooltip="Sets the rate of the tape wow." margin="0"
                   padding="0" slider-type="linear-horizontal"/>
           <Slider caption="Variance" parameter="wow_var" class="Slider" max-height="150"
-                  name="Wow Variance" tooltip="Sets the amount of variance in the tape wow." margin="0"
-                  padding="0" slider-type="linear-horizontal"/>
+                  name="Wow Variance" tooltip="Sets the amount of variance in the tape wow."
+                  margin="0" padding="0" slider-type="linear-horizontal"/>
           <Slider caption="Drift" parameter="wow_drift" class="Slider" max-height="150"
-                  name="Wow Drift" tooltip="Sets the amount of drift in the tape wow." margin="0"
-                  padding="0" slider-type="linear-horizontal"/>
+                  name="Wow Drift" tooltip="Sets the amount of drift in the tape wow."
+                  margin="0" padding="0" slider-type="linear-horizontal"/>
           <Plot source="wow" plot-decay="0.8" flex-grow="1.45" background-color="FF1E1F22"
                 plot-color="FFEAA92C" plot-fill-color="CC8B3232"/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
@@ -244,3 +255,4 @@
     </View>
   </View>
 </magic>
+ 
