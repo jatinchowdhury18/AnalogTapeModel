@@ -175,6 +175,45 @@ void MyLNF::drawTabButton (TabBarButton& button, Graphics& g, bool /*isMouseOver
     textLayout.draw (g, Rectangle<float> (length, depth));
 }
 
+Button* MyLNF::createTabBarExtrasButton()
+{
+    Rectangle<float> arrowZone (-10.0f, -10.0f, 120.0f, 120.0f);
+    constexpr auto xPad = 25.0f;
+    const auto arrowHeight = arrowZone.getHeight() / 3.0f;
+    const auto yStart = arrowZone.getCentreY() - arrowHeight / 2.0f;
+    const auto yEnd = arrowZone.getCentreY() + arrowHeight / 2.0f;
+
+    Path path;
+    path.startNewSubPath (arrowZone.getX() + xPad, yStart);
+    path.lineTo (arrowZone.getCentreX(), yEnd);
+    path.lineTo (arrowZone.getRight() - xPad, yStart);
+
+    DrawablePath arrow;
+    arrow.setPath (path);
+    arrow.setFill (Colours::white);
+
+    path.clear();
+    path.addEllipse (arrowZone);
+
+    DrawablePath background;
+    background.setPath (path);
+    background.setFill (findColour (TabbedComponent::ColourIds::backgroundColourId));
+
+    DrawableComposite normalImage;
+    normalImage.addAndMakeVisible (background.createCopy().release());
+    normalImage.addAndMakeVisible (arrow.createCopy().release());
+
+    arrow.setFill (Colours::white.darker());
+
+    DrawableComposite overImage;
+    overImage.addAndMakeVisible (background.createCopy().release());
+    overImage.addAndMakeVisible (arrow.createCopy().release());
+
+    auto db = new DrawableButton ("tabs", DrawableButton::ImageFitted);
+    db->setImages (&normalImage, &overImage, nullptr);
+    return db;
+}
+
 void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, float sliderPos, float /*minSliderPos*/, float /*maxSliderPos*/, const Slider::SliderStyle, Slider& slider)
 {
     auto trackWidth = jmin (6.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
@@ -253,6 +292,7 @@ Component* MyLNF::getParentComponentForMenuOptions (const PopupMenu::Options& op
     return LookAndFeel_V2::getParentComponentForMenuOptions (options);
 }
 
+//==============================================================
 void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box)
 {
     auto cornerSize = 5.0f;

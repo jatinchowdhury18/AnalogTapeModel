@@ -16,6 +16,7 @@ public:
 
     void createTabTextLayout (const TabBarButton& button, float length, float depth, Colour colour, TextLayout& textLayout);
     void drawTabButton (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override;
+    Button* createTabBarExtrasButton() override;
 
     void drawLinearSlider (Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider) override;
 
