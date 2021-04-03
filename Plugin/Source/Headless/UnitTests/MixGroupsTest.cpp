@@ -39,7 +39,19 @@ public:
             if (! param1 || ! param2)
                 continue;
 
-            expectWithinAbsoluteError (param1->getValue(), param2->getValue(), 0.001f, "Parameter " + param1->name + " is not linked correctly!");
+            if (auto* paramBool1 = dynamic_cast<AudioParameterBool*> (param1))
+            {
+                auto* paramBool2 = dynamic_cast<AudioParameterBool*> (param2);
+
+                auto bool1 = paramBool1->get();
+                auto bool2 = paramBool2->get();
+
+                expect (bool1 == bool2, "Boolean Parameter " + param1->name + " is not linked correctly!");
+            }
+            else
+            {
+                expectWithinAbsoluteError (param1->getValue(), param2->getValue(), 0.001f, "Parameter " + param1->name + " is not linked correctly!");
+            }
         }
     }
 

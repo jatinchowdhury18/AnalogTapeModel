@@ -20,3 +20,6 @@ ci-pipeline:
 
 installers:
   - Plugin/Installers/**/*
+
+tests:
+  - Plugin/Source/Headless/UnitTests/*

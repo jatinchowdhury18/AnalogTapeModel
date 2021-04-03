@@ -17,6 +17,7 @@ target_sources(ChowTapeModel_Headless PRIVATE
 
     UnitTests/UnitTests.cpp
     UnitTests/MixGroupsTest.cpp
+    UnitTests/SpeedTest.cpp
 )
 
 target_include_directories(ChowTapeModel_Headless PRIVATE ../)
