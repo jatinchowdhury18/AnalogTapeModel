@@ -1,7 +1,7 @@
 #ifndef SCREENSHOTHELPER_H_INCLUDED
 #define SCREENSHOTHELPER_H_INCLUDED
 
-#if ! (defined (LINUX) || defined (__linux__))
+#if ! (defined(LINUX) || defined(__linux__))
 
 // weird hack, but I need acces to some private
 // member variables from foleys::Container
