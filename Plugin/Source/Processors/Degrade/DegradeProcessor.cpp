@@ -2,6 +2,7 @@
 
 DegradeProcessor::DegradeProcessor (AudioProcessorValueTreeState& vts)
 {
+    point1xParam = vts.getRawParameterValue ("deg_point1x");
     onOffParam = vts.getRawParameterValue ("deg_onoff");
     depthParam = vts.getRawParameterValue ("deg_depth");
     amtParam = vts.getRawParameterValue ("deg_amt");
@@ -11,6 +12,7 @@ DegradeProcessor::DegradeProcessor (AudioProcessorValueTreeState& vts)
 
 void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
+    params.push_back (std::make_unique<AudioParameterBool> ("deg_point1x", "Degrade Point1x", false));
     params.push_back (std::make_unique<AudioParameterBool> ("deg_onoff", "Degrade On/Off", false));
     params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Degrade Depth", 0.0f, 1.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt", "Degrade Amount", 0.0f, 1.0f, 0.0f));
@@ -20,12 +22,15 @@ void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<Ranged
 
 void DegradeProcessor::cookParams()
 {
+    auto point1x = static_cast<bool> (point1xParam->load());
+    auto depthValue = point1x ? depthParam->load() * 0.1f : depthParam->load();
+
     float freqHz = 200.0f * powf (20000.0f / 200.0f, 1.0f - *amtParam);
-    float gainDB = -24.0f * *depthParam;
+    float gainDB = -24.0f * depthValue;
 
     for (int ch = 0; ch < 2; ++ch)
     {
-        noiseProc[ch].setGain (0.5f * *depthParam * *amtParam);
+        noiseProc[ch].setGain (0.5f * depthValue * *amtParam);
         filterProc[ch].setFreq (jmin (freqHz + (*varParam * (freqHz / 0.6f) * (random.nextFloat() - 0.5f)), 0.49f * fs));
     }
 
