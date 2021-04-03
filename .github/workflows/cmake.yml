@@ -49,13 +49,25 @@ jobs:
 
     - name: Configure
       shell: bash
+      if: runner.os == 'Windows' || runner.os == 'MacOS'
       working-directory: ${{github.workspace}}/Plugin
       run: cmake -Bbuild
+
+    - name: Configure
+      shell: bash
+      if: runner.os == 'Linux'
+      working-directory: ${{github.workspace}}/Plugin
+      run: cmake -Bbuild -DBUILD_HEADLESS=ON
 
     - name: Build
       shell: bash
       working-directory: ${{github.workspace}}/Plugin
       run: cmake --build build --config Release --parallel 4
+
+    - name: Unit Tests
+      if: runner.os == 'Linux'
+      working-directory: ${{github.workspace}}/Plugin
+      run: build/ChowTapeModel --unit-tests --all
 
     - name: Pluginval
       if: runner.os == 'Windows' || runner.os == 'MacOS'
