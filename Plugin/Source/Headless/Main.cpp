@@ -1,6 +1,7 @@
 #include "Benchmarks.h"
 #include "FirBench.h"
 #include "ScreenshotHelper.h"
+#include "UnitTests/UnitTests.h"
 
 String getVersion()
 {
@@ -33,6 +34,9 @@ int main (int argc, char* argv[])
 
     FirBench firBench;
     app.addCommand (firBench);
+
+    UnitTests unitTests;
+    app.addCommand (unitTests);
 
     return app.findAndRunCommand (argc, argv);
 }
