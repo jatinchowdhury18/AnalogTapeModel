@@ -8,6 +8,48 @@ const String versionURL = "https://api.github.com/repos/jatinchowdhury18/AnalogT
 const String updateURL = "https://chowdsp.com/products.html#tape";
 const Colour backgroundColour = Colour (0xFF31323A).withAlpha (0.9f);
 const Colour textColour = Colour (0xFFEAA92C);
+
+// Method to compare two versions.
+// Returns 1 if v2 is smaller, -1 if v1 is smaller, 0 if equal
+// Adapted from: https://www.geeksforgeeks.org/compare-two-version-numbers/
+int compareVersions (String v1, String v2)
+{
+    v1.removeCharacters ("v");
+    v2.removeCharacters ("v");
+
+    // vnum stores each numeric part of version
+    int vnum1 = 0, vnum2 = 0;
+ 
+    // loop untill both string are processed
+    for (int i = 0, j = 0; (i < v1.length() || j < v2.length());)
+    {
+        // storing numeric part of version 1 in vnum1
+        while (i < v1.length() && v1[i] != '.')
+        {
+            vnum1 = vnum1 * 10 + (v1[i] - '0');
+            i++;
+        }
+ 
+        // storing numeric part of version 2 in vnum2
+        while (j < v2.length() && v2[j] != '.')
+        {
+            vnum2 = vnum2 * 10 + (v2[j] - '0');
+            j++;
+        }
+ 
+        if (vnum1 > vnum2)
+            return 1;
+        if (vnum2 > vnum1)
+            return -1;
+ 
+        // if equal, reset variables and go for next numeric part
+        vnum1 = vnum2 = 0;
+        i++;
+        j++;
+    }
+    return 0;
+}
+
 } // namespace
 
 AutoUpdater::AutoUpdater()
@@ -108,13 +150,18 @@ void AutoUpdater::showUpdaterScreen (Component* parent)
 
 bool AutoUpdater::runAutoUpdateCheck()
 {
+// IOS handles updating automatically, so we don't
+// need to ask users to update themselves
+#if JUCE_IOS
+    return false;
+#else
     auto updateFile = getUpdateCheckFile();
     String latestVersion = getLatestVersion();
 
     if (latestVersion.isEmpty()) // unable to get latest version
         return false;
 
-    if (latestVersion == currentVersion) // you're up to date!
+    if (compareVersions (latestVersion, currentVersion) <= 0) // you're up to date!
         return false;
 
     String updateVersion = getUpdateFileVersion (updateFile);
@@ -126,6 +173,7 @@ bool AutoUpdater::runAutoUpdateCheck()
 
     newVersion = latestVersion;
     return true;
+#endif
 }
 
 File AutoUpdater::getUpdateCheckFile()
