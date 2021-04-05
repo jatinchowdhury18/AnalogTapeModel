@@ -61,9 +61,10 @@
           <Slider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut"
                   tooltip="Applies a high cut filter before applying tape processing."/>
           <TextButton parameter="ifilt_makeup" text="Makeup" background-color="00000000"
-                      margin="0" padding="5" button-color="00000000" flex-grow="0.35"
-                      button-on-color="FF8B3232" lookAndFeel="SpeedButtonLNF" name="Makeup"
-                      tooltip="Adds the signal cut out by the cut filters back to the processed signal."/>
+                      margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
+                      button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Makeup"
+                      tooltip="Adds the signal cut out by the cut filters back to the processed signal."
+                      button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
           <PowerButton background-color="00000000" max-height="25" min-height="20" margin="0"
                        padding="0" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
@@ -150,10 +151,11 @@
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
             <TextButton flex-align-self="auto" max-height="160" background-color="FF31323A"
-                        button-on-color="FF8B3232" button-color="FF31323A" text="0.1x"
+                        button-on-color="FFB41717" button-color="FF33343D" text="0.1x"
                         button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
                         width="" min-height="0.0" padding="0" caption-placement="centred"
-                        min-width="" margin="10" caption="" flex-grow="1.0" flex-shrink="0.1"/>
+                        min-width="" margin="10" caption="" flex-grow="1.0" flex-shrink="0.1"
+                        name="point1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
           </View>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"

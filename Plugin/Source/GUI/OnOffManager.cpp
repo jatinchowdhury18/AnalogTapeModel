@@ -9,7 +9,7 @@ static const std::unordered_map<String, StringArray> triggerMap {
     { String ("tone_onoff"), StringArray ({ "Bass", "Treble", "Transition Frequency" }) },
     { String ("loss_onoff"), StringArray ({ "Gap", "Thickness", "Spacing", "Speed", "3.75 ips", "7.5 ips", "15 ips", "30 ips" }) },
     { String ("chew_onoff"), StringArray ({ "Chew Depth", "Chew Frequency", "Chew Variance" }) },
-    { String ("deg_onoff"), StringArray ({ "Depth", "Amount", "Variance", "Envelope" }) },
+    { String ("deg_onoff"), StringArray ({ "Depth", "Amount", "Variance", "Envelope", "point1x" }) },
     { String ("flutter_onoff"), StringArray ({ "Flutter Depth", "Flutter Rate", "Wow Depth", "Wow Rate", "Wow Variance", "Wow Drift" }) },
 };
 
