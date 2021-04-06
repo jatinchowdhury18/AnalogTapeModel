@@ -21,6 +21,9 @@ elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQU
         # Comment them out to be more strict.
         -Wno-shadow-field-in-constructor -Wno-shadow-field -Wno-sign-conversion
         -Wno-float-conversion -Wno-implicit-float-conversion -Wno-switch-enum
+        # For XSIMD
+        -Wno-cast-align -Wno-shadow -Wno-implicit-int-conversion
+        -Wno-zero-as-null-pointer-constant
     )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(warning_flags INTERFACE
