@@ -43,7 +43,7 @@
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
-    <View padding="0" margin="" background-color="" lookAndFeel="">
+    <ScrollView padding="0" margin="1" background-color="00000000" lookAndFeel="MyLNF">
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
