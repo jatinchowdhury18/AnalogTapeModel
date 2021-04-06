@@ -9,8 +9,8 @@
 */
 
 #include "PluginProcessor.h"
-#include "GUI/MixGroupViz.h"
-#include "GUI/PowerButton.h"
+#include "GUI/Visualizers/MixGroupViz.h"
+#include "GUI/OnOff/PowerButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/WowFlutterMenu.h"
@@ -315,7 +315,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
         });
     }
 
-#if JUCE_IOS
+#if 1 // JUCE_IOS
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_ios_xml, BinaryData::gui_ios_xmlSize, std::move (builder));
 #else
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));

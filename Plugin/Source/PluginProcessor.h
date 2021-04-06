@@ -12,8 +12,8 @@
 
 #include "GUI/AutoUpdating.h"
 #include "GUI/MyLNF.h"
-#include "GUI/OnOffManager.h"
-#include "GUI/TapeScope.h"
+#include "GUI/OnOff/OnOffManager.h"
+#include "GUI/Visualizers/TapeScope.h"
 #include "MixGroups/MixGroupsController.h"
 #include "Presets/PresetManager.h"
 #include "Processors/Chew/ChewProcessor.h"
