@@ -9,11 +9,11 @@
 */
 
 #include "PluginProcessor.h"
-#include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/OnOff/PowerButton.h"
 #include "GUI/ScrollView.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
+#include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
 
 namespace
