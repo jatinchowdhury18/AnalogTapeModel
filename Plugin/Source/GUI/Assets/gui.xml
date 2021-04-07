@@ -154,8 +154,8 @@
                         button-on-color="FFB41717" button-color="FF33343D" text="0.1x"
                         button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
                         width="" min-height="0.0" padding="0" caption-placement="centred"
-                        min-width="" margin="10" caption="" flex-grow="1.0" flex-shrink="0.1"
-                        name="point1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
+                        min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
+                        name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
           </View>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
