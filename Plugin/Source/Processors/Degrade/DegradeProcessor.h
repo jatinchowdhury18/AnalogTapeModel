@@ -18,6 +18,7 @@ public:
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
 
 private:
+    std::atomic<float>* point1xParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
     std::atomic<float>* depthParam = nullptr;
     std::atomic<float>* amtParam = nullptr;
