@@ -19,6 +19,8 @@ if(IOS)
         ProductName "CHOWTapeModel"
         ICON_BIG Source/GUI/Assets/logo.png
         MICROPHONE_PERMISSION_ENABLED TRUE
+        IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
     )
 else()
     juce_add_plugin(CHOWTapeModel

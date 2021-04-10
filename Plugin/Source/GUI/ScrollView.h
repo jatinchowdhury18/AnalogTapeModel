@@ -15,12 +15,13 @@ public:
 
         viewport.setScrollBarsShown (true, false);
         viewport.getVerticalScrollBar().setColour (ScrollBar::thumbColourId, Colour (0xFFEAA92C).withAlpha (0.7f));
+        viewport.setScrollBarThickness (10);
     }
 
     void resized() override
     {
         viewport.setBounds (getLocalBounds());
-        baseView.setSize (getWidth(), jmax (420, getHeight()));
+        baseView.setSize (getWidth() - viewport.getScrollBarThickness(), jmax (420, getHeight()));
     }
 
     void update() override

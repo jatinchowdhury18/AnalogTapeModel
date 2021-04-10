@@ -229,7 +229,7 @@
         </View>
       </View>
     </View>
-    <View max-height="50" margin="0" padding="0" background-color="FF31323A"
+    <View max-height="40" min-height="20" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
       <View background-color="00000000" flex-grow="0.1"/>
       <ComboBox caption="Oversampling" parameter="os" class="Slider" caption-size="0"
