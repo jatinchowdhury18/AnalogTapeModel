@@ -47,6 +47,16 @@ void Preset::initialise (const ValueTree& parentTree)
 //====================================================
 PresetManager::PresetManager()
 {
+#if JUCE_IOS
+    File appDataDir = File::getSpecialLocation (File::userApplicationDataDirectory);
+    userPresetFolder = appDataDir.getChildFile (userPresetPath).getSiblingFile ("Presets");
+    if (! userPresetFolder.isDirectory())
+    {
+        userPresetFolder.deleteFile();
+        userPresetFolder.createDirectory();
+    }
+#endif
+
     loadPresets();
 }
 
@@ -172,6 +182,7 @@ File PresetManager::getUserPresetConfigFile() const
 
 void PresetManager::chooseUserPresetFolder()
 {
+#if ! JUCE_IOS
     FileChooser chooser ("Choose preset folder");
     if (chooser.browseForDirectory())
     {
@@ -182,6 +193,7 @@ void PresetManager::chooseUserPresetFolder()
         config.replaceWithText (result.getFullPathName());
         updateUserPresets();
     }
+#endif
 }
 
 void PresetManager::loadPresetFolder (PopupMenu& menu, File& directory)
@@ -216,12 +228,14 @@ void PresetManager::loadPresetFolder (PopupMenu& menu, File& directory)
 
 void PresetManager::updateUserPresets()
 {
+#if ! JUCE_IOS
     // set preset folder
     auto config = getUserPresetConfigFile();
     if (config.existsAsFile())
         userPresetFolder = File (config.loadFileAsString());
     else
         userPresetFolder = File();
+#endif
 
     // remove existing user presets
     presets.removeRange (numFactoryPresets, maxIdx - numFactoryPresets);
