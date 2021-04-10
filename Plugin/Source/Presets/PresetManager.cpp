@@ -56,7 +56,7 @@ PresetManager::PresetManager()
         userPresetFolder.createDirectory();
     }
 #endif
-    
+
     loadPresets();
 }
 
