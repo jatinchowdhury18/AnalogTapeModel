@@ -41,6 +41,7 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
             while (idx > manager.getNumPresets())
                 idx -= manager.getNumPresets();
 
+            presetNameEditor.setVisible (false);
             presetBox.setSelectedId (idx, sendNotification);
         };
     };
@@ -108,6 +109,7 @@ void PresetComp::addPresetOptions()
     saveItem.action = [=] { saveUserPreset(); };
     menu->addItem (saveItem);
 
+#if ! JUCE_IOS
     PopupMenu::Item goToFolderItem { "Go to Preset folder..." };
     goToFolderItem.itemID = 1002;
     goToFolderItem.action = [=] {
@@ -124,6 +126,7 @@ void PresetComp::addPresetOptions()
     chooseFolderItem.itemID = 1003;
     chooseFolderItem.action = [=] { presetUpdated(); manager.chooseUserPresetFolder(); };
     menu->addItem (chooseFolderItem);
+#endif
 }
 
 void PresetComp::paint (Graphics& g)
