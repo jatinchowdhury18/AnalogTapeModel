@@ -1,5 +1,5 @@
 #include "WowFlutterProcessor.h"
-#include "../../GUI/LightMeter.h"
+#include "../../GUI/Visualizers/LightMeter.h"
 
 WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
 {
