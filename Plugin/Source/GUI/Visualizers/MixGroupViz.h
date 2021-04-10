@@ -1,7 +1,7 @@
 #ifndef MIXGROUPVIZ_H_INCLUDED
 #define MIXGROUPVIZ_H_INCLUDED
 
-#include "../MixGroups/MixGroupsController.h"
+#include "../../MixGroups/MixGroupsController.h"
 #include <JuceHeader.h>
 
 class MixGroupViz : public Component,

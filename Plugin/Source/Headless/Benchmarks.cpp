@@ -5,7 +5,7 @@ namespace
 {
 constexpr double pluginSampleRate = 44100.0;
 constexpr int samplesPerBlock = 256;
-constexpr int numChannels = 2;
+constexpr int nChs = 2;
 } // namespace
 
 Benchmarks::Benchmarks()
@@ -69,7 +69,7 @@ double timeAudioProcess (AudioProcessor* plugin, AudioBuffer<float>& audio, cons
         auto curBlockSize = jmin (totalNumSamples, blockSize);
         totalNumSamples -= curBlockSize;
 
-        AudioBuffer<float> curBuff (audio.getArrayOfWritePointers(), numChannels, samplePtr, curBlockSize);
+        AudioBuffer<float> curBuff (audio.getArrayOfWritePointers(), nChs, samplePtr, curBlockSize);
         plugin->processBlock (curBuff, midi);
 
         samplePtr += curBlockSize;

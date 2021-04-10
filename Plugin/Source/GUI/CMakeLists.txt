@@ -1,12 +1,14 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
-    LightMeter.cpp
-    MixGroupViz.cpp
     MyLNF.cpp
-    OnOffManager.cpp
-    PowerButton.cpp
-    TapeScope.cpp
     TitleComp.cpp
     TooltipComp.cpp
     WowFlutterMenu.cpp
+    
+    OnOff/OnOffManager.cpp
+    OnOff/PowerButton.cpp
+
+    Visualizers/LightMeter.cpp
+    Visualizers/MixGroupViz.cpp
+    Visualizers/TapeScope.cpp
 )
