@@ -10,6 +10,7 @@ this file.
 - Fixed glitches when adjusting loss parameters at large buffer sizes.
 - Added sync options for Wow/Flutter rate.
 - Added Envelope parameter for Degrade section.
+- Added 0.1x control for Degrade "Depth" parameter.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
 - Added support for OSX versions 10.9 and up.
