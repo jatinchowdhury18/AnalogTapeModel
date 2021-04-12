@@ -22,6 +22,7 @@ elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQU
         # Comment them out to be more strict.
         -Wno-shadow-field-in-constructor -Wno-shadow-field -Wno-sign-conversion
         -Wno-float-conversion -Wno-implicit-float-conversion -Wno-switch-enum
+        -Wno-macro-redefined
         # For XSIMD
         -Wno-cast-align -Wno-shadow -Wno-implicit-int-conversion
         -Wno-zero-as-null-pointer-constant
@@ -36,6 +37,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # These lines suppress some warnings from Foley's GUI Magic and RTNeural.
         # Comment them out to be more strict.
         -Wno-sign-conversion -Wno-switch-enum -Wno-overloaded-virtual
+        -Wno-macro-redefined
         # For XSIMD
         -Wno-zero-as-null-pointer-constant
         # From LV2 Wrapper

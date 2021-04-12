@@ -40,9 +40,7 @@ void UnitTests::runUnitTests (const ArgumentList& args)
     ConsoleUnitTestRunner runner;
     auto seed = getRandomSeed (args);
 
-    auto tests = UnitTest::getAllTests();
-    getTestsForArgs (tests, args);
-
+    auto tests = getTestsForArgs (args);
     runner.runTests (tests, seed);
 
     Logger::setCurrentLogger (nullptr);
@@ -66,14 +64,17 @@ int64 UnitTests::getRandomSeed (const ArgumentList& args)
     return int64 (0);
 }
 
-void UnitTests::getTestsForArgs (Array<UnitTest*>& tests, const ArgumentList& args)
+Array<UnitTest*> UnitTests::getTestsForArgs (const ArgumentList& args)
 {
     if (args.containsOption ("--all"))
-        return;
+        return UnitTest::getAllTests();
 
-    for (auto* t : tests)
+    Array<UnitTest*> unitTests;
+    for (auto* test : UnitTest::getAllTests())
     {
-        if (! args.containsOption (t->getName()))
-            tests.remove (&t);
+        if (args.containsOption (test->getName()))
+            unitTests.add (test);
     }
+
+    return unitTests;
 }
