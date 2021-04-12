@@ -53,7 +53,7 @@ jobs:
       working-directory: ${{github.workspace}}/Plugin
       run: cmake -Bbuild
 
-    - name: Configure
+    - name: Configure (Headless)
       shell: bash
       if: runner.os == 'Linux'
       working-directory: ${{github.workspace}}/Plugin
