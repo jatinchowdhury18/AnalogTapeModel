@@ -77,7 +77,7 @@ public:
         std::cout << "Actual output: " << result << std::endl;
         std::cout << "Actual duration: " << durationReal << std::endl;
 
-        expectLessThan (durationReal, durationRef, "Plugin STN processing is too slow!");
+        expectLessThan (durationReal, durationRef * 1.25, "Plugin STN processing is too slow!");
     }
 
     std::unique_ptr<RTNeural::Model<double>> loadModel()

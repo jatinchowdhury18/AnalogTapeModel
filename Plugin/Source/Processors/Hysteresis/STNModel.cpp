@@ -74,6 +74,9 @@ void Dense41::setBias (std::vector<double>& b)
 //===========================================================
 void STNModel::loadModel (const nlohmann::json& modelJ)
 {
+#if JUCE_LINUX
+    model = RTNeural::json_parser::parseJson<double> (modelJ);
+#else
     auto layers = modelJ["layers"];
 
     const auto weights_l0 = layers.at (0)["weights"];
@@ -138,6 +141,7 @@ void STNModel::loadModel (const nlohmann::json& modelJ)
         std::vector<double> denseBias = weights_l2[1].get<std::vector<double>>();
         dense41.setBias (denseBias);
     }
+#endif
 }
 
 } // namespace STNSpace

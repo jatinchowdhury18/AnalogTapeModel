@@ -139,7 +139,11 @@ public:
         outs[0] = v_type (xsimd::tanh (static_cast<x_type> (input[0].value)));
         outs[1] = v_type (xsimd::tanh (static_cast<x_type> (input[1].value)));
 #else
-        jassertfalse; // Must use xsimd or Accelerate
+        // fallback
+        outs[0].set (0, std::tanh (input[0].get (0)));
+        outs[0].set (1, std::tanh (input[0].get (1)));
+        outs[1].set (0, std::tanh (input[1].get (0)));
+        outs[1].set (1, std::tanh (input[1].get (1)));
 #endif
     }
 
@@ -156,21 +160,29 @@ public:
 
     inline double forward (const double* input) noexcept
     {
+#if JUCE_LINUX
+        return model->forward (input);
+#else
         dense54.forward (input);
         tanh1.forward (dense54.outs);
         dense44.forward (tanh1.outs);
         tanh2.forward (dense44.outs);
         return dense41.forward (tanh2.outs);
+#endif
     }
 
     void loadModel (const nlohmann::json& modelJ);
 
 private:
+#if JUCE_LINUX
+    std::unique_ptr<RTNeural::Model<double>> model;
+#else
     Dense54 dense54;
     Tanh tanh1;
     Dense44 dense44;
     Tanh tanh2;
     Dense41 dense41;
+#endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (STNModel)
 };
