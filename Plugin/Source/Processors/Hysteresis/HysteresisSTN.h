@@ -4,6 +4,7 @@
 // #include "RTNeural/src/Model.h"
 #include <JuceHeader.h>
 #include <RTNeural/RTNeural.h>
+#include "STNModel.h"
 
 /**
  * Class that implements a "State Transition Network" for
@@ -34,6 +35,7 @@ public:
     };
 
 private:
+    STNModel stnModel;
     std::unique_ptr<RTNeural::Model<double>> stnModels[numWidthModels][numSatModels];
     double sampleRateCorr = 1.0;
     size_t widthIdx = 0;
