@@ -10,11 +10,15 @@ PresetComp::PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manage
     presetBox.setName ("Preset Manager");
     presetBox.setTooltip ("Use this menu to select presets, and to save and manage user presets.");
 
+#if JUCE_IOS
+    setColour (backgroundColourId, Colour (0x33000000));
+#else
     setColour (backgroundColourId, Colour (0xFF595C6B));
+#endif
     setColour (textColourId, Colours::white);
 
     addAndMakeVisible (presetBox);
-    presetBox.setColour (ComboBox::ColourIds::backgroundColourId, Colours::transparentWhite);
+    presetBox.setColour (ComboBox::backgroundColourId, Colours::transparentWhite);
     presetBox.setJustificationType (Justification::centred);
     presetBox.setTextWhenNothingSelected ("No Preset selected...");
     loadPresetChoices();
