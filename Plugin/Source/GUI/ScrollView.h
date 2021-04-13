@@ -1,50 +1,27 @@
 #pragma once
 
+#include "DragToScrollListener.h"
+
 class ScrollView : public foleys::GuiItem
 {
 public:
     FOLEYS_DECLARE_GUI_FACTORY (ScrollView)
 
-    ScrollView (foleys::MagicGUIBuilder& builder, ValueTree node)
-        : foleys::GuiItem (builder, node),
-          baseView (builder, node)
-    {
-        addAndMakeVisible (viewport);
-        addAndMakeVisible (baseView);
-        viewport.setViewedComponent (&baseView, false);
+    ScrollView (foleys::MagicGUIBuilder& builder, ValueTree node);
 
-        viewport.setScrollBarsShown (true, false);
-        viewport.getVerticalScrollBar().setColour (ScrollBar::thumbColourId, Colour (0xFFEAA92C).withAlpha (0.7f));
-        viewport.setScrollBarThickness (10);
-    }
+    void resized() override;
 
-    void resized() override
-    {
-        viewport.setBounds (getLocalBounds());
-        baseView.setSize (getWidth() - viewport.getScrollBarThickness(), jmax (420, getHeight()));
-    }
-
-    void update() override
-    {
-        baseView.getConfigNode() = configNode.createCopy();
-        baseView.update();
-    }
-
-    bool isContainer() const override { return true; }
-
-    void createSubComponents() override
-    {
-        baseView.getConfigNode() = configNode.createCopy();
-        baseView.createSubComponents();
-    }
-
+    void update() override;
     Component* getWrappedComponent() override { return &viewport; }
-
-    foleys::GuiItem* findGuiItemWithId (const String& name) override { return baseView.findGuiItemWithId (name); }
+    bool isContainer() const override { return true; }
+    void createSubComponents() override;
+    foleys::GuiItem* findGuiItemWithId (const String& name) override;
 
 private:
     Viewport viewport;
     foleys::Container baseView;
+
+    std::unique_ptr<DragToScrollListener> dragToScrollListener;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ScrollView)
 };

@@ -70,6 +70,7 @@
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
         </View>
       </View>
+      <View margin="0" padding="0" flex-grow="0.07" background-color="00000000"/>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tape" margin="0">
@@ -98,6 +99,7 @@
                        name="Tone On/Off" tooltip="Turns the tone control processing on or off."/>
         </View>
       </View>
+      <View margin="0" padding="0" flex-grow="0.07" background-color="00000000"/>
       <View display="tabbed" padding="0" background-color="FF31323A" flex-grow="1.5"
             lookAndFeel="MyLNF">
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
@@ -188,6 +190,7 @@
                        parameter="chew_onoff" name="Chew On/Off" tooltip="Turns the chew processing on or off."/>
         </View>
       </View>
+      <View margin="0" padding="0" flex-grow="0.07" background-color="00000000"/>
       <View display="tabbed" padding="0" margin="2" background-color="FF31323A" lookAndFeel="MyLNF">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
           <FlutterMenu margin="0" padding="0" background-color="00000000"
