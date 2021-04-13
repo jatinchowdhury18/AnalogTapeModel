@@ -19,7 +19,7 @@ ScrollView::ScrollView (foleys::MagicGUIBuilder& builder, ValueTree node)
 void ScrollView::resized()
 {
     viewport.setBounds (getLocalBounds());
-    baseView.setSize (getWidth() - viewport.getScrollBarThickness(), jmax (420, getHeight()));
+    baseView.setSize (getWidth() - viewport.getScrollBarThickness(), jmax (465, getHeight()));
 }
 
 void ScrollView::update()
