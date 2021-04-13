@@ -25,7 +25,7 @@ public:
         accTest();
 
         beginTest ("STN Performance Test");
-        perfTest();
+        // perfTest(); // Keep this disabled most of the time for CI
     }
 
     void accTest()
