@@ -23,9 +23,9 @@ public:
     void prepare (double sampleRate);
     void setParams (float saturation, float width);
 
-    inline double process (const std::array<double, inputSize>& input) const noexcept
+    inline double process (const double* input) noexcept
     {
-        return stnModels[widthIdx][satIdx]->forward (input.data()) * sampleRateCorr;
+        return stnModels[widthIdx][satIdx].forward (input) * sampleRateCorr;
     }
 
     enum
@@ -35,8 +35,7 @@ public:
     };
 
 private:
-    STNModel stnModel;
-    std::unique_ptr<RTNeural::Model<double>> stnModels[numWidthModels][numSatModels];
+    STNSpace::STNModel stnModels[numWidthModels][numSatModels];
     double sampleRateCorr = 1.0;
     size_t widthIdx = 0;
     size_t satIdx = 0;

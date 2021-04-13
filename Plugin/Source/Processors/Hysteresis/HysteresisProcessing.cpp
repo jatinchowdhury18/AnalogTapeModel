@@ -210,12 +210,12 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
 
 inline double HysteresisProcessing::STN (double H, double H_d) noexcept
 {
-    std::array<double, HysteresisSTN::inputSize> input { H, H_d, H_n1, H_d_n1, M_n1 };
+    alignas(16) double input[] = { H, H_d, H_n1, H_d_n1, M_n1 };
 
     // scale derivatives
     input[1] *= HysteresisSTN::diffMakeup;
     input[3] *= HysteresisSTN::diffMakeup;
-    FloatVectorOperations::multiply (input.data(), 0.7071 / a, 4); // scale by drive param
+    FloatVectorOperations::multiply (input, 0.7071 / a, 4); // scale by drive param
 
     return hysteresisSTN.process (input) + M_n1;
 }

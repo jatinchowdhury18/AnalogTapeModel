@@ -60,10 +60,7 @@ HysteresisSTN::HysteresisSTN()
             {
                 String modelTag = "drive_" + sat + "_" + width;
                 auto thisModelJson = modelsJson[modelTag.toStdString()];
-                stnModels[widthModelIdx][satLoadIdx] = RTNeural::json_parser::parseJson<double> (thisModelJson);
-
-                jassert (stnModels[widthModelIdx][satLoadIdx] != nullptr);
-                jassert (stnModels[widthModelIdx][satLoadIdx]->layers[0]->in_size == inputSize);
+                stnModels[widthModelIdx][satLoadIdx].loadModel (thisModelJson);
                 satLoadIdx++;
             }
         };

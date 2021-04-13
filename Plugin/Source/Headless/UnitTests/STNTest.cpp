@@ -6,7 +6,7 @@ namespace
     constexpr double trainingSampleRate = 96000.0;
     constexpr auto sampleRateCorr = trainingSampleRate / sampleRate;
 
-    const std::array<double, 5> input { 1.0, 1.0, 1.0, 1.0, 1.0 };
+    alignas(16) double input[] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
 }
 
 class STNTest : public UnitTest
@@ -33,9 +33,12 @@ public:
 
         auto refModel = loadModel();
 
-        auto x = stn.process (input);
-        auto xRef = refModel->forward (input.data()) * sampleRateCorr;
-        expectWithinAbsoluteError (x, xRef, 1.0e-15, "STN output is incorrect!");
+        for (int i = 0; i < 10; ++i)
+        {
+            auto x = stn.process (input);
+            auto xRef = refModel->forward (input) * sampleRateCorr;
+            expectWithinAbsoluteError (x, xRef, 1.0e-15, "STN output is incorrect!");
+        }
     }
 
     void perfTest()
@@ -54,7 +57,7 @@ public:
             Time time;
             auto start = time.getMillisecondCounterHiRes();
             for (int i = 0; i < nIter; ++i)
-                result = refModel->forward (input.data()) * sampleRateCorr;
+                result = refModel->forward (input) * sampleRateCorr;
             auto end = time.getMillisecondCounterHiRes();
             durationRef = (end - start) / 1000.0;
         }
