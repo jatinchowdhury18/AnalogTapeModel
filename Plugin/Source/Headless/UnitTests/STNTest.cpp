@@ -2,12 +2,12 @@
 
 namespace
 {
-    constexpr double sampleRate = 48000.0;
-    constexpr double trainingSampleRate = 96000.0;
-    constexpr auto sampleRateCorr = trainingSampleRate / sampleRate;
+constexpr double sampleRate = 48000.0;
+constexpr double trainingSampleRate = 96000.0;
+constexpr auto sampleRateCorr = trainingSampleRate / sampleRate;
 
-    alignas(16) double input[] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
-}
+alignas (16) double input[] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
+} // namespace
 
 class STNTest : public UnitTest
 {

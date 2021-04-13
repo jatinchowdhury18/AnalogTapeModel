@@ -5,7 +5,6 @@
 
 namespace STNSpace
 {
-
 using v_type = dsp::SIMDRegister<double>;
 constexpr auto v_size = v_type::SIMDNumElements;
 static_assert (v_size == 2, "SIMD double size is required to be 2.");
@@ -126,23 +125,22 @@ public:
 
     inline void forward (const v_type* input) noexcept
     {
-      #if USE_ACCELERATE
-        alignas(16) double x[4];
+#if USE_ACCELERATE
+        alignas (16) double x[4];
         input[0].copyToRawArray (x);
         input[1].copyToRawArray (&x[2]);
 
-        vvtanh(x, x, &size);
+        vvtanh (x, x, &size);
 
         outs[0] = v_type::fromRawArray (x);
         outs[1] = v_type::fromRawArray (x + 2);
-      #elif USE_XSIMD
+#elif USE_XSIMD
         using x_type = xsimd::simd_type<double>;
-        outs[0] = v_type (xsimd::tanh(static_cast<x_type> (input[0].value)));
-        outs[1] = v_type (xsimd::tanh(static_cast<x_type> (input[1].value)));
-      #else
+        outs[0] = v_type (xsimd::tanh (static_cast<x_type> (input[0].value)));
+        outs[1] = v_type (xsimd::tanh (static_cast<x_type> (input[1].value)));
+#else
         jassertfalse; // Must use xsimd or Accelerate
-      #endif
-
+#endif
     }
 
     v_type outs[2];

@@ -2,9 +2,9 @@
 #define HYSTERESISSTN_H_INCLUDED
 
 // #include "RTNeural/src/Model.h"
+#include "STNModel.h"
 #include <JuceHeader.h>
 #include <RTNeural/RTNeural.h>
-#include "STNModel.h"
 
 /**
  * Class that implements a "State Transition Network" for
