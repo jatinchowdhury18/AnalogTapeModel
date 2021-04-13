@@ -1,6 +1,8 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
+    DragToScrollListener.cpp
     MyLNF.cpp
+    ScrollView.cpp
     TitleComp.cpp
     TooltipComp.cpp
     WowFlutterMenu.cpp
