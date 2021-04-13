@@ -88,6 +88,7 @@ void MyLNF::createTabTextLayout (const TabBarButton& button, float length, float
 
 void MyLNF::drawTabButton (TabBarButton& button, Graphics& g, bool /*isMouseOver*/, bool /*isMouseDown*/)
 {
+    button.setViewportIgnoreDragFlag (true);
     const Rectangle<int> activeArea (button.getActiveArea());
 
     const TabbedButtonBar::Orientation o = button.getTabbedButtonBar().getOrientation();
