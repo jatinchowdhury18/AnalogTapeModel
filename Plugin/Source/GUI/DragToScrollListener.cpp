@@ -19,9 +19,8 @@ void DragToScrollListener::positionChanged (ViewportDragPosition&, double)
 {
     if (! isDragging)
         return;
-        
-    viewport.setViewPosition (originalViewPos - Point<int> ((int) offsetX.getPosition(),
-                                                            (int) offsetY.getPosition()));
+
+    viewport.setViewPosition (originalViewPos - Point<int> ((int) offsetX.getPosition(), (int) offsetY.getPosition()));
 }
 
 static int getNumSources()

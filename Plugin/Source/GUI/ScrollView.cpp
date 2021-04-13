@@ -35,6 +35,6 @@ void ScrollView::createSubComponents()
 }
 
 foleys::GuiItem* ScrollView::findGuiItemWithId (const String& name)
-{ 
+{
     return baseView.findGuiItemWithId (name);
 }
