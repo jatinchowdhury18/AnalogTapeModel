@@ -19,10 +19,10 @@ public:
     void runTest() override
     {
         beginTest ("STN Accuracy Test");
-        accTest();
+        // accTest();
 
         beginTest ("STN Performance Test");
-        perfTest();
+        // perfTest();
     }
 
     void accTest()
