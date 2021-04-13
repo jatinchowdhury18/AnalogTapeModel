@@ -32,13 +32,21 @@
         background-image="Background_svg" image-placement="stretch">
     <View max-height="80" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
-            flex-grow="0.75">
+            flex-grow="0.45">
         <View flex-grow="0.333" background-color="00000000"/>
         <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
                    padding="1" flex-grow="1.0"/>
         <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
                   padding="0" margin="5" border=""/>
         <View background-color="00000000" flex-grow="0.33"/>
+      </View>
+      <View margin="2" padding="" background-color="00000000" flex-direction="column"
+            flex-grow="0.4">
+        <View flex-grow="0.15" background-color="00000000"/>
+        <presets margin="0" padding="0" background-color="00000000" border-color="33000000"
+                 radius="" border="" lookAndFeel="PresetsLNF" flex-grow="0.25"
+                 max-height="100"/>
+        <View flex-grow="0.15" background-color="00000000"/>
       </View>
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
@@ -275,9 +283,6 @@
                 margin="0" parameter="mix_group" combo-background="00000000"
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
-      <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
-               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9"
-               max-height="100"/>
     </View>
   </View>
 </magic>
