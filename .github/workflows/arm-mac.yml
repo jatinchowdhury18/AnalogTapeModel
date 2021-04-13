@@ -1,0 +1,40 @@
+name: ARM-Mac
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    paths:
+    - 'Plugin/**'
+  pull_request:
+    branches:
+    - master
+    - develop
+
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
+    name: Build plugin for Apple Silicon
+    runs-on: macos-latest
+    
+    steps:
+    - name: Get latest CMake
+      uses: lukka/get-cmake@latest
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Configure
+      shell: bash
+      working-directory: ${{github.workspace}}/Plugin
+      run: cmake -Bbuild -D"CMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+
+    - name: Build
+      shell: bash
+      working-directory: ${{github.workspace}}/Plugin
+      run: cmake --build build --config Release --parallel 4
