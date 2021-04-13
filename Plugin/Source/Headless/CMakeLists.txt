@@ -18,6 +18,7 @@ target_sources(ChowTapeModel_Headless PRIVATE
     UnitTests/UnitTests.cpp
     UnitTests/MixGroupsTest.cpp
     UnitTests/SpeedTest.cpp
+    UnitTests/STNTest.cpp
 )
 
 target_include_directories(ChowTapeModel_Headless PRIVATE ../)
@@ -26,3 +27,5 @@ target_link_libraries(ChowTapeModel_Headless PUBLIC
     BinaryData
     CHOWTapeModel
 )
+
+set_target_properties(ChowTapeModel_Headless PROPERTIES CXX_VISIBILITY_PRESET hidden)
