@@ -8,6 +8,7 @@ this file.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
 - Fixed glitches when adjusting loss parameters at large buffer sizes.
+- Improved performance for Hysteresis "STN" mode.
 - Added sync options for Wow/Flutter rate.
 - Added Envelope parameter for Degrade section.
 - Added 0.1x control for Degrade "Depth" parameter.
@@ -17,7 +18,6 @@ this file.
 - Fixed GUI freezing bug in Cakewalk.
 - Fixed gain staging bug in Renoise.
 - Migrated build pipeline to CMake.
-- Updated "STN" hysteresis mode to use XSIMD backend.
 - Created installer packages for Windows/Mac.
 
 ## [2.7.0] - 2020-11-25

@@ -5,6 +5,7 @@ target_sources(CHOWTapeModel PRIVATE
     Hysteresis/HysteresisProcessing.cpp
     Hysteresis/HysteresisProcessor.cpp
     Hysteresis/HysteresisSTN.cpp
+    Hysteresis/STNModel.cpp
     Hysteresis/ToneControl.cpp
 
     Input_Filters/InputFilters.cpp
