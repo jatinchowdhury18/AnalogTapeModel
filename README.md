@@ -14,7 +14,7 @@ at Stanford University (CCRMA).
 ### Quick Links
 - [Latest Release](https://chowdsp.com/products.html#tape)
 - [Nightly Builds](https://chowdsp.com/nightly.html#tape)
-- [User Manual](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf)
+- [User Manual](https://chowdsp.com/manuals/ChowTapeManual.pdf)
 
 ## Definition
 **magnetic tape** noun<br/>
