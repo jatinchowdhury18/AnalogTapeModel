@@ -43,7 +43,7 @@ ChowTape for iOS can be downloaded from the \href{@TODO}{App Store}.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[width=0.6\columnwidth]{../Plugin/Screenshots/full_gui.png}
+    \includegraphics[width=0.55\columnwidth]{../Plugin/Screenshots/full_gui.png}
     \caption{\label{full_gui}{\it ChowTape User Interface}}
 \end{figure}
 
@@ -224,7 +224,7 @@ of the tape, measured in centiimeters.
 the width of the playhead gap, measured in millimeters.
 \newpar
 \boldtheme{Azimuth}
-controls the playhead alignment angle.\footnote{\href{https://blog.weareavp.com/azimuth-adjustment-for-magnetic-audio-recordings}{More information on playhead azimuth}.}
+controls the playhead alignment angle\footnote{\href{https://blog.weareavp.com/azimuth-adjustment-for-magnetic-audio-recordings}{More information on playhead azimuth}.}.
 A misalignment between the playhead and the tape causes a
 corresponding time misalignment between the two stereo tracks
 on the tape, resulting in a stereo ``widening'' effect.
@@ -232,8 +232,8 @@ on the tape, resulting in a stereo ``widening'' effect.
 \boldtheme{Speed}
 controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
-continuous, standard speeds for reel-to-reel tape machines
-are 7.5, 15, and 30 ips.
+continuous, the parameter can be quantized to the standard speeds
+for reel-to-reel tape machines: 3.75, 7.5, 15, and 30 ips.
 
 
 \subsubsection{Tape Degradation Controls}
@@ -242,7 +242,8 @@ old tape that has been used over and over, and has started
 to degrade.
 \newline
 \boldtheme{Depth}
-controls the intensity of the wear on the tape.
+controls the intensity of the wear on the tape. Enable the
+\boldtheme{0.1x} option to make this control more subtle.
 \newpar
 \boldtheme{Amount}
 controls the amount of wear, typically corresponding to
