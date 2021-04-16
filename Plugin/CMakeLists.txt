@@ -21,6 +21,7 @@ if(IOS)
         MICROPHONE_PERMISSION_ENABLED TRUE
         IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        NEEDS_STORE_KIT TRUE
     )
 else()
     juce_add_plugin(CHOWTapeModel

@@ -59,3 +59,8 @@ set_target_properties(juce_plugin_modules PROPERTIES
     C_VISBILITY_PRESET hidden
     CXX_VISIBILITY_PRESET hidden
 )
+
+if(IOS)
+    target_link_libraries(juce_plugin_modules PRIVATE juce::juce_product_unlocking)
+    target_compile_definitions(juce_plugin_modules PUBLIC JUCE_IN_APP_PURCHASES=1)
+endif()
