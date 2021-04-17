@@ -62,5 +62,6 @@ set_target_properties(juce_plugin_modules PROPERTIES
 
 if(IOS)
     target_link_libraries(juce_plugin_modules PRIVATE juce::juce_product_unlocking)
+    target_link_libraries(juce_plugin_modules PRIVATE "-framework StoreKit")
     target_compile_definitions(juce_plugin_modules PUBLIC JUCE_IN_APP_PURCHASES=1)
 endif()

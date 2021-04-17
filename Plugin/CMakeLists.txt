@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment target")
 set(CMAKE_CXX_STANDARD 17)
-project(CHOWTapeModel VERSION 2.7.7)
+project(CHOWTapeModel VERSION 2.7.8)
 
 add_subdirectory(modules)
 include_directories(modules/RTNeural)

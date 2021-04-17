@@ -9,7 +9,10 @@ public:
     TipJar()
     {
         productInfos = {
-            { "Small Tip ($2)", "Small Tip" },
+            { "Small Tip ($2)", "chowtape_small_tip_123" },
+            { "Medium Tip ($5)", "chowtape_medium_tip_456" },
+            { "Large Tip ($10)", "chowtape_small_tip_123" },
+            { "Huge Tip ($25)", "chowtape_small_tip_123" },
         };
 
         if (! InAppPurchases::getInstance()->isInAppPurchasesSupported ())
@@ -41,7 +44,6 @@ public:
         InAppPurchases::getInstance()->removeListener (this);
     }
     
-
     void doTipPurchase (const String& id)
     {
         InAppPurchases::getInstance()->purchaseProduct (id);
@@ -57,9 +59,7 @@ public:
     
     void productsInfoReturned (const juce::Array<juce::InAppPurchases::Product>& products) override
     {
-        auto ss = products.size();
         std::cout << products.size() << std::endl;
-        
     }
 
 private:
