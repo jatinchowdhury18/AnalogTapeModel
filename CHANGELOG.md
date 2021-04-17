@@ -15,6 +15,7 @@ this file.
 - Improved parameter names for automation menus.
 - Added arrows for preset menu.
 - Added support for OSX versions 10.9 and up.
+- Fixed an audio blowup when toggling the Input Filter makeup.
 - Fixed GUI freezing bug in Cakewalk.
 - Fixed gain staging bug in Renoise.
 - Migrated build pipeline to CMake.
