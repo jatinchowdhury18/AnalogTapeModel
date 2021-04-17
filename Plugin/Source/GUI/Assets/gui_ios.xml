@@ -32,7 +32,7 @@
         background-image="Background_svg" image-placement="stretch">
     <View max-height="80" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
-            flex-grow="0.45">
+            flex-grow="0.41">
         <View flex-grow="0.333" background-color="00000000"/>
         <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
                    padding="1" flex-grow="1.0"/>
@@ -40,13 +40,17 @@
                   padding="0" margin="5" border=""/>
         <View background-color="00000000" flex-grow="0.33"/>
       </View>
-      <View margin="2" padding="" background-color="00000000" flex-direction="column"
-            flex-grow="0.4">
-        <View flex-grow="0.15" background-color="00000000"/>
-        <presets margin="0" padding="0" background-color="00000000" border-color="33000000"
-                 radius="" border="" lookAndFeel="PresetsLNF" flex-grow="0.25"
-                 max-height="100"/>
-        <View flex-grow="0.15" background-color="00000000"/>
+      <View margin="0" padding="" background-color="00000000" flex-direction="row"
+            flex-grow="0.41">
+        <View flex-grow="0.02" background-color="00000000"/>
+        <View margin="2" padding="" background-color="00000000" flex-direction="column">
+          <View flex-grow="0.15" background-color="00000000"/>
+          <presets margin="0" padding="0" background-color="00000000" border-color="33000000"
+                   radius="" border="" lookAndFeel="PresetsLNF" flex-grow="0.25"
+                   max-height="100"/>
+          <View flex-grow="0.15" background-color="00000000"/>
+        </View>
+        <View flex-grow="0.05" background-color="00000000"/>
       </View>
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
