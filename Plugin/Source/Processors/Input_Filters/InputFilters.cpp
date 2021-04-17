@@ -101,6 +101,7 @@ void InputFilters::processBlockMakeup (AudioBuffer<float>& buffer)
     }
 
     // compile makeup signal
+    makeupBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
     dsp::AudioBlock<float> lowCutBlock (lowCutBuffer);
     dsp::AudioBlock<float> highCutBlock (highCutBuffer);
     dsp::AudioBlock<float> makeupBlock (makeupBuffer);
