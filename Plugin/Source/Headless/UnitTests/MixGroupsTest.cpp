@@ -17,7 +17,10 @@ public:
             if (auto* pCast = dynamic_cast<RangedAudioParameter*> (p))
             {
                 if (pCast->paramID == MixGroupsConstants::mixGroupParamID)
+                {
                     pCast->setValueNotifyingHost (value);
+                    break;
+                }
             }
         }
     }
@@ -76,13 +79,25 @@ public:
         setMixGroup (plugin2.get(), 1.0f);
 
         auto params1 = plugin1->getParameters();
-        auto params2 = plugin2->getParameters();
-
-        constexpr int numRuns = 100;
+        constexpr int numRuns = 50;
         for (int i = 0; i < numRuns; ++i)
         {
-            auto paramIdxToChange = getRandom().nextInt (params1.size());
-            params1[paramIdxToChange]->setValueNotifyingHost (getRandom().nextFloat());
+            auto paramIdxToChange = Random::getSystemRandom().nextInt (params1.size());
+            auto param = params1[paramIdxToChange];
+
+            // make sure we don't change the Mix Group parameter!
+            if (auto* pCast = dynamic_cast<RangedAudioParameter*> (param))
+            {
+                if (pCast->paramID == MixGroupsConstants::mixGroupParamID)
+                {
+                    i--;
+                    continue;
+                }
+            }
+
+            std::cout << "Setting parameter: " << param->getName (1024) << std::endl;
+            param->setValueNotifyingHost (getRandom().nextFloat());
+            MessageManager::getInstance()->runDispatchLoopUntil (50);
             compareStates (plugin1.get(), plugin2.get());
         }
     }
