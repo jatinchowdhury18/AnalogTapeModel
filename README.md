@@ -70,4 +70,4 @@ see the
 - User Manual - Yann from SINK Music
 
 ## License
-CHOW Tape is licensed under the GNU General Public License agreement. Enjoy!
+CHOW Tape is licensed under the GNU General Public License (GPLv3) agreement. CHOW Tape for iOS is dual licensed under the GPL and [Mozilla Public License](https://www.mozilla.org/en-US/MPL/2.0) (MPLv2). Enjoy!
