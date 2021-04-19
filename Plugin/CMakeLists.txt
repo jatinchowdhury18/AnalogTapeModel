@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment target")
 set(CMAKE_CXX_STANDARD 17)
-project(CHOWTapeModel VERSION 2.7.7)
+project(CHOWTapeModel VERSION 2.7.9)
 
 add_subdirectory(modules)
 include_directories(modules/RTNeural)
@@ -21,6 +21,7 @@ if(IOS)
         MICROPHONE_PERMISSION_ENABLED TRUE
         IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
         IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        NEEDS_STORE_KIT TRUE
     )
 else()
     juce_add_plugin(CHOWTapeModel
@@ -74,9 +75,11 @@ if(IOS)
 
     set_target_properties(CHOWTapeModel_Standalone PROPERTIES
             XCODE_ATTRIBUTE_INSTALL_PATH "$(LOCAL_APPS_DIR)"
-            XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
+            XCODE_ATTRIBUTE_SKIP_INSTALL "NO"
+            XCODE_ATTRIBUTE_ENABLE_IN_APP_PURCHASE "YES")
 
     set_target_properties(CHOWTapeModel_AUv3 PROPERTIES
             XCODE_ATTRIBUTE_INSTALL_PATH "$(LOCAL_APPS_DIR)/CHOWTapeModel.app/PlugIns"
-            XCODE_ATTRIBUTE_SKIP_INSTALL "NO")
+            XCODE_ATTRIBUTE_SKIP_INSTALL "NO"
+            XCODE_ATTRIBUTE_ENABLE_IN_APP_PURCHASE "YES")
 endif()
