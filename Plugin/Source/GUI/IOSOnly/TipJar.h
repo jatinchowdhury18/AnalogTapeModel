@@ -14,17 +14,17 @@ public:
             { "Huge Tip ($25)", "chowtape_huge_tip_808" },
         };
 
-        if (! InAppPurchases::getInstance()->isInAppPurchasesSupported ())
+        if (! InAppPurchases::getInstance()->isInAppPurchasesSupported())
         {
             // this should never happen, since we only enable IAPs on iOS!
             jassertfalse;
             return;
         }
-        
+
         setTextWhenNothingSelected ("Tip Jar");
         setColour (backgroundColourId, Colours::transparentBlack);
         setJustificationType (Justification::centred);
-        
+
         auto rootMenu = getRootMenu();
         StringArray purchaseIDs;
         for (auto& info : productInfos)
@@ -32,10 +32,10 @@ public:
             rootMenu->addItem (info.first, [=] { doTipPurchase (info.second); });
             purchaseIDs.add (info.second);
         }
-        
+
         InAppPurchases::getInstance()->getProductsInformation (purchaseIDs);
     }
-    
+
     void doTipPurchase (const String& id)
     {
         InAppPurchases::getInstance()->purchaseProduct (id);
