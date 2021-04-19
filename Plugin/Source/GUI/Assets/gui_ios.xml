@@ -287,6 +287,7 @@
                 margin="0" parameter="mix_group" combo-background="00000000"
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
+      <TipJar flex-grow="0.75" margin="0" padding="0" background-color="00000000" lookAndFeel="ComboBoxLNF"/>
     </View>
   </View>
 </magic>

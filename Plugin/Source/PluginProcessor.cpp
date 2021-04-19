@@ -10,11 +10,15 @@
 
 #include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
-#include "GUI/ScrollView.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
+
+#if JUCE_IOS
+#include "GUI/IOSOnly/ScrollView.h"
+#include "GUI/IOSOnly/TipJar.h"
+#endif
 
 namespace
 {
@@ -318,6 +322,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 
 #if JUCE_IOS
     builder->registerFactory ("ScrollView", &ScrollView::factory);
+    builder->registerFactory ("TipJar", &TipJarItem::factory);
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_ios_xml, BinaryData::gui_ios_xmlSize, std::move (builder));
 #else
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
