@@ -2,49 +2,18 @@
 
 #include <JuceHeader.h>
 
-class TipJar : public ComboBox
+class TipJar : public ComboBox,
+               private InAppPurchases::Listener
 {
 public:
-    TipJar()
-    {
-        productInfos = {
-            { "Small Tip ($2)", "chowtape_small_tip_123" },
-            { "Medium Tip ($5)", "chowtape_medium_tip_456" },
-            { "Large Tip ($10)", "chowtape_large_tip_789" },
-            { "Huge Tip ($25)", "chowtape_huge_tip_808" },
-        };
+    TipJar();
+    ~TipJar() override;
 
-        if (! InAppPurchases::getInstance()->isInAppPurchasesSupported())
-        {
-            // this should never happen, since we only enable IAPs on iOS!
-            jassertfalse;
-            return;
-        }
-
-        setTextWhenNothingSelected ("Tip Jar");
-        setColour (backgroundColourId, Colours::transparentBlack);
-        setJustificationType (Justification::centred);
-
-        auto rootMenu = getRootMenu();
-        StringArray purchaseIDs;
-        for (auto& info : productInfos)
-        {
-            rootMenu->addItem (info.first, [=] { doTipPurchase (info.second); });
-            purchaseIDs.add (info.second);
-        }
-
-        InAppPurchases::getInstance()->getProductsInformation (purchaseIDs);
-    }
-
-    void doTipPurchase (const String& id)
-    {
-        InAppPurchases::getInstance()->purchaseProduct (id);
-        setText ("Tip Jar");
-    };
+    void productsInfoReturned (const Array<InAppPurchases::Product>& products) override;
+    void doTipPurchase (const String& id);
+    void setDisconnectedMenu();
 
 private:
-    std::vector<std::pair<String, String>> productInfos;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TipJar)
 };
 
