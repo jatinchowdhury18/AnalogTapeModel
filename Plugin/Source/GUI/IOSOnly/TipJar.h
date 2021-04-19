@@ -2,8 +2,7 @@
 
 #include <JuceHeader.h>
 
-class TipJar : public ComboBox,
-               private InAppPurchases::Listener
+class TipJar : public ComboBox
 {
 public:
     TipJar()
@@ -11,8 +10,8 @@ public:
         productInfos = {
             { "Small Tip ($2)", "chowtape_small_tip_123" },
             { "Medium Tip ($5)", "chowtape_medium_tip_456" },
-            { "Large Tip ($10)", "chowtape_small_tip_123" },
-            { "Huge Tip ($25)", "chowtape_small_tip_123" },
+            { "Large Tip ($10)", "chowtape_large_tip_789" },
+            { "Huge Tip ($25)", "chowtape_huge_tip_808" },
         };
 
         if (! InAppPurchases::getInstance()->isInAppPurchasesSupported ())
@@ -32,16 +31,9 @@ public:
         {
             rootMenu->addItem (info.first, [=] { doTipPurchase (info.second); });
             purchaseIDs.add (info.second);
-            std::cout << info.second << std::endl;
         }
         
-        InAppPurchases::getInstance()->addListener (this);
         InAppPurchases::getInstance()->getProductsInformation (purchaseIDs);
-    }
-    
-    ~TipJar() override
-    {
-        InAppPurchases::getInstance()->removeListener (this);
     }
     
     void doTipPurchase (const String& id)
@@ -49,18 +41,6 @@ public:
         InAppPurchases::getInstance()->purchaseProduct (id);
         setText ("Tip Jar");
     };
-    
-    void productPurchaseFinished (const PurchaseInfo& pInfo, bool success, const String& status) override
-    {
-        std::cout << success << std::endl;
-        std::cout << status << std::endl;
-        std::cout << pInfo.purchase.productId << std::endl;
-    }
-    
-    void productsInfoReturned (const juce::Array<juce::InAppPurchases::Product>& products) override
-    {
-        std::cout << products.size() << std::endl;
-    }
 
 private:
     std::vector<std::pair<String, String>> productInfos;
