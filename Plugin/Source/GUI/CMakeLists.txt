@@ -1,8 +1,6 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
-    DragToScrollListener.cpp
     MyLNF.cpp
-    ScrollView.cpp
     TitleComp.cpp
     TooltipComp.cpp
     WowFlutterMenu.cpp
@@ -14,3 +12,10 @@ target_sources(CHOWTapeModel PRIVATE
     Visualizers/MixGroupViz.cpp
     Visualizers/TapeScope.cpp
 )
+
+if(IOS)
+    target_sources(CHOWTapeModel PRIVATE
+        IOSOnly/DragToScrollListener.cpp
+        IOSOnly/ScrollView.cpp
+    )
+endif()
