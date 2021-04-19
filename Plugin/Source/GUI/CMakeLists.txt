@@ -17,5 +17,6 @@ if(IOS)
     target_sources(CHOWTapeModel PRIVATE
         IOSOnly/DragToScrollListener.cpp
         IOSOnly/ScrollView.cpp
+        IOSOnly/TipJar.cpp
     )
 endif()
