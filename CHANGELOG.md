@@ -3,7 +3,7 @@ All notable changes to this project will be documented in
 this file.
 
 ## [2.8.0] - Unreleased
-- Added support for Apple Silicon.
+- Added support for iOS (AUv3) and Apple Silicon.
 - Added Azimuth parameter for playhead loss controls.
 - Added Variance and Drift parameters for Wow control.
 - Fixed stability issue in tone filters.
