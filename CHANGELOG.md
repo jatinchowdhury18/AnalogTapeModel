@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [2.8.0] - Unreleased
+## [2.8.0] - 2021-04-20
 - Added support for iOS (AUv3) and Apple Silicon.
 - Added Azimuth parameter for playhead loss controls.
 - Added Variance and Drift parameters for Wow control.
