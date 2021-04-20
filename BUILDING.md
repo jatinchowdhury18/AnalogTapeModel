@@ -17,7 +17,6 @@ git submodule update --init --recursive
 Next you can generate the builds with CMake:
 
 ```bash
-cd Plugin/
 cmake -Bbuild
 cmake --build build/ --config Release
 ```
@@ -57,7 +56,9 @@ Depending on your Linux distribution, you may also need to install:
 - libGL
 - libXext
 - libcurl
-- python3 (only if you plan to build LV2)
 
 ## Building with the GUI Editor
-If you need to make changes to the GUI, you can build the plugin with Foley's Magic Editor attached. In `Plugin/CMakeLists.txt`, set `FOLEYS_SHOW_GUI_EDITOR_PALLETTE` equal to 1.
+If you need to make changes to the GUI, you can build
+the plugin with Foley's Magic Editor attached. In
+`Plugin/modules/CMakeLists.txt`, set 
+`FOLEYS_SHOW_GUI_EDITOR_PALLETTE` equal to 1.

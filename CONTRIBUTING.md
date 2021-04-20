@@ -11,7 +11,10 @@ The easiest way to contribute is to simply use the plugin!
 All software has bugs, so the more folks using the software,
 the quicker bugs will be found and fixed! For audio plugins
 in particular, there are different DAWs, versions, etc,
-that can all have different behavior, triggering different bugs. The
+that can all have different behavior, triggering different bugs.
+Testing with the [Nightly Builds](https://chowdsp.com/nightly.html#tape)
+is especially appreciated, to help catch bugs before they make
+it into an official release. The
 [issues](https://github.com/jatinchowdhury18/AnalogTapeModel/issues)
 page can be used for reporting bugs or posting feature requests.
 All feedback is useful and most welcome!
@@ -59,12 +62,6 @@ be sure to make `origin/develop` the target branch for your
 pull request as well. Once your pull request has been
 reviewed and all automated checks have passed, your changes
 will be merged!
-
-## Website
-
-CHOW Tape does not currently have it's own website. If you want to help
-create a website for the plugin, please [contact](#Contact) me.
-
 
 ## Donating
 

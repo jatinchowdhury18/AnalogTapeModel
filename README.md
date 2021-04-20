@@ -13,6 +13,7 @@ at Stanford University (CCRMA).
 
 ### Quick Links
 - [Latest Release](https://chowdsp.com/products.html#tape)
+- [ChowTape for iOS](https://apps.apple.com/us/app/chowtapemodel/id1557806564)
 - [Nightly Builds](https://chowdsp.com/nightly.html#tape)
 - [User Manual](https://chowdsp.com/manuals/ChowTapeManual.pdf)
 
@@ -34,21 +35,22 @@ CHOW Tape is currently available in the following formats:
   - VST
   - VST3
   - AU
+  - AUv3
   - LV2
   - Standalone plugin
 
 ## Installation
 
-Download the latest release
-[here](https://chowdsp.com/products.html#tape).
+The latest release for desktop can be downloaded from
+[our website](https://chowdsp.com/products.html#tape).
+ChowTape for iOS can be downloaded from the
+[app store](https://apps.apple.com/us/app/chowtapemodel/id1557806564).
 If you would like to try the nightly builds (potentially unstable),
-see [here](https://chowdsp.com/nightly.html#tape).
-If you need Linux builds, or if you prefer to build the plugin for yourself,
+see [the Nightly Builds page](https://chowdsp.com/nightly.html#tape).
+If you prefer to build the plugin for yourself,
 please see the [building instructions](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/BUILDING.md).
-Alternatively, Linux users may download builds from the
+Linux users may also download builds from the
 [Open Build Service](https://build.opensuse.org/package/show/home:kill_it:JUCE/CHOWTapeModel).
-
-**Note: If you have a computer with Applie Silicon, please try the [experimental build](https://chowdsp.com/nightly.html#tape)! Please note your experiences using the plugin on Apple Silicon in this [issue](https://github.com/jatinchowdhury18/AnalogTapeModel/issues/124).**
 
 Note for FL Studio users: If you're experiencing pops and click while using
 the plugin, try enabling the "used fixed size buffers" setting. For more
