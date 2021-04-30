@@ -24,7 +24,6 @@ rm -Rf Bin/*Win32*
 # set up VST and ASIO paths
 sed -i -e "s~# juce_set_vst2_sdk_path.*~juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)~" CMakeLists.txt
 # sed -i -e "s~.*ASIO_SDK.*~include_directories(C:/SDKs/ASIO_SDK/common)~" CMakeLists.txt
-sed -i -e 's/#.*VST/VST/' CMakeLists.txt
 # sed -i -e 's/# JUCE_ASIO.*/JUCE_ASIO=1/' modules/CMakeLists.txt
 
 # cmake new builds

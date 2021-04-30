@@ -1,21 +1,20 @@
-# set up JUCE and modules
-if(UNIX AND NOT APPLE)
-    add_subdirectory(DISTRHO-JUCE)
-else()
-    add_subdirectory(JUCE)
-endif()
+add_subdirectory(JUCE)
+include(cmake/SubprojectVersion.cmake)
+subproject_version(JUCE juce_version)
+message(STATUS "VERSION for JUCE: ${juce_version}")
+
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
-include(WarningFlags.cmake)
 
 # Using RTNeural with XSimd or Accelerate backend
 if(APPLE)
-    set(RTNEURAL_ACCELERATE ON CACHE BOOL "Use RTNeural with Accelerate backend" FORCE)
+set(RTNEURAL_ACCELERATE ON CACHE BOOL "Use RTNeural with Accelerate backend" FORCE)
 else()
-    set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
+set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
 endif()
 add_subdirectory(RTNeural)
 
+include(cmake/WarningFlags.cmake)
 add_library(juce_plugin_modules STATIC)
 target_link_libraries(juce_plugin_modules
     PRIVATE

@@ -11,30 +11,36 @@ include_directories(modules/RTNeural)
 # include_directories(ASIO_SDK)
 
 if(IOS)
-    juce_add_plugin(CHOWTapeModel
-        COMPANY_NAME chowdsp
-        PLUGIN_MANUFACTURER_CODE Chow
-        PLUGIN_CODE Jdox
-        FORMATS Standalone AUv3
-        ProductName "CHOWTapeModel"
-        ICON_BIG Source/GUI/Assets/logo.png
-        MICROPHONE_PERMISSION_ENABLED TRUE
-        IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
-        IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
-        NEEDS_STORE_KIT TRUE
-    )
+    set(JUCE_FORMATS Standalone AUv3)
 else()
-    juce_add_plugin(CHOWTapeModel
-        COMPANY_NAME chowdsp
-        PLUGIN_MANUFACTURER_CODE Chow
-        PLUGIN_CODE Jdox
-        FORMATS AU VST3 Standalone LV2 #VST
-        ProductName "CHOWTapeModel"
-        LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
-        ICON_BIG Source/GUI/Assets/logo.png
-        MICROPHONE_PERMISSION_ENABLED TRUE
-    )
+    set(JUCE_FORMATS AU VST3 Standalone)
 endif()
+
+# Build LV2 only on Linux
+if(UNIX AND NOT APPLE)
+    message(STATUS "Building LV2 plugin format")
+    list(APPEND JUCE_FORMATS LV2)
+endif()
+
+# Build VST2 is SDK set
+if(TARGET juce_vst2_sdk)
+    message(STATUS "Building VST2 plugin format")
+    list(APPEND JUCE_FORMATS VST)
+endif()
+
+juce_add_plugin(CHOWTapeModel
+    COMPANY_NAME chowdsp
+    PLUGIN_MANUFACTURER_CODE Chow
+    PLUGIN_CODE Jdox
+    FORMATS ${JUCE_FORMATS}
+    ProductName "CHOWTapeModel"
+    LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+    ICON_BIG Source/GUI/Assets/logo.png
+    MICROPHONE_PERMISSION_ENABLED TRUE
+    IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    NEEDS_STORE_KIT TRUE
+)
 
 # create JUCE header
 juce_generate_juce_header(CHOWTapeModel)
