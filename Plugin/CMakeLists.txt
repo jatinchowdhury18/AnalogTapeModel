@@ -54,6 +54,7 @@ target_compile_definitions(CHOWTapeModel
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0
+    JUCE_JACK=1
 )
 
 target_link_libraries(CHOWTapeModel PUBLIC
