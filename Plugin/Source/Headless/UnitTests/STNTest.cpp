@@ -18,9 +18,9 @@ public:
 
     void runTest() override
     {
-// #if JUCE_LINUX
-//         return; // @TODO: figure out why this fails!
-// #endif
+        // #if JUCE_LINUX
+        //         return; // @TODO: figure out why this fails!
+        // #endif
         beginTest ("STN Accuracy Test");
         accTest();
 
@@ -77,12 +77,7 @@ public:
             auto jsonStream = std::make_unique<MemoryInputStream> (BinaryData::hyst_width_50_json, BinaryData::hyst_width_50_jsonSize, false);
             auto modelsJson = nlohmann::json::parse (jsonStream->readEntireStreamAsString().toStdString());
             auto thisModelJson = modelsJson["drive_50_50"];
-            RTNeural::ModelT<double, 5, 1,
-                RTNeural::DenseT<double, 5, 4>,
-                RTNeural::TanhActivationT<double, 4>,
-                RTNeural::DenseT<double, 4, 4>,
-                RTNeural::TanhActivationT<double, 4>,
-                RTNeural::DenseT<double, 4, 1>> staticModel;
+            RTNeural::ModelT<double, 5, 1, RTNeural::DenseT<double, 5, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 1>> staticModel;
             staticModel.parseJson (thisModelJson);
 
             Time time;

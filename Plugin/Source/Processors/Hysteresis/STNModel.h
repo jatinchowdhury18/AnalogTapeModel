@@ -195,12 +195,7 @@ public:
 
 private:
 #if USE_RTNEURAL_STATIC
-    RTNeural::ModelT<double, 5, 1,
-        RTNeural::DenseT<double, 5, 4>,
-        RTNeural::TanhActivationT<double, 4>,
-        RTNeural::DenseT<double, 4, 4>,
-        RTNeural::TanhActivationT<double, 4>,
-        RTNeural::DenseT<double, 4, 1>> model;
+    RTNeural::ModelT<double, 5, 1, RTNeural::DenseT<double, 5, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 1>> model;
 #elif USE_RTNEURAL_POLY
     std::unique_ptr<RTNeural::Model<double>> model;
 #else
