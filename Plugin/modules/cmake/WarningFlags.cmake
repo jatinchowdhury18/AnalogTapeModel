@@ -26,6 +26,8 @@ elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQU
         # For XSIMD
         -Wno-cast-align -Wno-shadow -Wno-implicit-int-conversion
         -Wno-zero-as-null-pointer-constant
+        # For aligned allocation on ARM
+        -faligned-allocation
     )
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(warning_flags INTERFACE

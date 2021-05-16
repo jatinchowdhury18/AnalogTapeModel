@@ -6,7 +6,7 @@ constexpr double sampleRate = 48000.0;
 constexpr double trainingSampleRate = 96000.0;
 constexpr auto sampleRateCorr = trainingSampleRate / sampleRate;
 
-alignas (16) double input[] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
+double input alignas (16)[5] = { 1.0, 1.0, 1.0, 1.0, 1.0 };
 } // namespace STNTestUtils
 
 class STNTest : public UnitTest
@@ -25,7 +25,7 @@ public:
         accTest();
 
         beginTest ("STN Performance Test");
-        // perfTest(); // Keep this disabled most of the time for CI
+        perfTest(); // Keep this disabled most of the time for CI
     }
 
     void accTest()
@@ -55,7 +55,7 @@ public:
         stn.setParams (0.5f, 0.5f);
         auto refModel = loadModel();
 
-        constexpr int nIter = 5000000;
+        constexpr int nIter = 400000;
         double result = 0.0;
 
         // ref timing
@@ -70,6 +70,25 @@ public:
         }
         std::cout << "Reference output: " << result << std::endl;
         std::cout << "Reference duration: " << durationRef << std::endl;
+
+        // static STN timing
+        auto durationStatic = durationRef;
+        {
+            auto jsonStream = std::make_unique<MemoryInputStream> (BinaryData::hyst_width_50_json, BinaryData::hyst_width_50_jsonSize, false);
+            auto modelsJson = nlohmann::json::parse (jsonStream->readEntireStreamAsString().toStdString());
+            auto thisModelJson = modelsJson["drive_50_50"];
+            RTNeural::ModelT<double, 5, 1, RTNeural::DenseT<double, 5, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 4>, RTNeural::TanhActivationT<double, 4>, RTNeural::DenseT<double, 4, 1>> staticModel;
+            staticModel.parseJson (thisModelJson);
+
+            Time time;
+            auto start = time.getMillisecondCounterHiRes();
+            for (int i = 0; i < nIter; ++i)
+                result = staticModel.forward (input) * sampleRateCorr;
+            auto end = time.getMillisecondCounterHiRes();
+            durationStatic = (end - start) / 1000.0;
+        }
+        std::cout << "Static output: " << result << std::endl;
+        std::cout << "Static duration: " << durationStatic << std::endl;
 
         // plugin timing
         auto durationReal = durationRef;
