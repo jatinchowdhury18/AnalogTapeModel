@@ -3,6 +3,15 @@
 #include <JuceHeader.h>
 #include <RTNeural/RTNeural.h>
 
+// include <Accelerate> on Apple devices so we can use vvtanh
+#if JUCE_MAC || JUCE_IOS
+#define Point CarbonDummyPointName
+#define Component CarbonDummyCompName
+#include <Accelerate/Accelerate.h>
+#undef Point
+#undef Component
+#endif
+
 #define USE_RTNEURAL_POLY 0
 #define USE_RTNEURAL_STATIC 1
 
