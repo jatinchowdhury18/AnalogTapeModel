@@ -160,7 +160,8 @@ bool PresetManager::saveUserPreset (const String& name, const AudioProcessorValu
     presetXml->setAttribute ("name", "User_" + name);
 
     auto xmlParameters = std::make_unique<XmlElement> ("Parameters");
-    forEachXmlChildElementWithTagName (*stateXml, p, "PARAM")
+
+    for (auto* p : stateXml->getChildWithTagNameIterator ("PARAM"))
     {
         if (p->getAttributeValue (0) == "preset")
             p->setAttribute ("value", maxIdx);
