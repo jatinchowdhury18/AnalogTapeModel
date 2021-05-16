@@ -3,6 +3,9 @@
 #include <JuceHeader.h>
 #include <RTNeural/RTNeural.h>
 
+#define USE_RTNEURAL_POLY 0
+#define USE_RTNEURAL_STATIC 1
+
 namespace STNSpace
 {
 using v_type = dsp::SIMDRegister<double>;
@@ -153,14 +156,31 @@ private:
     static constexpr int size = 4;
 };
 
+static bool printed = false;
+
 class STNModel
 {
 public:
-    STNModel() = default;
+    STNModel()
+    {
+        if (! printed)
+        {
+#if USE_RTNEURAL_STATIC
+            std::cout << "Using RTNeural ModelT STN" << std::endl;
+#elif USE_RTNEURAL_POLY
+            std::cout << "Using RTNeural polymorphic STN" << std::endl;
+#else
+            std::cout << "Using hand-coded STN" << std::endl;
+#endif
+            printed = true;
+        }
+    }
 
     inline double forward (const double* input) noexcept
     {
-#if JUCE_LINUX
+#if USE_RTNEURAL_STATIC
+        return model.forward (input);
+#elif USE_RTNEURAL_POLY
         return model->forward (input);
 #else
         dense54.forward (input);
@@ -174,7 +194,14 @@ public:
     void loadModel (const nlohmann::json& modelJ);
 
 private:
-#if JUCE_LINUX
+#if USE_RTNEURAL_STATIC
+    RTNeural::ModelT<double, 5, 1,
+        RTNeural::DenseT<double, 5, 4>,
+        RTNeural::TanhActivationT<double, 4>,
+        RTNeural::DenseT<double, 4, 4>,
+        RTNeural::TanhActivationT<double, 4>,
+        RTNeural::DenseT<double, 4, 1>> model;
+#elif USE_RTNEURAL_POLY
     std::unique_ptr<RTNeural::Model<double>> model;
 #else
     Dense54 dense54;
