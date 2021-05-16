@@ -210,7 +210,7 @@ inline double HysteresisProcessing::NR (double H, double H_d) noexcept
 
 inline double HysteresisProcessing::STN (double H, double H_d) noexcept
 {
-    alignas (16) double input[] = { H, H_d, H_n1, H_d_n1, M_n1 };
+    double input alignas (16)[5] = { H, H_d, H_n1, H_d_n1, M_n1 };
 
     // scale derivatives
     input[1] *= HysteresisSTN::diffMakeup;

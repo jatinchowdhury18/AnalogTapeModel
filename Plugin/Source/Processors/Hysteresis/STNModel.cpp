@@ -74,7 +74,9 @@ void Dense41::setBias (std::vector<double>& b)
 //===========================================================
 void STNModel::loadModel (const nlohmann::json& modelJ)
 {
-#if JUCE_LINUX
+#if USE_RTNEURAL_STATIC
+    model.parseJson (modelJ);
+#elif USE_RTNEURAL_POLY
     model = RTNeural::json_parser::parseJson<double> (modelJ);
 #else
     auto layers = modelJ["layers"];

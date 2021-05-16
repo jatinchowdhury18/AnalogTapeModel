@@ -7,11 +7,14 @@ juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
 
 # Using RTNeural with XSimd or Accelerate backend
-if(APPLE)
-set(RTNEURAL_ACCELERATE ON CACHE BOOL "Use RTNeural with Accelerate backend" FORCE)
-else()
+# if(APPLE)
+# set(RTNEURAL_ACCELERATE ON CACHE BOOL "Use RTNeural with Accelerate backend" FORCE)
+# else()
+# set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
+# endif()
 set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
-endif()
+add_definitions(-DUSE_XSIMD=1)
+# add_definitions(-DUSE_ACCELERATE=1)
 add_subdirectory(RTNeural)
 
 include(cmake/WarningFlags.cmake)
