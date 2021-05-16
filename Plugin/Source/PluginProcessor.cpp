@@ -327,8 +327,13 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 #else
     auto* editor = new foleys::MagicPluginEditor (magicState, BinaryData::gui_xml, BinaryData::gui_xmlSize, std::move (builder));
 #endif
+
     onOffManager.setOnOffForNewEditor (editor);
     updater.showUpdaterScreen (editor);
+
+    // we need to set resize limits for StandalonePluginHolder
+    editor->setResizeLimits (10, 10, 2000, 2000);
+
     return editor;
 }
 
