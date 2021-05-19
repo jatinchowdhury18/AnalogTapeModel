@@ -1,5 +1,7 @@
 #include "AutoUpdating.h"
 
+#if CHOWDSP_AUTO_UPDATE
+
 namespace
 {
 const String updateFilePath = "ChowdhuryDSP/ChowTape/UpdateManage.txt";
@@ -238,3 +240,5 @@ void AutoUpdater::editUpdateCheckFile (String version, bool wantsUpdate)
     else
         updateFile.appendText ("NO\n");
 }
+
+#endif // CHOWDSP_AUTO_UPDATE

@@ -5,6 +5,8 @@
 #include <JuceHeader.h>
 #include <future>
 
+#if CHOWDSP_AUTO_UPDATE
+
 struct UpdateButtonLNF : public MyLNF
 {
     UpdateButtonLNF() {}
@@ -56,5 +58,7 @@ private:
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AutoUpdater)
 };
+
+#endif // CHOWDSP_AUTO_UPDATE
 
 #endif // AUTOUPDATING_H_INCLUDED

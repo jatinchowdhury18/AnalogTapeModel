@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "GUI/AutoUpdating.h"
 #include "GUI/MyLNF.h"
 #include "GUI/OnOff/OnOffManager.h"
 #include "GUI/Visualizers/TapeScope.h"
@@ -26,6 +25,10 @@
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/Timing_Effects/WowFlutterProcessor.h"
 #include <JuceHeader.h>
+
+#if CHOWDSP_AUTO_UPDATE
+#include "GUI/AutoUpdating.h"
+#endif // CHOWDSP_AUTO_UPDATE
 
 //==============================================================================
 /**
@@ -104,9 +107,12 @@ private:
 
     PresetManager presetManager;
     MyLNF myLNF;
-    AutoUpdater updater;
     MixGroupsController mixGroupsController;
     AudioPlayHead::CurrentPositionInfo positionInfo;
+
+#if CHOWDSP_AUTO_UPDATE
+    AutoUpdater updater;
+#endif // CHOWDSP_AUTO_UPDATE
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
