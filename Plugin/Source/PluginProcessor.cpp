@@ -329,7 +329,10 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 #endif
 
     onOffManager.setOnOffForNewEditor (editor);
+
+#if CHOWDSP_AUTO_UPDATE
     updater.showUpdaterScreen (editor);
+#endif // CHOWDSP_AUTO_UPDATE
 
     // we need to set resize limits for StandalonePluginHolder
     editor->setResizeLimits (10, 10, 2000, 2000);
