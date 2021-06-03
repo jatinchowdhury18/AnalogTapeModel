@@ -10,7 +10,7 @@
 class HysteresisProcessor
 {
 public:
-    HysteresisProcessor (AudioProcessorValueTreeState& vts);
+    HysteresisProcessor (AudioProcessorValueTreeState& vts, const AudioProcessor& p);
 
     /* Reset fade buffers, filters, and processors. Prepare oversampling */
     void prepareToPlay (double sampleRate, int samplesPerBlock);

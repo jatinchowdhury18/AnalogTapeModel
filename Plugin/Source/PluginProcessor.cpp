@@ -32,7 +32,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
       toneControl (vts),
-      hysteresis (vts),
+      hysteresis (vts, *this),
       degrade (vts),
       chewer (vts),
       lossFilter (vts),

@@ -5,7 +5,7 @@ enum
     numSteps = 500,
 };
 
-HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts) : osManager (vts)
+HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts, const AudioProcessor& p) : osManager (vts, p)
 {
     driveParam = vts.getRawParameterValue ("drive");
     satParam = vts.getRawParameterValue ("sat");
