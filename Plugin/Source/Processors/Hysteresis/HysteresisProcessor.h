@@ -4,6 +4,7 @@
 #include "../BypassProcessor.h"
 #include "DCBlocker.h"
 #include "HysteresisProcessing.h"
+#include "OversamplingManager.h"
 
 /* Hysteresis Processor for tape. */
 class HysteresisProcessor
@@ -52,12 +53,10 @@ private:
     SmoothedValue<float, ValueSmoothingTypes::Multiplicative> makeup[2];
 
     float fs = 44100.0f;
-    int curOS = 0, prevOS = 0;
     HysteresisProcessing hProcs[2];
-    std::unique_ptr<dsp::Oversampling<float>> overSample[5]; // needs oversampling to avoid aliasing
+    OversamplingManager osManager; // needs oversampling to avoid aliasing
     DCBlocker dcBlocker[2];
 
-    int overSamplingFactor = 2;
     const float dcFreq = 35.0f;
 
     float biasGain = 10.0f;

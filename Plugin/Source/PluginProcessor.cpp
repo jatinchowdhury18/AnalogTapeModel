@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
+#include "GUI/OversamplingMenu.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
@@ -295,6 +296,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
+    builder->registerFactory ("OversamplingMenu", &OversamplingMenu::factory);
 
     builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
         return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter");

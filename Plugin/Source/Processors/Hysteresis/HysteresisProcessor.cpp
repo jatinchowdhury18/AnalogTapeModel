@@ -5,17 +5,13 @@ enum
     numSteps = 500,
 };
 
-HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts)
+HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts) : osManager (vts)
 {
     driveParam = vts.getRawParameterValue ("drive");
     satParam = vts.getRawParameterValue ("sat");
     widthParam = vts.getRawParameterValue ("width");
-    osParam = vts.getRawParameterValue ("os");
     modeParam = vts.getRawParameterValue ("mode");
     onOffParam = vts.getRawParameterValue ("hyst_onoff");
-
-    for (int i = 0; i < 5; ++i)
-        overSample[i] = std::make_unique<dsp::Oversampling<float>> (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
 
     for (int ch = 0; ch < 2; ++ch)
     {
@@ -34,7 +30,7 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Tape Bias", 0.0f, 1.0f, 0.5f));
 
     params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Tape Mode", StringArray ({ "RK2", "RK4", "NR4", "NR8", "STN", "V1" }), 0));
-    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({ "1x", "2x", "4x", "8x", "16x" }), 1));
+    OversamplingManager::createParameterLayout (params);
 }
 
 void HysteresisProcessor::setSolver (int newSolver)
@@ -103,15 +99,11 @@ void HysteresisProcessor::setSaturation (float newSaturation)
 
 void HysteresisProcessor::setOversampling()
 {
-    curOS = (int) *osParam;
-    if (curOS != prevOS)
+    if (osManager.updateOSFactor())
     {
-        overSamplingFactor = 1 << curOS;
-        prevOS = curOS;
-
         for (int ch = 0; ch < 2; ++ch)
         {
-            hProcs[ch].setSampleRate (fs * overSamplingFactor);
+            hProcs[ch].setSampleRate (fs * osManager.getOSFactor());
             hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
             hProcs[ch].reset();
         }
@@ -122,13 +114,12 @@ void HysteresisProcessor::setOversampling()
 
 void HysteresisProcessor::calcBiasFreq()
 {
-    biasFreq = fs * overSamplingFactor / 2.0f;
+    biasFreq = fs * osManager.getOSFactor() / 2.0f;
 }
 
 void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
-    overSamplingFactor = 1 << curOS;
     wasV1 = useV1;
     calcBiasFreq();
 
@@ -139,17 +130,14 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         sat[ch].skip (numSteps);
         makeup[ch].skip (numSteps);
 
-        hProcs[ch].setSampleRate (sampleRate * overSamplingFactor);
+        hProcs[ch].setSampleRate (sampleRate * osManager.getOSFactor());
         hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
         hProcs[ch].reset();
 
         biasAngle[ch] = 0.0f;
     }
 
-    for (int i = 0; i < 5; ++i)
-        overSample[i]->initProcessing ((size_t) samplesPerBlock);
-    prevOS = curOS;
-
+    osManager.prepareToPlay (sampleRate, samplesPerBlock);
     for (int ch = 0; ch < 2; ++ch)
         dcBlocker[ch].prepare (sampleRate, dcFreq);
 
@@ -158,14 +146,13 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 void HysteresisProcessor::releaseResources()
 {
-    for (int i = 0; i < 5; ++i)
-        overSample[i]->reset();
+    osManager.releaseResources();
 }
 
 float HysteresisProcessor::getLatencySamples() const noexcept
 {
     // latency of oversampling + fudge factor for hysteresis
-    return onOffParam->load() == 1.0f ? overSample[curOS]->getLatencyInSamples() + 1.4f // on
+    return onOffParam->load() == 1.0f ? osManager.getLatencySamples() + 1.4f // on
                                       : 0.0f; // off
 }
 
@@ -199,7 +186,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
                                      buffer.getNumSamples());
 
     dsp::AudioBlock<float> block (buffer);
-    dsp::AudioBlock<float> osBlock = overSample[curOS]->processSamplesUp (block);
+    dsp::AudioBlock<float> osBlock = osManager.getOversampler()->processSamplesUp (block);
 
     if (needsSmoothing)
     {
@@ -216,7 +203,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
             process (osBlock);
     }
 
-    overSample[curOS]->processSamplesDown (block);
+    osManager.getOversampler()->processSamplesDown (block);
 
     applyDCBlockers (buffer);
 
@@ -251,7 +238,7 @@ void HysteresisProcessor::processSmooth (dsp::AudioBlock<float>& block)
 
 void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
 {
-    const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * overSamplingFactor);
+    const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
@@ -271,7 +258,7 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
 
 void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
 {
-    const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * overSamplingFactor);
+    const auto angleDelta = MathConstants<float>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
