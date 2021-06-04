@@ -15,7 +15,10 @@ public:
     int getOSFactor() const noexcept { return overSamplingFactor; }
     bool updateOSFactor();
 
+    static int getOSIndex (float osFactor, float osMode) { return (int) osFactor + (numOSChoices * (int) osMode); }
     float getLatencySamples() const noexcept { return overSample[curOS]->getLatencyInSamples(); }
+    float getLatencyMilliseconds (int osIndex) const noexcept { return (overSample[osIndex]->getLatencyInSamples() / sampleRate) * 1000.0f; }
+
     dsp::Oversampling<float>* getOversampler() { return overSample[curOS].get(); }
 
 private:
@@ -27,6 +30,7 @@ private:
 
     int curOS = 0, prevOS = 0;
     int overSamplingFactor = 2;
+    float sampleRate = 48000.0f;
 
     static constexpr int numOSChoices = 5;
     std::unique_ptr<dsp::Oversampling<float>> overSample[2 * numOSChoices];

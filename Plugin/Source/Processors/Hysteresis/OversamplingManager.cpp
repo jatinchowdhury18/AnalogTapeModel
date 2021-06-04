@@ -2,7 +2,7 @@
 
 OversamplingManager::OversamplingManager (const AudioProcessorValueTreeState& vts, const AudioProcessor& p) : proc (p)
 {
-    osParam = vts.getRawParameterValue ("os_factor");
+    osParam = vts.getRawParameterValue ("os");
     osModeParam = vts.getRawParameterValue ("os_mode");
     osOfflineParam = vts.getRawParameterValue ("os_render_factor");
     osOfflineModeParam = vts.getRawParameterValue ("os_render_mode");
@@ -17,7 +17,7 @@ OversamplingManager::OversamplingManager (const AudioProcessorValueTreeState& vt
 
 void OversamplingManager::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
-    params.push_back (std::make_unique<AudioParameterChoice> ("os_factor", "Oversampling", StringArray ({ "1x", "2x", "4x", "8x", "16x" }), 1));
+    params.push_back (std::make_unique<AudioParameterChoice> ("os", "Oversampling", StringArray ({ "1x", "2x", "4x", "8x", "16x" }), 1));
     params.push_back (std::make_unique<AudioParameterChoice> ("os_mode", "Oversampling Mode", StringArray ({ "Min. Phase", "Linear Phase" }), 0));
 
     params.push_back (std::make_unique<AudioParameterChoice> ("os_render_factor", "Oversampling (render)", StringArray ({ "1x", "2x", "4x", "8x", "16x" }), 1));
@@ -27,10 +27,10 @@ void OversamplingManager::createParameterLayout (std::vector<std::unique_ptr<Ran
 
 bool OversamplingManager::updateOSFactor()
 {
-    curOS = (int) *osParam + (numOSChoices* (int) *osModeParam);
+    curOS = getOSIndex (*osParam, *osModeParam);
     if (proc.isNonRealtime() && *osOfflineSameParam == 0.0f)
     {
-        curOS = (int) *osOfflineParam + (numOSChoices* (int) *osOfflineModeParam);
+        curOS = getOSIndex (*osOfflineParam, *osOfflineModeParam);
     }
     if (curOS != prevOS)
     {
@@ -42,8 +42,10 @@ bool OversamplingManager::updateOSFactor()
     return false;
 }
 
-void OversamplingManager::prepareToPlay (double /*sampleRate*/, int samplesPerBlock)
+void OversamplingManager::prepareToPlay (double sr, int samplesPerBlock)
 {
+    sampleRate = (float) sr;
+
     overSamplingFactor = 1 << curOS;
 
     for (int i = 0; i < numOSChoices; ++i)

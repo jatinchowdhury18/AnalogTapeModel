@@ -1,33 +1,9 @@
 #include "OversamplingMenu.h"
 #include "../PluginProcessor.h"
 
-/*
-class OSParamAttach : private ComboBox::Listener
-{
-    OSParamAttach()
-    {
-        // if (auto* parameter = stateToUse.getParameter (parameterID))
-        //     return std::make_unique<Attachment> (*parameter, control, stateToUse.undoManager);
-    }
-
-    ComboBoxParameterAttachment (RangedAudioParameter& parameter, ComboBox& combo,
-                                 UndoManager* undoManager = nullptr);
-
-    ~ComboBoxParameterAttachment() override;
-
-    void sendInitialUpdate();
-
-private:
-    void setValue (float newValue);
-    void comboBoxChanged (ComboBox*) override;
-
-    ComboBox& comboBox;
-    RangedAudioParameter& storedParameter;
-    ParameterAttachment attachment;
-    bool ignoreCallbacks = false;
-}; */
-
-OversamplingMenu::OversamplingMenu (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
+OversamplingMenu::OversamplingMenu (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node),
+                                                                                               osManager (dynamic_cast<ChowtapeModelAudioProcessor*> (getMagicState()
+                                                                                                          .getProcessor())->getHysteresisProcessor().getOSManager())
 {
     setColourTranslation (
     {
@@ -48,7 +24,7 @@ OversamplingMenu::OversamplingMenu (foleys::MagicGUIBuilder& builder, const Valu
 
 void OversamplingMenu::update()
 {
-    auto& vts = dynamic_cast<ChowtapeModelAudioProcessor*> (getMagicState().getProcessor())->getVTS(); 
+    auto& vts = dynamic_cast<ChowtapeModelAudioProcessor*> (getMagicState().getProcessor())->getVTS();
 
     int count = 0;
     for (auto paramTag : { &osParam, &osMode, &osOfflineParam, &osOfflineMode, &osOfflineSame })
@@ -58,7 +34,9 @@ void OversamplingMenu::update()
         if (paramID.isNotEmpty())
         {
             parameters[count] = vts.getParameter (paramID);
-            attachments[count] = std::make_unique<ParameterAttachment> (*parameters[count], [=] (float) { generateComboBoxMenu(); }, vts.undoManager);
+            attachments[count] = std::make_unique<ParameterAttachment> (*parameters[count],
+                                                                        [=] (float) { generateComboBoxMenu(); },
+                                                                        vts.undoManager);
         }
 
         count += 1;
@@ -81,7 +59,7 @@ void OversamplingMenu::generateComboBoxMenu()
         bool isSelected = ((int) parameter->convertFrom0to1 (parameter->getValue()) == paramVal) && ! forceOff;
         item.text = choice;
         item.colour = isSelected ? Colour (0xFFEAA92C) : Colours::white;
-        item.action = [&, paramVal] {
+        item.action = [&, paramVal, disableSame] {
             if (disableSame)
                 attachments[4]->setValueAsCompleteGesture (0.0f);
             attachment->setValueAsCompleteGesture (float (paramVal));
@@ -89,69 +67,64 @@ void OversamplingMenu::generateComboBoxMenu()
         return isSelected;
     };
 
-    // oversampling parameter
-    menu->addSectionHeader ("OS Factor");
+    // set up main menu
+    StringArray headers { "OS Factor", "Mode", "OS Factor", "Mode" };
     int menuIdx = 1;
     int menuOffset = menuIdx;
-    for (auto& choice : parameters[0]->getAllValueStrings())
-    {
+
+    // set up offline menu
+    PopupMenu offlineMenu;
+    int offlineMenuIdx = 1;
+    int offlineMenuOffset = menuIdx;
+
+    bool sameAsRT = false;
+    { // same as real-time option
         PopupMenu::Item item;
-        bool isSelected = createParamItem (item, parameters[0], attachments[0], menuIdx, menuOffset, choice);
-        menu->addItem (item);
-        
-        if (isSelected)
-            comboBox.setText (item.text);
+        item.itemID = menuIdx++;
+        auto* parameter = parameters[4];
+        sameAsRT = (int) parameter->convertFrom0to1 (parameter->getValue()) == 1;
+        item.text = "Same as real-time";
+        item.colour = sameAsRT ? Colour (0xFFEAA92C) : Colours::white;
+        item.action = [&] { attachments[4]->setValueAsCompleteGesture (1.0f); };
+        offlineMenu.addItem (item);
     }
 
-    // oversampling mode
-    menu->addSectionHeader ("Mode");
-    menuOffset = menuIdx;
-    for (auto& choice : parameters[1]->getAllValueStrings())
+    // add parameter to menus
+    for (int paramIdx = 0; paramIdx < 4; ++paramIdx)
     {
-        PopupMenu::Item item;
-        createParamItem (item, parameters[1], attachments[1], menuIdx, menuOffset, choice);
-        menu->addItem (item);
-    }
+        bool isOfflineParam = paramIdx >= 2;
+        auto* thisMenu = isOfflineParam ? &offlineMenu : menu;
+        auto& thisMenuIdx = isOfflineParam ? offlineMenuIdx : menuIdx;
+        auto& thisMenuOffset = isOfflineParam ? offlineMenuOffset : menuOffset;
+        thisMenuOffset = thisMenuIdx;
 
-    // offline params
-    {
-        menu->addSeparator();
-        PopupMenu offlineMenu;
-        int menuIdx = 1;
-
-        bool sameAsRT = false;
-        { // same as real-time option
-            PopupMenu::Item item;
-            item.itemID = menuIdx++;
-            auto* parameter = parameters[4];
-            sameAsRT = (int) parameter->convertFrom0to1 (parameter->getValue()) == 1;
-            item.text = "Same as real-time";
-            item.colour = sameAsRT ? Colour (0xFFEAA92C) : Colours::white;
-            item.action = [&] { attachments[4]->setValueAsCompleteGesture (1.0f); };
-            offlineMenu.addItem (item);
-        }
-
-        offlineMenu.addSectionHeader ("OS Factor");
-        int menuOffset = menuIdx;
-        for (auto& choice : parameters[2]->getAllValueStrings())
+        thisMenu->addSectionHeader (headers[paramIdx]);
+        for (auto& choice : parameters[paramIdx]->getAllValueStrings())
         {
             PopupMenu::Item item;
-            createParamItem (item, parameters[2], attachments[2], menuIdx, menuOffset, choice, sameAsRT, true);
-            offlineMenu.addItem (item);
-        }
+            bool isSelected = createParamItem (item,
+                                               parameters[paramIdx],
+                                               attachments[paramIdx],
+                                               thisMenuIdx,
+                                               thisMenuOffset,
+                                               choice,
+                                               sameAsRT && isOfflineParam,
+                                               isOfflineParam);
+            thisMenu->addItem (item);
 
-        // oversampling mode
-        offlineMenu.addSectionHeader ("Mode");
-        menuOffset = menuIdx;
-        for (auto& choice : parameters[3]->getAllValueStrings())
-        {
-            PopupMenu::Item item;
-            createParamItem (item, parameters[3], attachments[3], menuIdx, menuOffset, choice, sameAsRT, true);
-            offlineMenu.addItem (item);
+            if (isSelected && paramIdx == 0)
+                comboBox.setText (item.text);
         }
-
-        menu->addSubMenu ("Offline:", offlineMenu);
     }
+    
+    menu->addSeparator();
+    menu->addSubMenu ("Offline:", offlineMenu);
+
+    auto osParam = parameters[0]->convertFrom0to1 (parameters[0]->getValue());
+    auto osMode = parameters[1]->convertFrom0to1 (parameters[1]->getValue());
+    auto osIndex = osManager.getOSIndex (osParam, osMode);
+    auto curLatencyMs = osManager.getLatencyMilliseconds (osIndex);
+    menu->addSectionHeader ("Current Latency: " + String (curLatencyMs, 3) + " ms");
 }
 
 std::vector<foleys::SettableProperty> OversamplingMenu::getSettableProperties() const

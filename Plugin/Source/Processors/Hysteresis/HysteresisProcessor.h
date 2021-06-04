@@ -24,6 +24,7 @@ public:
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     float getLatencySamples() const noexcept;
+    const OversamplingManager& getOSManager() const { return osManager; }
 
 private:
     void setSolver (int newSolver);

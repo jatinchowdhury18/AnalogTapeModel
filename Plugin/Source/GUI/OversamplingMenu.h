@@ -1,6 +1,6 @@
 #pragma once
 
-#include <JuceHeader.h>
+#include "../Processors/Hysteresis/OversamplingManager.h"
 
 class OversamplingMenu : public foleys::GuiItem
 {
@@ -27,6 +27,8 @@ private:
 
     std::unique_ptr<ParameterAttachment> attachments[5];
     RangedAudioParameter* parameters[5];
+
+    const OversamplingManager& osManager;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OversamplingMenu)
 };
