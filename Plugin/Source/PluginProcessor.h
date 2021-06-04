@@ -78,6 +78,7 @@ public:
     PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
+    HysteresisProcessor& getHysteresisProcessor() { return hysteresis; }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
