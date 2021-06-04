@@ -3,21 +3,21 @@
 
 OversamplingMenu::OversamplingMenu (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node),
                                                                                                osManager (dynamic_cast<ChowtapeModelAudioProcessor*> (getMagicState()
-                                                                                                          .getProcessor())->getHysteresisProcessor().getOSManager())
+                                                                                                                                                          .getProcessor())
+                                                                                                              ->getHysteresisProcessor()
+                                                                                                              .getOSManager())
 {
     setColourTranslation (
-    {
-        { "combo-background", ComboBox::backgroundColourId },
-        { "combo-text", ComboBox::textColourId },
-        { "combo-outline", ComboBox::outlineColourId },
-        { "combo-button", ComboBox::buttonColourId },
-        { "combo-arrow", ComboBox::arrowColourId },
-        { "combo-focused-outline", ComboBox::focusedOutlineColourId },
-        { "combo-menu-background", PopupMenu::backgroundColourId },
-        { "combo-menu-background-highlight", PopupMenu::highlightedBackgroundColourId },
-        { "combo-menu-text", PopupMenu::textColourId },
-        { "combo-menu-text-highlight", PopupMenu::highlightedTextColourId }
-    });
+        { { "combo-background", ComboBox::backgroundColourId },
+          { "combo-text", ComboBox::textColourId },
+          { "combo-outline", ComboBox::outlineColourId },
+          { "combo-button", ComboBox::buttonColourId },
+          { "combo-arrow", ComboBox::arrowColourId },
+          { "combo-focused-outline", ComboBox::focusedOutlineColourId },
+          { "combo-menu-background", PopupMenu::backgroundColourId },
+          { "combo-menu-background-highlight", PopupMenu::highlightedBackgroundColourId },
+          { "combo-menu-text", PopupMenu::textColourId },
+          { "combo-menu-text-highlight", PopupMenu::highlightedTextColourId } });
 
     addAndMakeVisible (comboBox);
 }
@@ -34,9 +34,10 @@ void OversamplingMenu::update()
         if (paramID.isNotEmpty())
         {
             parameters[count] = vts.getParameter (paramID);
-            attachments[count] = std::make_unique<ParameterAttachment> (*parameters[count],
-                                                                        [=] (float) { generateComboBoxMenu(); },
-                                                                        vts.undoManager);
+            attachments[count] = std::make_unique<ParameterAttachment> (
+                *parameters[count],
+                [=] (float) { generateComboBoxMenu(); },
+                vts.undoManager);
         }
 
         count += 1;
@@ -50,10 +51,7 @@ void OversamplingMenu::generateComboBoxMenu()
     comboBox.clear();
     auto* menu = comboBox.getRootMenu();
 
-    auto createParamItem = [=] (PopupMenu::Item& item, auto* parameter, auto& attachment,
-                                int& menuIdx, int menuOffset, const String& choice,
-                                bool forceOff = false, bool disableSame = false)
-    {
+    auto createParamItem = [=] (PopupMenu::Item& item, auto* parameter, auto& attachment, int& menuIdx, int menuOffset, const String& choice, bool forceOff = false, bool disableSame = false) {
         item.itemID = menuIdx++;
         int paramVal = item.itemID - menuOffset;
         bool isSelected = ((int) parameter->convertFrom0to1 (parameter->getValue()) == paramVal) && ! forceOff;
@@ -116,7 +114,7 @@ void OversamplingMenu::generateComboBoxMenu()
                 comboBox.setText (item.text);
         }
     }
-    
+
     menu->addSeparator();
     menu->addSubMenu ("Offline:", offlineMenu);
 
