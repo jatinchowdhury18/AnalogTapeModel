@@ -272,10 +272,12 @@
     <View max-height="40" min-height="20" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
       <View background-color="00000000" flex-grow="0.1"/>
-      <ComboBox caption="Oversampling" parameter="os" class="Slider" caption-size="0"
-                padding="0" combo-text="FFEAA92C" combo-background="00000000"
-                max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
-                tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
+      <OversamplingMenu caption="Oversampling" os-param="os" os-mode="os_mode"
+                        os-off-param="os_render_factor" os-off-mode="os_render_mode"
+                        os-off-same="os_render_like_realtime" class="Slider"
+                        caption-size="0" padding="0" combo-text="FFEAA92C" combo-background="00000000"
+                        max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
+                        tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
       <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
                 name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
                 combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"

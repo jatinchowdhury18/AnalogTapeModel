@@ -1,6 +1,7 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
     MyLNF.cpp
+    OversamplingMenu.cpp
     TitleComp.cpp
     TooltipComp.cpp
     WowFlutterMenu.cpp
