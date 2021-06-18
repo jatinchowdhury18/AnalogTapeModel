@@ -172,14 +172,15 @@ class STNModel
 public:
     STNModel()
     {
+        // useful for debugging...
         if (! printed)
         {
 #if USE_RTNEURAL_STATIC
-            std::cout << "Using RTNeural ModelT STN" << std::endl;
+            DBG ("Using RTNeural ModelT STN");
 #elif USE_RTNEURAL_POLY
-            std::cout << "Using RTNeural polymorphic STN" << std::endl;
+            DBG ("Using RTNeural polymorphic STN");
 #else
-            std::cout << "Using hand-coded STN" << std::endl;
+            DBG ("Using hand-coded STN");
 #endif
             printed = true;
         }
