@@ -150,10 +150,10 @@
                     tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
-            <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160" background-color="FF31323A"
-                        button-on-color="FFB41717" button-color="FF33343D" text="0.1x"
-                        button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
-                        width="" min-height="0.0" padding="0" caption-placement="centred"
+            <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160"
+                        background-color="FF31323A" button-on-color="FFB41717" button-color="FF33343D"
+                        text="0.1x" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
+                        height="" width="" min-height="0.0" padding="0" caption-placement="centred"
                         min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
                         name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
           </View>
@@ -235,13 +235,13 @@
                  tooltip-text="FFFFFFFF"/>
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
-      <View background-color="00000000" flex-grow="0.1"/>
-      <OversamplingMenu caption="Oversampling" os-param="os" os-mode="os_mode"
-                        os-off-param="os_render_factor" os-off-mode="os_render_mode"
-                        os-off-same="os_render_like_realtime" class="Slider"
-                        caption-size="0" padding="0" combo-text="FFEAA92C" combo-background="00000000"
-                        max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
-                        tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
+      <View background-color="00000000" flex-grow="0.05"/>
+      <OversamplingMenu caption="Oversampling" os-param="os" os-mode="os_mode" os-off-param="os_render_factor"
+                        os-off-mode="os_render_mode" os-off-same="os_render_like_realtime"
+                        class="Slider" flex-grow="1.2" caption-size="0" padding="0" combo-text="FFEAA92C"
+                        combo-background="00000000" max-height="100" margin="0" lookAndFeel="ComboBoxLNF"
+                        name="Oversampling" tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."
+                        border=""/>
       <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
                 name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
                 combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"
@@ -254,7 +254,7 @@
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
-               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9"
+               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.95"
                max-height="100"/>
     </View>
   </View>
