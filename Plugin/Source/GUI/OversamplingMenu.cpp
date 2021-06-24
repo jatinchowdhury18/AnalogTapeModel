@@ -20,6 +20,15 @@ OversamplingMenu::OversamplingMenu (foleys::MagicGUIBuilder& builder, const Valu
           { "combo-menu-text-highlight", PopupMenu::highlightedTextColourId } });
 
     addAndMakeVisible (comboBox);
+    comboBox.setLookAndFeel (&lnf);
+
+    for (int i = 0; i < 5; ++i)
+        parameters[i] = nullptr;
+}
+
+OversamplingMenu::~OversamplingMenu()
+{
+    comboBox.setLookAndFeel (nullptr);
 }
 
 void OversamplingMenu::update()
@@ -80,7 +89,7 @@ void OversamplingMenu::generateComboBoxMenu()
         PopupMenu::Item item;
         item.itemID = menuIdx++;
         auto* parameter = parameters[4];
-        sameAsRT = (int) parameter->convertFrom0to1 (parameter->getValue()) == 1;
+        sameAsRT = parameter != nullptr ? (int) parameter->convertFrom0to1 (parameter->getValue()) == 1 : false;
         item.text = "Same as real-time";
         item.colour = sameAsRT ? Colour (0xFFEAA92C) : Colours::white;
         item.action = [&] { attachments[4]->setValueAsCompleteGesture (1.0f); };
@@ -88,8 +97,12 @@ void OversamplingMenu::generateComboBoxMenu()
     }
 
     // add parameter to menus
+    std::pair<String, String> selectedText;
     for (int paramIdx = 0; paramIdx < 4; ++paramIdx)
     {
+        if (parameters[paramIdx] == nullptr)
+            continue;
+
         bool isOfflineParam = paramIdx >= 2;
         auto* thisMenu = isOfflineParam ? &offlineMenu : menu;
         auto& thisMenuIdx = isOfflineParam ? offlineMenuIdx : menuIdx;
@@ -111,15 +124,22 @@ void OversamplingMenu::generateComboBoxMenu()
             thisMenu->addItem (item);
 
             if (isSelected && paramIdx == 0)
-                comboBox.setText (item.text);
+                selectedText.first = item.text;
+            else if (isSelected && paramIdx == 2)
+                selectedText.second = item.text;
         }
     }
+
+    String comboBoxText = selectedText.first;
+    if (! sameAsRT)
+        comboBoxText += " / " + selectedText.second;
+    comboBox.setText (comboBoxText);
 
     menu->addSeparator();
     menu->addSubMenu ("Offline:", offlineMenu);
 
-    auto osParam = parameters[0]->convertFrom0to1 (parameters[0]->getValue());
-    auto osMode = parameters[1]->convertFrom0to1 (parameters[1]->getValue());
+    auto osParam = parameters[0] != nullptr ? parameters[0]->convertFrom0to1 (parameters[0]->getValue()) : 0;
+    auto osMode = parameters[1] != nullptr ? parameters[1]->convertFrom0to1 (parameters[1]->getValue()) : 0;
     auto osIndex = osManager.getOSIndex (osParam, osMode);
     auto curLatencyMs = osManager.getLatencyMilliseconds (osIndex);
     menu->addSectionHeader ("Current Latency: " + String (curLatencyMs, 3) + " ms");
