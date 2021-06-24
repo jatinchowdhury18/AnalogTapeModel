@@ -40,7 +40,7 @@ private:
             auto font = getComboBoxFont (box).boldened();
             g.setColour (Colours::white);
             g.setFont (font);
-                
+
             auto nameBox = boxBounds.removeFromLeft (font.getStringWidth (name));
             g.drawFittedText (name + ": ", nameBox, Justification::left, 1);
         }
