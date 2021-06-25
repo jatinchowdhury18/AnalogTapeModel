@@ -44,7 +44,6 @@ private:
     std::atomic<float>* driveParam = nullptr;
     std::atomic<float>* satParam = nullptr;
     std::atomic<float>* widthParam = nullptr;
-    std::atomic<float>* osParam = nullptr;
     std::atomic<float>* modeParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
 
