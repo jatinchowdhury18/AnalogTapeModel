@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## UNRELEASED
+- Improved oversampling menu with choices for linear vs. minimum phase and real-time vs. offline rendering.
+- Further improved performance for Hysteresis "STN" mode.
+
 ## [2.8.0] - 2021-04-20
 - Added support for iOS (AUv3) and Apple Silicon.
 - Added Azimuth parameter for playhead loss controls.
