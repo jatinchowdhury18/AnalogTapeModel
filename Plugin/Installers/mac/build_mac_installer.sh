@@ -31,6 +31,12 @@ productsign -s "$TEAM_ID" ../../build/CHOWTapeModel.pkg $pkg_dir/CHOWTapeModel-s
 
 echo "Notarizing installer package..."
 INSTALLER_PASS=$(more ~/Developer/mac_installer_pass)
+# xcrun altool --notarize-app --file $pkg_dir/CHOWTapeModel-signed.pkg \
+#     --primary-bundle-id com.chowdsp.CHOWTapeModel \
+#     --username chowdsp@gmail.com \
+#     --password "$INSTALLER_PASS" \
+#     --asc-provider "$TEAM_ID" \
+#     --output-format 'json'
 npx notarize-cli --file $pkg_dir/CHOWTapeModel-signed.pkg --bundle-id com.chowdsp.CHOWTapeModel --username chowdsp@gmail.com --password "$INSTALLER_PASS" --asc-provider "$TEAM_ID"
 
 echo "Building disk image..."
