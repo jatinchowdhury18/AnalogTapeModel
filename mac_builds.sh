@@ -39,8 +39,8 @@ echo "Running AU validation..."
 rm -Rf ~/Library/Audio/Plug-Ins/Components/${plugin}.component
 sudo rm -Rf /Library/Audio/Plug-Ins/Components/${plugin}.component
 cp -R build/${plugin}_artefacts/Release/AU/${plugin}.component ~/Library/Audio/Plug-Ins/Components
-manu=$(cut -f 10 -d ' ' <<< "$(grep 'PLUGIN_MANUFACTURER_CODE' CMakeLists.txt | head -1)")
-code=$(cut -f 10 -d ' ' <<< "$(grep 'PLUGIN_CODE' CMakeLists.txt | head -1)")
+manu=$(grep 'PLUGIN_MANUFACTURER_CODE' CMakeLists.txt | head -1 | awk '{print $NF}')
+code=$(grep 'PLUGIN_CODE' CMakeLists.txt | head -1 | awk '{print $NF}')
 
 set +e
 auval_result=$(auval -v aufx "$code" "$manu")
