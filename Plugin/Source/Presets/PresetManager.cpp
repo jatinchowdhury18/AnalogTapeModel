@@ -124,7 +124,22 @@ bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
         return false;
     }
 
+    StringArray presetAgnosticParams { "os", "os_mode", "os_render_factor", "os_render_mode", "os_render_like_realtime" };
+
     auto newState = presetMap[idx]->state.createCopy();
+
+    for (auto& param : presetAgnosticParams)
+    {
+        auto curParamTree = vts.state.getChildWithProperty ("id", param);
+        jassert (curParamTree.isValid());
+
+        auto presetParamTree = newState.getChildWithProperty ("id", param);
+        if (presetParamTree.isValid())
+            presetParamTree.copyPropertiesFrom (curParamTree, nullptr);
+        else
+            newState.appendChild (curParamTree.createCopy(), nullptr);
+    }
+
     vts.replaceState (newState);
     return true;
 }
