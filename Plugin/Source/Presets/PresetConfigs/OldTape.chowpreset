@@ -7,6 +7,7 @@
     <PARAM id="chew_var" value="0.0"/>
     <PARAM id="deg_amt" value="0.1499999910593033"/>
     <PARAM id="deg_depth" value="0.199999988079071"/>
+    <PARAM id="deg_onoff" value="1.0"/>
     <PARAM id="deg_var" value="0.25"/>
     <PARAM id="depth" value="0.0"/>
     <PARAM id="drive" value="0.5"/>
