@@ -4,6 +4,7 @@ this file.
 
 ## UNRELEASED
 - Improved oversampling menu with choices for linear vs. minimum phase and real-time vs. offline rendering.
+- Made oversampling choices preset-agnostic.
 - Further improved performance for Hysteresis "STN" mode.
 
 ## [2.8.0] - 2021-04-20

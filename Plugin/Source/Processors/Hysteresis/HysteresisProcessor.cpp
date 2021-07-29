@@ -36,28 +36,22 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
 void HysteresisProcessor::setSolver (int newSolver)
 {
     if (newSolver == SolverType::NUM_SOLVERS) // V1
-    {
         useV1 = true;
-        newSolver = 1; // RK4
-    }
     else
-    {
         useV1 = false;
-    }
 
-    for (int ch = 0; ch < 2; ++ch)
-        hProcs[ch].setSolver (static_cast<SolverType> (newSolver));
+    solver = useV1 ? RK4 : static_cast<SolverType> (newSolver);
 
     // set clip level for solver
-    switch (newSolver)
+    switch (solver)
     {
-        case 0: // RK2
-        case 1: // RK4
+        case RK2:
+        case RK4:
             clipLevel = 10.0f;
             return;
 
-        case 2: // NR4
-        case 3: // NR8
+        case NR4:
+        case NR8:
             clipLevel = 12.5f;
             return;
 
@@ -188,19 +182,50 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     dsp::AudioBlock<float> block (buffer);
     dsp::AudioBlock<float> osBlock = osManager.getOversampler()->processSamplesUp (block);
 
-    if (needsSmoothing)
+    if (useV1)
     {
-        if (useV1)
+        if (needsSmoothing)
             processSmoothV1 (osBlock);
         else
-            processSmooth (osBlock);
+            processV1 (osBlock);
     }
     else
     {
-        if (useV1)
-            processV1 (osBlock);
-        else
-            process (osBlock);
+        switch (solver)
+        {
+        case RK2:
+            if (needsSmoothing)
+                processSmooth<RK2> (osBlock);
+            else
+                process<RK2> (osBlock);
+            break;
+        case RK4:
+            if (needsSmoothing)
+                processSmooth<RK4> (osBlock);
+            else
+                process<RK4> (osBlock);
+            break;
+        case NR4:
+            if (needsSmoothing)
+                processSmooth<NR4> (osBlock);
+            else
+                process<NR4> (osBlock);
+            break;
+        case NR8:
+            if (needsSmoothing)
+                processSmooth<NR8> (osBlock);
+            else
+                process<NR8> (osBlock);
+            break;
+        case STN:
+            if (needsSmoothing)
+                processSmooth<STN> (osBlock);
+            else
+                process<STN> (osBlock);
+            break;
+        default:
+            jassertfalse; // unknown solver!
+        };        
     }
 
     osManager.getOversampler()->processSamplesDown (block);
@@ -210,6 +235,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }
 
+template <SolverType solverType>
 void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
 {
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
@@ -217,11 +243,12 @@ void HysteresisProcessor::process (dsp::AudioBlock<float>& block)
         auto* x = block.getChannelPointer (channel);
         for (size_t samp = 0; samp < block.getNumSamples(); samp++)
         {
-            x[samp] = (float) hProcs[channel].process ((double) x[samp]) * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process<solverType> ((double) x[samp]) * makeup[channel].getNextValue();
         }
     }
 }
 
+template <SolverType solverType>
 void HysteresisProcessor::processSmooth (dsp::AudioBlock<float>& block)
 {
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
@@ -231,7 +258,7 @@ void HysteresisProcessor::processSmooth (dsp::AudioBlock<float>& block)
         {
             hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), false);
 
-            x[samp] = (float) hProcs[channel].process ((double) x[samp]) * makeup[channel].getNextValue();
+            x[samp] = (float) hProcs[channel].process<solverType> ((double) x[samp]) * makeup[channel].getNextValue();
         }
     }
 }
@@ -249,7 +276,7 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<float>& block)
             biasAngle[channel] += angleDelta;
             biasAngle[channel] -= MathConstants<float>::twoPi * (biasAngle[channel] >= MathConstants<float>::twoPi);
 
-            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
+            x[samp] = (float) hProcs[channel].process<RK4> (10000.0 * (double) (x[samp] + bias));
         }
 
         FloatVectorOperations::multiply (x, 1.414f / 10000.0f, (int) block.getNumSamples());
@@ -271,7 +298,7 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<float>& block)
             biasAngle[channel] += angleDelta;
             biasAngle[channel] -= MathConstants<float>::twoPi * (biasAngle[channel] >= MathConstants<float>::twoPi);
 
-            x[samp] = (float) hProcs[channel].process (10000.0 * (double) (x[samp] + bias));
+            x[samp] = (float) hProcs[channel].process<RK4> (10000.0 * (double) (x[samp] + bias));
         }
 
         FloatVectorOperations::multiply (x, 1.414f / 10000.0f, (int) block.getNumSamples());

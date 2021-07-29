@@ -35,7 +35,9 @@ private:
     float calcMakeup();
     void calcBiasFreq();
 
+    template <SolverType solverType>
     void process (dsp::AudioBlock<float>& block);
+    template <SolverType solverType>
     void processSmooth (dsp::AudioBlock<float>& block);
     void processV1 (dsp::AudioBlock<float>& block);
     void processSmoothV1 (dsp::AudioBlock<float>& block);
@@ -54,6 +56,7 @@ private:
 
     float fs = 44100.0f;
     HysteresisProcessing hProcs[2];
+    SolverType solver;
     OversamplingManager osManager; // needs oversampling to avoid aliasing
     DCBlocker dcBlocker[2];
 

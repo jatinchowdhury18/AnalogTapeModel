@@ -73,3 +73,9 @@ see the
 
 ## License
 CHOW Tape is licensed under the GNU General Public License (GPLv3) agreement. CHOW Tape for iOS is dual licensed under the GPL and [Mozilla Public License](https://www.mozilla.org/en-US/MPL/2.0) (MPLv2). Enjoy!
+
+----
+Old stats:
+Default settings, RK2 mode, HysteresisProcessor -> 57.4%
+
+New stats:
