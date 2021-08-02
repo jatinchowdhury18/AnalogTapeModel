@@ -35,12 +35,14 @@ private:
     double calcMakeup();
     void calcBiasFreq();
 
-    template <SolverType solverType>
-    void process (dsp::AudioBlock<double>& block);
-    template <SolverType solverType>
-    void processSmooth (dsp::AudioBlock<double>& block);
-    void processV1 (dsp::AudioBlock<double>& block);
-    void processSmoothV1 (dsp::AudioBlock<double>& block);
+    template <SolverType solverType, typename T>
+    void process (dsp::AudioBlock<T>& block);
+    template <SolverType solverType, typename T>
+    void processSmooth (dsp::AudioBlock<T>& block);
+    template <typename T>
+    void processV1 (dsp::AudioBlock<T>& block);
+    template <typename T>
+    void processSmoothV1 (dsp::AudioBlock<T>& block);
     void applyDCBlockers (AudioBuffer<float>& buffer);
 
     std::atomic<float>* driveParam = nullptr;
@@ -70,6 +72,15 @@ private:
 
     AudioBuffer<double> doubleBuffer;
     BypassProcessor bypass;
+
+#if HYSTERESIS_USE_SIMD
+    using Vec2 = dsp::SIMDRegister<double>;
+    dsp::AudioBlock<Vec2> interleaved;
+    dsp::AudioBlock<double> zero;
+
+    HeapBlock<char> interleavedBlockData, zeroData;
+    HeapBlock<const double*> channelPointers { Vec2::size() };
+#endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
 };

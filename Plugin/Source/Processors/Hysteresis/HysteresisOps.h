@@ -3,8 +3,11 @@
 #include <JuceHeader.h>
 #include <cmath>
 
+#define HYSTERESIS_USE_SIMD 1
+
 namespace HysteresisOps
 {
+using namespace chowdsp::SIMDUtils;
 
 struct HysteresisState
 {
@@ -25,9 +28,15 @@ struct HysteresisState
     double M_s_oaSq_tc_talphaSq = alpha * alpha * c * M_s / (a * a);
 
     // temp vars
-    double Q, M_diff, delta, delta_M, L_prime, kap1, f1Denom, f1, f2, f3;
+#if HYSTERESIS_USE_SIMD
+    dsp::SIMDRegister<double> Q, M_diff, L_prime, kap1, f1Denom, f1, f2, f3;
+    dsp::SIMDRegister<double> coth = 0.0;
+    dsp::SIMDRegister<double>::vMaskType nearZero;
+#else
+    double Q, M_diff, L_prime, kap1, f1Denom, f1, f2, f3;
     double coth = 0.0;
     bool nearZero = false;
+#endif
 };
 
 constexpr double ONE_THIRD = 1.0 / 3.0;
@@ -39,64 +48,98 @@ constexpr inline int sign (double x)
 }
 
 /** Langevin function */
-static inline double langevin (double x, double coth, bool nearZero) noexcept
+template<typename Float, typename Bool>
+static inline Float langevin (Float x, Float coth, Bool nearZero) noexcept
 {
+#if HYSTERESIS_USE_SIMD
+    auto notNearZero = ~ nearZero;
+    return ((coth - ((Float) 1.0 / x)) & notNearZero) + ((x / 3.0) & nearZero);
+#else
     return ! nearZero ? (coth) - (1.0 / x) : x / 3.0;
+#endif
 }
 
 /** Derivative of Langevin function */
-static inline double langevinD (double x, double coth, bool nearZero) noexcept
+template<typename Float, typename Bool>
+static inline Float langevinD (Float x, Float coth, Bool nearZero) noexcept
 {
+#if HYSTERESIS_USE_SIMD
+    auto notNearZero = ~ nearZero;
+    return ((((Float) 1.0 / (x * x)) - (coth * coth) + 1.0) & notNearZero) + ((Float) ONE_THIRD & nearZero);
+#else
     return ! nearZero ? (1.0 / (x * x)) - (coth * coth) + 1.0 : ONE_THIRD;
+#endif
 }
 
 /** 2nd derivative of Langevin function */
-static inline double langevinD2 (double x, double coth, bool nearZero) noexcept
+template<typename Float, typename Bool>
+static inline Float langevinD2 (Float x, Float coth, Bool nearZero) noexcept
 {
+#if HYSTERESIS_USE_SIMD
+    auto notNearZero = ~ nearZero;
+    return (((Float) 2.0 * coth * (coth * coth - 1.0) - ((Float) 2.0 / (x * x * x))) & notNearZero)
+        + ((x * NEG_TWO_OVER_15) & nearZero);
+#else
     return ! nearZero
         ? 2.0 * coth * (coth * coth - 1.0) - (2.0 / (x * x * x))
         : NEG_TWO_OVER_15 * x;
+#endif
 }
 
 /** Derivative by alpha transform */
-static inline double deriv (double x_n, double x_n1, double x_d_n1, double T) noexcept
+template<typename Float>
+static inline Float deriv (Float x_n, Float x_n1, Float x_d_n1, Float T) noexcept
 {
-    constexpr double dAlpha = 0.75;
-    return (((1.0 + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
+    const Float dAlpha = 0.75;
+    return ((((Float) 1.0 + dAlpha) / T) * (x_n - x_n1)) - dAlpha * x_d_n1;
 }
 
 /** hysteresis function dM/dt */
-static inline double hysteresisFunc (double M, double H, double H_d, HysteresisState& hp) noexcept
+template<typename Float>
+static inline Float hysteresisFunc (Float M, Float H, Float H_d, HysteresisState& hp) noexcept
 {
-    hp.Q = (H + hp.alpha * M) / hp.a;
+    hp.Q = (H + M * hp.alpha) * (1.0 / hp.a);
+
+#if HYSTERESIS_USE_SIMD
+    hp.coth = (Float) 1.0 / tanhSIMD (hp.Q);
+    hp.nearZero = Float::lessThan (hp.Q, (Float) 0.001) & Float::greaterThan (hp.Q, (Float) -0.001);
+#else
     hp.coth = 1.0 / std::tanh (hp.Q);
     hp.nearZero = hp.Q < 0.001 && hp.Q > -0.001;
+#endif
 
-    hp.M_diff = hp.M_s * langevin (hp.Q, hp.coth, hp.nearZero) - M;
+    hp.M_diff = langevin (hp.Q, hp.coth, hp.nearZero) * hp.M_s - M;
 
-    hp.delta = (double) ((H_d >= 0.0) - (H_d < 0.0));
-    hp.delta_M = (double) (sign (hp.delta) == sign (hp.M_diff));
+#if HYSTERESIS_USE_SIMD
+    const auto delta = ((Float) 1.0 & Float::greaterThanOrEqual (H_d, (Float) 0.0)) - ((Float) 1.0 & Float::lessThan (H_d, (Float) 0.0));
+    const auto delta_M = Float::equal (chowdsp::signumSIMD (delta), chowdsp::signumSIMD (hp.M_diff));
+    hp.kap1 = (Float) hp.nc & delta_M;
+#else
+    const auto delta = (Float) ((H_d >= 0.0) - (H_d < 0.0));
+    const auto delta_M = (Float) (sign (delta) == sign (hp.M_diff));
+    hp.kap1 = (Float) hp.nc * delta_M;
+#endif
 
     hp.L_prime = langevinD (hp.Q, hp.coth, hp.nearZero);
 
-    hp.kap1 = hp.nc * hp.delta_M;
-    hp.f1Denom = hp.nc * hp.delta * hp.k - hp.alpha * hp.M_diff;
+    hp.f1Denom = ((Float) hp.nc * delta) * hp.k - (Float) hp.alpha * hp.M_diff;
     hp.f1 = hp.kap1 * hp.M_diff / hp.f1Denom;
-    hp.f2 = hp.M_s_oa_tc * hp.L_prime;
-    hp.f3 = 1.0 - (hp.M_s_oa_tc_talpha * hp.L_prime);
+    hp.f2 = hp.L_prime * hp.M_s_oa_tc;
+    hp.f3 = (Float) 1.0 - (hp.L_prime * hp.M_s_oa_tc_talpha);
 
     return H_d * (hp.f1 + hp.f2) / hp.f3;
 }
 
 // derivative of hysteresis func w.r.t M (depends on cached values from computing hysteresisFunc)
-static inline double hysteresisFuncPrime (double H_d, double dMdt, HysteresisState& hp) noexcept
+template<typename Float>
+static inline Float hysteresisFuncPrime (Float H_d, Float dMdt, HysteresisState& hp) noexcept
 {
-    const double L_prime2 = langevinD2 (hp.Q, hp.coth, hp.nearZero);
-    const double M_diff2 = hp.M_s_oa_talpha * hp.L_prime - 1.0;
+    const Float L_prime2 = langevinD2 (hp.Q, hp.coth, hp.nearZero);
+    const Float M_diff2 = hp.L_prime * hp.M_s_oa_talpha - 1.0;
 
-    const double f1_p = hp.kap1 * ((M_diff2 / hp.f1Denom) + hp.M_diff * hp.alpha * M_diff2 / (hp.f1Denom * hp.f1Denom));
-    const double f2_p = hp.M_s_oaSq_tc_talpha * L_prime2;
-    const double f3_p = -hp.M_s_oaSq_tc_talphaSq * L_prime2;
+    const Float f1_p = hp.kap1 * ((M_diff2 / hp.f1Denom) + hp.M_diff * hp.alpha * M_diff2 / (hp.f1Denom * hp.f1Denom));
+    const Float f2_p = L_prime2 * hp.M_s_oaSq_tc_talpha;
+    const Float f3_p = L_prime2 * (-hp.M_s_oaSq_tc_talphaSq);
 
     return H_d * (f1_p + f2_p) / hp.f3 - dMdt * f3_p / hp.f3;
 }

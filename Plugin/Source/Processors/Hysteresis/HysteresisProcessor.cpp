@@ -1,9 +1,46 @@
 #include "HysteresisProcessor.h"
 
+namespace
+{
 enum
 {
     numSteps = 500,
 };
+
+constexpr double v1Norm = 1.414 / 10000.0;
+
+template<typename T>
+static void interleaveSamples (const T** source, T* dest, int numSamples, int numChannels)
+{
+    for (int chan = 0; chan < numChannels; ++chan)
+    {
+        auto i = chan;
+        auto src = source [chan];
+
+        for (int j = 0; j < numSamples; ++j)
+        {
+            dest [i] = src [j];
+            i += numChannels;
+        }
+    }
+}
+
+template<typename T>
+static void deinterleaveSamples (const T* source, T** dest, int numSamples, int numChannels)
+{
+    for (int chan = 0; chan < numChannels; ++chan)
+    {
+        auto i = chan;
+        auto dst = dest [chan];
+
+        for (int j = 0; j < numSamples; ++j)
+        {
+            dst [j] = source [i];
+            i += numChannels;
+        }
+    }
+}
+} // namespace
 
 HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts, const AudioProcessor& p) : osManager (vts, p)
 {
@@ -133,6 +170,13 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     doubleBuffer.setSize (2, samplesPerBlock);
     bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+
+#if HYSTERESIS_USE_SIMD
+    const auto maxOSBlockSize = (uint32) samplesPerBlock * 16;
+    interleaved = dsp::AudioBlock<Vec2> (interleavedBlockData, 1, maxOSBlockSize);
+    zero        = dsp::AudioBlock<double> (zeroData, Vec2::size(), maxOSBlockSize);
+    zero.clear();
+#endif
 }
 
 void HysteresisProcessor::releaseResources()
@@ -182,12 +226,27 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     dsp::AudioBlock<double> block (doubleBuffer);
     dsp::AudioBlock<double> osBlock = osManager.getOversampler()->processSamplesUp (block);
 
+#if HYSTERESIS_USE_SIMD
+    const auto n = osBlock.getNumSamples();
+    auto* inout = channelPointers.getData();
+    for (size_t ch = 0; ch < Vec2::size(); ++ch)
+        inout[ch] = (ch < osBlock.getNumChannels() ? const_cast<double*> (osBlock.getChannelPointer (ch)) : zero.getChannelPointer (ch));
+ 
+    // interleave channels
+    interleaveSamples (inout, reinterpret_cast<double*> (interleaved.getChannelPointer (0)),
+                       static_cast<int> (n), static_cast<int> (Vec2::size()));
+
+    auto processBlock = interleaved.getSubBlock (0, n);
+#else
+    auto processBlock = osBlock;
+#endif
+
     if (useV1)
     {
         if (needsSmoothing)
-            processSmoothV1 (osBlock);
+            processSmoothV1 (processBlock);
         else
-            processV1 (osBlock);
+            processV1 (processBlock);
     }
     else
     {
@@ -195,38 +254,45 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         {
         case RK2:
             if (needsSmoothing)
-                processSmooth<RK2> (osBlock);
+                processSmooth<RK2> (processBlock);
             else
-                process<RK2> (osBlock);
+                process<RK2> (processBlock);
             break;
         case RK4:
             if (needsSmoothing)
-                processSmooth<RK4> (osBlock);
+                processSmooth<RK4> (processBlock);
             else
-                process<RK4> (osBlock);
+                process<RK4> (processBlock);
             break;
         case NR4:
             if (needsSmoothing)
-                processSmooth<NR4> (osBlock);
+                processSmooth<NR4> (processBlock);
             else
-                process<NR4> (osBlock);
+                process<NR4> (processBlock);
             break;
         case NR8:
             if (needsSmoothing)
-                processSmooth<NR8> (osBlock);
+                processSmooth<NR8> (processBlock);
             else
-                process<NR8> (osBlock);
+                process<NR8> (processBlock);
             break;
         case STN:
             if (needsSmoothing)
-                processSmooth<STN> (osBlock);
+                processSmooth<STN> (processBlock);
             else
-                process<STN> (osBlock);
+                process<STN> (processBlock);
             break;
         default:
             jassertfalse; // unknown solver!
         };        
     }
+
+#if HYSTERESIS_USE_SIMD
+    // de-interleave channels
+    deinterleaveSamples (reinterpret_cast<double*> (interleaved.getChannelPointer (0)),
+                         const_cast<double**> (inout),
+                         static_cast<int> (n), static_cast<int> (Vec2::size()));
+#endif
 
     osManager.getOversampler()->processSamplesDown (block);
 
@@ -236,8 +302,40 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }
 
-template <SolverType solverType>
-void HysteresisProcessor::process (dsp::AudioBlock<double>& block)
+template <typename T, typename SmoothType>
+void applyMakeup (dsp::AudioBlock<T>& block, SmoothType& makeup)
+{
+#if 1 // HYSTERESIS_USE_SIMD
+    const auto numSamples = block.getNumSamples();
+    const auto numChannels = block.getNumChannels();
+
+    if (makeup.isSmoothing())
+    {
+        for (size_t i = 0; i < numSamples; ++i)
+        {
+            const auto scaler = makeup.getNextValue();
+
+            for (size_t ch = 0; ch < numChannels; ++ch)
+                block.getChannelPointer (ch)[i] *= scaler;
+        }
+    }
+    else
+    {
+        const auto scaler = makeup.getTargetValue();
+        for (size_t ch = 0; ch < numChannels; ++ch)
+        {
+            auto* x = block.getChannelPointer (ch);
+            for (size_t i = 0; i < numSamples; ++i)
+                x[i] *= scaler;
+        }
+    }
+#else
+    block *= makeup;
+#endif
+}
+
+template <SolverType solverType, typename T>
+void HysteresisProcessor::process (dsp::AudioBlock<T>& block)
 {
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
@@ -246,11 +344,11 @@ void HysteresisProcessor::process (dsp::AudioBlock<double>& block)
             x[samp] = hProcs[channel].process<solverType> (x[samp]);
     }
     
-    block *= makeup;
+    applyMakeup (block, makeup);
 }
 
-template <SolverType solverType>
-void HysteresisProcessor::processSmooth (dsp::AudioBlock<double>& block)
+template <SolverType solverType, typename T>
+void HysteresisProcessor::processSmooth (dsp::AudioBlock<T>& block)
 {
     for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
     {
@@ -262,10 +360,11 @@ void HysteresisProcessor::processSmooth (dsp::AudioBlock<double>& block)
         }
     }
 
-    block *= makeup;
+    applyMakeup (block, makeup);
 }
 
-void HysteresisProcessor::processV1 (dsp::AudioBlock<double>& block)
+template<typename T>
+void HysteresisProcessor::processV1 (dsp::AudioBlock<T>& block)
 {
     const auto angleDelta = MathConstants<double>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
@@ -278,14 +377,13 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<double>& block)
             biasAngle[channel] += angleDelta;
             biasAngle[channel] -= MathConstants<double>::twoPi * (biasAngle[channel] >= MathConstants<double>::twoPi);
 
-            x[samp] = hProcs[channel].process<RK4> (10000.0 * (x[samp] + bias));
+            x[samp] = hProcs[channel].process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
         }
-
-        FloatVectorOperations::multiply (x, 1.414 / 10000.0, (int) block.getNumSamples());
     }
 }
 
-void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<double>& block)
+template<typename T>
+void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<T>& block)
 {
     const auto angleDelta = MathConstants<double>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
@@ -300,10 +398,8 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<double>& block)
             biasAngle[channel] += angleDelta;
             biasAngle[channel] -= MathConstants<double>::twoPi * (biasAngle[channel] >= MathConstants<double>::twoPi);
 
-            x[samp] = hProcs[channel].process<RK4> (10000.0 * (x[samp] + bias));
+            x[samp] = hProcs[channel].process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
         }
-
-        FloatVectorOperations::multiply (x, 1.414 / 10000.0, (int) block.getNumSamples());
     }
 }
 

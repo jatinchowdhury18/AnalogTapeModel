@@ -28,15 +28,14 @@ public:
     void setSampleRate (double newSR);
 
     void cook (float drive, float width, float sat, bool v1);
-    void setSolver (SolverType solverType);
 
     /* Process a single sample */
-    template<SolverType solver>
-    inline double process (double H) noexcept
+    template<SolverType solver, typename Float>
+    inline Float process (Float H) noexcept
     {
-        double H_d = HysteresisOps::deriv (H, H_n1, H_d_n1, T);
+        auto H_d = HysteresisOps::deriv (H, H_n1, H_d_n1, (Float) T);
 
-        double M;
+        Float M;
         switch (solver)
         {
         case RK2:
@@ -60,9 +59,15 @@ public:
         };
 
         // check for instability
+    #if HYSTERESIS_USE_SIMD
+        auto notIllCondition = ~ (chowdsp::SIMDUtils::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
+        M = M & notIllCondition;
+        H_d = H_d & notIllCondition;
+    #else
         bool illCondition = std::isnan (M) || M > upperLim;
         M = illCondition ? 0.0 : M;
         H_d = illCondition ? 0.0 : H_d;
+    #endif
 
         M_n1 = M;
         H_n1 = H;
@@ -73,40 +78,46 @@ public:
 
 private:
     // runge-kutta solvers
-    inline double RK2Solver (double H, double H_d) noexcept
+    template<typename Float>
+    inline Float RK2Solver (Float H, Float H_d) noexcept
     {
-        const double k1 = T * HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState);
-        const double k2 = T * HysteresisOps::hysteresisFunc (M_n1 + (k1 / 2.0), (H + H_n1) / 2.0, (H_d + H_d_n1) / 2.0, hpState);
+        const Float k1 = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState) * T;
+        const Float k2 = HysteresisOps::hysteresisFunc (M_n1 + (k1 * 0.5), (H + H_n1) * 0.5, (H_d + H_d_n1) * 0.5, hpState) * T;
 
         return M_n1 + k2;
     }
 
-    inline double RK4Solver (double H, double H_d) noexcept
+    template<typename Float>
+    inline Float RK4Solver (Float H, Float H_d) noexcept
     {
-        const double H_1_2 = (H + H_n1) / 2.0;
-        const double H_d_1_2 = (H_d + H_d_n1) / 2.0;
+        const Float H_1_2 = (H + H_n1) * 0.5;
+        const Float H_d_1_2 = (H_d + H_d_n1) * 0.5;
 
-        const double k1 = T * HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState);
-        const double k2 = T * HysteresisOps::hysteresisFunc (M_n1 + (k1 / 2.0), H_1_2, H_d_1_2, hpState);
-        const double k3 = T * HysteresisOps::hysteresisFunc (M_n1 + (k2 / 2.0), H_1_2, H_d_1_2, hpState);
-        const double k4 = T * HysteresisOps::hysteresisFunc (M_n1 + k3, H, H_d, hpState);
+        const Float k1 = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState) * T;
+        const Float k2 = HysteresisOps::hysteresisFunc (M_n1 + (k1 * 0.5), H_1_2, H_d_1_2, hpState) * T;
+        const Float k3 = HysteresisOps::hysteresisFunc (M_n1 + (k2 * 0.5), H_1_2, H_d_1_2, hpState) * T;
+        const Float k4 = HysteresisOps::hysteresisFunc (M_n1 + k3, H, H_d, hpState) * T;
 
-        return M_n1 + k1 / 6.0 + k2 / 3.0 + k3 / 3.0 + k4 / 6.0;
+        constexpr double oneSixth = 1.0 / 6.0;
+        constexpr double oneThird = 1.0 / 3.0;
+        return M_n1 + k1 * oneSixth + k2 * oneThird + k3 * oneThird + k4 * oneSixth;
     }
 
     // newton-raphson solvers
-    template<int nIterations>
-    inline double NRSolver (double H, double H_d) noexcept
+    template<int nIterations, typename Float>
+    inline Float NRSolver (Float H, Float H_d) noexcept
     {
-        double M = M_n1;
-        const double last_dMdt = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState);
+        using namespace chowdsp::SIMDUtils;
 
-        double dMdt, dMdtPrime, deltaNR;
+        Float M = M_n1;
+        const Float last_dMdt = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState);
+
+        Float dMdt, dMdtPrime, deltaNR;
         for (int n = 0; n < nIterations; ++n)
         {
             dMdt = HysteresisOps::hysteresisFunc (M, H, H_d, hpState);
             dMdtPrime = HysteresisOps::hysteresisFuncPrime (H_d, dMdt, hpState);
-            deltaNR = (M - M_n1 - Talpha * (dMdt + last_dMdt)) / (1.0 - Talpha * dMdtPrime);
+            deltaNR = (M - M_n1 - (Float) Talpha * (dMdt + last_dMdt)) / (Float (1.0) - (Float) Talpha * dMdtPrime);
             M -= deltaNR;
         }
 
@@ -114,8 +125,34 @@ private:
     }
 
     // state transition network solver
-    inline double STNSolver (double H, double H_d) noexcept
+    template<typename Float>
+    inline Float STNSolver (Float H, Float H_d) noexcept
     {
+#if HYSTERESIS_USE_SIMD
+    double H_arr[2], H_d_arr[2], H_n1_arr[2], H_d_n1_arr[2], M_n1_arr[2];
+    double M_out alignas (16)[2];
+
+    H.copyToRawArray (H_arr);
+    H_d.copyToRawArray (H_d_arr);
+    H_n1.copyToRawArray (H_n1_arr);
+    H_d_n1.copyToRawArray (H_d_n1_arr);
+    M_n1.copyToRawArray (M_n1_arr);
+
+    for (int ch = 0; ch < 2; ++ch)
+    {
+        double input alignas (16)[5] = { H_arr[ch], H_d_arr[ch], H_n1_arr[ch], H_d_n1_arr[ch], M_n1_arr[ch] };
+
+        // scale derivatives
+        input[1] *= HysteresisSTN::diffMakeup;
+        input[3] *= HysteresisSTN::diffMakeup;
+        FloatVectorOperations::multiply (input, 0.7071 / hpState.a, 4); // scale by drive param
+
+        M_out[ch] = hysteresisSTN.process (input) + M_n1_arr[ch];
+    }
+
+    return Float::fromRawArray (M_out);
+
+#else
         double input alignas (16)[5] = { H, H_d, H_n1, H_d_n1, M_n1 };
 
         // scale derivatives
@@ -124,8 +161,8 @@ private:
         FloatVectorOperations::multiply (input, 0.7071 / hpState.a, 4); // scale by drive param
 
         return hysteresisSTN.process (input) + M_n1;
+#endif
     }
-    HysteresisSTN hysteresisSTN;
 
     // parameter values
     double fs = 48000.0;
@@ -134,10 +171,17 @@ private:
     double upperLim = 20.0;
 
     // state variables
+#if HYSTERESIS_USE_SIMD
+    dsp::SIMDRegister<double> M_n1 = 0.0;
+    dsp::SIMDRegister<double> H_n1 = 0.0;
+    dsp::SIMDRegister<double> H_d_n1 = 0.0;
+#else
     double M_n1 = 0.0;
     double H_n1 = 0.0;
     double H_d_n1 = 0.0;
+#endif
 
+    HysteresisSTN hysteresisSTN;
     HysteresisOps::HysteresisState hpState;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessing)
