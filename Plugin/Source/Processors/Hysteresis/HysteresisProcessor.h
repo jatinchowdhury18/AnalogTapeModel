@@ -32,13 +32,17 @@ private:
     void setSaturation (float newSat);
     void setWidth (float newWidth);
     void setOversampling();
-    float calcMakeup();
+    double calcMakeup();
     void calcBiasFreq();
 
-    void process (dsp::AudioBlock<float>& block);
-    void processSmooth (dsp::AudioBlock<float>& block);
-    void processV1 (dsp::AudioBlock<float>& block);
-    void processSmoothV1 (dsp::AudioBlock<float>& block);
+    template <SolverType solverType, typename T>
+    void process (dsp::AudioBlock<T>& block);
+    template <SolverType solverType, typename T>
+    void processSmooth (dsp::AudioBlock<T>& block);
+    template <typename T>
+    void processV1 (dsp::AudioBlock<T>& block);
+    template <typename T>
+    void processSmoothV1 (dsp::AudioBlock<T>& block);
     void applyDCBlockers (AudioBuffer<float>& buffer);
 
     std::atomic<float>* driveParam = nullptr;
@@ -47,25 +51,36 @@ private:
     std::atomic<float>* modeParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
 
-    SmoothedValue<float, ValueSmoothingTypes::Linear> drive[2];
-    SmoothedValue<float, ValueSmoothingTypes::Linear> width[2];
-    SmoothedValue<float, ValueSmoothingTypes::Linear> sat[2];
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> makeup[2];
+    SmoothedValue<double, ValueSmoothingTypes::Linear> drive[2];
+    SmoothedValue<double, ValueSmoothingTypes::Linear> width[2];
+    SmoothedValue<double, ValueSmoothingTypes::Linear> sat[2];
+    SmoothedValue<double, ValueSmoothingTypes::Multiplicative> makeup;
 
-    float fs = 44100.0f;
+    double fs = 44100.0f;
     HysteresisProcessing hProcs[2];
+    SolverType solver;
     OversamplingManager osManager; // needs oversampling to avoid aliasing
     DCBlocker dcBlocker[2];
 
-    const float dcFreq = 35.0f;
+    static constexpr double dcFreq = 35.0;
 
-    float biasGain = 10.0f;
-    float biasFreq = 48000.0f;
-    float biasAngle[2];
+    double biasGain = 10.0;
+    double biasFreq = 48000.0;
+    double biasAngle[2];
     bool wasV1 = false, useV1 = false;
-    float clipLevel = 20.0f;
+    double clipLevel = 20.0;
 
+    AudioBuffer<double> doubleBuffer;
     BypassProcessor bypass;
+
+#if HYSTERESIS_USE_SIMD
+    using Vec2 = dsp::SIMDRegister<double>;
+    dsp::AudioBlock<Vec2> interleaved;
+    dsp::AudioBlock<double> zero;
+
+    HeapBlock<char> interleavedBlockData, zeroData;
+    HeapBlock<const double*> channelPointers { Vec2::size() };
+#endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
 };

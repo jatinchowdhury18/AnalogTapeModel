@@ -10,8 +10,8 @@ OversamplingManager::OversamplingManager (const AudioProcessorValueTreeState& vt
 
     for (int i = 0; i < numOSChoices; ++i)
     {
-        overSample[i] = std::make_unique<dsp::Oversampling<float>> (2, i, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR);
-        overSample[i + numOSChoices] = std::make_unique<dsp::Oversampling<float>> (2, i, dsp::Oversampling<float>::filterHalfBandFIREquiripple);
+        overSample[i] = std::make_unique<dsp::Oversampling<double>> (2, i, dsp::Oversampling<double>::filterHalfBandPolyphaseIIR);
+        overSample[i + numOSChoices] = std::make_unique<dsp::Oversampling<double>> (2, i, dsp::Oversampling<double>::filterHalfBandFIREquiripple);
     }
 }
 

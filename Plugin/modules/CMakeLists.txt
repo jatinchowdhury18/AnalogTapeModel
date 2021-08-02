@@ -5,6 +5,7 @@ message(STATUS "VERSION for JUCE: ${juce_version}")
 
 juce_add_modules(foleys_gui_magic)
 juce_add_modules(chowdsp_utils)
+juce_add_modules(chowdsp_juce_dsp)
 
 # Using RTNeural with XSimd backend
 set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
@@ -18,14 +19,17 @@ target_link_libraries(juce_plugin_modules
         BinaryData
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
-        foleys_gui_magic
+        chowdsp_juce_dsp
         chowdsp_utils
+        foleys_gui_magic
         RTNeural
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         warning_flags
 )
+
+target_include_directories(juce_plugin_modules PUBLIC RTNeural/modules/xsimd/include)
 
 target_compile_definitions(juce_plugin_modules
     PUBLIC
@@ -36,6 +40,8 @@ target_compile_definitions(juce_plugin_modules
         JUCE_VST3_CAN_REPLACE_VST2=0
         FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0
         FOLEYS_ENABLE_BINARY_DATA=1
+        CHOWDSP_USE_XSIMD=1
+        CHOWDSP_USE_CUSTOM_JUCE_DSP=1
         JucePlugin_Manufacturer="chowdsp"
         JucePlugin_VersionString="${CMAKE_PROJECT_VERSION}"
         JucePlugin_Name="${CMAKE_PROJECT_NAME}"

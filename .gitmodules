@@ -10,3 +10,6 @@
 [submodule "Plugin/modules/JUCE"]
 	path = Plugin/modules/JUCE
 	url = https://github.com/lv2-porting-project/JUCE
+[submodule "Plugin/modules/chowdsp_juce_dsp"]
+	path = Plugin/modules/chowdsp_juce_dsp
+	url = https://github.com/Chowdhury-DSP/chowdsp_juce_dsp

@@ -16,6 +16,7 @@ target_sources(ChowTapeModel_Headless PRIVATE
     ScreenshotHelper.cpp
 
     UnitTests/UnitTests.cpp
+    UnitTests/HysteresisOpsTest.cpp
     UnitTests/MixGroupsTest.cpp
     UnitTests/SpeedTest.cpp
     UnitTests/STNTest.cpp

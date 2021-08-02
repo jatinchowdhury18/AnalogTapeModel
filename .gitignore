@@ -15,6 +15,7 @@ Builds
 BinaryData.h
 BinaryData*.cpp
 build*/
+Bin*/
 JuceLibraryCode
 LV2.mak
 

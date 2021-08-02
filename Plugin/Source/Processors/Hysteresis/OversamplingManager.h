@@ -16,10 +16,10 @@ public:
     bool updateOSFactor();
 
     static int getOSIndex (float osFactor, float osMode) { return (int) osFactor + (numOSChoices * (int) osMode); }
-    float getLatencySamples() const noexcept { return overSample[curOS]->getLatencyInSamples(); }
-    float getLatencyMilliseconds (int osIndex) const noexcept { return (overSample[osIndex]->getLatencyInSamples() / sampleRate) * 1000.0f; }
+    float getLatencySamples() const noexcept { return (float) overSample[curOS]->getLatencyInSamples(); }
+    float getLatencyMilliseconds (int osIndex) const noexcept { return ((float) overSample[osIndex]->getLatencyInSamples() / sampleRate) * 1000.0f; }
 
-    dsp::Oversampling<float>* getOversampler() { return overSample[curOS].get(); }
+    dsp::Oversampling<double>* getOversampler() { return overSample[curOS].get(); }
 
 private:
     std::atomic<float>* osParam = nullptr;
@@ -33,7 +33,7 @@ private:
     float sampleRate = 48000.0f;
 
     static constexpr int numOSChoices = 5;
-    std::unique_ptr<dsp::Oversampling<float>> overSample[2 * numOSChoices];
+    std::unique_ptr<dsp::Oversampling<double>> overSample[2 * numOSChoices];
 
     const AudioProcessor& proc;
 
