@@ -19,6 +19,7 @@ target_link_libraries(juce_plugin_modules
         BinaryData
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
+        chowdsp_juce_dsp
         chowdsp_utils
         foleys_gui_magic
         RTNeural
