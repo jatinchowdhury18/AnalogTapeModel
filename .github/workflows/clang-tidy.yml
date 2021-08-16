@@ -1,0 +1,46 @@
+name: clang-tidy
+
+on:
+  pull_request:
+    branches:
+    - main
+    - develop
+    paths:
+    - '**.cpp'
+    - '**.h'
+
+  workflow_dispatch:
+
+jobs:
+  build_and_test:
+    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
+    name: Apply clang-format to pull request
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Install Linux Deps
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt install clang-tidy
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+
+    - name: Run clang-tidy
+      shell: bash
+      run: find Plugin/Source -iname *.cpp | xargs clang-tidy > tidy_log.txt && status=0 || status=1
+
+    - name: Check results
+      shell: bash
+      run: |
+        num_failures=$(grep "" -c tidy_log.txt)
+        num_ignore=$(echo $(($(grep "file not found" -c tidy_log.txt)*3)))
+        num_actual=$(($num_failures - $num_ignore))
+        if [ "$num_actual" -gt 1 ]; then
+          more tidy_log.txt
+          exit 1
+        fi

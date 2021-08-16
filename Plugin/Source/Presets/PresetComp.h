@@ -15,7 +15,7 @@ public:
     };
 
     PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager);
-    ~PresetComp();
+    ~PresetComp() override;
 
     void paint (Graphics& g) override;
     void resized() override;

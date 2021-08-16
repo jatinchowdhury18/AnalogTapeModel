@@ -1,5 +1,5 @@
 #include "HysteresisProcessing.h"
-#include <math.h>
+#include <cmath>
 
 HysteresisProcessing::HysteresisProcessing()
 {

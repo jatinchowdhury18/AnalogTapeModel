@@ -50,12 +50,7 @@ public:
 
     inline float dropout (float x, int ch)
     {
-        float sign = 0.0f;
-        if (x > 0.0f)
-            sign = 1.0f;
-        else if (x < 0.0f)
-            sign = -1.0f;
-
+        auto sign = (float) chowdsp::signum (x);
         return pow (abs (x), powerSmooth[ch].getNextValue()) * sign;
     }
 

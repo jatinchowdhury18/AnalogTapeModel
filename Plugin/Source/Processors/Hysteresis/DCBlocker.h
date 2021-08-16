@@ -33,7 +33,8 @@ public:
         float c = 1.0f / dsp::FastMathApproximations::tan (wc / 2.0f);
         float phi = c * c;
 
-        float b[3], a[3];
+        float b[3];
+        float a[3];
         for (int i = 0; i < 2; ++i)
         {
             float K = c / Qs[i];
