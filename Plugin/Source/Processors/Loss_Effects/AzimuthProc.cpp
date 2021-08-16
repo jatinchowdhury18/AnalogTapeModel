@@ -2,12 +2,12 @@
 
 namespace
 {
-static constexpr float inches2meters (float inches)
+constexpr float inches2meters (float inches)
 {
     return inches / 39.370078740157f;
 }
 
-static constexpr float deg2rad (float deg)
+constexpr float deg2rad (float deg)
 {
     return deg * MathConstants<float>::pi / 180.0f;
 }
@@ -30,7 +30,7 @@ void AzimuthProc::prepare (double sampleRate, int samplesPerBlock)
 
 void AzimuthProc::setAzimuthAngle (float angleDeg, float tapeSpeedIps)
 {
-    const size_t delayIdx = size_t (angleDeg < 0.0f);
+    const auto delayIdx = size_t (angleDeg < 0.0f);
     const auto tapeSpeed = inches2meters (tapeSpeedIps);
     const auto azimuthAngle = deg2rad (std::abs (angleDeg));
 

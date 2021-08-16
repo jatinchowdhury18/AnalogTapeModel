@@ -15,7 +15,7 @@ class MixGroupsController : private AudioProcessorValueTreeState::Listener,
 {
 public:
     MixGroupsController (AudioProcessorValueTreeState& vts, AudioProcessor* proc);
-    ~MixGroupsController();
+    ~MixGroupsController() override;
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 

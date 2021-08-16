@@ -4,7 +4,7 @@
 
 namespace
 {
-static String userPresetPath = "ChowdhuryDSP/ChowTape/UserPresets.txt";
+const String userPresetPath = "ChowdhuryDSP/ChowTape/UserPresets.txt";
 }
 
 Preset::Preset (String presetFile)

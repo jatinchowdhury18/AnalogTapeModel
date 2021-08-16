@@ -23,8 +23,8 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
         return;
 
     juce::Point<float> centre (x + std::floor (width * 0.5f + 0.5f), y + std::floor (height * 0.5f + 0.5f));
-    diameter -= (diameter % 2) ? 9 : 8;
-    float radius = diameter * 0.5f;
+    diameter -= (diameter % 2 == 1) ? 9 : 8;
+    float radius = (float) diameter * 0.5f;
     x = int (centre.x - radius);
     y = int (centre.y - radius);
 
