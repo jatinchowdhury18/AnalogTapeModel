@@ -44,15 +44,15 @@ constexpr double NEG_TWO_OVER_15 = -2.0 / 15.0;
 
 constexpr inline int sign (double x)
 {
-    return (x > 0.0) - (x < 0.0);
+    return int (x > 0.0) - int (x < 0.0);
 }
 
 /** Langevin function */
-template<typename Float, typename Bool>
+template <typename Float, typename Bool>
 static inline Float langevin (Float x, Float coth, Bool nearZero) noexcept
 {
 #if HYSTERESIS_USE_SIMD
-    auto notNearZero = ~ nearZero;
+    auto notNearZero = ~nearZero;
     return ((coth - ((Float) 1.0 / x)) & notNearZero) + ((x / 3.0) & nearZero);
 #else
     return ! nearZero ? (coth) - (1.0 / x) : x / 3.0;
@@ -60,11 +60,11 @@ static inline Float langevin (Float x, Float coth, Bool nearZero) noexcept
 }
 
 /** Derivative of Langevin function */
-template<typename Float, typename Bool>
+template <typename Float, typename Bool>
 static inline Float langevinD (Float x, Float coth, Bool nearZero) noexcept
 {
 #if HYSTERESIS_USE_SIMD
-    auto notNearZero = ~ nearZero;
+    auto notNearZero = ~nearZero;
     return ((((Float) 1.0 / (x * x)) - (coth * coth) + 1.0) & notNearZero) + ((Float) ONE_THIRD & nearZero);
 #else
     return ! nearZero ? (1.0 / (x * x)) - (coth * coth) + 1.0 : ONE_THIRD;
@@ -72,22 +72,22 @@ static inline Float langevinD (Float x, Float coth, Bool nearZero) noexcept
 }
 
 /** 2nd derivative of Langevin function */
-template<typename Float, typename Bool>
+template <typename Float, typename Bool>
 static inline Float langevinD2 (Float x, Float coth, Bool nearZero) noexcept
 {
 #if HYSTERESIS_USE_SIMD
-    auto notNearZero = ~ nearZero;
+    auto notNearZero = ~nearZero;
     return (((Float) 2.0 * coth * (coth * coth - 1.0) - ((Float) 2.0 / (x * x * x))) & notNearZero)
-        + ((x * NEG_TWO_OVER_15) & nearZero);
+           + ((x * NEG_TWO_OVER_15) & nearZero);
 #else
     return ! nearZero
-        ? 2.0 * coth * (coth * coth - 1.0) - (2.0 / (x * x * x))
-        : NEG_TWO_OVER_15 * x;
+               ? 2.0 * coth * (coth * coth - 1.0) - (2.0 / (x * x * x))
+               : NEG_TWO_OVER_15 * x;
 #endif
 }
 
 /** Derivative by alpha transform */
-template<typename Float>
+template <typename Float>
 static inline Float deriv (Float x_n, Float x_n1, Float x_d_n1, Float T) noexcept
 {
     const Float dAlpha = 0.75;
@@ -95,7 +95,7 @@ static inline Float deriv (Float x_n, Float x_n1, Float x_d_n1, Float T) noexcep
 }
 
 /** hysteresis function dM/dt */
-template<typename Float>
+template <typename Float>
 static inline Float hysteresisFunc (Float M, Float H, Float H_d, HysteresisState& hp) noexcept
 {
     hp.Q = (H + M * hp.alpha) * (1.0 / hp.a);
@@ -131,7 +131,7 @@ static inline Float hysteresisFunc (Float M, Float H, Float H_d, HysteresisState
 }
 
 // derivative of hysteresis func w.r.t M (depends on cached values from computing hysteresisFunc)
-template<typename Float>
+template <typename Float>
 static inline Float hysteresisFuncPrime (Float H_d, Float dMdt, HysteresisState& hp) noexcept
 {
     const Float L_prime2 = langevinD2 (hp.Q, hp.coth, hp.nearZero);

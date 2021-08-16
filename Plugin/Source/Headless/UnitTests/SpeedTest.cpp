@@ -39,12 +39,12 @@ public:
 
         auto duration = (end - start) / 1000.0f;
         logMessage ("Plugin processing time: " + String (duration) + " seconds");
-        
-      #if JUCE_WINDOWS
+
+#if JUCE_WINDOWS
         expectLessThan (duration, 1.0, "Plugin is not fast enough!");
-      #else
+#else
         expectLessThan (duration, 5.0, "Plugin is not fast enough!");
-      #endif
+#endif
     }
 };
 

@@ -27,8 +27,8 @@ public:
       */
     bool processBlockIn (AudioBuffer<float>& block, bool onOffParam)
     {
-        if (onOffParam == false && prevOnOffParam == false)
-            return false;
+        if (! onOffParam && ! prevOnOffParam)
+            return false; // NOLINT
 
         if (onOffParam != prevOnOffParam)
             fadeBuffer.makeCopyOf (block, true);
@@ -44,8 +44,8 @@ public:
         const auto numChannels = block.getNumChannels();
         const auto numSamples = block.getNumSamples();
 
-        float startGain = onOffParam == false ? 1.0f // fade out
-                                              : 0.0f; // fade in
+        float startGain = ! onOffParam ? 1.0f // fade out
+                                       : 0.0f; // fade in
         float endGain = 1.0f - startGain;
 
         block.applyGainRamp (0, numSamples, startGain, endGain);
