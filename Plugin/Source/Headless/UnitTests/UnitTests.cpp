@@ -70,7 +70,6 @@ Array<UnitTest*> UnitTests::getTestsForArgs (const ArgumentList& args)
         return UnitTest::getAllTests();
 
     Array<UnitTest*> unitTests;
-
     for (auto* test : UnitTest::getAllTests())
     {
         if (args.containsOption (test->getName()))
