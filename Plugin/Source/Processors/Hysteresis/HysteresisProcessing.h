@@ -30,7 +30,7 @@ public:
     void cook (float drive, float width, float sat, bool v1);
 
     /* Process a single sample */
-    template<SolverType solver, typename Float>
+    template <SolverType solver, typename Float>
     inline Float process (Float H) noexcept
     {
         auto H_d = HysteresisOps::deriv (H, H_n1, H_d_n1, (Float) T);
@@ -38,36 +38,36 @@ public:
         Float M;
         switch (solver)
         {
-        case RK2:
-            M = RK2Solver (H, H_d);
-            break;
-        case RK4:
-            M = RK4Solver (H, H_d);
-            break;
-        case NR4:
-            M = NRSolver<4> (H, H_d);
-            break;
-        case NR8:
-            M = NRSolver<8> (H, H_d);
-            break;
-        case STN:
-            M = STNSolver (H, H_d);
-            break;
+            case RK2:
+                M = RK2Solver (H, H_d);
+                break;
+            case RK4:
+                M = RK4Solver (H, H_d);
+                break;
+            case NR4:
+                M = NRSolver<4> (H, H_d);
+                break;
+            case NR8:
+                M = NRSolver<8> (H, H_d);
+                break;
+            case STN:
+                M = STNSolver (H, H_d);
+                break;
 
-        default:
-            M = 0.0;
+            default:
+                M = 0.0;
         };
 
-        // check for instability
-    #if HYSTERESIS_USE_SIMD
-        auto notIllCondition = ~ (chowdsp::SIMDUtils::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
+                // check for instability
+#if HYSTERESIS_USE_SIMD
+        auto notIllCondition = ~(chowdsp::SIMDUtils::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
         M = M & notIllCondition;
         H_d = H_d & notIllCondition;
-    #else
+#else
         bool illCondition = std::isnan (M) || M > upperLim;
         M = illCondition ? 0.0 : M;
         H_d = illCondition ? 0.0 : H_d;
-    #endif
+#endif
 
         M_n1 = M;
         H_n1 = H;
@@ -78,7 +78,7 @@ public:
 
 private:
     // runge-kutta solvers
-    template<typename Float>
+    template <typename Float>
     inline Float RK2Solver (Float H, Float H_d) noexcept
     {
         const Float k1 = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState) * T;
@@ -87,7 +87,7 @@ private:
         return M_n1 + k2;
     }
 
-    template<typename Float>
+    template <typename Float>
     inline Float RK4Solver (Float H, Float H_d) noexcept
     {
         const Float H_1_2 = (H + H_n1) * 0.5;
@@ -104,7 +104,7 @@ private:
     }
 
     // newton-raphson solvers
-    template<int nIterations, typename Float>
+    template <int nIterations, typename Float>
     inline Float NRSolver (Float H, Float H_d) noexcept
     {
         using namespace chowdsp::SIMDUtils;
@@ -125,32 +125,32 @@ private:
     }
 
     // state transition network solver
-    template<typename Float>
+    template <typename Float>
     inline Float STNSolver (Float H, Float H_d) noexcept
     {
 #if HYSTERESIS_USE_SIMD
-    double H_arr[2], H_d_arr[2], H_n1_arr[2], H_d_n1_arr[2], M_n1_arr[2];
-    double M_out alignas (16)[2];
+        double H_arr[2], H_d_arr[2], H_n1_arr[2], H_d_n1_arr[2], M_n1_arr[2];
+        double M_out alignas (16)[2];
 
-    H.copyToRawArray (H_arr);
-    H_d.copyToRawArray (H_d_arr);
-    H_n1.copyToRawArray (H_n1_arr);
-    H_d_n1.copyToRawArray (H_d_n1_arr);
-    M_n1.copyToRawArray (M_n1_arr);
+        H.copyToRawArray (H_arr);
+        H_d.copyToRawArray (H_d_arr);
+        H_n1.copyToRawArray (H_n1_arr);
+        H_d_n1.copyToRawArray (H_d_n1_arr);
+        M_n1.copyToRawArray (M_n1_arr);
 
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        double input alignas (16)[5] = { H_arr[ch], H_d_arr[ch], H_n1_arr[ch], H_d_n1_arr[ch], M_n1_arr[ch] };
+        for (int ch = 0; ch < 2; ++ch)
+        {
+            double input alignas (16)[5] = { H_arr[ch], H_d_arr[ch], H_n1_arr[ch], H_d_n1_arr[ch], M_n1_arr[ch] };
 
-        // scale derivatives
-        input[1] *= HysteresisSTN::diffMakeup;
-        input[3] *= HysteresisSTN::diffMakeup;
-        FloatVectorOperations::multiply (input, 0.7071 / hpState.a, 4); // scale by drive param
+            // scale derivatives
+            input[1] *= HysteresisSTN::diffMakeup;
+            input[3] *= HysteresisSTN::diffMakeup;
+            FloatVectorOperations::multiply (input, 0.7071 / hpState.a, 4); // scale by drive param
 
-        M_out[ch] = hysteresisSTN.process (input) + M_n1_arr[ch];
-    }
+            M_out[ch] = hysteresisSTN.process (input) + M_n1_arr[ch];
+        }
 
-    return Float::fromRawArray (M_out);
+        return Float::fromRawArray (M_out);
 
 #else
         double input alignas (16)[5] = { H, H_d, H_n1, H_d_n1, M_n1 };
