@@ -32,10 +32,12 @@ jobs:
 
     - name: Run clang-tidy
       shell: bash
-      run: find Plugin/Source -iname *.cpp | xargs clang-tidy > tidy_log.txt && status=0 || status=1
+      working-directory: ${{github.workspace}}/Plugin
+      run: find Source -iname *.cpp | xargs clang-tidy > tidy_log.txt && status=0 || status=1
 
     - name: Check results
       shell: bash
+      working-directory: ${{github.workspace}}/Plugin
       run: |
         num_failures=$(grep "" -c tidy_log.txt)
         num_ignore=$(echo $(($(grep "file not found" -c tidy_log.txt)*3)))
