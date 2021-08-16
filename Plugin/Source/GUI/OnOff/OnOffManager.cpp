@@ -3,7 +3,7 @@
 
 namespace
 {
-static const std::unordered_map<String, StringArray> triggerMap {
+const std::unordered_map<String, StringArray> triggerMap {
     { String ("ifilt_onoff"), StringArray ({ "Low Cut", "High Cut", "Makeup" }) },
     { String ("hyst_onoff"), StringArray ({ "Bias", "Saturation", "Drive" }) },
     { String ("tone_onoff"), StringArray ({ "Bass", "Treble", "Transition Frequency" }) },

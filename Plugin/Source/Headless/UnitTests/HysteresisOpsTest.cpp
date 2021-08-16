@@ -67,17 +67,17 @@ public:
         hProc.cook (0.5, 0.5, 0.5, false);
 
 #if HYSTERESIS_USE_SIMD
-    for (int n = 0; n < 10; ++n)
-    {
-        x[n] = hProc.process<SolverType::NR4> ((Vec2) (x[n] * 0.001)).get (0);
-        expectWithinAbsoluteError (x[n], y[n], 1.0e-6);
-    }
+        for (int n = 0; n < 10; ++n)
+        {
+            x[n] = hProc.process<SolverType::NR4> ((Vec2) (x[n] * 0.001)).get (0);
+            expectWithinAbsoluteError (x[n], y[n], 1.0e-6);
+        }
 #else
-    for (int n = 0; n < 10; ++n)
-        x[n] = hProc.process<SolverType::NR4> (x[n] * 0.001);
-    
-    std::copy(x, x + 10, std::ostream_iterator<double>(std::cout, ", "));
-    std::cout << std::endl;
+        for (int n = 0; n < 10; ++n)
+            x[n] = hProc.process<SolverType::NR4> (x[n] * 0.001);
+
+        std::copy (x, x + 10, std::ostream_iterator<double> (std::cout, ", "));
+        std::cout << std::endl;
 #endif
     }
 
@@ -85,7 +85,7 @@ public:
     {
         beginTest ("Langevin Test");
         testLangevin();
-        
+
         beginTest ("Sign Ops Test");
         testSignOps();
 

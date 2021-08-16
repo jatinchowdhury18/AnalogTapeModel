@@ -38,4 +38,4 @@ bin/*[!.zip]
 *.exe
 *_Packaged
 *.dmg
-
+*log*
