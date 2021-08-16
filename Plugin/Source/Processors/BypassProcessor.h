@@ -28,7 +28,7 @@ public:
     bool processBlockIn (AudioBuffer<float>& block, bool onOffParam)
     {
         if (! onOffParam && ! prevOnOffParam)
-            return false;
+            return false; // NOLINT
 
         if (onOffParam != prevOnOffParam)
             fadeBuffer.makeCopyOf (block, true);

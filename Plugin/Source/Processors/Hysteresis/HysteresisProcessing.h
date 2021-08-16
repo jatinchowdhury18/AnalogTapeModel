@@ -112,7 +112,9 @@ private:
         Float M = M_n1;
         const Float last_dMdt = HysteresisOps::hysteresisFunc (M_n1, H_n1, H_d_n1, hpState);
 
-        Float dMdt, dMdtPrime, deltaNR;
+        Float dMdt;
+        Float dMdtPrime;
+        Float deltaNR;
         for (int n = 0; n < nIterations; ++n)
         {
             dMdt = HysteresisOps::hysteresisFunc (M, H, H_d, hpState);
@@ -129,8 +131,12 @@ private:
     inline Float STNSolver (Float H, Float H_d) noexcept
     {
 #if HYSTERESIS_USE_SIMD
-        double H_arr[2], H_d_arr[2], H_n1_arr[2], H_d_n1_arr[2], M_n1_arr[2];
-        double M_out alignas (16)[2];
+    double H_arr[2];
+    double H_d_arr[2];
+    double H_n1_arr[2];
+    double H_d_n1_arr[2];
+    double M_n1_arr[2];
+    double M_out alignas (16)[2];
 
         H.copyToRawArray (H_arr);
         H_d.copyToRawArray (H_d_arr);

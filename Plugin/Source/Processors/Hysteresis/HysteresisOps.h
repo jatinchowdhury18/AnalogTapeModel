@@ -44,7 +44,7 @@ constexpr double NEG_TWO_OVER_15 = -2.0 / 15.0;
 
 constexpr inline int sign (double x)
 {
-    return (x > 0.0) - (x < 0.0);
+    return int (x > 0.0) - int (x < 0.0);
 }
 
 /** Langevin function */
