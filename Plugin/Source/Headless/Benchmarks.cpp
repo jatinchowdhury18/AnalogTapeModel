@@ -41,14 +41,14 @@ void setParameters (AudioProcessor* plugin, int mode)
     {
         if (param->getName (1024) == "Oversampling")
         {
-            param->setValue (3.0f / 4.0f); // 8x
+            param->setValueNotifyingHost (3.0f / 4.0f); // 8x
             std::cout << "Setting parameter " << param->getName (1024)
                       << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
 
         if (param->getName (1024) == "Tape Mode")
         {
-            param->setValue ((float) mode / 5.0f); // STN
+            param->setValueNotifyingHost ((float) mode / 5.0f);
             std::cout << "Setting parameter " << param->getName (1024)
                       << ": " << param->getText (param->getValue(), 1024) << std::endl;
         }
