@@ -58,7 +58,7 @@ private:
 
     double fs = 44100.0f;
     HysteresisProcessing hProcs[2];
-    SolverType solver;
+    SolverType solver = SolverType::RK4;
     OversamplingManager osManager; // needs oversampling to avoid aliasing
     DCBlocker dcBlocker[2];
 
@@ -66,7 +66,7 @@ private:
 
     double biasGain = 10.0;
     double biasFreq = 48000.0;
-    double biasAngle[2];
+    double biasAngle[2] = { 0.0, 0.0 };
     bool wasV1 = false, useV1 = false;
     double clipLevel = 20.0;
 

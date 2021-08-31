@@ -58,13 +58,20 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
 
     auto snycToTapeSpeed = [=, &proc] {
         const auto& vts = proc.getVTS();
-        auto speedParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed"));
-        auto speedIps = speedParam->get();
+        if (auto speedParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed")))
+        {
+            auto speedIps = speedParam->get();
 
-        auto motorFreq = speedIps / (6.0f * MathConstants<float>::pi);
-        auto newRate = isFlutter ? flutterFreqToParam (motorFreq)
-                                 : wowFreqToParam (std::sqrt (motorFreq));
-        setRateValue (newRate);
+            auto motorFreq = speedIps / (6.0f * MathConstants<float>::pi);
+            auto newRate = isFlutter ? flutterFreqToParam (motorFreq)
+                                     : wowFreqToParam (std::sqrt (motorFreq));
+            setRateValue (newRate);
+        }
+        else
+        {
+            // speedParam was nullptr!
+            jassertfalse;
+        }
     };
 
     auto syncToRhythm = [=, &proc] (float multipleOfQuarterNote) {
