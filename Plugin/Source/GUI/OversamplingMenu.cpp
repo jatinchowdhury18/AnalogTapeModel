@@ -66,7 +66,7 @@ void OversamplingMenu::generateComboBoxMenu()
         bool isSelected = ((int) parameter->convertFrom0to1 (parameter->getValue()) == paramVal) && ! forceOff;
         item.text = choice;
         item.colour = isSelected ? Colour (0xFFEAA92C) : Colours::white;
-        item.action = [&, paramVal, disableSame] {
+        item.action = [this, paramVal, disableSame, &attachment] {
             if (disableSame)
                 attachments[4]->setValueAsCompleteGesture (0.0f);
             attachment->setValueAsCompleteGesture (float (paramVal));

@@ -215,11 +215,14 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     // clip input to avoid unstable hysteresis
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-        FloatVectorOperations::clip (buffer.getWritePointer (ch),
-                                     buffer.getWritePointer (ch),
+    {
+        auto* bufferPtr = buffer.getWritePointer (ch);
+        FloatVectorOperations::clip (bufferPtr,
+                                     bufferPtr,
                                      -clipLevel,
                                      clipLevel,
                                      buffer.getNumSamples());
+    }
 
     doubleBuffer.makeCopyOf (buffer, true);
 

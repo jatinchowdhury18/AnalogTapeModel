@@ -122,7 +122,7 @@ void LossFilter::calcCoefs (StereoIIR& filter)
     auto h = currentCoefs.getRawDataPointer();
     for (int n = 0; n < curOrder / 2; n++)
     {
-        const size_t idx = size_t (curOrder / 2 + n);
+        const auto idx = (size_t) curOrder / 2 + (size_t) n;
         for (int k = 0; k < curOrder; k++)
             h[idx] += Hcoefs[k] * cosf (MathConstants<float>::twoPi * (float) k * (float) n / (float) curOrder);
 

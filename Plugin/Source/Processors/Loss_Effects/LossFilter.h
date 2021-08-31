@@ -37,17 +37,17 @@ private:
     std::atomic<float>* gap = nullptr;
     std::atomic<float>* azimuth = nullptr;
 
-    float prevSpeed;
-    float prevSpacing;
-    float prevThickness;
-    float prevGap;
+    float prevSpeed = 0.5f;
+    float prevSpacing = 0.5f;
+    float prevThickness = 0.5f;
+    float prevGap = 0.5f;
 
     float fs = 44100.0f;
     float fsFactor = 1.0f;
     float binWidth = fs / 100.0f;
 
     const int order;
-    int curOrder;
+    int curOrder = order;
     Array<float> currentCoefs;
     Array<float> Hcoefs;
 
