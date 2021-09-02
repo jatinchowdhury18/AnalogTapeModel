@@ -165,6 +165,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
     toneControl.prepare (sampleRate);
+    compressionProcessor.prepare (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate, samplesPerBlock);
@@ -246,6 +247,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
     toneControl.processBlockIn (buffer);
+    compressionProcessor.processBlock (buffer);
     hysteresis.processBlock (buffer, midiMessages);
     toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);
