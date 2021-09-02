@@ -32,6 +32,9 @@ void CompressionProcessor::prepare (double sr, int samplesPerBlock)
         slewLimiter[ch].prepare ({ sr, (uint32) samplesPerBlock, 1 });
 
     bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+
+    xDBVec.resize ((size_t) samplesPerBlock, 0.0f);
+    compGainVec.resize ((size_t) samplesPerBlock, 0.0f);
 }
 
 inline float compressionDB (float xDB, float dbPlus)
@@ -44,26 +47,59 @@ inline float compressionDB (float xDB, float dbPlus)
     return std::log (xDB + window + 1.0f) - dbPlus - xDB;
 }
 
+inline dsp::SIMDRegister<float> compressionDB (dsp::SIMDRegister<float> xDB, float dbPlus)
+{
+    using namespace chowdsp::SIMDUtils;
+
+    if (dbPlus <= 0.0f)
+        return (vec4) dbPlus;
+
+    auto window = 2.0f * dbPlus;
+    auto belowWin = vec4::lessThan (xDB, -window);
+    return ((logSIMD (xDB + window + 1.0f) - dbPlus - xDB) & ~belowWin) + ((vec4) dbPlus & belowWin);
+}
+
 void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
 {
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOff)))
         return;
 
     auto dbPlus = amountParam->load();
+    const auto numSamples = buffer.getNumSamples();
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
+        auto* x = buffer.getWritePointer (ch);
+        FloatVectorOperations::copy (xDBVec.data(), x, numSamples);
+        FloatVectorOperations::abs (xDBVec.data(), xDBVec.data(), numSamples);
+
+        constexpr auto inc = dsp::SIMDRegister<float>::size();
+        size_t n = 0;
+        for (; n < (size_t) numSamples; n += inc)
+        {
+            auto xDB = dsp::SIMDRegister<float>::fromRawArray (&xDBVec[n]);
+
+            xDB = chowdsp::SIMDUtils::gainToDecibels (xDB);
+            auto compDB = compressionDB (xDB, dbPlus);
+            auto compGain = chowdsp::SIMDUtils::decibelsToGain (compDB);
+
+            xDB.copyToRawArray (&xDBVec[n]);
+            compGain.copyToRawArray (&compGainVec[n]);
+        }
+
+        // remaining samples that can't be vectorized
+        for (; n < (size_t) numSamples; ++n)
+        {
+            xDBVec[n] = Decibels::gainToDecibels (xDBVec[n]);
+            auto compDB = compressionDB (xDBVec[n], dbPlus);
+            compGainVec[n] = Decibels::decibelsToGain (compDB);
+        }
+
         // since the slew will be applied to the gain, we need to reverse the attack and release parameters!
         slewLimiter[ch].setParameters (releaseParam->load(), attackParam->load());
+        for (size_t n = 0; n < (size_t) numSamples; ++n)
+            compGainVec[n] = jmin(compGainVec[n], slewLimiter[ch].processSample (compGainVec[n]));
 
-        auto* x = buffer.getWritePointer (ch);
-        for (int n = 0; n < buffer.getNumSamples(); ++n)
-        {
-            auto xDB = Decibels::gainToDecibels (std::abs (x[n]));
-            auto compDB = compressionDB (xDB, dbPlus);
-            auto compGain = Decibels::decibelsToGain (compDB);
-            compGain = slewLimiter[ch].processSample (compGain);
-            x[n] *= compGain;
-        }
+        FloatVectorOperations::multiply (x, compGainVec.data(), numSamples);
     }
 
     bypass.processBlockOut (buffer, bypass.toBool (onOff));

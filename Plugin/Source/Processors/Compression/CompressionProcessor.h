@@ -1,6 +1,7 @@
 #ifndef COMPRESSIONPROCESSOR_H_INCLUDED
 #define COMPRESSIONPROCESSOR_H_INCLUDED
 
+#include <xsimd/xsimd.hpp>
 #include "../BypassProcessor.h"
 
 class CompressionProcessor
@@ -21,6 +22,9 @@ private:
 
     chowdsp::LevelDetector<float> slewLimiter[2];
     BypassProcessor bypass;
+
+    std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> xDBVec;
+    std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> compGainVec;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CompressionProcessor)
 };
