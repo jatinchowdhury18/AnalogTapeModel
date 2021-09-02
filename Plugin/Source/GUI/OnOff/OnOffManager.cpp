@@ -11,6 +11,7 @@ const std::unordered_map<String, StringArray> triggerMap {
     { String ("chew_onoff"), StringArray ({ "Chew Depth", "Chew Frequency", "Chew Variance" }) },
     { String ("deg_onoff"), StringArray ({ "Depth", "Amount", "Variance", "Envelope", "0.1x" }) },
     { String ("flutter_onoff"), StringArray ({ "Flutter Depth", "Flutter Rate", "Wow Depth", "Wow Rate", "Wow Variance", "Wow Drift" }) },
+    { String ("comp_onoff"), StringArray ({ "Compression Amount", "Compression Attack", "Compression Release" }) },
 };
 
 void toggleEnableDisable (Component* root, StringArray& compNames, bool shouldBeEnabled)

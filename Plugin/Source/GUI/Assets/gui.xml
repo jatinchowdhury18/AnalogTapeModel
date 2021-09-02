@@ -28,7 +28,7 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        padding="0" width="580" height="620" background-color="FF8B3232"
+        padding="0" width="640" height="620" background-color="FF8B3232"
         background-image="Background_svg" image-placement="stretch">
     <View max-height="100" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
@@ -70,7 +70,8 @@
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
         </View>
       </View>
-      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF"
+            flex-grow="1.5">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tape" margin="0">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
@@ -83,6 +84,19 @@
           <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
                        button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
                        parameter="hyst_onoff" name="Tape On/Off" tooltip="Turns the tape processing on or off."/>
+        </View>
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Comp" margin="0">
+          <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
+          <Slider caption="Amount [dB]" parameter="comp_amt" class="Slider" name="Compression Amount"
+                  padding="0" margin="0" tooltip="Controls the amount of tape compression applied by the effect."/>
+          <Slider caption="Attack [ms]" parameter="comp_attack" class="Slider"
+                  name="Compression Attack" padding="0" margin="0" tooltip="Controls the attack speed of the tape compression."/>
+          <Slider caption="Release [ms]" parameter="comp_release" class="Slider"
+                  name="Compression Release" padding="0" margin="0" tooltip="Controls the release speed of the tape compression."/>
+          <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
+                       button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
+                       parameter="comp_onoff" name="Comp. On/Off" tooltip="Turns the tape compression on or off."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tone" margin="0">
@@ -231,7 +245,7 @@
         </View>
       </View>
     </View>
-    <TooltipComp flex-grow="0.15" background-color="00000000" tooltip-name="FFEAA92C"
+    <TooltipComp flex-grow="0.13" background-color="00000000" tooltip-name="FFEAA92C"
                  tooltip-text="FFFFFFFF"/>
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">

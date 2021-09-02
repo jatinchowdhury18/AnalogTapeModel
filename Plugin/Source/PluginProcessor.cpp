@@ -32,6 +32,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
       toneControl (vts),
+      compressionProcessor (vts),
       hysteresis (vts, *this),
       degrade (vts),
       chewer (vts),
@@ -70,6 +71,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 
     InputFilters::createParameterLayout (params);
     ToneControl::createParameterLayout (params);
+    CompressionProcessor::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
     WowFlutterProcessor::createParameterLayout (params);
