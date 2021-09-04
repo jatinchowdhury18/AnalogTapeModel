@@ -10,31 +10,40 @@ CompressionProcessor::CompressionProcessor (AudioProcessorValueTreeState& vts)
 
 void CompressionProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
 {
+    auto twoDecimalFloat = [] (float value, int) { return String (value, 2); };
+
     params.push_back (std::make_unique<AudioParameterBool> ("comp_onoff", "Compression On/Off", false));
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_amt", "Compression Amount", 0.0f, 9.0f, 0.0f));
+    
+    static NormalisableRange<float> amtRange { 0.0f, 9.0f };
+    amtRange.setSkewForCentre (3.0f);
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_amt", "Compression Amount", amtRange, 0.0f, String(),
+                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
 
-    static NormalisableRange<float> attRange { 0.1f, 100.0f };
+    static NormalisableRange<float> attRange { 0.1f, 50.0f };
     attRange.setSkewForCentre (10.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_attack", "Compression Attack", attRange, 5.0f,
-                                                             String(), AudioProcessorParameter::genericParameter,
-                                                             [] (float value, int) { return String (value, 2); }));
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_attack", "Compression Attack", attRange, 5.0f, String(),
+                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
 
-    static NormalisableRange<float> relRange { 1.0f, 1000.0f };
+    static NormalisableRange<float> relRange { 10.0f, 1000.0f };
     relRange.setSkewForCentre (100.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 25.0f,
-                                                             String(), AudioProcessorParameter::genericParameter,
-                                                             [] (float value, int) { return String (value, 2); }));
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 200.0f, String(),
+                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
 }
 
 void CompressionProcessor::prepare (double sr, int samplesPerBlock)
 {
-    for (int ch = 0; ch < 2; ++ch)
-        slewLimiter[ch].prepare ({ sr, (uint32) samplesPerBlock, 1 });
-
+    oversample.initProcessing ((size_t) samplesPerBlock);
+    auto osFactor = oversample.getOversamplingFactor();
     bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
 
-    xDBVec.resize ((size_t) samplesPerBlock, 0.0f);
-    compGainVec.resize ((size_t) samplesPerBlock, 0.0f);
+    for (int ch = 0; ch < 2; ++ch)
+    {
+        slewLimiter[ch].prepare ({ sr, (uint32) samplesPerBlock, 1 });
+        dbPlusSmooth[ch].reset (sr, 0.05);
+    }
+
+    xDBVec.resize (osFactor * (size_t) samplesPerBlock, 0.0f);
+    compGainVec.resize (osFactor * (size_t) samplesPerBlock, 0.0f);
 }
 
 inline float compressionDB (float xDB, float dbPlus)
@@ -64,11 +73,15 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOff)))
         return;
 
-    auto dbPlus = amountParam->load();
-    const auto numSamples = buffer.getNumSamples();
+    dsp::AudioBlock<float> block (buffer);
+    auto osBlock = oversample.processSamplesUp (block);
+
+    const auto numSamples = (int) osBlock.getNumSamples();
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
-        auto* x = buffer.getWritePointer (ch);
+        dbPlusSmooth[ch].setTargetValue (amountParam->load());
+
+        auto* x = osBlock.getChannelPointer ((size_t) ch);
         FloatVectorOperations::copy (xDBVec.data(), x, numSamples);
         FloatVectorOperations::abs (xDBVec.data(), xDBVec.data(), numSamples);
 
@@ -79,7 +92,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
             auto xDB = dsp::SIMDRegister<float>::fromRawArray (&xDBVec[n]);
 
             xDB = chowdsp::SIMDUtils::gainToDecibels (xDB);
-            auto compDB = compressionDB (xDB, dbPlus);
+            auto compDB = compressionDB (xDB, dbPlusSmooth[ch].skip ((int) inc));
             auto compGain = chowdsp::SIMDUtils::decibelsToGain (compDB);
 
             xDB.copyToRawArray (&xDBVec[n]);
@@ -90,7 +103,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         for (; n < (size_t) numSamples; ++n)
         {
             xDBVec[n] = Decibels::gainToDecibels (xDBVec[n]);
-            auto compDB = compressionDB (xDBVec[n], dbPlus);
+            auto compDB = compressionDB (xDBVec[n], dbPlusSmooth[ch].getNextValue());
             compGainVec[n] = Decibels::decibelsToGain (compDB);
         }
 
@@ -102,5 +115,13 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         FloatVectorOperations::multiply (x, compGainVec.data(), numSamples);
     }
 
+    oversample.processSamplesDown (block);
+
     bypass.processBlockOut (buffer, bypass.toBool (onOff));
+}
+
+float CompressionProcessor::getLatencySamples() const noexcept
+{
+    return onOff->load() == 1.0f ? oversample.getLatencyInSamples() // on
+                                 : 0.0f; // off
 }

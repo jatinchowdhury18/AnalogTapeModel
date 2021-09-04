@@ -193,7 +193,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
 
 float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 {
-    return lossFilter.getLatencySamples() + hysteresis.getLatencySamples();
+    return lossFilter.getLatencySamples() + hysteresis.getLatencySamples() + compressionProcessor.getLatencySamples();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations

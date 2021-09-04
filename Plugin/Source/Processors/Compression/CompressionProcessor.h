@@ -14,6 +14,8 @@ public:
     void prepare (double sr, int samplesPerBlock);
     void processBlock (AudioBuffer<float>& buffer);
 
+    float getLatencySamples() const noexcept;
+
 private:
     std::atomic<float>* onOff = nullptr;
     std::atomic<float>* amountParam = nullptr;
@@ -22,6 +24,10 @@ private:
 
     chowdsp::LevelDetector<float> slewLimiter[2];
     BypassProcessor bypass;
+
+    dsp::Oversampling<float> oversample { 2, 1, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, true };
+
+    SmoothedValue<float, ValueSmoothingTypes::Linear> dbPlusSmooth[2];
 
     std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> xDBVec;
     std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> compGainVec;
