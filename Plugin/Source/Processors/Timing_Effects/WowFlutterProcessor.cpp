@@ -72,16 +72,16 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     if (bypass.processBlockIn (buffer, ! shouldTurnOff))
     {
         processWetBuffer (buffer);
+
+        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+            dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+
         bypass.processBlockOut (buffer, ! shouldTurnOff);
     }
     else
     {
         processBypassed (buffer);
     }
-
-    // dc block
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-        dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 
     wowProcessor.plotBuffer (wowPlot);
     flutterProcessor.plotBuffer (flutterPlot);
@@ -110,7 +110,7 @@ void WowFlutterProcessor::processWetBuffer (AudioBuffer<float>& buffer)
     }
 }
 
-void WowFlutterProcessor::processBypassed (AudioBuffer<float>& buffer)
+void WowFlutterProcessor::processBypassed (const AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {

@@ -17,10 +17,10 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock);
     void processBlock (AudioBuffer<float>&, MidiBuffer&);
 
-    void processWetBuffer (AudioBuffer<float>& buffer);
-    void processBypassed (AudioBuffer<float>& buffer);
-
 private:
+    void processWetBuffer (AudioBuffer<float>& buffer);
+    void processBypassed (const AudioBuffer<float>& buffer);
+
     std::atomic<float>* flutterOnOff = nullptr;
     std::atomic<float>* flutterRate = nullptr;
     std::atomic<float>* flutterDepth = nullptr;
