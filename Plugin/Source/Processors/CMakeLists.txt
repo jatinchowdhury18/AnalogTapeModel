@@ -1,5 +1,6 @@
 target_sources(CHOWTapeModel PRIVATE
     Chew/ChewProcessor.cpp
+    Compression/CompressionProcessor.cpp
     Degrade/DegradeProcessor.cpp
 
     Hysteresis/HysteresisProcessing.cpp

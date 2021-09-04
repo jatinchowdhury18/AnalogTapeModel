@@ -16,6 +16,7 @@
 #include "MixGroups/MixGroupsController.h"
 #include "Presets/PresetManager.h"
 #include "Processors/Chew/ChewProcessor.h"
+#include "Processors/Compression/CompressionProcessor.h"
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/DryWetProcessor.h"
 #include "Processors/GainProcessor.h"
@@ -91,6 +92,7 @@ private:
     GainProcessor inGain;
     InputFilters inputFilters;
     ToneControl toneControl;
+    CompressionProcessor compressionProcessor;
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
     ChewProcessor chewer;

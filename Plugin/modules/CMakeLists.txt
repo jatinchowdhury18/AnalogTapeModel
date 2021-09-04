@@ -29,8 +29,6 @@ target_link_libraries(juce_plugin_modules
         warning_flags
 )
 
-target_include_directories(juce_plugin_modules PUBLIC RTNeural/modules/xsimd/include)
-
 target_compile_definitions(juce_plugin_modules
     PUBLIC
         JUCE_DISPLAY_SPLASH_SCREEN=0
@@ -50,6 +48,8 @@ target_compile_definitions(juce_plugin_modules
 )
 
 target_include_directories(juce_plugin_modules
+    PUBLIC
+        RTNeural/modules/xsimd/include
     INTERFACE
         $<TARGET_PROPERTY:juce_plugin_modules,INCLUDE_DIRECTORIES>
 )
