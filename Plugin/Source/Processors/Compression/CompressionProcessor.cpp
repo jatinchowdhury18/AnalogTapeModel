@@ -13,21 +13,18 @@ void CompressionProcessor::createParameterLayout (std::vector<std::unique_ptr<Ra
     auto twoDecimalFloat = [] (float value, int) { return String (value, 2); };
 
     params.push_back (std::make_unique<AudioParameterBool> ("comp_onoff", "Compression On/Off", false));
-    
+
     static NormalisableRange<float> amtRange { 0.0f, 9.0f };
     amtRange.setSkewForCentre (3.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_amt", "Compression Amount", amtRange, 0.0f, String(),
-                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_amt", "Compression Amount", amtRange, 0.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
 
     static NormalisableRange<float> attRange { 0.1f, 50.0f };
     attRange.setSkewForCentre (10.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_attack", "Compression Attack", attRange, 5.0f, String(),
-                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_attack", "Compression Attack", attRange, 5.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
 
     static NormalisableRange<float> relRange { 10.0f, 1000.0f };
     relRange.setSkewForCentre (100.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 200.0f, String(),
-                                                             AudioProcessorParameter::genericParameter, twoDecimalFloat));
+    params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 200.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
 }
 
 void CompressionProcessor::prepare (double sr, int samplesPerBlock)
@@ -110,7 +107,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         // since the slew will be applied to the gain, we need to reverse the attack and release parameters!
         slewLimiter[ch].setParameters (releaseParam->load(), attackParam->load());
         for (size_t n = 0; n < (size_t) numSamples; ++n)
-            compGainVec[n] = jmin(compGainVec[n], slewLimiter[ch].processSample (compGainVec[n]));
+            compGainVec[n] = jmin (compGainVec[n], slewLimiter[ch].processSample (compGainVec[n]));
 
         FloatVectorOperations::multiply (x, compGainVec.data(), numSamples);
     }

@@ -1,8 +1,8 @@
 #ifndef COMPRESSIONPROCESSOR_H_INCLUDED
 #define COMPRESSIONPROCESSOR_H_INCLUDED
 
-#include <xsimd/xsimd.hpp>
 #include "../BypassProcessor.h"
+#include <xsimd/xsimd.hpp>
 
 class CompressionProcessor
 {
@@ -29,8 +29,8 @@ private:
 
     SmoothedValue<float, ValueSmoothingTypes::Linear> dbPlusSmooth[2];
 
-    std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> xDBVec;
-    std::vector<float, XSIMD_DEFAULT_ALLOCATOR(float)> compGainVec;
+    std::vector<float, XSIMD_DEFAULT_ALLOCATOR (float)> xDBVec;
+    std::vector<float, XSIMD_DEFAULT_ALLOCATOR (float)> compGainVec;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CompressionProcessor)
 };
