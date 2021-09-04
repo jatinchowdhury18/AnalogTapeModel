@@ -32,6 +32,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
       toneControl (vts),
+      compressionProcessor (vts),
       hysteresis (vts, *this),
       degrade (vts),
       chewer (vts),
@@ -70,6 +71,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 
     InputFilters::createParameterLayout (params);
     ToneControl::createParameterLayout (params);
+    CompressionProcessor::createParameterLayout (params);
     HysteresisProcessor::createParameterLayout (params);
     LossFilter::createParameterLayout (params);
     WowFlutterProcessor::createParameterLayout (params);
@@ -163,6 +165,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
     toneControl.prepare (sampleRate);
+    compressionProcessor.prepare (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
     degrade.prepareToPlay (sampleRate, samplesPerBlock);
     chewer.prepare (sampleRate, samplesPerBlock);
@@ -190,7 +193,7 @@ void ChowtapeModelAudioProcessor::releaseResources()
 
 float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 {
-    return lossFilter.getLatencySamples() + hysteresis.getLatencySamples();
+    return lossFilter.getLatencySamples() + hysteresis.getLatencySamples() + compressionProcessor.getLatencySamples();
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -244,6 +247,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
     toneControl.processBlockIn (buffer);
+    compressionProcessor.processBlock (buffer);
     hysteresis.processBlock (buffer, midiMessages);
     toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);

@@ -19,6 +19,7 @@
 #include "Processors/Degrade/DegradeProcessor.h"
 #include "Processors/DryWetProcessor.h"
 #include "Processors/GainProcessor.h"
+#include "Processors/Compression/CompressionProcessor.h"
 #include "Processors/Hysteresis/HysteresisProcessor.h"
 #include "Processors/Hysteresis/ToneControl.h"
 #include "Processors/Input_Filters/InputFilters.h"
@@ -91,6 +92,7 @@ private:
     GainProcessor inGain;
     InputFilters inputFilters;
     ToneControl toneControl;
+    CompressionProcessor compressionProcessor;
     HysteresisProcessor hysteresis;
     DegradeProcessor degrade;
     ChewProcessor chewer;
