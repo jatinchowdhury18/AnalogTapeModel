@@ -106,8 +106,8 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
 
         // since the slew will be applied to the gain, we need to reverse the attack and release parameters!
         slewLimiter[ch].setParameters (releaseParam->load(), attackParam->load());
-        for (size_t n = 0; n < (size_t) numSamples; ++n)
-            compGainVec[n] = jmin (compGainVec[n], slewLimiter[ch].processSample (compGainVec[n]));
+        for (size_t k = 0; k < (size_t) numSamples; ++k)
+            compGainVec[k] = jmin (compGainVec[k], slewLimiter[ch].processSample (compGainVec[k]));
 
         FloatVectorOperations::multiply (x, compGainVec.data(), numSamples);
     }

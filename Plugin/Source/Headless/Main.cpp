@@ -40,5 +40,8 @@ int main (int argc, char* argv[])
     UnitTests unitTests;
     app.addCommand (unitTests);
 
+    // ArgumentList args { "--unit-tests", "MixGroupsTest" };
+    // unitTests.runUnitTests (args);
+
     return app.findAndRunCommand (argc, argv);
 }
