@@ -1,4 +1,9 @@
-add_subdirectory(JUCE)
+set(JUCE_PATH JUCE)
+if(CUSTOM_JUCE_PATH)
+    set(JUCE_PATH "${CUSTOM_JUCE_PATH}")
+endif()
+
+add_subdirectory(${JUCE_PATH} juce)
 include(cmake/SubprojectVersion.cmake)
 subproject_version(JUCE juce_version)
 message(STATUS "VERSION for JUCE: ${juce_version}")
