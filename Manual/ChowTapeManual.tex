@@ -38,7 +38,7 @@ ChowTape for iOS can be downloaded from the
 
 \begin{figure}[ht]
     \center
-    \includegraphics[width=0.45\columnwidth]{../Refs/Pictures/sony_tc-260.jpg}
+    \includegraphics[width=0.45\columnwidth]{sony_tc-260.jpg}
     \caption{\label{TapeMachine}{\it A Sony TC 260 reel-to-reel tape machine}}
 \end{figure}
 
@@ -56,11 +56,12 @@ controls even allow the user to achieve more ``extreme''
 results than would be possible with a physical tape machine.
 
 \subsubsection{Main Controls}
-\boldtheme{Input Gain} controls the gain level going into the
-rest of the plugin. Note that abnormally large levels can
-cause the plugin to become unstable, so it is recommended
-that sound levels are below unity gain going into the plugin,
-and any extra gain should come from the input gain control. %@TODO: more notes on stability
+\boldtheme{Input Gain} controls the gain level going into
+the rest of the plugin. Note that abnormally large levels
+can cause the plugin to become unstable, so it is recommended
+that sound levels are at or below unity gain going into the
+plugin, and any extra gain should come from the input gain
+control.
 \newpar
 \boldtheme{Dry/Wet} allows the user to choose how much of the
 signal they want to the plugin's processing to affect.
@@ -99,7 +100,7 @@ through the plugin unaffected.
 \begin{figure}[ht]
     \center
     \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Tape.png}
-    \caption{\label{h_bias}{\it Tape hysteresis controls}}
+    \caption{\label{hysteresis_controls}{\it Tape hysteresis controls}}
 \end{figure}
 %
 % \begin{figure}[ht]
@@ -138,9 +139,9 @@ the hysteresis process. This differs from the input gain in that
 it affects the nonlinear characteristic of the hysteresis process.
 \newpar
 \boldtheme{Saturation} controls the level at which the hysteresis
-function saturates. Higher values correspond to a lower Saturation
+function saturates. Higher values correspond to a lower saturation
 point, resulting in a more distorted sound.
-\newpar
+\newline
 \boldtheme{Bias} controls the amount of bias used by the tape
 recorder. Tape bias is the addition of an inaudible high-frequency
 signal to the audio signal\footnote{\href{https://hccc.org.uk/acbias.html}{More information on tape biasing}}.
@@ -175,6 +176,37 @@ is recommended to use higher-order solvers for mix busses
 and key tracks in a mix, while using lower-order solvers for
 less important tracks.
 
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Comp.png}
+    \caption{\label{comp_controls}{\it Tape compression controls}}
+\end{figure}
+%
+\subsubsection{Compression Controls}
+The compression section applies a characteristic
+compression curve to the signal, which can be useful
+for reducing the dynamic range of the signal before
+going into the hysteresis processing.
+\newpar
+\boldtheme{Amount} controls the level at which the
+compression curve starts to take effect. At 0 dB, the
+compression has no effect on the signal. At 9 dB, any
+signal above -9 dB will start to be compressed.
+\newpar
+The \boldtheme{Attack} parameter controls how quickly
+the compression will start to take effect once the
+signal enters the range where it is being compressed.
+\newpar
+Similarly, the \boldtheme{Release} parameter controls
+how quickly the compression backs off once the signal
+is no longer in the compression region.
+%
+\begin{figure}[ht]
+    \center
+    \includegraphics[width=0.75\columnwidth]{../Simulations/Compression/compression_curves.png}
+    \caption{\label{comp_curves}{\it Tape compression characteristic curves}}
+\end{figure}
+
 \subsubsection{Tone Controls}
 The tone section applies a set of pre-/post-emphasis filters
 to the signal before and after the hysteresis processing
@@ -191,8 +223,8 @@ between the bass and treble sections of the filter.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Loss.png}
-    \caption{\label{h_bias}{\it Loss filter controls}}
+    \includegraphics[height=0.45\paperheight]{../Plugin/Screenshots/Loss.png}
+    \caption{\label{loss_controls}{\it Loss filter controls}}
 \end{figure}
 %
 \begin{figure}[ht]
@@ -259,7 +291,7 @@ applies an amplitude envelope to the tape noise.
 \begin{figure}[ht]
     \center
     \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Degrade.png}
-    \caption{\label{h_bias}{\it Degradation controls.}}
+    \caption{\label{degrade_controls}{\it Degradation controls.}}
 \end{figure}
 
 \subsubsection{Chew Controls}
@@ -281,7 +313,7 @@ captured from an original Sony TC-260 tape machine.
 \begin{figure}[ht]
     \center
     \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Wow.png}
-    \caption{\label{h_bias}{\it Wow controls.}}
+    \caption{\label{wow_controls}{\it Wow controls.}}
 \end{figure}
 %
 \boldtheme{Depth} controls the depth of the flutter and
@@ -332,8 +364,6 @@ to \href{mailto:chowdsp@gmail.com}{email me directly},
 or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
 on GitHub. GitHub issues are preferred, since they are publicly
 visible.
-
-\vspace{8em}
 
 \subsection{Acknowledgements}
 Thanks to Yann from SINK Music for helping to create this

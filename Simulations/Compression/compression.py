@@ -35,16 +35,22 @@ x = np.linspace(-18, 6)
 # x = np.linspace(-13, -11)
 
 for db in [0, 1, 2, 3, 4, 5, 6]:
-    plt.plot(x, saturate_db(x, db))
+    plt.plot(x, saturate_db(x, db), label=f'Compression Amount: {db} dB')
 
+plt.legend()
+plt.xlabel('Input Level [dB]')
+plt.ylabel('Output Level [dB]')
+plt.title('Tape Compression Characteristic Curves')
 plt.grid()
+plt.savefig('compression_curves.png')
+plt.show()
 
 # %%
-x = np.linspace(-2, 2)
+# x = np.linspace(-2, 2)
 
-for db in [0, 1, 2, 3, 4, 5, 6]:
-    plt.plot(x, saturate(x, db))
+# for db in [0, 1, 2, 3, 4, 5, 6]:
+#     plt.plot(x, saturate(x, db))
 
-plt.grid()
+# plt.grid()
 
 # %%

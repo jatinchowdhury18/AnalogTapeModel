@@ -26,7 +26,9 @@ jobs:
 
     - name: Build manual
       working-directory: ${{github.workspace}}/Manual
-      run: make
+      run: |
+        make clean
+        make
 
     - name: Deploy manual
       uses: appleboy/scp-action@master

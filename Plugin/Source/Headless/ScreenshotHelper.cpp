@@ -79,7 +79,7 @@ void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
     std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());
 
     // make sure all plugin sections are enabled
-    StringArray onOffIDs { "ifilt_onoff", "hyst_onoff", "tone_onoff", "loss_onoff", "chew_onoff", "deg_onoff", "flutter_onoff" };
+    StringArray onOffIDs { "ifilt_onoff", "hyst_onoff", "tone_onoff", "loss_onoff", "chew_onoff", "deg_onoff", "flutter_onoff", "comp_onoff" };
     for (auto param : plugin->getParameters())
     {
         if (auto* paramCast = dynamic_cast<RangedAudioParameter*> (param))
