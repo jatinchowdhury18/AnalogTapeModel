@@ -37,8 +37,6 @@ juce_add_plugin(CHOWTapeModel
     LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
     ICON_BIG Source/GUI/Assets/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
-    IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
-    IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
     NEEDS_STORE_KIT TRUE
 )
 
