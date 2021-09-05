@@ -1,4 +1,9 @@
-add_subdirectory(JUCE)
+set(JUCE_PATH JUCE)
+if(CUSTOM_JUCE_PATH)
+    set(JUCE_PATH "${CUSTOM_JUCE_PATH}")
+endif()
+
+add_subdirectory(${JUCE_PATH} juce)
 include(cmake/SubprojectVersion.cmake)
 subproject_version(JUCE juce_version)
 message(STATUS "VERSION for JUCE: ${juce_version}")
@@ -36,6 +41,7 @@ target_compile_definitions(juce_plugin_modules
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
         JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_MODAL_LOOPS_PERMITTED=$<IF:$<PLATFORM_ID:iOS>,0,1>
         FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0
         FOLEYS_ENABLE_BINARY_DATA=1
         CHOWDSP_USE_XSIMD=1

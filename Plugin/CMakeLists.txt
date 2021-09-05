@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment target")
 set(CMAKE_CXX_STANDARD 17)
-project(CHOWTapeModel VERSION 2.8.1)
+project(CHOWTapeModel VERSION 2.8.2)
 
 add_subdirectory(modules)
 include_directories(modules/RTNeural)
@@ -37,8 +37,8 @@ juce_add_plugin(CHOWTapeModel
     LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
     ICON_BIG Source/GUI/Assets/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
-    IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
-    IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+    IPAD_SCREEN_ORIENTATIONS UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
     NEEDS_STORE_KIT TRUE
 )
 
