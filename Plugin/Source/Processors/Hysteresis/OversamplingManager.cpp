@@ -49,7 +49,10 @@ void OversamplingManager::prepareToPlay (double sr, int samplesPerBlock)
     overSamplingFactor = 1 << curOS;
 
     for (int i = 0; i < numOSChoices; ++i)
+    {
         overSample[i]->initProcessing ((size_t) samplesPerBlock);
+        overSample[i + numOSChoices]->initProcessing ((size_t) samplesPerBlock);
+    }
     prevOS = curOS;
 }
 
