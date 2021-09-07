@@ -1,4 +1,4 @@
-# Contributing to CHOW Tape
+# Contributing to ChowTape
 
 The goal of this project is to create a high-quality,
 open-source tape emulation plugin. Here's how you can
@@ -33,9 +33,6 @@ For more information on contributing presets, see the
 If you've been using the plugin for a while and are pretty
 familiar with it, please consider contributing to the plugin
 [documentation](https://ccrma.stanford.edu/~jatin/chowdsp/Products/ChowTapeManual.pdf).
-Additionally, if someone would want to make a YouTube video
-giving a demo or a walkthrough of the plugin features, that
-would be most welcome.
 
 
 ## Plugin Development
@@ -45,7 +42,7 @@ start by checking out the
 [issues](https://github.com/jatinchowdhury18/AnalogTapeModel/issues)
 page. Bug fixes and new features are always welcome.
 
-CHOW Tape is built using the [JUCE](https://github.com/juce-framework/JUCE)
+ChowTape is built using the [JUCE](https://github.com/juce-framework/JUCE)
 framework, and accordingly, we follow the
 [JUCE coding standards](https://juce.com/discover/stories/coding-standards).
 For information on getting started with development, please see the

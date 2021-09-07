@@ -1,7 +1,12 @@
 # Instructions For Building
-CHOW Tape is built using [CMake](https://cmake.org), along with the [JUCE](https://github.com/juce-framework/JUCE) framework, and [PluginGUIMagic](https://github.com/ffAudio/PluginGUIMagic)
-for the UI. JUCE and PluginGUIMagic are included in the repository, but CMake must be installed before attempting to build. CHOW Tape also uses the CMake build tool To build from scratch, you must first clone the repository
-and initialize the submodules using the following commands:
+ChowTape is built using [CMake](https://cmake.org),
+along with the [JUCE](https://github.com/juce-framework/JUCE) 
+framework, and [PluginGUIMagic](https://github.com/ffAudio/PluginGUIMagic)
+for the UI. JUCE and PluginGUIMagic are included in
+the repository, but CMake must be installed before
+attempting to build. To build from scratch, you must
+first clone the repository and initialize the submodules 
+using the following commands:
 
 ```bash
 # Clone the repository
@@ -31,12 +36,12 @@ cmake -Bbuild-ios -GXcode -DCMAKE_SYSTEM_NAME=iOS \
     -DCMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY="1,2" \
     -DCMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE="NO"
 ```
-Then, go to the `build-ios/` directory, open the Xcode project,
-and build. Note that you may not need to pass the 
-`XCODE_ATTRIBUTE_DEVELOPMENT_TEAM` argument if you're 
-building for your own local device, or using the Xcode simulator.
-Alternatively, you could set the development team manually from
-within Xcode.
+Then, go to the `build-ios/` directory, open the Xcode 
+project, and build. Note that you may not need to pass
+the  `XCODE_ATTRIBUTE_DEVELOPMENT_TEAM` argument if
+you're  building for your own local device, or using
+the Xcode simulator. Alternatively, you could set the 
+development team manually from within Xcode.
 
 ## Linux Dependencies
 The Linux build utilises the following dependencies:
