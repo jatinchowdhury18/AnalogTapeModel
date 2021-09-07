@@ -15,8 +15,8 @@ public:
       */
     void prepare (double sampleRate, float dcFreq)
     {
-        hpf[0].reset();
-        hpf[1].reset();
+        for (auto& filt : hpf)
+            filt.reset();
 
         fs = (float) sampleRate;
 
@@ -25,9 +25,7 @@ public:
 
     void calcCoefs (float fc)
     {
-        // Q values for 4th-order Butterworth filter
-        // (https://en.wikipedia.org/wiki/Butterworth_filter#Normalized_Butterworth_polynomials)
-        constexpr float Qs[] = { 1.0f / 0.7654f, 1.0f / 1.8478f };
+        const static auto butterQs = chowdsp::QValCalcs::butterworth_Qs<float, 2 * NFilt>();
 
         float wc = MathConstants<float>::twoPi * fc / fs;
         float c = 1.0f / dsp::FastMathApproximations::tan (wc / 2.0f);
@@ -35,9 +33,9 @@ public:
 
         float b[3];
         float a[3];
-        for (int i = 0; i < 2; ++i)
+        for (int i = 0; i < NFilt; ++i)
         {
-            float K = c / Qs[i];
+            float K = c / butterQs[i];
             float a0 = phi + K + 1.0f;
 
             b[0] = phi / a0;
@@ -52,12 +50,13 @@ public:
 
     void processBlock (float* buffer, const int numSamples)
     {
-        hpf[0].processBlock (buffer, numSamples);
-        hpf[1].processBlock (buffer, numSamples);
+        for (auto& filt : hpf)
+            filt.processBlock (buffer, numSamples);
     }
 
 private:
-    chowdsp::IIRFilter<2> hpf[2];
+    static constexpr int NFilt = 1;
+    std::array<chowdsp::IIRFilter<2>, NFilt> hpf;
 
     float fs = 44100.0f;
 
