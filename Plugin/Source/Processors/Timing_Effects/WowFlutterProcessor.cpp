@@ -49,7 +49,7 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         delay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
         delay.setDelay (0.0f);
 
-        dcBlocker[ch].prepare (sampleRate, 20.0f);
+        dcBlocker[ch].prepare (sampleRate, 15.0f);
     }
 
     wowPlot->prepareToPlay (sampleRate, samplesPerBlock);

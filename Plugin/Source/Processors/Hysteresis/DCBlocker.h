@@ -55,7 +55,7 @@ public:
     }
 
 private:
-    static constexpr int NFilt = 1;
+    static constexpr int NFilt = 2;
     std::array<chowdsp::IIRFilter<2>, NFilt> hpf;
 
     float fs = 44100.0f;
