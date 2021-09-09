@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## UNRELEASED
+## [2.9.0] - 2021-09-09
 - Added tape compression processor.
 - Improved hysteresis engine performance by ~1.5x.
 - Improved oversampling menu with choices for linear vs. minimum phase and real-time vs. offline rendering.
