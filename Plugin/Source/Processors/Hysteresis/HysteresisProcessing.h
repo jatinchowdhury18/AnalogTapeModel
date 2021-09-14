@@ -131,11 +131,11 @@ private:
     inline Float STNSolver (Float H, Float H_d) noexcept
     {
 #if HYSTERESIS_USE_SIMD
-        double H_arr[2];
-        double H_d_arr[2];
-        double H_n1_arr[2];
-        double H_d_n1_arr[2];
-        double M_n1_arr[2];
+        double H_arr alignas (16)[2];
+        double H_d_arr alignas (16)[2];
+        double H_n1_arr alignas (16)[2];
+        double H_d_n1_arr alignas (16)[2];
+        double M_n1_arr alignas (16)[2];
         double M_out alignas (16)[2];
 
         H.copyToRawArray (H_arr);
