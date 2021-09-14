@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="AEIOU_Funk That 1987">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.009999999776482582"/>
+    <PARAM id="chew_freq" value="0.009999999776482582"/>
+    <PARAM id="chew_var" value="1.0"/>
+    <PARAM id="deg_amt" value="0.09999999403953552"/>
+    <PARAM id="deg_depth" value="0.09999999403953552"/>
+    <PARAM id="deg_var" value="0.04999999701976776"/>
+    <PARAM id="depth" value="0.199999988079071"/>
+    <PARAM id="drive" value="0.5999999642372131"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="10.0"/>
+    <PARAM id="h_bass" value="-0.6000000238418579"/>
+    <PARAM id="h_treble" value="-0.4000000357627869"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mode" value="4.0"/>
+    <PARAM id="os" value="3.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.199999988079071"/>
+    <PARAM id="sat" value="0.5999999642372131"/>
+    <PARAM id="spacing" value="0.1000000014901161"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="0.1000000014901161"/>
+    <PARAM id="width" value="0.2999999821186066"/>
+    <PARAM id="wow_depth" value="0.199999988079071"/>
+    <PARAM id="wow_rate" value="0.199999988079071"/>
+    <PARAM id="preset" value="17"/>
+    <PARAM id="chew_onoff" value="1.0"/>
+    <PARAM id="deg_onoff" value="1.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="h_tfreq" value="499.9999084472656"/>
+    <PARAM id="hyst_onoff"/>
+    <PARAM id="ifilt_high" value="12000.0"/>
+    <PARAM id="ifilt_low" value="20.0"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="loss_onoff"/>
+    <PARAM id="mix_group"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+  </Parameters>
+</Preset>

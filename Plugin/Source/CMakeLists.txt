@@ -23,22 +23,29 @@ juce_add_binary_data(BinaryData SOURCES
     GUI/Assets/RobotoCondensed-Bold.ttf
     GUI/Assets/RobotoCondensed-Regular.ttf
 
-    Presets/PresetConfigs/Default.chowpreset
-    Presets/PresetConfigs/LoFi.chowpreset
-    Presets/PresetConfigs/OldTape.chowpreset
-    Presets/PresetConfigs/SNK_BassPusher.chowpreset
-    Presets/PresetConfigs/SNK_Chorus2.chowpreset
-    Presets/PresetConfigs/SNK_Chorus3.chowpreset
-    Presets/PresetConfigs/SNK_Chorus4.chowpreset
-    Presets/PresetConfigs/SNK_CleanFat.chowpreset
-    Presets/PresetConfigs/SNK_Fat2.chowpreset
-    Presets/PresetConfigs/SNK_Gritty.chowpreset
-    Presets/PresetConfigs/SNK_Gritty2.chowpreset
-    Presets/PresetConfigs/SNK_lofi.chowpreset
-    Presets/PresetConfigs/SNK_SlightlyWobbly.chowpreset
-    Presets/PresetConfigs/TC260.chowpreset
-    Presets/PresetConfigs/Underbiased.chowpreset
-    Presets/PresetConfigs/WoozyChorus.chowpreset
+    Presets/PresetConfigs/Factory/Default.chowpreset
+    Presets/PresetConfigs/Factory/LoFi.chowpreset
+    Presets/PresetConfigs/Factory/OldTape.chowpreset
+    Presets/PresetConfigs/Factory/TC260.chowpreset
+    Presets/PresetConfigs/Factory/Underbiased.chowpreset
+    Presets/PresetConfigs/Factory/WoozyChorus.chowpreset
+
+    Presets/PresetConfigs/Sink/SNK_BassPusher.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Chorus2.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Chorus3.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Chorus4.chowpreset
+    Presets/PresetConfigs/Sink/SNK_CleanFat.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Fat2.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Gritty.chowpreset
+    Presets/PresetConfigs/Sink/SNK_Gritty2.chowpreset
+    Presets/PresetConfigs/Sink/SNK_lofi.chowpreset
+    Presets/PresetConfigs/Sink/SNK_SlightlyWobbly.chowpreset
+
+    Presets/PresetConfigs/AEIOU/AEIOU_DisintegratedMemories.chowpreset
+    Presets/PresetConfigs/AEIOU/AEIOU_FunkThat1987.chowpreset
+    Presets/PresetConfigs/AEIOU/AEIOU_HelloHangover.chowpreset
+    Presets/PresetConfigs/AEIOU/AEIOU_IHaveARadio.chowpreset
+    Presets/PresetConfigs/AEIOU/AEIOU_Warehouse1997.chowpreset
 
     Processors/Hysteresis/STN_Models/hyst_width_0.json
     Processors/Hysteresis/STN_Models/hyst_width_10.json

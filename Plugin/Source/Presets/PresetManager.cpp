@@ -91,6 +91,11 @@ void PresetManager::loadPresets()
     presets.add (std::make_unique<Preset> ("SNK_Gritty2.chowpreset"));
     presets.add (std::make_unique<Preset> ("SNK_lofi.chowpreset"));
     presets.add (std::make_unique<Preset> ("SNK_SlightlyWobbly.chowpreset"));
+    presets.add (std::make_unique<Preset> ("AEIOU_DisintegratedMemories.chowpreset"));
+    presets.add (std::make_unique<Preset> ("AEIOU_FunkThat1987.chowpreset"));
+    presets.add (std::make_unique<Preset> ("AEIOU_HelloHangover.chowpreset"));
+    presets.add (std::make_unique<Preset> ("AEIOU_IHaveARadio.chowpreset"));
+    presets.add (std::make_unique<Preset> ("AEIOU_Warehouse1997.chowpreset"));
     numFactoryPresets = presets.size();
 
     for (auto* p : presets)
