@@ -3,6 +3,10 @@
 \documentclass[landscape,twocolumn,a5paper]{manual}
 \usepackage[margin=0.33in,bottom=0.5in,footskip=0.25in]{geometry}
 
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,backgrounds}
+\usepackage{tkz-euclide}
+
 \definecolor{themered}{HTML}{8B3232}
 \colorlet{theme}{themered}
 
@@ -54,6 +58,68 @@ user to design the the physical characteristics of the tape
 machine and magnetic tape being emulated. Several of the
 controls even allow the user to achieve more ``extreme''
 results than would be possible with a physical tape machine.
+%
+%
+\begin{figure*}
+    \centering
+\begin{tikzpicture}[node distance=1.5cm, background rectangle/.style={fill=white}, show background rectangle, every node/.style={scale=0.74}]
+    \tikzset{
+        mynode/.style = {rectangle, line width=0.65pt, minimum width=1.0cm, minimum height=0.75cm, text centered, draw=black, fill=white},
+        arrow/.style = {thick,->,>=stealth},
+    }
+    \node (input) [xshift=-5.0cm] {Input};
+    \node (in_split) [circle, fill, inner sep=1.25pt, right of=input, xshift=-0.6cm] {};
+    \node (in_gain) [mynode, right of=in_split, xshift=-0.4cm] {In Gain};
+    \node (in_filters) [mynode, right of=in_gain, xshift=0.1cm] {Filters};
+    \node (in_tone) [mynode, right of=in_filters, xshift=0.0cm] {Tone};
+    \node (comp) [mynode, right of=in_tone, xshift=0.0cm] {Comp.};
+    \node (hyst) [mynode, right of=comp, xshift=0.5cm] {Hysteresis};
+    \node (out_tone) [mynode, right of=hyst, xshift=0.35cm] {Tone'};
+    \node (chew) [mynode, right of=out_tone, xshift=0.0cm] {Chew};
+    \node (degrade) [mynode, right of=chew, xshift=0.2cm] {Degrade};
+    \node (wow_flutter) [mynode, right of=degrade, xshift=0.7cm] {Wow/Flutter};
+    \node (loss) [mynode, right of=wow_flutter, xshift=0.5cm] {Loss};
+    \node (sum) [draw, fill=white, circle, line width=0.8pt, right of=loss, xshift=-0.3cm] {+};
+    \node (out_gain) [mynode, right of=sum, xshift=0.0cm] {Out Gain};
+    \node (dry_wet) [mynode, right of=out_gain, xshift=0.4cm] {Dry/Wet};
+    \node (output) [right of=dry_wet, xshift=0.4cm] {Output};
+
+    \draw [thick] (input) -- (in_split);
+    \draw [arrow] (in_split) -- (in_gain);
+    \draw [arrow] (in_gain) -- (in_filters);
+    \draw [arrow] (in_filters) -- (in_tone);
+    \draw [arrow] (in_tone) -- (comp);
+    \draw [arrow] (comp) -- (hyst);
+    \draw [arrow] (hyst) -- (out_tone);
+    \draw [arrow] (out_tone) -- (chew);
+    \draw [arrow] (chew) -- (degrade);
+    \draw [arrow] (degrade) -- (wow_flutter);
+    \draw [arrow] (wow_flutter) -- (loss);
+    \draw [arrow] (loss) -- (sum);
+    \draw [arrow] (sum) -- (out_gain);
+    \draw [arrow] (out_gain) -- (dry_wet);
+    \draw [arrow] (dry_wet) -- (output);
+    
+    \coordinate[below of=in_split, yshift=-0.2cm] (down1);
+    \coordinate[below of=dry_wet, yshift=-0.2cm] (up1);
+    \draw [thick] (in_split) -- (down1);
+    \draw [thick] (down1) -- (up1);
+    \draw [arrow] (up1) -- (dry_wet);
+    
+    \coordinate[below of=in_filters, yshift=0.4cm] (down2);
+    \coordinate[below of=sum, yshift=0.4cm] (up2);
+    \node (makeup) [mynode, right of=down2, xshift=6.0cm] {Makeup};
+    \draw [thick] (in_filters) -- (down2);
+    \draw [thick] (down2) -- (makeup);
+    \draw [thick] (makeup) -- (up2);
+    \draw [arrow] (up2) -- (sum);
+\end{tikzpicture}
+    \caption{\label{fig:tape_dsp}{\it Signal flow for the ChowTape plugin.
+                                  Note that the Tone block contains a set
+                                  of pre-emphasis filters, while the Tone'
+                                  block contains the corresponding post-emphasis
+                                  filters.}}
+\end{figure*}
 
 \subsubsection{Main Controls}
 \boldtheme{Input Gain} controls the gain level going into
@@ -364,6 +430,8 @@ to \href{mailto:chowdsp@gmail.com}{email me directly},
 or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
 on GitHub. GitHub issues are preferred, since they are publicly
 visible.
+\newline
+\newline
 
 \subsection{Acknowledgements}
 Thanks to Yann from SINK Music for helping to create this
