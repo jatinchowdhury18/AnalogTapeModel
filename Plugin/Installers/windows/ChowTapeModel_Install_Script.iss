@@ -1,13 +1,29 @@
+#define MyAppPublisher "Chowdhury DSP"
+#define MyAppURL "https://chowdsp.com"
+#define MyAppName "ChowTapeModel"
+#define MyAppVersion "##APPVERSION##"
+
 [Setup]
-AppName=ChowTapeModel
-AppVersion=##APPVERSION##
-DisableWelcomePage=no
+AppName="{#MyAppName} {#MyAppVersion}"
+AppVersion={#MyAppVersion}
+AppVerName={#MyAppName}
+AppPublisher={#MyAppPublisher}
+AppPublisherURL={#MyAppURL}
+AppSupportURL={#MyAppURL}
+AppUpdatesURL={#MyAppURL}
+DefaultDirName={commonpf64}\Chowdhury DSP\
+DefaultGroupName={#MyAppName}
+DisableProgramGroupPage=yes
 DisableDirPage=yes
-DefaultDirName={commoncf64}
-DefaultGroupName=ChowTapeModel
-OutputBaseFilename="ChowTapeModel-Win-##APPVERSION##"
-OutputDir=.
+DisableWelcomePage=no
 LicenseFile=../../../LICENSE
+OutputBaseFilename="ChowTapeModel-Win-{#MyAppVersion}"
+OutputDir=.
+SetupIconFile=chowtape.ico
+UninstallDisplayIcon=chowtape.ico
+UninstallFilesDir={commonpf64}\Chowdhury DSP\ChowTapeModel
+Compression=lzma
+SolidCompression=yes
 
 [Types]
 Name: "full"; Description: "Full installation"
@@ -27,6 +43,9 @@ Source: "../../Bin/Win64/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code
 Source: "../../Bin/Win32/CHOWTapeModel.vst3"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win64/CHOWTapeModel.exe"; Excludes: "*.vst3"; DestDir: "{code:GetDir|Standalone}"; Components: Standalone; Flags: ignoreversion recursesubdirs createallsubdirs
+
+[Icons]
+Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Code]
 var
