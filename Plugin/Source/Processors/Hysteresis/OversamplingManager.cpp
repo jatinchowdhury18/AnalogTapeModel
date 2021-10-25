@@ -34,7 +34,7 @@ bool OversamplingManager::updateOSFactor()
     }
     if (curOS != prevOS)
     {
-        overSamplingFactor = 1 << curOS;
+        overSamplingFactor = 1 << (curOS % numOSChoices);
         prevOS = curOS;
         return true;
     }
