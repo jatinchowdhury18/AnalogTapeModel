@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in
 this file.
 
+## UNRELEASED
+- Fixed linear phase oversampling affecting frequency response in STN mode.
+
 ## [2.9.0] - 2021-09-09
 - Added tape compression processor.
 - Improved hysteresis engine performance by ~1.5x.
