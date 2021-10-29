@@ -21,7 +21,7 @@ OutputBaseFilename="ChowTapeModel-Win-{#MyAppVersion}"
 OutputDir=.
 SetupIconFile=chowtape.ico
 UninstallDisplayIcon=chowtape.ico
-UninstallFilesDir={commonpf64}\Chowdhury DSP\ChowTapeModel
+UninstallFilesDir={commonpf64}\Chowdhury DSP\{#MyAppName}
 Compression=lzma
 SolidCompression=yes
 
