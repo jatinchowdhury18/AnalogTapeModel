@@ -8,7 +8,7 @@ include_directories(modules/RTNeural)
 
 # set up plugin project
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
-# juce_set_aax_sdk_path(/Users/jachowdhury/Developer/AAX_SDK_2p3p2/)
+# juce_set_aax_sdk_path(/Users/jatin/Developer/AAX_SDK/)
 # include_directories(ASIO_SDK)
 
 if(IOS)
