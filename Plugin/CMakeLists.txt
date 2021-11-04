@@ -8,6 +8,7 @@ include_directories(modules/RTNeural)
 
 # set up plugin project
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
+# juce_set_aax_sdk_path(/Users/jachowdhury/Developer/AAX_SDK_2p3p2/)
 # include_directories(ASIO_SDK)
 
 if(IOS)
@@ -22,10 +23,16 @@ if(UNIX AND NOT APPLE)
     list(APPEND JUCE_FORMATS LV2)
 endif()
 
-# Build VST2 is SDK set
+# Build VST2 if SDK target exists
 if(TARGET juce_vst2_sdk)
     message(STATUS "Building VST2 plugin format")
     list(APPEND JUCE_FORMATS VST)
+endif()
+
+# Build AAX if SDK target exists
+if(TARGET juce_aax_sdk)
+    message(STATUS "Building AAX plugin format")
+    list(APPEND JUCE_FORMATS AAX)
 endif()
 
 juce_add_plugin(CHOWTapeModel
