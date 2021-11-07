@@ -16,4 +16,6 @@ target_sources(CHOWTapeModel PRIVATE
     Timing_Effects/WowFlutterProcessor.cpp
     Timing_Effects/FlutterProcess.cpp
     Timing_Effects/WowProcess.cpp
+
+    MidSide/MidSideProcessor.cpp
 )

@@ -39,7 +39,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       lossFilter (vts),
       flutter (vts),
       onOffManager (vts, this),
-      mixGroupsController (vts, this)
+      mixGroupsController (vts, this),
+      midSideController (vts)
 {
     positionInfo.bpm = 120.0;
     positionInfo.timeSigNumerator = 4;
@@ -77,6 +78,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     WowFlutterProcessor::createParameterLayout (params);
     DegradeProcessor::createParameterLayout (params);
     ChewProcessor::createParameterLayout (params);
+    MidSideProcessor::createParameterLayout (params);
     MixGroupsController::createParameterLayout (params);
 
     return { params.begin(), params.end() };
@@ -161,6 +163,7 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
+    midSideController.prepareToPlay (this->getNumInputChannels(), samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
@@ -236,6 +239,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     if (auto playhead = getPlayHead())
         playhead->getCurrentPosition (positionInfo);
 
+    midSideController.processInput (buffer);
     inGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
@@ -261,6 +265,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
 
+    midSideController.processOutput (buffer);
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Output);
 }
 
@@ -302,13 +307,9 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
     builder->registerFactory ("OversamplingMenu", &OversamplingMenu::factory);
 
-    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter");
-    });
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
-    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (b, node, "Wow");
-    });
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Wow"); });
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
@@ -320,11 +321,12 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     {
         for (auto speed : { 3.75f, 7.5f, 15.0f, 30.0f })
         {
-            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed] {
-                speedHandle->beginChangeGesture();
-                speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
-                speedHandle->endChangeGesture();
-            });
+            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed]
+                                   {
+                                       speedHandle->beginChangeGesture();
+                                       speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
+                                       speedHandle->endChangeGesture();
+                                   });
         }
     }
     else

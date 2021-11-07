@@ -28,7 +28,7 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        padding="0" width="640" height="620" background-color="FF8B3232"
+        padding="0" width="580" height="620" background-color="FF8B3232"
         background-image="Background_svg" image-placement="stretch">
     <View max-height="100" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
@@ -47,6 +47,11 @@
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
+          <TextButton id="mid_side" tooltip="Mid/Side mode" margin="5" padding="0"
+                      parameter="mid_side" text="Mid/Side" width="100" height="35"
+                      min-height="30" min-width="100" flex-align-self="center" max-height="40"
+                      name="M/S" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
+                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
@@ -70,8 +75,7 @@
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
         </View>
       </View>
-      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF"
-            flex-grow="1.5">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tape" margin="0">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
@@ -84,19 +88,6 @@
           <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
                        button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
                        parameter="hyst_onoff" name="Tape On/Off" tooltip="Turns the tape processing on or off."/>
-        </View>
-        <View flex-direction="column" tab-color="" background-color="FF31323A"
-              padding="0" tab-caption="Comp" margin="0">
-          <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-          <Slider caption="Amount [dB]" parameter="comp_amt" class="Slider" name="Compression Amount"
-                  padding="0" margin="0" tooltip="Controls the amount of tape compression applied by the effect."/>
-          <Slider caption="Attack [ms]" parameter="comp_attack" class="Slider"
-                  name="Compression Attack" padding="0" margin="0" tooltip="Controls the attack speed of the tape compression."/>
-          <Slider caption="Release [ms]" parameter="comp_release" class="Slider"
-                  name="Compression Release" padding="0" margin="0" tooltip="Controls the release speed of the tape compression."/>
-          <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
-                       button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
-                       parameter="comp_onoff" name="Comp. On/Off" tooltip="Turns the tape compression on or off."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tone" margin="0">
@@ -164,10 +155,10 @@
                     tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
-            <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160"
-                        background-color="FF31323A" button-on-color="FFB41717" button-color="FF33343D"
-                        text="0.1x" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
-                        height="" width="" min-height="0.0" padding="0" caption-placement="centred"
+            <TextButton flex-align-self="auto" parameter="0.1x" max-height="160" background-color="FF31323A"
+                        button-on-color="FFB41717" button-color="FF33343D" text="0.1x"
+                        button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
+                        width="" min-height="0.0" padding="0" caption-placement="centred"
                         min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
                         name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
           </View>
@@ -245,17 +236,15 @@
         </View>
       </View>
     </View>
-    <TooltipComp flex-grow="0.13" background-color="00000000" tooltip-name="FFEAA92C"
+    <TooltipComp flex-grow="0.15" background-color="00000000" tooltip-name="FFEAA92C"
                  tooltip-text="FFFFFFFF"/>
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
-      <View background-color="00000000" flex-grow="0.05"/>
-      <OversamplingMenu caption="Oversampling" os-param="os" os-mode="os_mode" os-off-param="os_render_factor"
-                        os-off-mode="os_render_mode" os-off-same="os_render_like_realtime"
-                        class="Slider" flex-grow="1.2" caption-size="0" padding="0" combo-text="FFEAA92C"
-                        combo-background="00000000" max-height="100" margin="0" lookAndFeel="ComboBoxLNF"
-                        name="Oversampling" tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."
-                        border=""/>
+      <View background-color="00000000" flex-grow="0.1"/>
+      <ComboBox caption="Oversampling" parameter="os" class="Slider" caption-size="0"
+                padding="0" combo-text="FFEAA92C" combo-background="00000000"
+                max-height="100" margin="" lookAndFeel="ComboBoxLNF" name="Oversampling"
+                tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
       <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
                 name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
                 combo-text="FFEAA92C" caption-color="FFFFFFFF" max-height="100"
@@ -268,7 +257,7 @@
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
       <presets margin="5" padding="0" background-color="00000000" border-color="595C6B"
-               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.95"
+               radius="" border="" lookAndFeel="PresetsLNF" flex-grow="1.9"
                max-height="100"/>
     </View>
   </View>

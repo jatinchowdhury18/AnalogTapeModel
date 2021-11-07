@@ -24,6 +24,7 @@
 #include "Processors/Hysteresis/ToneControl.h"
 #include "Processors/Input_Filters/InputFilters.h"
 #include "Processors/Loss_Effects/LossFilter.h"
+#include "Processors/MidSide/MidSideProcessor.h"
 #include "Processors/Timing_Effects/WowFlutterProcessor.h"
 #include <JuceHeader.h>
 
@@ -101,6 +102,7 @@ private:
     DryWetProcessor dryWet;
     DryDelayType dryDelay { 1 << 21 };
     GainProcessor outGain;
+    MidSideProcessor midSideController;
     OnOffManager onOffManager;
 
     AudioBuffer<float> dryBuffer;
