@@ -8,13 +8,13 @@
   ==============================================================================
 */
 
-#include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
 #include "GUI/OversamplingMenu.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
+#include "PluginProcessor.h"
 
 #if JUCE_IOS
 #include "GUI/IOSOnly/ScrollView.h"
@@ -31,6 +31,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true).withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
+      midSideController (vts),
       toneControl (vts),
       compressionProcessor (vts),
       hysteresis (vts, *this),
@@ -39,8 +40,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       lossFilter (vts),
       flutter (vts),
       onOffManager (vts, this),
-      mixGroupsController (vts, this),
-      midSideController (vts)
+      mixGroupsController (vts, this)
 {
     positionInfo.bpm = 120.0;
     positionInfo.timeSigNumerator = 4;
@@ -163,7 +163,6 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
-    midSideController.prepareToPlay (this->getNumInputChannels(), samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
@@ -239,7 +238,6 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     if (auto playhead = getPlayHead())
         playhead->getCurrentPosition (positionInfo);
 
-    midSideController.processInput (buffer);
     inGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
     outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
@@ -250,6 +248,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
+    midSideController.processInput (buffer);
     toneControl.processBlockIn (buffer);
     compressionProcessor.processBlock (buffer);
     hysteresis.processBlock (buffer, midiMessages);
@@ -261,11 +260,11 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     latencyCompensation();
 
+    midSideController.processOutput (buffer);
     inputFilters.processBlockMakeup (buffer);
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
 
-    midSideController.processOutput (buffer);
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Output);
 }
 
@@ -321,12 +320,11 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     {
         for (auto speed : { 3.75f, 7.5f, 15.0f, 30.0f })
         {
-            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed]
-                                   {
-                                       speedHandle->beginChangeGesture();
-                                       speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
-                                       speedHandle->endChangeGesture();
-                                   });
+            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed] {
+                speedHandle->beginChangeGesture();
+                speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
+                speedHandle->endChangeGesture();
+            });
         }
     }
     else

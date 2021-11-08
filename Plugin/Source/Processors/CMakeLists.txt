@@ -13,9 +13,8 @@ target_sources(CHOWTapeModel PRIVATE
     Input_Filters/InputFilters.cpp
     Loss_Effects/AzimuthProc.cpp
     Loss_Effects/LossFilter.cpp
+    MidSide/MidSideProcessor.cpp
     Timing_Effects/WowFlutterProcessor.cpp
     Timing_Effects/FlutterProcess.cpp
     Timing_Effects/WowProcess.cpp
-
-    MidSide/MidSideProcessor.cpp
 )

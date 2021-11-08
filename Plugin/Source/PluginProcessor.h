@@ -92,6 +92,7 @@ private:
 
     GainProcessor inGain;
     InputFilters inputFilters;
+    MidSideProcessor midSideController;
     ToneControl toneControl;
     CompressionProcessor compressionProcessor;
     HysteresisProcessor hysteresis;
@@ -102,7 +103,6 @@ private:
     DryWetProcessor dryWet;
     DryDelayType dryDelay { 1 << 21 };
     GainProcessor outGain;
-    MidSideProcessor midSideController;
     OnOffManager onOffManager;
 
     AudioBuffer<float> dryBuffer;
