@@ -15,6 +15,8 @@ public:
 private:
     std::atomic<float>* midSideParam = nullptr; // parameter handle
     bool curMS = false;
+    bool prevMS = false;
+    int counter = -1;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidSideProcessor)
 };
