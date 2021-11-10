@@ -3,9 +3,21 @@
 # exit on failure
 set -e
 
+if [[ "$*" = *debug* ]]; then
+    echo "Making DEBUG build"
+    build_config="Debug"
+else
+    echo "Making RELEASE build"
+    build_config="Release"
+fi
+
 # clean up old builds
 cd Plugin
-# rm -rf build-aax/
+
+if [[ $* = *clean* ]]; then
+    echo "Cleaning previous build..."
+    rm -rf build-aax/
+fi
 
 # set up build AAX
 AAX_PATH=~/Developer/AAX_SDK/
@@ -20,10 +32,10 @@ cmake -Bbuild-aax -GXcode -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="Developer 
     -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
     -DCMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS="--timestamp" \
     -DMACOS_RELEASE=ON
-cmake --build build-aax --config Release -j12 --target CHOWTapeModel_AAX | xcpretty
+cmake --build build-aax --config $build_config -j12 --target CHOWTapeModel_AAX | xcpretty
 
 # sign with PACE
-aax_location=build-aax/CHOWTapeModel_artefacts/Release/AAX/CHOWTapeModel.aaxplugin
+aax_location=build-aax/CHOWTapeModel_artefacts/$build_config/AAX/CHOWTapeModel.aaxplugin
 wcguid="D3FA57E0-3DA5-11EC-8891-005056920FF7"
 ilok_pass=$(more ~/Developer/ilok_pass)
 wraptool sign --verbose \
@@ -37,3 +49,6 @@ wraptool sign --verbose \
 
 # reset AAX SDK field...
 sed -i '' "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(${AAX_PATH})~" CMakeLists.txt
+
+sudo rm -rf /Library/Application\ Support/Avid/Audio/Plug-Ins/CHOWTapeModel.aaxplugin
+sudo cp -R $aax_location /Library/Application\ Support/Avid/Audio/Plug-Ins/
