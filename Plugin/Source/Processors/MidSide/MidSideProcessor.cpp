@@ -30,15 +30,12 @@ void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
 void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
 {
     const auto numSamples = buffer.getNumSamples();
+
     if (prevMS != curMS)
     {
         counter = 3;
     }
-    while (counter > 0)
-    {
-        buffer.applyGain (0.0f);
-        --counter;
-    }
+
     //mid - side decoding logic here
     if (curMS && buffer.getNumChannels() != 1)
     {
@@ -47,5 +44,18 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
         buffer.applyGain (0, 0, numSamples, 0.5f); // channel 0: 0.5 * (2L) = L
         buffer.addFrom (1, 0, buffer, 0, 0, numSamples); // channel 1 = (R - L) + L = R
     }
+
+    if (counter > 0)
+    {
+        if (counter == 3)
+            buffer.applyGainRamp (0, numSamples, 1.0f, 0.0f);
+        else if (counter == 2)
+            buffer.applyGain (0.0f);
+        else if (counter == 1)
+            buffer.applyGainRamp (0, numSamples, 0.0f, 1.0f);
+
+        --counter;
+    }
+
     prevMS = *midSideParam;
 }
