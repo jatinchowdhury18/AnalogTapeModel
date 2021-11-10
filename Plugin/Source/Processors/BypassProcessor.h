@@ -18,6 +18,7 @@ public:
     {
         prevOnOffParam = onOffParam;
         fadeBuffer.setSize (2, samplesPerBlock);
+        bufferCopied = false;
     }
 
     /**
@@ -31,7 +32,10 @@ public:
             return false; // NOLINT
 
         if (onOffParam != prevOnOffParam)
+        {
             fadeBuffer.makeCopyOf (block, true);
+            bufferCopied = true;
+        }
 
         return true;
     }
@@ -40,6 +44,9 @@ public:
     {
         if (onOffParam == prevOnOffParam)
             return;
+
+        if (! bufferCopied)
+            return; // parameter was changed in the middle of the buffer, let's wait for the next one!
 
         const auto numChannels = block.getNumChannels();
         const auto numSamples = block.getNumSamples();
@@ -53,10 +60,12 @@ public:
             block.addFromWithRamp (ch, 0, fadeBuffer.getReadPointer (ch), numSamples, 1.0f - startGain, 1.0f - endGain);
 
         prevOnOffParam = onOffParam;
+        bufferCopied = false;
     }
 
 private:
     bool prevOnOffParam = false;
+    bool bufferCopied = false;
     AudioBuffer<float> fadeBuffer;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (BypassProcessor)
