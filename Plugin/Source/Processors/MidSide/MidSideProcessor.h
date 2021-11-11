@@ -9,14 +9,18 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
+    void prepare (double sampleRate);
+
     void processInput (AudioBuffer<float>& buffer);
     void processOutput (AudioBuffer<float>& buffer);
 
 private:
     std::atomic<float>* midSideParam = nullptr; // parameter handle
+    
     bool curMS = false;
     bool prevMS = false;
-    int counter = 0;
+    
+    SmoothedValue<float, ValueSmoothingTypes::Linear> fadeSmooth;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidSideProcessor)
 };

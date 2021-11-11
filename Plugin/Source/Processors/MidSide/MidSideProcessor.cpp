@@ -12,10 +12,17 @@ void MidSideProcessor::createParameterLayout (std::vector<std::unique_ptr<Ranged
     params.push_back (std::make_unique<AudioParameterBool> ("mid_side", "Mid/Side Mode", false));
 }
 
+void MidSideProcessor::prepare (double sampleRate)
+{
+    fadeSmooth.reset (sampleRate, 0.04);
+
+    curMS = *midSideParam == 1.0f;
+    prevMS = curMS;
+}
+
 void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
 {
     const auto numSamples = buffer.getNumSamples();
-    curMS = *midSideParam == 1.0f;
 
     //mid - side encoding logic here
     if (curMS && buffer.getNumChannels() != 1)
@@ -33,9 +40,10 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
 {
     const auto numSamples = buffer.getNumSamples();
 
-    if (prevMS != curMS)
+    if (prevMS != (*midSideParam == 1.0f) && ! fadeSmooth.isSmoothing())
     {
-        counter = 3;
+        fadeSmooth.setCurrentAndTargetValue (1.0f);
+        fadeSmooth.setTargetValue (0.0f);
     }
 
     //mid - side decoding logic here
@@ -49,17 +57,20 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
         buffer.addFrom (1, 0, buffer, 0, 0, numSamples); // channel 1 = (R - L) + L = R
     }
 
-    if (counter > 0)
+    if (fadeSmooth.isSmoothing())
     {
-        if (counter == 3)
-            buffer.applyGainRamp (0, numSamples, 1.0f, 0.0f);
-        else if (counter == 2)
-            buffer.applyGain (0.0f);
-        else if (counter == 1)
-            buffer.applyGainRamp (0, numSamples, 0.0f, 1.0f);
+        float startGain = fadeSmooth.getCurrentValue();
+        float endGain = fadeSmooth.skip (numSamples);
 
-        --counter;
+        buffer.applyGainRamp (0, numSamples, startGain, endGain);
+
+        if (endGain == 0.0f)
+        {
+            fadeSmooth.setTargetValue (1.0f);
+
+            // reset curMS at the "bottom" of the fade
+            curMS = *midSideParam == 1.0f;
+            prevMS = curMS;
+        }
     }
-
-    prevMS = *midSideParam;
 }
