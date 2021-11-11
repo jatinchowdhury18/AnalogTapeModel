@@ -8,13 +8,13 @@
   ==============================================================================
 */
 
+#include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
 #include "GUI/OversamplingMenu.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
-#include "PluginProcessor.h"
 
 #if JUCE_IOS
 #include "GUI/IOSOnly/ScrollView.h"

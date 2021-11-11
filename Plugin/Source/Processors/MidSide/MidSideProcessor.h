@@ -16,10 +16,10 @@ public:
 
 private:
     std::atomic<float>* midSideParam = nullptr; // parameter handle
-    
+
     bool curMS = false;
     bool prevMS = false;
-    
+
     SmoothedValue<float, ValueSmoothingTypes::Linear> fadeSmooth;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidSideProcessor)

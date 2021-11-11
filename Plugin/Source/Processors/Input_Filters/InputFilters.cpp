@@ -22,8 +22,7 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
     NormalisableRange highFreqRange { 2000.0f, maxFreq };
     highFreqRange.setSkewForCentre (10000.0f);
 
-    auto freqToString = [] (float freq, int) -> String
-    {
+    auto freqToString = [] (float freq, int) -> String {
         String suffix = " Hz";
         if (freq > 1000.0f)
         {
@@ -33,8 +32,7 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
         return String (freq, 2, false) + suffix;
     };
 
-    auto stringToFreq = [] (const String& string) -> float
-    {
+    auto stringToFreq = [] (const String& string) -> float {
         float freq = string.getFloatValue();
         if (string.getLastCharacter() == 'k')
             freq *= 1000.0f;
