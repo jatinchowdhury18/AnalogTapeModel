@@ -19,17 +19,24 @@ if [[ $* = *clean* ]]; then
     rm -rf build-aax/
 fi
 
+sed_cmakelist()
+{
+    sed_args="$1"
+
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        sed -i '' "$sed_args" CMakeLists.txt
+    else
+        sed -i -e "$sed_args" CMakeLists.txt
+    fi
+}
+
 # set up OS-dependent variables
 if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Building for MAC"
 
-    # Mac needs sudo mode for copying builds
-    sudo su -
-
     AAX_PATH=~/Developer/AAX_SDK/
     ilok_pass=$(more ~/Developer/ilok_pass)
-    aax_target_dir="/Library/Application\ Support/Avid/Audio/Plug-Ins/"
-    SED_FLAGS="-i ''"
+    aax_target_dir="/Library/Application Support/Avid/Audio/Plug-Ins"
     TEAM_ID=$(more ~/Developer/mac_id)
 
 else # Windows
@@ -37,12 +44,11 @@ else # Windows
 
     AAX_PATH=C:/SDKs/AAX_SDK/
     ilok_pass=$(cat /d/ilok_pass)
-    aax_target_dir="/c/Program Files/Common Files/Avid/Audio/Plug-Ins/"
-    SED_FLAGS="-i -e"
+    aax_target_dir="/c/Program Files/Common Files/Avid/Audio/Plug-Ins"
 fi
 
 # set up build AAX
-sed $SED_FLAGS "s~# juce_set_aax_sdk_path.*~juce_set_aax_sdk_path(${AAX_PATH})~" CMakeLists.txt
+sed_cmakelist "s~# juce_set_aax_sdk_path.*~juce_set_aax_sdk_path(${AAX_PATH})~"
 
 # cmake new builds
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -54,7 +60,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         -DCMAKE_XCODE_ATTRIBUTE_OTHER_CODE_SIGN_FLAGS="--timestamp" \
         -DMACOS_RELEASE=ON
 
-    cmake --build build-aax --config $build_config --parallel $(nproc) --target CHOWTapeModel_AAX | xcpretty
+    cmake --build build-aax --config $build_config -j12 --target CHOWTapeModel_AAX | xcpretty
 
 else # Windows
     cmake -Bbuild-aax -G"Visual Studio 16 2019" -A x64
@@ -74,7 +80,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         --in $aax_location \
         --out $aax_location
 
-    wraptool verify --verbose --in $aax_location/Contents/MacOS/CHOWTapeModel
+    wraptool verify --verbose --in $aax_location
 
 else # Windows
     wraptool sign --verbose \
@@ -90,7 +96,7 @@ else # Windows
 fi
 
 # reset AAX SDK field...
-sed $SED_FLAGS "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~" CMakeLists.txt
+sed_cmakelist "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~"
 
 rm -rf "$aax_target_dir/CHOWTapeModel.aaxplugin"
-cp -R "$aax_location" "$aax_target_dir"
+cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
