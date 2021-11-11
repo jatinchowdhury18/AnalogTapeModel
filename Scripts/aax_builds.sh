@@ -100,3 +100,5 @@ sed_cmakelist "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~"
 
 rm -rf "$aax_target_dir/CHOWTapeModel.aaxplugin"
 cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
+
+# scp -r Plugin/build-aax/CHOWTapeModel_artefacts/Release/AAX/CHOWTapeModel.aaxplugin jatin@ccrma-gate.stanford.edu:~/aax_builds/[Win64 or Mac]/
