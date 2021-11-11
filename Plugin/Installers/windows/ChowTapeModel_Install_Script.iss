@@ -35,7 +35,7 @@ Name: "VST_64"; Description: "VST Plugin 64-bit"; Types: full
 Name: "VST3_32"; Description: "VST3 Plugin 32-bit"; Types: full
 Name: "VST_32"; Description: "VST Plugin 32-bit"; Types: full
 Name: "Standalone"; Description: "Standalone Plugin"; Types: full
-; Name: "AAX"; Description: "AAX Plugin"; Types: full
+Name: "AAX"; Description: "AAX Plugin"; Types: full
 
 [Files]
 Source: "../../Bin/Win64/CHOWTapeModel.vst3"; DestDir: "{code:GetDir|VST3_64}"; Components: VST3_64; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -43,6 +43,7 @@ Source: "../../Bin/Win64/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code
 Source: "../../Bin/Win32/CHOWTapeModel.vst3"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.dll"; Excludes: "*.vst3"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win64/CHOWTapeModel.exe"; Excludes: "*.vst3"; DestDir: "{code:GetDir|Standalone}"; Components: Standalone; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win64/CHOWTapeModel.aaxplugin"; Excludes: "*.vst3"; DestDir: "{code:GetDir|Standalone}"; Components: AAX; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
