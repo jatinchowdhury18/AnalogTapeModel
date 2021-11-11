@@ -10,7 +10,7 @@ on:
     - 'Paper/**'
     - 'Simulations/**'
     - 'Testing/**'
-    - '*.sh'
+    - 'Scripts/**'
     - '*.md'
   pull_request:
     branches:
@@ -21,7 +21,7 @@ on:
     - 'Paper/**'
     - 'Simulations/**'
     - 'Testing/**'
-    - '*.sh'
+    - 'Scripts/**'
     - '*.md'
 
   workflow_dispatch:

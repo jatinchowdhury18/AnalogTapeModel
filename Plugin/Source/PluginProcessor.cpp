@@ -374,7 +374,6 @@ void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int siz
         if (xmlState->hasTagName (vts.state.getType()))
             vts.replaceState (juce::ValueTree::fromXml (*xmlState));
 #else
-    MessageManagerLock mml;
     magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
 #endif
     presetManager.presetUpdated();

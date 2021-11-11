@@ -8,6 +8,7 @@ include_directories(modules/RTNeural)
 
 # set up plugin project
 # juce_set_vst2_sdk_path(C:/SDKs/VST_SDK/VST2_SDK/)
+# juce_set_aax_sdk_path(NONE)
 # include_directories(ASIO_SDK)
 
 if(IOS)
@@ -22,10 +23,16 @@ if(UNIX AND NOT APPLE)
     list(APPEND JUCE_FORMATS LV2)
 endif()
 
-# Build VST2 is SDK set
+# Build VST2 if SDK target exists
 if(TARGET juce_vst2_sdk)
     message(STATUS "Building VST2 plugin format")
     list(APPEND JUCE_FORMATS VST)
+endif()
+
+# Build AAX if SDK target exists
+if(TARGET juce_aax_sdk)
+    message(STATUS "Building AAX plugin format")
+    list(APPEND JUCE_FORMATS AAX)
 endif()
 
 juce_add_plugin(CHOWTapeModel
@@ -34,7 +41,14 @@ juce_add_plugin(CHOWTapeModel
     PLUGIN_CODE Jdox
     FORMATS ${JUCE_FORMATS}
     ProductName "CHOWTapeModel"
+
+    VST2_CATEGORY kPlugCategEffect
+    VST3_CATEGORIES Fx Distortion
+    AU_MAIN_TYPE kAudioUnitType_Effect
+    AAX_CATEGORY AAX_ePlugInCategory_Harmonic
+
     LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+
     ICON_BIG Source/GUI/Assets/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
     IPHONE_SCREEN_ORIENTATIONS UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
