@@ -24,6 +24,8 @@ void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
         buffer.applyGain (1, 0, numSamples, 2.0f); // make channel 1 = 2 * right
         buffer.addFrom (1, 0, buffer, 0, 0, numSamples, -1.0f); // make channel 1 = (2 * right) - (left + right) = right - left
         buffer.applyGain (1, 0, numSamples, -1.0f); // make channel 1 = -1 * (right - left) = left - right = side
+
+        buffer.applyGain (Decibels::decibelsToGain (-3.0f)); // -3 dB Normalization
     }
 }
 
@@ -39,6 +41,8 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
     //mid - side decoding logic here
     if (curMS && buffer.getNumChannels() != 1)
     {
+        buffer.applyGain (Decibels::decibelsToGain (3.0f)); // undo -3 dB Normalization
+
         buffer.applyGain (1, 0, numSamples, -1.0f); // channel 1 = (L - R) * -1 = R - L
         buffer.addFrom (0, 0, buffer, 1, 0, numSamples, -1.0f); // channel 0 = (L + R) - (R - L) = 2L
         buffer.applyGain (0, 0, numSamples, 0.5f); // channel 0: 0.5 * (2L) = L
