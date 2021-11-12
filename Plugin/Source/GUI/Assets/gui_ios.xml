@@ -81,6 +81,11 @@
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
+          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes" margin="5" padding="0"
+                      parameter="mid_side" text="Mid/Side" width="100" height="35"
+                      min-height="30" min-width="100" flex-align-self="center" max-height="40"
+                      name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
+                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>

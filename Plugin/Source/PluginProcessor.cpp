@@ -31,6 +31,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true).withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
       inputFilters (vts),
+      midSideController (vts),
       toneControl (vts),
       compressionProcessor (vts),
       hysteresis (vts, *this),
@@ -77,6 +78,7 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     WowFlutterProcessor::createParameterLayout (params);
     DegradeProcessor::createParameterLayout (params);
     ChewProcessor::createParameterLayout (params);
+    MidSideProcessor::createParameterLayout (params);
     MixGroupsController::createParameterLayout (params);
 
     return { params.begin(), params.end() };
@@ -164,6 +166,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
+    midSideController.prepare (sampleRate);
     toneControl.prepare (sampleRate);
     compressionProcessor.prepare (sampleRate, samplesPerBlock);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
@@ -246,6 +249,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
+    midSideController.processInput (buffer);
     toneControl.processBlockIn (buffer);
     compressionProcessor.processBlock (buffer);
     hysteresis.processBlock (buffer, midiMessages);
@@ -257,6 +261,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     latencyCompensation();
 
+    midSideController.processOutput (buffer);
     inputFilters.processBlockMakeup (buffer);
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
@@ -302,13 +307,9 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
     builder->registerFactory ("OversamplingMenu", &OversamplingMenu::factory);
 
-    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter");
-    });
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
-    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> {
-        return std::make_unique<WowFlutterMenuItem> (b, node, "Wow");
-    });
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Wow"); });
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
