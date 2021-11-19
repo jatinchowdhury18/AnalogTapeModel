@@ -13,7 +13,7 @@ using the following commands:
 git clone --recursive https://github.com/jatinchowdhury18/AnalogTapeModel.git
 
 # Enter the repository
-cd AnalogTapeModel/Plugin
+cd AnalogTapeModel
 
 # Initialize submodules
 git submodule update --init --recursive
@@ -22,6 +22,8 @@ git submodule update --init --recursive
 Next you can generate the builds with CMake:
 
 ```bash
+cd Plugin
+
 cmake -Bbuild
 cmake --build build/ --config Release
 ```
