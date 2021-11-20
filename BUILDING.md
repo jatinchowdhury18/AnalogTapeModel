@@ -53,16 +53,22 @@ The Linux build utilises the following dependencies:
 - libxrandr
 - freeglut3
 - libjack
+- libfreetype6
+- lv2-dev
 
 These can be installed with the following command:
 ```
-sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev freeglut3-dev libjack-jackd2-dev
+sudo apt-get install libasound2-dev libxcursor-dev libxinerama-dev libxrandr-dev freeglut3-dev libjack-jackd2-dev libfreetype6-dev lv2-dev
 ```
 Depending on your Linux distribution, you may also need to install:
-- freetype
 - libGL
 - libXext
 - libcurl
+
+Note that Linux dependencies may sometimes change during
+the development process. If you're local builds are failing
+due to a missing dependency, please review the latest
+depenendencies used for our CI builds [here](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/.github/workflows/cmake.yml#L32).
 
 ## Building with the GUI Editor
 If you need to make changes to the GUI, you can build
