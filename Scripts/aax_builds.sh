@@ -38,6 +38,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     ilok_pass=$(more ~/Developer/ilok_pass)
     aax_target_dir="/Library/Application Support/Avid/Audio/Plug-Ins"
     TEAM_ID=$(more ~/Developer/mac_id)
+    TARGET_DIR="Mac"
 
 else # Windows
     echo "Building for WINDOWS"
@@ -45,6 +46,7 @@ else # Windows
     AAX_PATH=C:/SDKs/AAX_SDK/
     ilok_pass=$(cat /d/ilok_pass)
     aax_target_dir="/c/Program Files/Common Files/Avid/Audio/Plug-Ins"
+    TARGET_DIR="Win64"
 fi
 
 # set up build AAX
@@ -101,4 +103,7 @@ sed_cmakelist "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~"
 rm -rf "$aax_target_dir/CHOWTapeModel.aaxplugin"
 cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
 
-# scp -r Plugin/build-aax/CHOWTapeModel_artefacts/Release/AAX/CHOWTapeModel.aaxplugin jatin@ccrma-gate.stanford.edu:~/aax_builds/[Win64 or Mac]/
+set +e
+
+ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
+scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
