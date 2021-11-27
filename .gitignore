@@ -28,8 +28,9 @@ LV2.mak
 *.swp
 *~
 
-#Visual Studio Code files
+# IDE settings
 .vscode/
+.idea/
 
 # Other files I don't want
 *.asd

@@ -108,7 +108,9 @@ sed_cmakelist "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~"
 rm -rf "$aax_target_dir/CHOWTapeModel.aaxplugin"
 cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
 
-set +e
+if [[ "$*" = *deploy* ]]; then
+    set +e
 
-ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
-scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+    ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
+    scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+fi
