@@ -3,6 +3,14 @@
 # exit on failure
 set -e
 
+# need to run in sudo mode on Mac
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ "$EUID" -ne 0 ]; then
+        echo "This script must be run in sudo mode! Exiting..."
+        exit 1
+    fi
+fi
+
 if [[ "$*" = *debug* ]]; then
     echo "Making DEBUG build"
     build_config="Debug"
@@ -87,6 +95,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         --in $aax_location \
         --out $aax_location
 
+        # --keyfile $HOME/Downloads/jatin_aax_cert.p12 \
+        # --keypassword "$ilok_pass" \
     wraptool verify --verbose --in $aax_location
 
 else # Windows
@@ -108,7 +118,9 @@ sed_cmakelist "s~juce_set_aax_sdk_path.*~# juce_set_aax_sdk_path(NONE)~"
 rm -rf "$aax_target_dir/CHOWTapeModel.aaxplugin"
 cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
 
-set +e
+if [[ "$*" = *deploy* ]]; then
+    set +e
 
-ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
-scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+    ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
+    scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+fi

@@ -148,10 +148,10 @@ void OversamplingMenu::generateComboBoxMenu()
 std::vector<foleys::SettableProperty> OversamplingMenu::getSettableProperties() const
 {
     std::vector<foleys::SettableProperty> properties;
-    properties.push_back ({ configNode, osParam, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
-    properties.push_back ({ configNode, osMode, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
-    properties.push_back ({ configNode, osOfflineParam, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
-    properties.push_back ({ configNode, osOfflineMode, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
+    properties.push_back ({ configNode, osParam, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenuLambda() });
+    properties.push_back ({ configNode, osMode, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenuLambda() });
+    properties.push_back ({ configNode, osOfflineParam, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenuLambda() });
+    properties.push_back ({ configNode, osOfflineMode, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenuLambda() });
     return properties;
 }
 

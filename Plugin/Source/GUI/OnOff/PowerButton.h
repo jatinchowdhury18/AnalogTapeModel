@@ -3,7 +3,7 @@
 
 #include <JuceHeader.h>
 
-class PowerButton : public Component
+class PowerButton : public DrawableButton
 {
 public:
     PowerButton();
@@ -14,13 +14,12 @@ public:
         buttonOnColourId,
     };
 
-    void resized();
+    void mouseDown (const MouseEvent& e) override;
+    void mouseUp (const MouseEvent& e) override;
+
     void updateColours();
-    DrawableButton& getButton() { return button; }
 
 private:
-    DrawableButton button;
-
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PowerButton)
 };
 
@@ -34,8 +33,10 @@ public:
 
     PowerButtonItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node);
 
+    void resized() override;
     void update() override;
     std::vector<foleys::SettableProperty> getSettableProperties() const override;
+    String getControlledParameterID (Point<int>) override;
 
     juce::Component* getWrappedComponent() override
     {
