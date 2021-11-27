@@ -1,6 +1,6 @@
 [submodule "Plugin/foleys_gui_magic"]
 	path = Plugin/modules/foleys_gui_magic
-	url = https://github.com/jatinchowdhury18/foleys_gui_magic.git
+	url = https://github.com/Chowdhury-DSP/foleys_gui_magic.git
 [submodule "Plugin/modules/chowdsp_utils"]
 	path = Plugin/modules/chowdsp_utils
 	url = https://github.com/Chowdhury-DSP/chowdsp_utils

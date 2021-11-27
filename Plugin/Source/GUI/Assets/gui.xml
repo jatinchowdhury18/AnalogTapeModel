@@ -48,7 +48,7 @@
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
           <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes" margin="5" padding="0"
-                      parameter="mid_side" text="Mid/Side" width="100" height="35"
+                      parameter="mid_side" text="Stereo" text_on="Mid/Side" width="100" height="35"
                       min-height="30" min-width="100" flex-align-self="center" max-height="40"
                       name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
                       button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
@@ -65,7 +65,7 @@
                   tooltip="Applies a low cut filter before applying tape processing."/>
           <Slider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut"
                   tooltip="Applies a high cut filter before applying tape processing."/>
-          <TextButton parameter="ifilt_makeup" text="Makeup" background-color="00000000"
+          <TextButton parameter="ifilt_makeup" text="Makeup" text_on="Makeup" background-color="00000000"
                       margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
                       button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Makeup"
                       tooltip="Adds the signal cut out by the cut filters back to the processed signal."
@@ -171,7 +171,7 @@
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
             <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160"
                         background-color="FF31323A" button-on-color="FFB41717" button-color="FF33343D"
-                        text="0.1x" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
+                        text="0.1x" text_on="0.1x" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
                         height="" width="" min-height="0.0" padding="0" caption-placement="centred"
                         min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
                         name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>

@@ -3,6 +3,14 @@
 # exit on failure
 set -e
 
+# need to run in sudo mode on Mac
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ "$EUID" -ne 0 ]; then
+        echo "This script must be run in sudo mode! Exiting..."
+        exit 1
+    fi
+fi
+
 if [[ "$*" = *debug* ]]; then
     echo "Making DEBUG build"
     build_config="Debug"
@@ -87,6 +95,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         --in $aax_location \
         --out $aax_location
 
+        # --keyfile $HOME/Downloads/jatin_aax_cert.p12 \
+        # --keypassword "$ilok_pass" \
     wraptool verify --verbose --in $aax_location
 
 else # Windows

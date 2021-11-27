@@ -1,24 +1,14 @@
 #include "PowerButton.h"
 
-PowerButton::PowerButton() : button ("", DrawableButton::ImageStretched)
+PowerButton::PowerButton() : DrawableButton ("", DrawableButton::ImageFitted)
 {
     setColour (buttonColourId, Colours::blue);
     setColour (buttonOnColourId, Colours::red);
-    button.setColour (DrawableButton::backgroundColourId, Colours::transparentBlack);
-    button.setColour (DrawableButton::backgroundOnColourId, Colours::transparentBlack);
+    setColour (DrawableButton::backgroundColourId, Colours::transparentBlack);
+    setColour (DrawableButton::backgroundOnColourId, Colours::transparentBlack);
 
-    addAndMakeVisible (button);
     updateColours();
-    button.setClickingTogglesState (true);
-}
-
-void PowerButton::resized()
-{
-    auto dim = (int) ((float) jmin (getWidth(), getHeight()) * 0.6f);
-    auto centre = getLocalBounds().getCentre();
-    auto topLeft = centre.translated (-dim / 2, -dim / 2);
-
-    button.setBounds (topLeft.x, topLeft.y, dim, dim);
+    setClickingTogglesState (true);
 }
 
 void PowerButton::updateColours()
@@ -28,7 +18,23 @@ void PowerButton::updateColours()
 
     onImage->replaceColour (Colours::black, findColour (buttonOnColourId));
     offImage->replaceColour (Colours::black, findColour (buttonColourId));
-    button.setImages (offImage.get(), offImage.get(), onImage.get(), offImage.get(), onImage.get(), onImage.get(), offImage.get());
+    setImages (offImage.get(), offImage.get(), offImage.get(), nullptr, onImage.get(), onImage.get(), onImage.get());
+}
+
+void PowerButton::mouseDown (const MouseEvent& e)
+{
+    if (e.mods.isAnyModifierKeyDown())
+        return;
+
+    DrawableButton::mouseDown (e);
+}
+
+void PowerButton::mouseUp (const MouseEvent& e)
+{
+    if (e.mods.isAnyModifierKeyDown())
+        return;
+
+    DrawableButton::mouseUp (e);
 }
 
 //===============================================================
@@ -41,36 +47,48 @@ PowerButtonItem::PowerButtonItem (foleys::MagicGUIBuilder& builder, const juce::
     addAndMakeVisible (button);
 }
 
+void PowerButtonItem::resized()
+{
+    auto indent = (int) ((float) jmin (getWidth(), getHeight()) * 0.2f);
+    button.setEdgeIndent (indent);
+
+    GuiItem::resized();
+}
+
 void PowerButtonItem::update()
 {
     attachment.reset();
-    auto& actualButton = button.getButton();
 
-    auto parameter = configNode.getProperty (foleys::IDs::parameter, juce::String()).toString();
+    auto parameter = getControlledParameterID ({});
     if (parameter.isNotEmpty())
-        attachment = getMagicState().createAttachment (parameter, actualButton);
+        attachment = getMagicState().createAttachment (parameter, button);
 
     auto triggerID = getProperty (pOnClick).toString();
     if (triggerID.isNotEmpty())
-        actualButton.onClick = getMagicState().getTrigger (triggerID);
+        button.onClick = getMagicState().getTrigger (triggerID);
 
     button.updateColours();
 
-    actualButton.setName (magicBuilder.getStyleProperty (foleys::IDs::name, configNode).toString());
+    button.setName (magicBuilder.getStyleProperty (foleys::IDs::name, configNode).toString());
 
     auto tooltip = magicBuilder.getStyleProperty (foleys::IDs::tooltip, configNode).toString();
     if (tooltip.isNotEmpty())
-        actualButton.setTooltip (tooltip);
+        button.setTooltip (tooltip);
 }
 
 std::vector<foleys::SettableProperty> PowerButtonItem::getSettableProperties() const
 {
     std::vector<foleys::SettableProperty> itemProperties;
 
-    itemProperties.push_back ({ configNode, foleys::IDs::parameter, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenu() });
-    itemProperties.push_back ({ configNode, pOnClick, foleys::SettableProperty::Choice, {}, magicBuilder.createTriggerMenu() });
+    itemProperties.push_back ({ configNode, foleys::IDs::parameter, foleys::SettableProperty::Choice, {}, magicBuilder.createParameterMenuLambda() });
+    itemProperties.push_back ({ configNode, pOnClick, foleys::SettableProperty::Choice, {}, magicBuilder.createTriggerMenuLambda() });
 
     return itemProperties;
+}
+
+String PowerButtonItem::getControlledParameterID (Point<int>)
+{
+    return configNode.getProperty (foleys::IDs::parameter, String()).toString();
 }
 
 const juce::Identifier PowerButtonItem::pOnClick { "onClick" };
