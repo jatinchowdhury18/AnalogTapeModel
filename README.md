@@ -35,6 +35,7 @@ CHOW Tape is currently available in the following formats:
   - VST
   - VST3
   - AU
+  - AAX
   - AUv3
   - LV2
   - Standalone plugin
