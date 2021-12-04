@@ -42,11 +42,6 @@ sed_cmakelist()
 if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Building for MAC"
 
-    if [ "$EUID" -ne 0 ]; then
-        echo "This script must be run in sudo mode! Exiting..."
-        exit 1
-    fi
-
     AAX_PATH=~/Developer/AAX_SDK/
     ilok_pass=$(more ~/Developer/ilok_pass)
     aax_target_dir="/Library/Application Support/Avid/Audio/Plug-Ins"
