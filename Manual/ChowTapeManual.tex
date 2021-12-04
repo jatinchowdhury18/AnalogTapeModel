@@ -23,12 +23,11 @@
 \boldtheme{ChowTape} is an analog tape machine physical model,
 originally based on the Sony TC-260. The current version
 can be used to emulate a wide variety of reel-to-reel tape
-machines. As well as a tool for mixing engineers and producers,
-ChowTape is a research project on developing physics-based
-models of analog tape emulation\footnote{The plugin is based off a 2019 DAFx paper
-\href{http://dafx2019.bcu.ac.uk/papers/DAFx2019_paper_3.pdf}{``Real-time Physical Modelling for Analog Tape Machines''}.}.
-The plugin is currently available as VST/VST3/AU/LV2/AUv3 for
-Windows, Linux, Mac, and iOS.
+machines, using physics-based emulation algorithms\footnote{The
+plugin is based off a 2019 DAFx paper \href{http://dafx2019.bcu.ac.uk/papers/DAFx2019_paper_3.pdf}{``Real-time Physical Modelling for Analog Tape Machines''}.}.
+The plugin is currently available for Windows, Linux, Mac, and iOS
+in the following formats: VST/VST3, AU, LV2,
+AAX, AUv3, and Standalone.
 
 \subsection{Installation}
 To install ChowTape for desktop, download the plugin installer
@@ -134,6 +133,13 @@ signal they want to the plugin's processing to affect.
 \newpar
 \boldtheme{Output Gain} controls the level coming out of the plugin.
 \newpar
+\boldtheme{Stereo - Mid/Side}: When using ChowTape in ``Stereo''
+mode, the plugin will process the input signal as a left/right
+pair. In ``Mid/Side'' mode, the plugin will encode the input
+signal as a mid/side pair, process the mid/side signal, and
+then decode the signal back to a left/right stereo pair at
+the output.
+\newpar
 \boldtheme{Oversampling} controls the amount of oversampling
 being done internally within the plugin. More oversampling
 will result in a higher quality sound with fewer aliasing
@@ -165,7 +171,7 @@ through the plugin unaffected.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Tape.png}
+    \includegraphics[height=0.4\paperheight]{../Plugin/Screenshots/Tape.png}
     \caption{\label{hysteresis_controls}{\it Tape hysteresis controls}}
 \end{figure}
 %
@@ -207,7 +213,7 @@ it affects the nonlinear characteristic of the hysteresis process.
 \boldtheme{Saturation} controls the level at which the hysteresis
 function saturates. Higher values correspond to a lower saturation
 point, resulting in a more distorted sound.
-\newline
+\newpar
 \boldtheme{Bias} controls the amount of bias used by the tape
 recorder. Tape bias is the addition of an inaudible high-frequency
 signal to the audio signal\footnote{\href{https://hccc.org.uk/acbias.html}{More information on tape biasing}}.
@@ -244,7 +250,7 @@ less important tracks.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Comp.png}
+    \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Comp.png}
     \caption{\label{comp_controls}{\it Tape compression controls}}
 \end{figure}
 %
@@ -269,7 +275,7 @@ is no longer in the compression region.
 %
 \begin{figure}[ht]
     \center
-    \includegraphics[width=0.75\columnwidth]{../Simulations/Compression/compression_curves.png}
+    \includegraphics[width=0.9\columnwidth]{../Simulations/Compression/compression_curves.png}
     \caption{\label{comp_curves}{\it Tape compression characteristic curves}}
 \end{figure}
 
@@ -333,8 +339,9 @@ controls the tape speed as it effects the above loss effects,
 measured in inches per second (ips). While this control is
 continuous, the parameter can be quantized to the standard speeds
 for reel-to-reel tape machines: 3.75, 7.5, 15, and 30 ips.
-
-
+\newline
+\newline
+\newline
 \subsubsection{Tape Degradation Controls}
 The degradatation parameters control a simulation of
 old tape that has been used over and over, and has started
@@ -356,7 +363,7 @@ applies an amplitude envelope to the tape noise.
 
 \begin{figure}[ht]
     \center
-    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Degrade.png}
+    \includegraphics[height=0.4\paperheight]{../Plugin/Screenshots/Degrade.png}
     \caption{\label{degrade_controls}{\it Degradation controls.}}
 \end{figure}
 
@@ -374,14 +381,14 @@ to small imperfections in the mechanics of the machine causing
 the tape to subtly speed up and slow down while being
 played back. The flutter characteristic in this plugin was
 captured from an original Sony TC-260 tape machine.
-\newpar
 %
 \begin{figure}[ht]
     \center
-    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Wow.png}
+    \includegraphics[height=0.35\paperheight]{../Plugin/Screenshots/Wow.png}
     \caption{\label{wow_controls}{\it Wow controls.}}
 \end{figure}
 %
+\newline
 \boldtheme{Depth} controls the depth of the flutter and
 \boldtheme{Rate} controls the rate of flutter, with higher values
 causing the flutter to occur faster. Note that the
@@ -409,6 +416,9 @@ and when the plugin opens, it will search this folder, as
 well as any subfolders, to load new user presets.
 Presets located in subfolders will be placed in their
 own groups in the preset menu.
+\newline
+\newline
+\newline
 
 \subsection{Open Source}
 ChowTape is open-source software that is free (as in ``free
@@ -430,8 +440,6 @@ to \href{mailto:chowdsp@gmail.com}{email me directly},
 or \href{https://github.com/jatinchowdhury18/AnalogTapeModel/issues}{create an issue ticket}
 on GitHub. GitHub issues are preferred, since they are publicly
 visible.
-\newline
-\newline
 
 \subsection{Acknowledgements}
 Thanks to Yann from SINK Music for helping to create this
