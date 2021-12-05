@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [2.10.0] - UNRELEASED
+## [2.10.0] - 2021-12-05
 - Added support for AAX plugin format.
 - Added mid/side processing option.
 - Fixed linear phase oversampling affecting frequency response in STN mode.
