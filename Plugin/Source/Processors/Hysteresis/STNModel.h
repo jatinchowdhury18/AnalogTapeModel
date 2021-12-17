@@ -137,7 +137,7 @@ public:
 
     inline void forward (const v_type* input) noexcept
     {
-#if defined(_M_ARM64) || defined(__arm64__) || defined(__aarch64__)
+#if (defined(_M_ARM64) || defined(__arm64__) || defined(__aarch64__)) && (JUCE_MAC || JUCE_IOS)
         alignas (16) double x[4];
         input[0].copyToRawArray (x);
         input[1].copyToRawArray (&x[2]);
