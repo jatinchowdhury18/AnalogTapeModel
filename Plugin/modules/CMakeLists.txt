@@ -9,7 +9,7 @@ subproject_version(JUCE juce_version)
 message(STATUS "VERSION for JUCE: ${juce_version}")
 
 juce_add_modules(foleys_gui_magic)
-juce_add_modules(chowdsp_utils)
+add_subdirectory(chowdsp_utils)
 juce_add_modules(chowdsp_juce_dsp)
 
 # Using RTNeural with XSimd backend
@@ -25,7 +25,9 @@ target_link_libraries(juce_plugin_modules
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
         chowdsp_juce_dsp
-        chowdsp_utils
+        chowdsp_dsp
+        chowdsp_gui
+        chowdsp_plugin_utils
         foleys_gui_magic
         RTNeural
     PUBLIC
