@@ -11,6 +11,7 @@
 #include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
 #include "GUI/OversamplingMenu.h"
+#include "GUI/SettingsButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
@@ -24,6 +25,8 @@
 namespace
 {
 constexpr int maxNumPresets = 999;
+
+const String settingsFilePath = "ChowdhuryDSP/ChowTape/.plugin_settings.json";
 }
 
 //==============================================================================
@@ -42,6 +45,8 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
       onOffManager (vts, this),
       mixGroupsController (vts, this)
 {
+    pluginSettings->initialise (settingsFilePath);
+
     positionInfo.bpm = 120.0;
     positionInfo.timeSigNumerator = 4;
 
@@ -282,9 +287,13 @@ void ChowtapeModelAudioProcessor::latencyCompensation()
     // For "true bypass" use integer sample delay to avoid delay
     // line interpolation freq. response issues
     if (dryWet.getDryWet() < 0.15f)
+    {
         dryDelay.setDelay ((float) latencySamp);
+    }
     else
+    {
         dryDelay.setDelay (latencySampFloat);
+    }
 
     dsp::AudioBlock<float> block { dryBuffer };
     dryDelay.process (dsp::ProcessContextReplacing<float> { block });
@@ -306,6 +315,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
     builder->registerFactory ("OversamplingMenu", &OversamplingMenu::factory);
+    builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
 
     builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
@@ -350,6 +360,8 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 
     // we need to set resize limits for StandalonePluginHolder
     editor->setResizeLimits (10, 10, 2000, 2000);
+
+    openGLHelper.setComponent (editor);
 
     return editor;
 }
