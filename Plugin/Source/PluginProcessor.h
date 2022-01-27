@@ -81,6 +81,7 @@ public:
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
     HysteresisProcessor& getHysteresisProcessor() { return hysteresis; }
+    auto& getOpenGLHelper() { return openGLHelper; }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
@@ -88,6 +89,7 @@ private:
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void latencyCompensation();
 
+    chowdsp::SharedPluginSettings pluginSettings;
     AudioProcessorValueTreeState vts;
 
     GainProcessor inGain;
@@ -114,6 +116,8 @@ private:
     MyLNF myLNF;
     MixGroupsController mixGroupsController;
     AudioPlayHead::CurrentPositionInfo positionInfo;
+
+    chowdsp::OpenGLHelper openGLHelper;
 
 #if CHOWDSP_AUTO_UPDATE
     AutoUpdater updater;
