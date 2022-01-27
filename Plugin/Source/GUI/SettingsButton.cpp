@@ -69,7 +69,7 @@ void SettingsButton::showSettingsMenu()
                        .withParentComponent (parentComp)
                        .withPreferredPopupDirection (PopupMenu::Options::PopupDirection::upwards)
                        .withStandardItemHeight (27);
-    menu.setLookAndFeel (lnfAllocator->getLookAndFeel<MyLNF>());
+    menu.setLookAndFeel (lnfAllocator->getLookAndFeel<ComboBoxLNF>());
     menu.showMenuAsync (options);
 }
 
