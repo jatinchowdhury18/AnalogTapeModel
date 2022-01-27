@@ -61,16 +61,22 @@ juce_generate_juce_header(CHOWTapeModel)
 
 add_subdirectory(Source)
 
+include(modules/cmake/VersionInfo.cmake)
 target_compile_definitions(CHOWTapeModel
     PUBLIC
-    JUCE_DISPLAY_SPLASH_SCREEN=0
-    JUCE_REPORT_APP_USAGE=0
-    JUCE_WEB_BROWSER=0
-    JUCE_USE_CURL=0
-    JUCE_VST3_CAN_REPLACE_VST2=0
-    JUCE_JACK=1
-    JUCE_ALSA=1
-    CHOWDSP_AUTO_UPDATE=1
+        JUCE_DISPLAY_SPLASH_SCREEN=0
+        JUCE_REPORT_APP_USAGE=0
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
+        JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_JACK=1
+        JUCE_ALSA=1
+        CHOWDSP_AUTO_UPDATE=1
+        CHOWDSP_GIT_BRANCH="${GIT_BRANCH}"
+        CHOWDSP_GIT_COMMIT_HASH="${GIT_COMMIT_HASH}"
+        CHOWDSP_BUILD_FQDN="${PLUGIN_BUILD_FQDN}"
+        CHOWDSP_CXX_COMPILER_ID="${CMAKE_CXX_COMPILER_ID}"
+        CHOWDSP_CXX_COMPILER_VERSION="${CMAKE_CXX_COMPILER_VERSION}"
 )
 
 target_link_libraries(CHOWTapeModel PUBLIC

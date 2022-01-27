@@ -51,6 +51,8 @@
                 tooltip="Adds this plugin to a mix group. When the plugin is added to a group, the group parameters will be copied to this plugin, and their parameters will remain in sync."/>
       <MixGroupViz flex-grow="0.3" margin="5" padding="0" background-color="00000000"/>
       <TipJar flex-grow="0.75" margin="0" padding="0" background-color="00000000" lookAndFeel="ComboBoxLNF"/>
+      <SettingsButton lookAndFeel="MyLNF" background-color="00000000" flex-grow="0.06"
+                      margin="0" padding="5" max-width="40" min-width="25"/>
     </View>
     <View max-height="80" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
