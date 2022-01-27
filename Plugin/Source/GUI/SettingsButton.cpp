@@ -16,8 +16,7 @@ SettingsButton::SettingsButton (const AudioProcessor& processor, chowdsp::OpenGL
     auto cog = Drawable::createFromImageData (BinaryData::cogsolid_svg, BinaryData::cogsolid_svgSize);
     setImages (cog.get());
 
-    onClick = [=]
-    { showSettingsMenu(); };
+    onClick = [=] { showSettingsMenu(); };
 }
 
 SettingsButton::~SettingsButton()
@@ -45,11 +44,9 @@ void SettingsButton::showSettingsMenu()
     openGLManu (menu, 100);
 
     menu.addSeparator();
-    menu.addItem ("View Source Code", [=]
-                  { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
+    menu.addItem ("View Source Code", [=] { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
 
-    menu.addItem ("Copy Diagnostic Info", [=]
-                  { copyDiagnosticInfo(); });
+    menu.addItem ("Copy Diagnostic Info", [=] { copyDiagnosticInfo(); });
 
     // get top level component that is big enough
     Component* parentComp = this;
@@ -86,8 +83,7 @@ void SettingsButton::openGLManu (PopupMenu& menu, int itemID)
     PopupMenu::Item item;
     item.itemID = ++itemID;
     item.text = "Use OpenGL";
-    item.action = [=]
-    { pluginSettings->setProperty (openglID, ! isCurrentlyOn); };
+    item.action = [=] { pluginSettings->setProperty (openglID, ! isCurrentlyOn); };
     item.colour = isCurrentlyOn ? onColour : offColour;
 
     menu.addItem (item);

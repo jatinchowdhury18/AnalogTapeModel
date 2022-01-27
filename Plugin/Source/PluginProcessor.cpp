@@ -27,7 +27,7 @@ namespace
 constexpr int maxNumPresets = 999;
 
 const String settingsFilePath = "ChowdhuryDSP/ChowTape/.plugin_settings.json";
-}
+} // namespace
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
