@@ -37,6 +37,7 @@ CHOW Tape is currently available in the following formats:
   - AU
   - AAX
   - AUv3
+  - CLAP
   - LV2
   - Standalone plugin
 
