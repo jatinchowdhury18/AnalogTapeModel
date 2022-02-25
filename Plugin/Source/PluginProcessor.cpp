@@ -306,16 +306,21 @@ bool ChowtapeModelAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
+    struct ChowTapeInfoProvider : public chowdsp::StandardInfoProvider
+    {
+        static juce::String getWrapperTypeString (const ChowtapeModelAudioProcessor& proc) { return proc.getWrapperTypeString(); }
+    };
+
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
     presetManager.registerPresetsComponent (*builder);
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
-    builder->registerFactory ("InfoComp", &chowdsp::InfoItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
     builder->registerFactory ("OversamplingMenu", &OversamplingMenu::factory);
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
+    builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowTapeInfoProvider, ChowtapeModelAudioProcessor>::factory);
 
     builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
@@ -364,6 +369,17 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     openGLHelper.setComponent (editor);
 
     return editor;
+}
+
+String ChowtapeModelAudioProcessor::getWrapperTypeString() const
+{
+#if HAS_CLAP_JUCE_EXTENSIONS
+    // Since we are using 'external clap' this is the one JUCE API we can't override
+    if (wrapperType == wrapperType_Undefined && is_clap)
+        return "Clap";
+#endif
+
+    return AudioProcessor::getWrapperTypeDescription (wrapperType);
 }
 
 //==============================================================================

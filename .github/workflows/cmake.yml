@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false # show all errors for each platform (vs. cancel jobs on error)
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest, windows-2019, macOS-latest]
     
     steps:
     - name: Install Linux Deps

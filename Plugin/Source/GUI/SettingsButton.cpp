@@ -6,9 +6,9 @@ const Colour onColour = Colour (0xFFEAA92C);
 const Colour offColour = Colours::white;
 } // namespace
 
-SettingsButton::SettingsButton (const AudioProcessor& processor, chowdsp::OpenGLHelper& oglHelper) : DrawableButton ("Settings", DrawableButton::ImageFitted),
-                                                                                                     proc (processor),
-                                                                                                     openGLHelper (oglHelper)
+SettingsButton::SettingsButton (const ChowtapeModelAudioProcessor& processor, chowdsp::OpenGLHelper& oglHelper) : DrawableButton ("Settings", DrawableButton::ImageFitted),
+                                                                                                                  proc (processor),
+                                                                                                                  openGLHelper (oglHelper)
 {
     pluginSettings->addProperties ({ { openglID, false } }, this);
     globalSettingChanged (openglID);
@@ -112,7 +112,7 @@ void SettingsButton::copyDiagnosticInfo()
 
     // plugin info
     PluginHostType hostType {};
-    diagString += "Plugin Info: " + String (AudioProcessor::getWrapperTypeDescription (proc.wrapperType))
+    diagString += "Plugin Info: " + proc.getWrapperTypeString()
                   + " running in " + String (hostType.getHostDescription())
                   + " running at " + String (proc.getSampleRate() / 1000.0, 1) + " kHz "
                   + "with block size: " + String (proc.getBlockSize()) + "\n";
