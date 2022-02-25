@@ -13,3 +13,6 @@
 [submodule "Plugin/modules/chowdsp_juce_dsp"]
 	path = Plugin/modules/chowdsp_juce_dsp
 	url = https://github.com/Chowdhury-DSP/chowdsp_juce_dsp
+[submodule "Plugin/modules/clap-juce-extensions"]
+	path = Plugin/modules/clap-juce-extensions
+	url = https://github.com/free-audio/clap-juce-extensions

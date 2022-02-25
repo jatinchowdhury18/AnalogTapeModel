@@ -11,6 +11,7 @@ message(STATUS "VERSION for JUCE: ${juce_version}")
 juce_add_modules(foleys_gui_magic)
 add_subdirectory(chowdsp_utils)
 juce_add_modules(chowdsp_juce_dsp)
+add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
 
 # Using RTNeural with XSimd backend
 set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)

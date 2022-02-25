@@ -61,6 +61,14 @@ juce_generate_juce_header(CHOWTapeModel)
 
 add_subdirectory(Source)
 
+if(NOT IOS)
+    clap_juce_extensions_plugin(
+        TARGET CHOWTapeModel
+        CLAP_ID "org.chowdsp.CHOWTapeModel"
+        CLAP_FEATURES distortion audio_effect
+    )
+endif()
+
 include(modules/cmake/VersionInfo.cmake)
 target_compile_definitions(CHOWTapeModel
     PUBLIC

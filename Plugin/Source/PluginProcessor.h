@@ -26,7 +26,10 @@
 #include "Processors/Loss_Effects/LossFilter.h"
 #include "Processors/MidSide/MidSideProcessor.h"
 #include "Processors/Timing_Effects/WowFlutterProcessor.h"
-#include <JuceHeader.h>
+
+#if HAS_CLAP_JUCE_EXTENSIONS
+#include "clap-juce-extensions/clap-juce-extensions.h"
+#endif
 
 #if CHOWDSP_AUTO_UPDATE
 #include "GUI/AutoUpdating.h"
@@ -36,11 +39,15 @@
 /**
 */
 class ChowtapeModelAudioProcessor : public AudioProcessor
+#if HAS_CLAP_JUCE_EXTENSIONS
+    ,
+                                    private clap_juce_extensions::clap_properties
+#endif
 {
 public:
     //==============================================================================
     ChowtapeModelAudioProcessor();
-    ~ChowtapeModelAudioProcessor();
+    ~ChowtapeModelAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -77,6 +84,7 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    String getWrapperTypeString() const;
     PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
