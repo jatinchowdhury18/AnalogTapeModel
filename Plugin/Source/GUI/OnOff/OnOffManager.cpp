@@ -16,7 +16,13 @@ const std::unordered_map<String, StringArray> triggerMap {
 
 void toggleEnableDisable (Component* root, StringArray& compNames, bool shouldBeEnabled)
 {
-    if (root == nullptr || compNames.isEmpty())
+    if (root == nullptr)
+    {
+        jassertfalse;
+        return;
+    }
+
+    if (compNames.isEmpty())
         return;
 
     for (auto child : root->getChildren())
