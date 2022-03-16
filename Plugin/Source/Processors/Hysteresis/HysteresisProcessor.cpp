@@ -15,7 +15,7 @@ static void interleaveSamples (const T** source, T* dest, int numSamples, int nu
     for (int chan = 0; chan < numChannels; ++chan)
     {
         auto i = chan;
-        const auto *src = source[chan];
+        const auto* src = source[chan];
 
         for (int j = 0; j < numSamples; ++j)
         {
@@ -31,7 +31,7 @@ static void deinterleaveSamples (const T* source, T** dest, int numSamples, int 
     for (int chan = 0; chan < numChannels; ++chan)
     {
         auto i = chan;
-        auto *dst = dest[chan];
+        auto* dst = dest[chan];
 
         for (int j = 0; j < numSamples; ++j)
         {
