@@ -4,13 +4,12 @@
 #include "../BypassProcessor.h"
 #include "DCBlocker.h"
 #include "HysteresisProcessing.h"
-#include "OversamplingManager.h"
 
 /* Hysteresis Processor for tape. */
 class HysteresisProcessor
 {
 public:
-    HysteresisProcessor (AudioProcessorValueTreeState& vts, const AudioProcessor& p);
+    HysteresisProcessor (AudioProcessorValueTreeState& vts);
 
     /* Reset fade buffers, filters, and processors. Prepare oversampling */
     void prepareToPlay (double sampleRate, int samplesPerBlock);
@@ -24,7 +23,7 @@ public:
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     float getLatencySamples() const noexcept;
-    const OversamplingManager& getOSManager() const { return osManager; }
+    auto& getOSManager() { return osManager; }
 
 private:
     void setSolver (int newSolver);
@@ -59,7 +58,7 @@ private:
     double fs = 44100.0f;
     HysteresisProcessing hProcs[2];
     SolverType solver = SolverType::RK4;
-    OversamplingManager osManager; // needs oversampling to avoid aliasing
+    chowdsp::VariableOversampling<double> osManager; // needs oversampling to avoid aliasing
     DCBlocker dcBlocker[2];
 
     static constexpr double dcFreq = 35.0;
