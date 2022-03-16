@@ -87,9 +87,11 @@ public:
     String getWrapperTypeString() const;
     PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
+    AudioProcessorValueTreeState& getVTS() { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
     HysteresisProcessor& getHysteresisProcessor() { return hysteresis; }
     auto* getOpenGLHelper() { return openGLHelper.get(); }
+    auto& getOversampling() { return hysteresis.getOSManager(); }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
