@@ -89,7 +89,7 @@ public:
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
     HysteresisProcessor& getHysteresisProcessor() { return hysteresis; }
-    auto& getOpenGLHelper() { return openGLHelper; }
+    auto* getOpenGLHelper() { return openGLHelper.get(); }
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
@@ -125,7 +125,7 @@ private:
     MixGroupsController mixGroupsController;
     AudioPlayHead::CurrentPositionInfo positionInfo;
 
-    chowdsp::OpenGLHelper openGLHelper;
+    std::unique_ptr<chowdsp::OpenGLHelper> openGLHelper = nullptr;
 
 #if CHOWDSP_AUTO_UPDATE
     AutoUpdater updater;

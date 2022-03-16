@@ -306,6 +306,9 @@ bool ChowtapeModelAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
+    if (openGLHelper == nullptr)
+        openGLHelper = std::make_unique<chowdsp::OpenGLHelper>();
+
     struct ChowTapeInfoProvider : public chowdsp::StandardInfoProvider
     {
         static juce::String getWrapperTypeString (const ChowtapeModelAudioProcessor& proc) { return proc.getWrapperTypeString(); }
@@ -366,7 +369,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     // we need to set resize limits for StandalonePluginHolder
     editor->setResizeLimits (10, 10, 2000, 2000);
 
-    openGLHelper.setComponent (editor);
+    openGLHelper->setComponent (editor);
 
     return editor;
 }
