@@ -15,7 +15,7 @@ static void interleaveSamples (const T** source, T* dest, int numSamples, int nu
     for (int chan = 0; chan < numChannels; ++chan)
     {
         auto i = chan;
-        auto src = source[chan];
+        const auto *src = source[chan];
 
         for (int j = 0; j < numSamples; ++j)
         {
@@ -31,7 +31,7 @@ static void deinterleaveSamples (const T* source, T** dest, int numSamples, int 
     for (int chan = 0; chan < numChannels; ++chan)
     {
         auto i = chan;
-        auto dst = dest[chan];
+        auto *dst = dest[chan];
 
         for (int j = 0; j < numSamples; ++j)
         {
@@ -42,7 +42,7 @@ static void deinterleaveSamples (const T* source, T** dest, int numSamples, int 
 }
 } // namespace
 
-HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts, const AudioProcessor& p) : osManager (vts, p)
+HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts) : osManager (vts)
 {
     driveParam = vts.getRawParameterValue ("drive");
     satParam = vts.getRawParameterValue ("sat");
@@ -68,7 +68,9 @@ void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("width", "Tape Bias", 0.0f, 1.0f, 0.5f));
 
     params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Tape Mode", StringArray ({ "RK2", "RK4", "NR4", "NR8", "STN", "V1" }), 0));
-    OversamplingManager::createParameterLayout (params);
+
+    using OSManager = decltype (osManager);
+    OSManager::createParameterLayout (params, OSManager::OSFactor::TwoX, OSManager::OSMode::MinPhase);
 }
 
 void HysteresisProcessor::setSolver (int newSolver)
@@ -181,7 +183,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
 void HysteresisProcessor::releaseResources()
 {
-    osManager.releaseResources();
+    osManager.reset();
 }
 
 float HysteresisProcessor::getLatencySamples() const noexcept
@@ -227,7 +229,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
     doubleBuffer.makeCopyOf (buffer, true);
 
     dsp::AudioBlock<double> block (doubleBuffer);
-    dsp::AudioBlock<double> osBlock = osManager.getOversampler()->processSamplesUp (block);
+    dsp::AudioBlock<double> osBlock = osManager.processSamplesUp (block);
 
 #if HYSTERESIS_USE_SIMD
     const auto n = osBlock.getNumSamples();
@@ -297,7 +299,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
                          static_cast<int> (Vec2::size()));
 #endif
 
-    osManager.getOversampler()->processSamplesDown (block);
+    osManager.processSamplesDown (block);
 
     buffer.makeCopyOf (doubleBuffer, true);
     applyDCBlockers (buffer);
