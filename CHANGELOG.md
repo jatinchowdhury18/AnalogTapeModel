@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in
 this file.
 
+## [UNRELEASED]
+- Added CLAP plugin format support.
+- Added option to enable/disable OpenGL on Windows/Linux systems with sufficient OpenGL support.
+- Fixed V1 mode creating high-pitched tone with linear phase oversampling.
+- Fixed compatibility issue related to `xsimd::isnan`.
+
 ## [2.10.0] - 2021-12-05
 - Added support for AAX plugin format.
 - Added mid/side processing option.
