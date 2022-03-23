@@ -24,7 +24,7 @@ Next you can generate the builds with CMake:
 ```bash
 cd Plugin
 
-cmake -Bbuild
+cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
 cmake --build build/ --config Release
 ```
 
