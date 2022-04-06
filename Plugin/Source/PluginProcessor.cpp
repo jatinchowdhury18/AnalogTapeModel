@@ -24,8 +24,10 @@
 namespace
 {
 constexpr int maxNumPresets = 999;
-
 const String settingsFilePath = "ChowdhuryDSP/ChowTape/.plugin_settings.json";
+
+//constexpr std::initializer_list<const short[2]> channelLayoutList = {{1, 1}, {2, 2}};
+const String isStereoTag = "plugin:is_stereo";
 } // namespace
 
 //==============================================================================
@@ -203,29 +205,20 @@ float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
     return lossFilter.getLatencySamples() + hysteresis.getLatencySamples() + compressionProcessor.getLatencySamples();
 }
 
-#ifndef JucePlugin_PreferredChannelConfigurations
 bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-#if JucePlugin_IsMidiEffect
-    ignoreUnused (layouts);
-    return true;
-#else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
     if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
         && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
         return false;
 
-        // This checks if the input layout matches the output layout
-#if ! JucePlugin_IsSynth
+    // This checks if the input layout matches the output layout
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-#endif
 
     return true;
-#endif
 }
-#endif
 
 void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer&)
 {
@@ -350,6 +343,8 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
         // speedHandle was nullptr!
         jassertfalse;
     }
+
+    magicState.getPropertyAsValue (isStereoTag).setValue (getTotalNumInputChannels() == 2);
 
 #if JUCE_IOS
     builder->registerFactory ("ScrollView", &ScrollView::factory);
