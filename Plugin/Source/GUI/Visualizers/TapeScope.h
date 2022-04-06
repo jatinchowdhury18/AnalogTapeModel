@@ -6,8 +6,8 @@
 class TapeScope : public foleys::MagicOscilloscope
 {
 public:
-    TapeScope (int numChannels);
-    ~TapeScope() = default;
+    TapeScope() = default;
+    ~TapeScope() override = default;
 
     enum AudioType
     {
@@ -15,6 +15,7 @@ public:
         Output,
     };
 
+    void setNumChannels (int newNumChannels);
     void prepareToPlay (double sampleRate, int samplesPerBlockExpected) override;
     void pushSamplesIO (const AudioBuffer<float>& buffer, AudioType type);
 
@@ -24,7 +25,7 @@ private:
     foleys::MagicLevelSource inputSource;
     foleys::MagicLevelSource outputSource;
 
-    const int numChannels;
+    int numChannels = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (TapeScope)
 };

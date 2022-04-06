@@ -100,6 +100,10 @@ private:
     chowdsp::SharedPluginSettings pluginSettings;
     AudioProcessorValueTreeState vts;
 
+    std::atomic<float>* inGainDBParam = nullptr;
+    std::atomic<float>* outGainDBParam = nullptr;
+    std::atomic<float>* dryWetParam = nullptr;
+
     GainProcessor inGain;
     InputFilters inputFilters;
     MidSideProcessor midSideController;
