@@ -16,11 +16,16 @@ ToneStage::ToneStage()
     }
 }
 
-void ToneStage::prepare (double sampleRate)
+void ToneStage::prepare (double sampleRate, int numChannels)
 {
     fs = (float) sampleRate;
 
-    for (int ch = 0; ch < 2; ++ch)
+    tone.resize ((size_t) numChannels, {});
+    lowGain.resize ((size_t) numChannels, {});
+    highGain.resize ((size_t) numChannels, {});
+    tFreq.resize ((size_t) numChannels, {});
+
+    for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
         auto resetSmoothValue = [sampleRate] (SmoothGain& value) {
             value.reset (sampleRate, slewTime);
@@ -36,13 +41,13 @@ void ToneStage::prepare (double sampleRate)
     }
 }
 
-void setSmoothValues (SmoothGain values[2], float newValue)
+void setSmoothValues (std::vector<SmoothGain>& values, float newValue)
 {
     if (newValue == values[0].getTargetValue())
         return;
 
-    values[0].setTargetValue (newValue);
-    values[1].setTargetValue (newValue);
+    for (auto& smoothedVal : values)
+        smoothedVal.setTargetValue (newValue);
 }
 
 void ToneStage::setLowGain (float lowGainDB) { setSmoothValues (lowGain, Decibels::decibelsToGain (lowGainDB)); }
@@ -51,20 +56,23 @@ void ToneStage::setTransFreq (float newTFreq) { setSmoothValues (tFreq, newTFreq
 
 void ToneStage::processBlock (AudioBuffer<float>& buffer)
 {
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    const auto numChannels = buffer.getNumChannels();
+    const auto numSamples = buffer.getNumSamples();
+
+    for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
+        auto* data = buffer.getWritePointer ((int) ch);
         if (lowGain[ch].isSmoothing() || highGain[ch].isSmoothing() || tFreq[ch].isSmoothing())
         {
-            auto* x = buffer.getWritePointer (ch);
-            for (int n = 0; n < buffer.getNumSamples(); ++n)
+            for (int n = 0; n < numSamples; ++n)
             {
                 tone[ch].calcCoefs (lowGain[ch].getNextValue(), highGain[ch].getNextValue(), tFreq[ch].getNextValue(), fs);
-                x[n] = tone[ch].processSample (x[n]);
+                data[n] = tone[ch].processSample (data[n]);
             }
         }
         else
         {
-            tone[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+            tone[ch].processBlock (data, numSamples);
         }
     }
 }
@@ -97,10 +105,10 @@ void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudio
     }));
 }
 
-void ToneControl::prepare (double sampleRate)
+void ToneControl::prepare (double sampleRate, int numChannels)
 {
-    toneIn.prepare (sampleRate);
-    toneOut.prepare (sampleRate);
+    toneIn.prepare (sampleRate, numChannels);
+    toneOut.prepare (sampleRate, numChannels);
 }
 
 void ToneControl::processBlockIn (AudioBuffer<float>& buffer)

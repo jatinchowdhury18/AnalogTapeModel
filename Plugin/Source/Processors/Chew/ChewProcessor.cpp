@@ -28,7 +28,7 @@ void ChewProcessor::prepare (double sr, int samplesPerBlock)
     samplesUntilChange = getDryTime();
     sampleCounter = 0;
 
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOff));
 }
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)

@@ -14,10 +14,10 @@ public:
         return static_cast<bool> (param->load());
     }
 
-    void prepare (int samplesPerBlock, bool onOffParam)
+    void prepare (int samplesPerBlock, int numChannels, bool onOffParam)
     {
         prevOnOffParam = onOffParam;
-        fadeBuffer.setSize (2, samplesPerBlock);
+        fadeBuffer.setSize (numChannels, samplesPerBlock);
         bufferCopied = false;
     }
 

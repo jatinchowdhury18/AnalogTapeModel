@@ -40,7 +40,7 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     fs = (float) sampleRate;
 
-    bypass.prepare (samplesPerBlock, bypass.toBool (flutterOnOff));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (flutterOnOff)); // @multi-channel
     wowProcessor.prepare (sampleRate, samplesPerBlock);
     flutterProcessor.prepare (sampleRate, samplesPerBlock);
 

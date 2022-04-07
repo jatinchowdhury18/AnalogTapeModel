@@ -31,7 +31,7 @@ void CompressionProcessor::prepare (double sr, int samplesPerBlock)
 {
     oversample.initProcessing ((size_t) samplesPerBlock);
     auto osFactor = oversample.getOversamplingFactor();
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOff)); // @mutli-channel
 
     for (int ch = 0; ch < 2; ++ch)
     {

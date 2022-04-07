@@ -171,7 +171,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
         dcBlocker[ch].prepare (sampleRate, dcFreq);
 
     doubleBuffer.setSize (2, samplesPerBlock);
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOffParam)); // @multi-channel
 
 #if HYSTERESIS_USE_SIMD
     const auto maxOSBlockSize = (uint32) samplesPerBlock * 16;

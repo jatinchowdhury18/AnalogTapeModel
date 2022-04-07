@@ -55,7 +55,7 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 
     levelDetector.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
     gainProc.prepareToPlay (sampleRate, samplesPerBlock);
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOffParam)); // @multi-channel
 }
 
 void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)

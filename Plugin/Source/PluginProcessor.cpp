@@ -179,9 +179,9 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
-//    inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
+    inputFilters.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
     midSideController.prepare (sampleRate);
-//    toneControl.prepare (sampleRate);
+    toneControl.prepare (sampleRate, numChannels);
 //    compressionProcessor.prepare (sampleRate, samplesPerBlock);
 //    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
 //    degrade.prepareToPlay (sampleRate, samplesPerBlock);
@@ -245,15 +245,15 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
 
     dryBuffer.makeCopyOf (buffer, true);
     inGain.processBlock (buffer, midiMessages);
-//    inputFilters.processBlock (buffer);
+    inputFilters.processBlock (buffer);
 
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
 
     midSideController.processInput (buffer);
-//    toneControl.processBlockIn (buffer);
+    toneControl.processBlockIn (buffer);
 //    compressionProcessor.processBlock (buffer);
 //    hysteresis.processBlock (buffer, midiMessages);
-//    toneControl.processBlockOut (buffer);
+    toneControl.processBlockOut (buffer);
 //    chewer.processBlock (buffer);
 //    degrade.processBlock (buffer, midiMessages);
 //    flutter.processBlock (buffer, midiMessages);
@@ -262,7 +262,7 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     latencyCompensation();
 
     midSideController.processOutput (buffer);
-//    inputFilters.processBlockMakeup (buffer);
+    inputFilters.processBlockMakeup (buffer);
     outGain.processBlock (buffer, midiMessages);
     dryWet.processBlock (dryBuffer, buffer);
 

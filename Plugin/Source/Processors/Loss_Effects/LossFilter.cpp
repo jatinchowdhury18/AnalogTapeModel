@@ -90,7 +90,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
     prevGap = *gap;
 
     azimuthProc.prepare (sampleRate, samplesPerBlock);
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOff)); // @multi-channel
 }
 
 void LossFilter::calcHeadBumpFilter (float speedIps, float gapMeters, double fs, StereoIIR& filter)

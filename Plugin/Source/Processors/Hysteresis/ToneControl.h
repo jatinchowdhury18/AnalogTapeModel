@@ -8,13 +8,13 @@ using SmoothGain = SmoothedValue<float, ValueSmoothingTypes::Multiplicative>;
 struct ToneStage
 {
     // ToneFilter tone[2];
-    chowdsp::ShelfFilter<float> tone[2];
-    SmoothGain lowGain[2], highGain[2], tFreq[2];
+    std::vector<chowdsp::ShelfFilter<float>> tone;
+    std::vector<SmoothGain> lowGain, highGain, tFreq;
     float fs = 44100.0f;
 
     ToneStage();
 
-    void prepare (double sampleRate);
+    void prepare (double sampleRate, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
     void setLowGain (float lowGainDB);
     void setHighGain (float highGainDB);
@@ -27,7 +27,7 @@ public:
     ToneControl (AudioProcessorValueTreeState& vts);
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
-    void prepare (double sampleRate);
+    void prepare (double sampleRate, int numChannels);
     void setDBScale (float newDBScale) { dbScale = newDBScale; };
 
     void processBlockIn (AudioBuffer<float>& buffer);
