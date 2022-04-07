@@ -7,7 +7,6 @@ using SmoothGain = SmoothedValue<float, ValueSmoothingTypes::Multiplicative>;
 
 struct ToneStage
 {
-    // ToneFilter tone[2];
     std::vector<chowdsp::ShelfFilter<float>> tone;
     std::vector<SmoothGain> lowGain, highGain, tFreq;
     float fs = 44100.0f;

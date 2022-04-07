@@ -6,35 +6,27 @@ constexpr double slewTime = 0.05;
 constexpr float transFreq = 500.0f;
 } // namespace
 
-ToneStage::ToneStage()
-{
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        lowGain[ch] = 1.0f;
-        highGain[ch] = 1.0f;
-        tFreq[ch] = transFreq;
-    }
-}
+ToneStage::ToneStage() = default;
 
 void ToneStage::prepare (double sampleRate, int numChannels)
 {
     fs = (float) sampleRate;
 
-    tone.resize ((size_t) numChannels, {});
-    lowGain.resize ((size_t) numChannels, {});
-    highGain.resize ((size_t) numChannels, {});
-    tFreq.resize ((size_t) numChannels, {});
+    tone.resize ((size_t) numChannels);
+    lowGain.resize ((size_t) numChannels);
+    highGain.resize ((size_t) numChannels);
+    tFreq.resize ((size_t) numChannels);
 
     for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
-        auto resetSmoothValue = [sampleRate] (SmoothGain& value) {
+        auto resetSmoothValue = [sampleRate] (SmoothGain& value, float startValue) {
             value.reset (sampleRate, slewTime);
-            value.setCurrentAndTargetValue (value.getTargetValue());
+            value.setCurrentAndTargetValue (startValue);
         };
 
-        resetSmoothValue (lowGain[ch]);
-        resetSmoothValue (highGain[ch]);
-        resetSmoothValue (tFreq[ch]);
+        resetSmoothValue (lowGain[ch], 1.0f);
+        resetSmoothValue (highGain[ch], 1.0f);
+        resetSmoothValue (tFreq[ch], transFreq);
 
         tone[ch].reset();
         tone[ch].calcCoefs (lowGain[ch].getTargetValue(), highGain[ch].getTargetValue(), tFreq[ch].getTargetValue(), fs);
