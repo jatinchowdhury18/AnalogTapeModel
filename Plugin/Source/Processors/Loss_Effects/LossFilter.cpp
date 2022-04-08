@@ -8,14 +8,6 @@ LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) : order (o
     gap = vts.getRawParameterValue ("gap");
     onOff = vts.getRawParameterValue ("loss_onoff");
     azimuth = vts.getRawParameterValue ("azimuth");
-
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        filters[ch].add (new FIRFilter (order));
-        filters[ch].add (new FIRFilter (order));
-    }
-
-    currentCoefs.resize (order);
 }
 
 void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -56,10 +48,10 @@ float LossFilter::getLatencySamples() const noexcept
                                  : 0.0f; // off
 }
 
-void LossFilter::prepare (float sampleRate, int samplesPerBlock)
+void LossFilter::prepare (float sampleRate, int samplesPerBlock, int numChannels)
 {
     fs = sampleRate;
-    fadeBuffer.setSize (2, samplesPerBlock);
+    fadeBuffer.setSize (numChannels, samplesPerBlock);
     fadeLength = jmax (1024, samplesPerBlock);
 
     fsFactor = (float) fs / 44100.0f;
@@ -67,21 +59,23 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
     currentCoefs.resize (curOrder);
     Hcoefs.resize (curOrder);
 
-    bumpFilter[0].prepare ({ (double) sampleRate, (uint32) samplesPerBlock, 2 });
-    bumpFilter[1].prepare ({ (double) sampleRate, (uint32) samplesPerBlock, 2 });
+    for (auto& filter : bumpFilter)
+    {
+        filter.resize ((size_t) numChannels);
+        for (auto& filt : filter)
+            filt.prepare ({ (double) sampleRate, (uint32) samplesPerBlock, 1 });
+    }
     calcCoefs (bumpFilter[activeFilter]);
 
-    for (int ch = 0; ch < 2; ++ch)
+    for (auto& filter : filters)
     {
-        filters[ch].clear();
-        filters[ch].add (new FIRFilter (curOrder));
-        filters[ch].add (new FIRFilter (curOrder));
-
-        filters[ch][0]->reset();
-        filters[ch][1]->reset();
-
-        filters[ch][0]->setCoefs (currentCoefs.getRawDataPointer());
-        filters[ch][1]->setCoefs (currentCoefs.getRawDataPointer());
+        filter.clear();
+        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
+        {
+            filter.emplace_back (curOrder);
+            filter[ch].reset();
+            filter[ch].setCoefs (currentCoefs.getRawDataPointer());
+        }
     }
 
     prevSpeed = *speed;
@@ -90,17 +84,19 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock)
     prevGap = *gap;
 
     azimuthProc.prepare (sampleRate, samplesPerBlock);
-    bypass.prepare (samplesPerBlock, 2, bypass.toBool (onOff)); // @multi-channel
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOff));
 }
 
-void LossFilter::calcHeadBumpFilter (float speedIps, float gapMeters, double fs, StereoIIR& filter)
+void LossFilter::calcHeadBumpFilter (float speedIps, float gapMeters, double fs, MultiChannelIIR& filter)
 {
     auto bumpFreq = speedIps * 0.0254f / (gapMeters * 500.0f);
     auto gain = jmax (1.5f * (1000.0f - std::abs (bumpFreq - 100.0f)) / 1000.0f, 1.0f);
-    *filter.state = *dsp::IIR::Coefficients<float>::makePeakFilter (fs, bumpFreq, 2.0f, gain);
+
+    for (auto& filt : filter)
+        filt.coefficients = *dsp::IIR::Coefficients<float>::makePeakFilter (fs, bumpFreq, 2.0f, gain);
 }
 
-void LossFilter::calcCoefs (StereoIIR& filter)
+void LossFilter::calcCoefs (MultiChannelIIR& filter)
 {
     // Set freq domain multipliers
     binWidth = fs / (float) curOrder;
@@ -145,9 +141,11 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     if ((*speed != prevSpeed || *spacing != prevSpacing || *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
     {
         calcCoefs (bumpFilter[! activeFilter]);
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[ch][! activeFilter]->setCoefs (currentCoefs.getRawDataPointer());
-        bumpFilter[! activeFilter].reset();
+        for (auto& filt : filters[! activeFilter])
+            filt.setCoefs (currentCoefs.getRawDataPointer());
+
+        for (auto& filt : bumpFilter[! activeFilter])
+            filt.reset();
 
         fadeCount = fadeLength;
         prevSpeed = *speed;
@@ -162,28 +160,34 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     }
     else
     {
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[ch][! activeFilter]->processBypassed (buffer.getReadPointer (ch), numSamples);
+        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
+            filters[! activeFilter][ch].processBypassed (buffer.getReadPointer ((int) ch), numSamples);
     }
 
     // normal processing here...
     {
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[ch][activeFilter]->process (buffer.getWritePointer (ch), numSamples);
-
         dsp::AudioBlock<float> block (buffer);
-        dsp::ProcessContextReplacing<float> ctx (block);
-        bumpFilter[activeFilter].process (ctx);
+        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
+        {
+            filters[activeFilter][ch].process (buffer.getWritePointer ((int) ch), numSamples);
+
+            auto&& channelBlock = block.getSingleChannelBlock (ch);
+            dsp::ProcessContextReplacing<float> ctx (channelBlock);
+            bumpFilter[activeFilter][ch].process (ctx);
+        }
     }
 
     if (fadeCount > 0)
     {
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[ch][! activeFilter]->process (fadeBuffer.getWritePointer (ch), numSamples);
+        dsp::AudioBlock<float> block (buffer);
+        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
+        {
+            filters[! activeFilter][ch].process (fadeBuffer.getWritePointer ((int) ch), numSamples);
 
-        dsp::AudioBlock<float> block (fadeBuffer);
-        dsp::ProcessContextReplacing<float> ctx (block);
-        bumpFilter[! activeFilter].process (ctx);
+            auto&& channelBlock = block.getSingleChannelBlock (ch);
+            dsp::ProcessContextReplacing<float> ctx (channelBlock);
+            bumpFilter[! activeFilter][ch].process (ctx);
+        }
 
         // fade between buffers
         auto startGain = (float) fadeCount / (float) fadeLength;

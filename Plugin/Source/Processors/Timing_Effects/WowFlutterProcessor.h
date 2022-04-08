@@ -14,7 +14,7 @@ public:
     void initialisePlots (foleys::MagicGUIState& magicState);
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
-    void prepareToPlay (double sampleRate, int samplesPerBlock);
+    void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>&, MidiBuffer&);
 
 private:
@@ -42,7 +42,7 @@ private:
     };
 
     dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
-    DCBlocker dcBlocker[2];
+    std::vector<DCBlocker> dcBlocker;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WowFlutterProcessor)
 };

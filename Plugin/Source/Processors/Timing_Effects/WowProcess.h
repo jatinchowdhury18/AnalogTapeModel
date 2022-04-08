@@ -9,14 +9,14 @@ class WowProcess
 public:
     WowProcess() = default;
 
-    void prepare (double sampleRate, int samplesPerBlock);
-    void prepareBlock (float curDepth, float wowFreq, float wowVar, float wowDrift, int numSamples);
+    void prepare (double sampleRate, int samplesPerBlock, int numChannels);
+    void prepareBlock (float curDepth, float wowFreq, float wowVar, float wowDrift, int numSamples, int numChannels);
     void plotBuffer (foleys::MagicPlotSource* plot);
 
     inline bool shouldTurnOff() const noexcept { return depthSlew[0].getTargetValue() == depthSlewMin; }
-    inline void updatePhase (int ch) noexcept { phase[ch] += angleDelta; }
+    inline void updatePhase (size_t ch) noexcept { phase[ch] += angleDelta; }
 
-    inline std::pair<float, float> getLFO (int n, int ch) noexcept
+    inline std::pair<float, float> getLFO (int n, size_t ch) noexcept
     {
         updatePhase (ch);
         auto curDepth = depthSlew[ch].getNextValue() * amp;
@@ -24,7 +24,7 @@ public:
         return std::make_pair (wowPtrs[ch][n], curDepth);
     }
 
-    inline void boundPhase (int ch) noexcept
+    inline void boundPhase (size_t ch) noexcept
     {
         while (phase[ch] >= MathConstants<float>::twoPi)
             phase[ch] -= MathConstants<float>::twoPi;
@@ -33,8 +33,8 @@ public:
 private:
     float angleDelta = 0.0f;
     float amp = 0.0f;
-    float phase[2] = { 0.0f, 0.0f };
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlew[2];
+    std::vector<float> phase;
+    std::vector<SmoothedValue<float, ValueSmoothingTypes::Multiplicative>> depthSlew;
 
     AudioBuffer<float> wowBuffer;
     float** wowPtrs = nullptr;

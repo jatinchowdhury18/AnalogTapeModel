@@ -184,14 +184,14 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     toneControl.prepare (sampleRate, numChannels);
     compressionProcessor.prepare (sampleRate, samplesPerBlock, numChannels);
 //    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
-//    degrade.prepareToPlay (sampleRate, samplesPerBlock);
-//    chewer.prepare (sampleRate, samplesPerBlock);
-//    lossFilter.prepare ((float) sampleRate, samplesPerBlock);
+    degrade.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
+    chewer.prepare (sampleRate, samplesPerBlock, numChannels);
+    lossFilter.prepare ((float) sampleRate, samplesPerBlock, numChannels);
 
     dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, (uint32) numChannels });
     dryDelay.setDelay (calcLatencySamples());
 
-//    flutter.prepareToPlay (sampleRate, samplesPerBlock);
+    flutter.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
 
     scope->setNumChannels (numChannels);
@@ -254,10 +254,10 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     compressionProcessor.processBlock (buffer);
 //    hysteresis.processBlock (buffer, midiMessages);
     toneControl.processBlockOut (buffer);
-//    chewer.processBlock (buffer);
-//    degrade.processBlock (buffer, midiMessages);
-//    flutter.processBlock (buffer, midiMessages);
-//    lossFilter.processBlock (buffer);
+    chewer.processBlock (buffer);
+    degrade.processBlock (buffer, midiMessages);
+    flutter.processBlock (buffer, midiMessages);
+    lossFilter.processBlock (buffer);
 
     latencyCompensation();
 
