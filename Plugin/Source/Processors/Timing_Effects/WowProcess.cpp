@@ -1,5 +1,10 @@
 #include "WowProcess.h"
 
+WowProcess::~WowProcess()
+{
+    depthSlew.clear();
+}
+
 void WowProcess::prepare (double sampleRate, int samplesPerBlock, int numChannels)
 {
     fs = (float) sampleRate;

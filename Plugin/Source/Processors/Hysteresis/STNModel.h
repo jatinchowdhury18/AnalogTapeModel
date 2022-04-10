@@ -12,6 +12,7 @@ class STNModel
 {
 public:
     STNModel();
+    STNModel (STNModel&&) noexcept = default;
 
     inline double forward (const double* input) noexcept
     {

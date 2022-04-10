@@ -8,6 +8,7 @@ class WowProcess
 {
 public:
     WowProcess() = default;
+    ~WowProcess();
 
     void prepare (double sampleRate, int samplesPerBlock, int numChannels);
     void prepareBlock (float curDepth, float wowFreq, float wowVar, float wowDrift, int numSamples, int numChannels);
