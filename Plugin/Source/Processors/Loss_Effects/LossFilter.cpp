@@ -93,7 +93,7 @@ void LossFilter::calcHeadBumpFilter (float speedIps, float gapMeters, double fs,
     auto gain = jmax (1.5f * (1000.0f - std::abs (bumpFreq - 100.0f)) / 1000.0f, 1.0f);
 
     for (auto& filt : filter)
-        filt.coefficients = *dsp::IIR::Coefficients<float>::makePeakFilter (fs, bumpFreq, 2.0f, gain);
+        filt.coefficients = dsp::IIR::Coefficients<float>::makePeakFilter (fs, bumpFreq, 2.0f, gain);
 }
 
 void LossFilter::calcCoefs (MultiChannelIIR& filter)

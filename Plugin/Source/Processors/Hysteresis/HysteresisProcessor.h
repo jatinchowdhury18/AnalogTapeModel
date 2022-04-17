@@ -74,11 +74,11 @@ private:
 
 #if HYSTERESIS_USE_SIMD
     using Vec2 = dsp::SIMDRegister<double>;
-    dsp::AudioBlock<Vec2> interleaved;
-    dsp::AudioBlock<double> zero;
+    dsp::AudioBlock<Vec2> interleavedBlock;
+    dsp::AudioBlock<double> zeroBlock;
 
     HeapBlock<char> interleavedBlockData, zeroData;
-    HeapBlock<const double*> channelPointers { Vec2::size() };
+    std::vector<const double*> channelPointers;
 #endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)
