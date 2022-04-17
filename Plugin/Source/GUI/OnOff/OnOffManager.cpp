@@ -3,16 +3,20 @@
 
 namespace
 {
-const std::unordered_map<String, StringArray> triggerMap {
-    { String ("ifilt_onoff"), StringArray ({ "Low Cut", "High Cut", "Makeup" }) },
-    { String ("hyst_onoff"), StringArray ({ "Bias", "Saturation", "Drive" }) },
-    { String ("tone_onoff"), StringArray ({ "Bass", "Treble", "Transition Frequency" }) },
-    { String ("loss_onoff"), StringArray ({ "Gap", "Thickness", "Spacing", "Speed", "3.75 ips", "7.5 ips", "15 ips", "30 ips" }) },
-    { String ("chew_onoff"), StringArray ({ "Chew Depth", "Chew Frequency", "Chew Variance" }) },
-    { String ("deg_onoff"), StringArray ({ "Depth", "Amount", "Variance", "Envelope", "0.1x" }) },
-    { String ("flutter_onoff"), StringArray ({ "Flutter Depth", "Flutter Rate", "Wow Depth", "Wow Rate", "Wow Variance", "Wow Drift" }) },
-    { String ("comp_onoff"), StringArray ({ "Compression Amount", "Compression Attack", "Compression Release" }) },
-};
+std::unordered_map<String, StringArray> createTriggerMap()
+{
+    return
+    {
+        { String("ifilt_onoff"), StringArray({"Low Cut", "High Cut", "Makeup"}) },
+        { String("hyst_onoff"), StringArray({"Bias", "Saturation", "Drive"}) },
+        { String("tone_onoff"), StringArray({"Bass", "Treble", "Transition Frequency"}) },
+        { String("loss_onoff"), StringArray( {"Gap", "Thickness", "Spacing", "Speed", "3.75 ips", "7.5 ips", "15 ips", "30 ips"}) },
+        { String("chew_onoff"), StringArray({"Chew Depth", "Chew Frequency", "Chew Variance"}) },
+        { String("deg_onoff"), StringArray({"Depth", "Amount", "Variance", "Envelope", "0.1x"}) },
+        { String("flutter_onoff"), StringArray({"Flutter Depth", "Flutter Rate", "Wow Depth", "Wow Rate", "Wow Variance", "Wow Drift"}) },
+        { String("comp_onoff"), StringArray({"Compression Amount", "Compression Attack", "Compression Release"}) },
+    };
+}
 
 void toggleEnableDisable (Component* root, StringArray& compNames, bool shouldBeEnabled)
 {
@@ -39,9 +43,10 @@ void toggleEnableDisable (Component* root, StringArray& compNames, bool shouldBe
 } // namespace
 
 OnOffManager::OnOffManager (AudioProcessorValueTreeState& vts, const AudioProcessor* proc) : vts (vts),
-                                                                                             proc (proc)
+                                                                                             proc (proc),
+                                                                                             triggerMap (createTriggerMap())
 {
-    for (auto& trigger : triggerMap)
+    for (const auto& trigger : triggerMap)
         vts.addParameterListener (trigger.first, this);
 }
 
@@ -53,19 +58,19 @@ OnOffManager::~OnOffManager()
 
 void OnOffManager::setOnOffForNewEditor (AudioProcessorEditor* editor)
 {
-    for (auto& trigger : triggerMap)
+    for (const auto& trigger : triggerMap)
     {
         auto paramValue = vts.getRawParameterValue (trigger.first)->load();
-        StringArray compNames (trigger.second);
+        StringArray compNames { trigger.second };
         toggleEnableDisable (editor, compNames, (bool) paramValue);
     }
 }
 
 void OnOffManager::parameterChanged (const String& paramID, float newValue)
 {
-    if (triggerMap.find (paramID) == triggerMap.end()) // unknown trigger key
-        return;
-
-    StringArray compNames (triggerMap.at (paramID));
-    toggleEnableDisable (proc->getActiveEditor(), compNames, (bool) newValue);
+    if (const auto triggerMapIter = triggerMap.find (paramID); triggerMapIter != triggerMap.end())
+    {
+        StringArray compNames { triggerMapIter->second };
+        toggleEnableDisable (proc->getActiveEditor(), compNames, (bool) newValue);
+    }
 }
