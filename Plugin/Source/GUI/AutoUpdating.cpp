@@ -198,7 +198,7 @@ String AutoUpdater::getLatestVersion()
     URL latestVersionURL (versionURL);
     auto inStream = latestVersionURL.createInputStream (URL::InputStreamOptions (URL::ParameterHandling::inAddress)
                                                             .withConnectionTimeoutMs (5000)
-                                                            .withNumRedirectsToFollow(5));
+                                                            .withNumRedirectsToFollow (5));
 
     if (inStream == nullptr)
         return {};
