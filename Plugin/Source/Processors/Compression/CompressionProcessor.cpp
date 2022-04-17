@@ -27,14 +27,20 @@ void CompressionProcessor::createParameterLayout (std::vector<std::unique_ptr<Ra
     params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 200.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
 }
 
-void CompressionProcessor::prepare (double sr, int samplesPerBlock)
+void CompressionProcessor::prepare (double sr, int samplesPerBlock, int numChannels)
 {
-    oversample.initProcessing ((size_t) samplesPerBlock);
-    auto osFactor = oversample.getOversamplingFactor();
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+    oversample = std::make_unique<dsp::Oversampling<float>> (numChannels, 1, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, true);
+    oversample->initProcessing ((size_t) samplesPerBlock);
+    auto osFactor = oversample->getOversamplingFactor();
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOff));
 
-    for (int ch = 0; ch < 2; ++ch)
+    slewLimiter.clear();
+    dbPlusSmooth.clear();
+    for (int ch = 0; ch < numChannels; ++ch)
     {
+        slewLimiter.emplace_back();
+        dbPlusSmooth.emplace_back();
+
         slewLimiter[ch].prepare ({ sr, (uint32) samplesPerBlock, 1 });
         dbPlusSmooth[ch].reset (sr, 0.05);
     }
@@ -71,7 +77,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         return;
 
     dsp::AudioBlock<float> block (buffer);
-    auto osBlock = oversample.processSamplesUp (block);
+    auto osBlock = oversample->processSamplesUp (block);
 
     const auto numSamples = (int) osBlock.getNumSamples();
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
@@ -112,13 +118,16 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         FloatVectorOperations::multiply (x, compGainVec.data(), numSamples);
     }
 
-    oversample.processSamplesDown (block);
+    oversample->processSamplesDown (block);
 
     bypass.processBlockOut (buffer, bypass.toBool (onOff));
 }
 
 float CompressionProcessor::getLatencySamples() const noexcept
 {
-    return onOff->load() == 1.0f ? oversample.getLatencyInSamples() // on
+    if (oversample == nullptr)
+        return 0.0f;
+
+    return onOff->load() == 1.0f ? oversample->getLatencyInSamples() // on
                                  : 0.0f; // off
 }

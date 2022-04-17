@@ -16,6 +16,7 @@ class HysteresisSTN
 {
 public:
     HysteresisSTN();
+    HysteresisSTN (HysteresisSTN&&) noexcept = default;
 
     static constexpr size_t inputSize = 5;
     static constexpr double diffMakeup = 1.0 / 6.0e4;

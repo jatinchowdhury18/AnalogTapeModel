@@ -4,7 +4,7 @@
 #include <JuceHeader.h>
 
 /** 4th-order L-R Filter */
-template <typename SampleType, size_t N_chan>
+template <typename SampleType>
 class LinkwitzRileyFilter
 {
 public:
@@ -26,7 +26,8 @@ public:
     {
         jassert (spec.sampleRate > 0);
         jassert (spec.numChannels > 0);
-        jassert (spec.numChannels == N_chan);
+
+        state.resize (spec.numChannels, {});
 
         sampleRate = spec.sampleRate;
         update();
@@ -89,7 +90,7 @@ private:
 
     SampleType g, h;
     static constexpr SampleType R2 = static_cast<SampleType> (1.41421356237);
-    std::array<std::array<SampleType, 4>, N_chan> state;
+    std::vector<std::array<SampleType, 4>> state;
 
     double sampleRate = 44100.0;
     SampleType cutoffFrequency = 2000.0;

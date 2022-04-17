@@ -36,21 +36,20 @@ void WowFlutterProcessor::createParameterLayout (std::vector<std::unique_ptr<Ran
     params.push_back (std::make_unique<AudioParameterFloat> ("wow_drift", "Wow Drift", 0.0f, 1.0f, 0.0f));
 }
 
-void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
 {
     fs = (float) sampleRate;
 
-    bypass.prepare (samplesPerBlock, bypass.toBool (flutterOnOff));
-    wowProcessor.prepare (sampleRate, samplesPerBlock);
-    flutterProcessor.prepare (sampleRate, samplesPerBlock);
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (flutterOnOff));
+    wowProcessor.prepare (sampleRate, samplesPerBlock, numChannels);
+    flutterProcessor.prepare (sampleRate, samplesPerBlock, numChannels);
 
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        delay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
-        delay.setDelay (0.0f);
+    delay.prepare ({ sampleRate, (uint32) samplesPerBlock, (uint32) numChannels });
+    delay.setDelay (0.0f);
 
-        dcBlocker[ch].prepare (sampleRate, 15.0f);
-    }
+    dcBlocker.resize ((size_t) numChannels);
+    for (auto& filt : dcBlocker)
+        filt.prepare (sampleRate, 15.0f);
 
     wowPlot->prepareToPlay (sampleRate, samplesPerBlock);
     flutterPlot->prepareToPlay (sampleRate, samplesPerBlock);
@@ -60,13 +59,16 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 {
     ScopedNoDenormals noDenormals;
 
+    const auto numChannels = buffer.getNumChannels();
+    const auto numSamples = buffer.getNumSamples();
+
     auto curDepthWow = powf (*wowDepth, 3.0f);
     auto wowFreq = powf (4.5, *wowRate) - 1.0f;
-    wowProcessor.prepareBlock (curDepthWow, wowFreq, wowVariance->load(), wowDrift->load(), buffer.getNumSamples());
+    wowProcessor.prepareBlock (curDepthWow, wowFreq, wowVariance->load(), wowDrift->load(), numSamples, numChannels);
 
     auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
-    flutterProcessor.prepareBlock (curDepthFlutter, flutterFreq, buffer.getNumSamples());
+    flutterProcessor.prepareBlock (curDepthFlutter, flutterFreq, numSamples, numChannels);
 
     bool shouldTurnOff = ! bypass.toBool (flutterOnOff) || (wowProcessor.shouldTurnOff() && flutterProcessor.shouldTurnOff());
     if (bypass.processBlockIn (buffer, ! shouldTurnOff))

@@ -8,7 +8,7 @@ class DegradeFilter
 {
 public:
     DegradeFilter() { freq.reset (numSteps); }
-    ~DegradeFilter() {}
+    DegradeFilter (DegradeFilter&&) noexcept = default;
 
     void reset (float sampleRate, int steps = 0)
     {

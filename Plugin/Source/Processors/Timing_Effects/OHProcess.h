@@ -13,18 +13,20 @@ class OHProcess
 public:
     OHProcess() = default;
 
-    void prepare (double sampleRate, int samplesPerBlock)
+    void prepare (double sampleRate, int samplesPerBlock, int numChannels)
     {
-        dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, 1 };
+        dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, (uint32) numChannels };
+        dsp::ProcessSpec monoSpec { sampleRate, (uint32) samplesPerBlock, 1 };
 
         noiseGen.setNoiseType (chowdsp::Noise<float>::Normal);
         noiseGen.setGainLinear (1.0f / 2.33f);
-        noiseGen.prepare (spec);
+        noiseGen.prepare (monoSpec);
 
-        for (int ch = 0; ch < 2; ++ch)
+        lpf.resize ((size_t) numChannels);
+        for (auto& filt : lpf)
         {
-            lpf[ch].prepare (spec);
-            lpf[ch].coefficients = dsp::IIR::Coefficients<float>::makeLowPass (sampleRate, 10.0f);
+            filt.prepare (spec);
+            filt.coefficients = dsp::IIR::Coefficients<float>::makeLowPass (sampleRate, 10.0f);
         }
 
         noiseBuffer.setSize (1, samplesPerBlock);
@@ -33,8 +35,8 @@ public:
         sqrtdelta = 1.0f / std::sqrt ((float) sampleRate);
         T = 1.0f / (float) sampleRate;
 
+        y.resize ((size_t) numChannels, 0.0f);
         y[0] = 1.0f;
-        y[1] = 0.0f;
     }
 
     void prepareBlock (float amtParam, int numSamples)
@@ -51,7 +53,7 @@ public:
         mean = amtParam;
     }
 
-    inline float process (int n, int ch) noexcept
+    inline float process (int n, size_t ch) noexcept
     {
         y[ch] += sqrtdelta * rPtr[n] * amt;
         y[ch] += damping * (mean - y[ch]) * T;
@@ -61,7 +63,7 @@ public:
 private:
     float sqrtdelta = 1.0f / std::sqrt (48000.0f);
     float T = 1.0f / 48000.0f;
-    float y[2] = { 0.0f, 0.0f };
+    std::vector<float> y;
 
     float amt = 0.0f;
     float mean = 0.0f;
@@ -71,7 +73,7 @@ private:
     AudioBuffer<float> noiseBuffer;
     const float* rPtr = nullptr;
 
-    dsp::IIR::Filter<float> lpf[2];
+    std::vector<dsp::IIR::Filter<float>> lpf;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OHProcess)
 };

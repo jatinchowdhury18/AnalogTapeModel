@@ -8,9 +8,7 @@ constexpr int rmsMS = 5000; // rms window milliseconds
 constexpr float xPad = 3.0f;
 } // namespace
 
-TapeScope::TapeScope (int numChannels) : numChannels (numChannels)
-{
-}
+void TapeScope::setNumChannels (int newNumChannels) { numChannels = newNumChannels; }
 
 void TapeScope::prepareToPlay (double newSampleRate, int samplesPerBlockExpected)
 {
