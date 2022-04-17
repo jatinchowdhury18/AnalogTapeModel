@@ -26,6 +26,7 @@ public:
         for (auto& mix : mixSmooth)
             mix.reset (sr, 0.01);
 
+        powerSmooth.resize ((size_t) numChannels);
         for (auto& power : powerSmooth)
             power.reset (sr, 0.005);
     }
