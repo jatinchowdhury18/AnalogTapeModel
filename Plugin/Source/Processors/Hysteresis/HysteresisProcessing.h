@@ -23,11 +23,12 @@ class HysteresisProcessing
 {
 public:
     HysteresisProcessing();
+    HysteresisProcessing (HysteresisProcessing&&) noexcept = default;
 
     void reset();
     void setSampleRate (double newSR);
 
-    void cook (float drive, float width, float sat, bool v1);
+    void cook (double drive, double width, double sat, bool v1);
 
     /* Process a single sample */
     template <SolverType solver, typename Float>

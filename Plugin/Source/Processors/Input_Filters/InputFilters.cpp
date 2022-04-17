@@ -46,20 +46,20 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
     params.push_back (std::make_unique<AudioParameterBool> ("ifilt_makeup", "Input Cut Makeup", false));
 }
 
-void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock)
+void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
 {
     fs = (float) sampleRate;
-    dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, 2 };
+    dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, (uint32) numChannels };
     lowCutFilter.prepare (spec);
     highCutFilter.prepare (spec);
     makeupDelay.prepare (spec);
 
-    lowCutBuffer.setSize (2, samplesPerBlock);
-    highCutBuffer.setSize (2, samplesPerBlock);
-    makeupBuffer.setSize (2, samplesPerBlock);
+    lowCutBuffer.setSize (numChannels, samplesPerBlock);
+    highCutBuffer.setSize (numChannels, samplesPerBlock);
+    makeupBuffer.setSize (numChannels, samplesPerBlock);
 
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
-    makeupBypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOffParam));
+    makeupBypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOffParam));
 }
 
 void InputFilters::processBlock (AudioBuffer<float>& buffer)
@@ -101,7 +101,7 @@ void InputFilters::processBlockMakeup (AudioBuffer<float>& buffer)
     }
 
     // compile makeup signal
-    makeupBuffer.setSize (2, buffer.getNumSamples(), false, false, true);
+    makeupBuffer.setSize (buffer.getNumChannels(), buffer.getNumSamples(), false, false, true);
     dsp::AudioBlock<float> lowCutBlock (lowCutBuffer);
     dsp::AudioBlock<float> highCutBlock (highCutBuffer);
     dsp::AudioBlock<float> makeupBlock (makeupBuffer);

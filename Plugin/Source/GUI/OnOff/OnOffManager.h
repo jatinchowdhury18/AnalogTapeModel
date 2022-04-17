@@ -17,6 +17,8 @@ private:
     AudioProcessorValueTreeState& vts;
     const AudioProcessor* proc;
 
+    const std::unordered_map<String, StringArray> triggerMap;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OnOffManager)
 };
 

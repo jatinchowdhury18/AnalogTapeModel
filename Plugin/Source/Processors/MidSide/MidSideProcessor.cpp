@@ -22,10 +22,12 @@ void MidSideProcessor::prepare (double sampleRate)
 
 void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
 {
-    const auto numSamples = buffer.getNumSamples();
+    if (buffer.getNumChannels() != 2) // needs to be stereo!
+        return;
 
     //mid - side encoding logic here
-    if (curMS && buffer.getNumChannels() != 1)
+    const auto numSamples = buffer.getNumSamples();
+    if (curMS)
     {
         buffer.addFrom (0, 0, buffer, 1, 0, numSamples); // make channel 0 = left + right = mid
         buffer.applyGain (1, 0, numSamples, 2.0f); // make channel 1 = 2 * right
@@ -38,7 +40,8 @@ void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
 
 void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
 {
-    const auto numSamples = buffer.getNumSamples();
+    if (buffer.getNumChannels() != 2) // needs to be stereo!
+        return;
 
     if (prevMS != (*midSideParam == 1.0f) && ! fadeSmooth.isSmoothing())
     {
@@ -47,7 +50,8 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
     }
 
     //mid - side decoding logic here
-    if (curMS && buffer.getNumChannels() != 1)
+    const auto numSamples = buffer.getNumSamples();
+    if (curMS)
     {
         buffer.applyGain (Decibels::decibelsToGain (3.0f)); // undo -3 dB Normalization
 
