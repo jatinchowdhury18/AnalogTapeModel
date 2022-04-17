@@ -55,12 +55,12 @@
     <View max-height="80" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
             flex-grow="0.41">
-        <View flex-grow="0.333" background-color="00000000"/>
-        <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
+        <View flex-grow="0.15" background-color="00000000"/>
+        <TitleComp background-color="00000000" title="Chow Tape Model" font="35"
                    padding="1" flex-grow="1.0"/>
         <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
                   padding="0" margin="5" border=""/>
-        <View background-color="00000000" flex-grow="0.33"/>
+        <View background-color="00000000" flex-grow="0.15"/>
       </View>
       <View margin="0" padding="" background-color="00000000" flex-direction="row"
             flex-grow="0.41">

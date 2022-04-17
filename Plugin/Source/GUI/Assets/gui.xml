@@ -36,12 +36,12 @@
     <View max-height="100" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
             flex-grow="0.75">
-        <View flex-grow="0.333" background-color="00000000"/>
-        <TitleComp background-color="00000000" title="Chow Tape Model" font="28"
+        <View flex-grow="0.15" background-color="00000000"/>
+        <TitleComp background-color="00000000" title="Chow Tape Model" font="35"
                    padding="3" flex-grow="1.0"/>
         <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
                   padding="0" margin="5" border=""/>
-        <View background-color="00000000" flex-grow="0.33"/>
+        <View background-color="00000000" flex-grow="0.15"/>
       </View>
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
