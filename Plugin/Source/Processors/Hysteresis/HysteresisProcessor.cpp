@@ -249,7 +249,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
         interleaveSamples (&inout[ch], simdBlockData, static_cast<int> (n), static_cast<int> (Vec2::size()));
     }
 
-    auto&& processBlock = interleavedBlock;
+    auto&& processBlock = interleavedBlock.getSubBlock (0, n);
 #else
     auto&& processBlock = osBlock;
 #endif
