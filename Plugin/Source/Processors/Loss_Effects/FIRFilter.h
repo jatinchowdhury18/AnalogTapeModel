@@ -23,6 +23,8 @@ public:
         z.resize (2 * order);
     }
 
+    FIRFilter (FIRFilter&&) noexcept = default;
+
     void reset()
     {
         zPtr = 0;

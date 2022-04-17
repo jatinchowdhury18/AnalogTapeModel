@@ -12,7 +12,7 @@ public:
     HysteresisProcessor (AudioProcessorValueTreeState& vts);
 
     /* Reset fade buffers, filters, and processors. Prepare oversampling */
-    void prepareToPlay (double sampleRate, int samplesPerBlock);
+    void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
 
     /* Reset oversampling */
     void releaseResources();
@@ -50,22 +50,22 @@ private:
     std::atomic<float>* modeParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
 
-    SmoothedValue<double, ValueSmoothingTypes::Linear> drive[2];
-    SmoothedValue<double, ValueSmoothingTypes::Linear> width[2];
-    SmoothedValue<double, ValueSmoothingTypes::Linear> sat[2];
+    std::vector<SmoothedValue<double, ValueSmoothingTypes::Linear>> drive;
+    std::vector<SmoothedValue<double, ValueSmoothingTypes::Linear>> width;
+    std::vector<SmoothedValue<double, ValueSmoothingTypes::Linear>> sat;
     SmoothedValue<double, ValueSmoothingTypes::Multiplicative> makeup;
 
     double fs = 44100.0f;
-    HysteresisProcessing hProcs[2];
-    SolverType solver = SolverType::RK4;
     chowdsp::VariableOversampling<double> osManager; // needs oversampling to avoid aliasing
-    DCBlocker dcBlocker[2];
+    std::vector<HysteresisProcessing> hProcs;
+    SolverType solver = SolverType::RK4;
+    std::vector<DCBlocker> dcBlocker;
 
     static constexpr double dcFreq = 35.0;
 
     double biasGain = 10.0;
     double biasFreq = 48000.0;
-    double biasAngle[2] = { 0.0, 0.0 };
+    std::vector<double> biasAngle;
     bool wasV1 = false, useV1 = false;
     double clipLevel = 20.0;
 
@@ -74,11 +74,11 @@ private:
 
 #if HYSTERESIS_USE_SIMD
     using Vec2 = dsp::SIMDRegister<double>;
-    dsp::AudioBlock<Vec2> interleaved;
-    dsp::AudioBlock<double> zero;
+    dsp::AudioBlock<Vec2> interleavedBlock;
+    dsp::AudioBlock<double> zeroBlock;
 
     HeapBlock<char> interleavedBlockData, zeroData;
-    HeapBlock<const double*> channelPointers { Vec2::size() };
+    std::vector<const double*> channelPointers;
 #endif
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HysteresisProcessor)

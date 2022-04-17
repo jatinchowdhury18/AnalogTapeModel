@@ -16,19 +16,21 @@ void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAud
     params.push_back (std::make_unique<AudioParameterFloat> ("chew_var", "Chew Variance", 0.0f, 1.0f, 0.0f));
 }
 
-void ChewProcessor::prepare (double sr, int samplesPerBlock)
+void ChewProcessor::prepare (double sr, int samplesPerBlock, int numChannels)
 {
     sampleRate = (float) sr;
 
-    dropout.prepare (sr);
-    filt[0].reset (sampleRate, int (sr * 0.02));
-    filt[1].reset (sampleRate, int (sr * 0.02));
+    dropout.prepare (sr, numChannels);
+
+    filt.resize ((size_t) numChannels);
+    for (auto& filter : filt)
+        filter.reset (sampleRate, int (sr * 0.02));
 
     isCrinkled = false;
     samplesUntilChange = getDryTime();
     sampleCounter = 0;
 
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOff));
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOff));
 }
 
 void ChewProcessor::processBlock (AudioBuffer<float>& buffer)
@@ -76,15 +78,16 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
     if (*freq == 0.0f)
     {
         mix = 0.0f;
-        filt[0].setFreq (highFreq);
-        filt[1].setFreq (highFreq);
+	for (auto& filter : filt)
+	    filter.setFreq (highFreq);
     }
     else if (*freq == 1.0f)
     {
         mix = 1.0f;
         power = 3.0f * *depth;
-        filt[0].setFreq (highFreq - freqChange * *depth);
-        filt[1].setFreq (highFreq - freqChange * *depth);
+        const auto filterFreq = highFreq - freqChange * *depth;
+	for (auto& filter : filt)
+	    filter.setFreq (filterFreq);
     }
     else if (sampleCounter >= samplesUntilChange)
     {
@@ -95,15 +98,17 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
         {
             mix = 1.0f;
             power = (1.0f + 2.0f * random.nextFloat()) * *depth;
-            filt[0].setFreq (highFreq - freqChange * *depth);
-            filt[1].setFreq (highFreq - freqChange * *depth);
+            const auto filterFreq = highFreq - freqChange * *depth;
+	    for (auto& filter : filt)
+		filter.setFreq (filterFreq);
+
             samplesUntilChange = getWetTime();
         }
         else // end crinkle
         {
             mix = 0.0f;
-            filt[0].setFreq (highFreq);
-            filt[1].setFreq (highFreq);
+	    for (auto& filter : filt)
+		filter.setFreq (highFreq);
             samplesUntilChange = getDryTime();
         }
     }
@@ -112,8 +117,9 @@ void ChewProcessor::processShortBlock (AudioBuffer<float>& buffer)
         power = (1.0f + 2.0f * random.nextFloat()) * *depth;
         if (isCrinkled)
         {
-            filt[0].setFreq (highFreq - freqChange * *depth);
-            filt[1].setFreq (highFreq - freqChange * *depth);
+            const auto filterFreq = highFreq - freqChange * *depth;
+	    for (auto& filter : filt)
+		filter.setFreq (filterFreq);
         }
     }
 

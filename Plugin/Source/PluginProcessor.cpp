@@ -24,14 +24,23 @@
 namespace
 {
 constexpr int maxNumPresets = 999;
-
 const String settingsFilePath = "ChowdhuryDSP/ChowTape/.plugin_settings.json";
+
+//constexpr std::initializer_list<const short[2]> channelLayoutList = {{1, 1}, {2, 2}};
+const String isStereoTag = "plugin:is_stereo";
+
+const String inGainTag = "ingain";
+const String outGainTag = "outgain";
+const String dryWetTag = "drywet";
 } // namespace
 
 //==============================================================================
 ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true).withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
+      inGainDBParam (vts.getRawParameterValue (inGainTag)),
+      outGainDBParam (vts.getRawParameterValue (outGainTag)),
+      dryWetParam (vts.getRawParameterValue (dryWetTag)),
       inputFilters (vts),
       midSideController (vts),
       toneControl (vts),
@@ -49,7 +58,7 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
     positionInfo.bpm = 120.0;
     positionInfo.timeSigNumerator = 4;
 
-    scope = magicState.createAndAddObject<TapeScope> ("scope", getMainBusNumInputChannels());
+    scope = magicState.createAndAddObject<TapeScope> ("scope");
     flutter.initialisePlots (magicState);
 
     LookAndFeel::setDefaultLookAndFeel (&myLNF);
@@ -69,9 +78,9 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
 {
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
 
-    params.push_back (std::make_unique<AudioParameterFloat> ("ingain", "Input Gain", -30.0f, 6.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("outgain", "Output Gain", -30.0f, 30.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("drywet", "Dry/Wet", 0.0f, 100.0f, 100.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (inGainTag, "Input Gain", -30.0f, 6.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (outGainTag, "Output Gain", -30.0f, 30.0f, 0.0f));
+    params.push_back (std::make_unique<AudioParameterFloat> (dryWetTag, "Dry/Wet", 0.0f, 100.0f, 100.0f));
     params.push_back (std::make_unique<AudioParameterInt> ("preset", "Preset", 0, maxNumPresets, 0));
 
     InputFilters::createParameterLayout (params);
@@ -166,31 +175,34 @@ void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& ne
 //==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    const auto numChannels = getTotalNumInputChannels();
     setRateAndBufferSizeDetails (sampleRate, samplesPerBlock);
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
-    inputFilters.prepareToPlay (sampleRate, samplesPerBlock);
+    inputFilters.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
     midSideController.prepare (sampleRate);
-    toneControl.prepare (sampleRate);
-    compressionProcessor.prepare (sampleRate, samplesPerBlock);
-    hysteresis.prepareToPlay (sampleRate, samplesPerBlock);
-    degrade.prepareToPlay (sampleRate, samplesPerBlock);
-    chewer.prepare (sampleRate, samplesPerBlock);
-    lossFilter.prepare ((float) sampleRate, samplesPerBlock);
+    toneControl.prepare (sampleRate, numChannels);
+    compressionProcessor.prepare (sampleRate, samplesPerBlock, numChannels);
+    hysteresis.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
+    degrade.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
+    chewer.prepare (sampleRate, samplesPerBlock, numChannels);
+    lossFilter.prepare ((float) sampleRate, samplesPerBlock, numChannels);
 
-    dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, 2 });
+    dryDelay.prepare ({ sampleRate, (uint32) samplesPerBlock, (uint32) numChannels });
     dryDelay.setDelay (calcLatencySamples());
 
-    flutter.prepareToPlay (sampleRate, samplesPerBlock);
+    flutter.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
     outGain.prepareToPlay (sampleRate, samplesPerBlock);
 
+    scope->setNumChannels (numChannels);
     scope->prepareToPlay (sampleRate, samplesPerBlock);
 
     dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
     dryWet.reset();
-    dryBuffer.setSize (2, samplesPerBlock);
+    dryBuffer.setSize (numChannels, samplesPerBlock);
 
     setLatencySamples (roundToInt (calcLatencySamples()));
+    magicState.getPropertyAsValue (isStereoTag).setValue (numChannels == 2);
 }
 
 void ChowtapeModelAudioProcessor::releaseResources()
@@ -203,29 +215,13 @@ float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
     return lossFilter.getLatencySamples() + hysteresis.getLatencySamples() + compressionProcessor.getLatencySamples();
 }
 
-#ifndef JucePlugin_PreferredChannelConfigurations
 bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-#if JucePlugin_IsMidiEffect
-    ignoreUnused (layouts);
-    return true;
-#else
-    // This is the place where you check if the layout is supported.
-    // In this template code we only support mono or stereo.
-    if (layouts.getMainOutputChannelSet() != AudioChannelSet::mono()
-        && layouts.getMainOutputChannelSet() != AudioChannelSet::stereo())
-        return false;
-
-        // This checks if the input layout matches the output layout
-#if ! JucePlugin_IsSynth
-    if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
-        return false;
-#endif
-
-    return true;
-#endif
+    return ((! layouts.getMainInputChannelSet().isDiscreteLayout())
+            && (! layouts.getMainOutputChannelSet().isDiscreteLayout())
+            && (layouts.getMainInputChannelSet() == layouts.getMainOutputChannelSet())
+            && (! layouts.getMainInputChannelSet().isDisabled()));
 }
-#endif
 
 void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer&)
 {
@@ -243,9 +239,9 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     if (auto playhead = getPlayHead())
         playhead->getCurrentPosition (positionInfo);
 
-    inGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("ingain")->load()));
-    outGain.setGain (Decibels::decibelsToGain (vts.getRawParameterValue ("outgain")->load()));
-    dryWet.setDryWet (*vts.getRawParameterValue ("drywet") / 100.0f);
+    inGain.setGain (Decibels::decibelsToGain (inGainDBParam->load()));
+    outGain.setGain (Decibels::decibelsToGain (outGainDBParam->load()));
+    dryWet.setDryWet (dryWetParam->load() / 100.0f);
 
     dryBuffer.makeCopyOf (buffer, true);
     inGain.processBlock (buffer, midiMessages);

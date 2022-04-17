@@ -12,7 +12,7 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
-    void prepare (double sr, int samplesPerBlock);
+    void prepare (double sr, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
     void processShortBlock (AudioBuffer<float>& buffer);
 
@@ -25,7 +25,7 @@ private:
     float power = 0.0f;
 
     Dropout dropout;
-    DegradeFilter filt[2];
+    std::vector<DegradeFilter> filt;
 
     Random random;
     int samplesUntilChange = 1000;

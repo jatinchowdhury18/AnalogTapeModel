@@ -14,7 +14,7 @@ public:
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
     void cookParams();
-    void prepareToPlay (double sampleRate, int samplesPerBlock);
+    void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
 
 private:
@@ -25,11 +25,11 @@ private:
     std::atomic<float>* varParam = nullptr;
     std::atomic<float>* envParam = nullptr;
 
-    DegradeFilter filterProc[2];
+    std::vector<DegradeFilter> filterProc;
     GainProcessor gainProc;
 
     AudioBuffer<float> noiseBuffer;
-    DegradeNoise noiseProc[2];
+    std::vector<DegradeNoise> noiseProc;
 
     AudioBuffer<float> levelBuffer;
     chowdsp::LevelDetector<float> levelDetector;

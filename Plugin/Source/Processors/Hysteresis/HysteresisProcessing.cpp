@@ -23,13 +23,13 @@ void HysteresisProcessing::setSampleRate (double newSR)
     hysteresisSTN.prepare (newSR);
 }
 
-void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
+void HysteresisProcessing::cook (double drive, double width, double sat, bool v1)
 {
-    hysteresisSTN.setParams (sat, width);
+    hysteresisSTN.setParams ((float) sat, (float) width);
 
-    hpState.M_s = 0.5 + 1.5 * (1.0 - (double) sat);
-    hpState.a = hpState.M_s / (0.01 + 6.0 * (double) drive);
-    hpState.c = std::sqrt (1.0f - (double) width) - 0.01;
+    hpState.M_s = 0.5 + 1.5 * (1.0 - sat);
+    hpState.a = hpState.M_s / (0.01 + 6.0 * drive);
+    hpState.c = std::sqrt (1.0f - width) - 0.01;
     hpState.k = 0.47875;
     upperLim = 20.0;
 
@@ -38,7 +38,7 @@ void HysteresisProcessing::cook (float drive, float width, float sat, bool v1)
         hpState.k = 27.0e3;
         hpState.c = 1.7e-1;
         hpState.M_s *= 50000.0;
-        hpState.a = hpState.M_s / (0.01 + 40.0 * (double) drive);
+        hpState.a = hpState.M_s / (0.01 + 40.0 * drive);
         upperLim = 100000.0;
     }
 

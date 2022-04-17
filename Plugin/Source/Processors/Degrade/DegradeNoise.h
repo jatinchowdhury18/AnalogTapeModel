@@ -7,8 +7,8 @@
 class DegradeNoise
 {
 public:
-    DegradeNoise() {}
-    ~DegradeNoise() {}
+    DegradeNoise() = default;
+    DegradeNoise (DegradeNoise&&) noexcept = default;
 
     void setGain (float newGain) { curGain = newGain; }
 

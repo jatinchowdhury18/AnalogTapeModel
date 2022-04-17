@@ -53,9 +53,7 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-#ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-#endif
 
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
@@ -101,6 +99,10 @@ private:
 
     chowdsp::SharedPluginSettings pluginSettings;
     AudioProcessorValueTreeState vts;
+
+    std::atomic<float>* inGainDBParam = nullptr;
+    std::atomic<float>* outGainDBParam = nullptr;
+    std::atomic<float>* dryWetParam = nullptr;
 
     GainProcessor inGain;
     InputFilters inputFilters;

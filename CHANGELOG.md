@@ -3,6 +3,7 @@ All notable changes to this project will be documented in
 this file.
 
 ## [UNRELEASED]
+- Added multi-channel processing support.
 - Added CLAP plugin format support.
 - Added option to enable/disable OpenGL on Windows/Linux systems with sufficient OpenGL support.
 - Fixed V1 mode creating high-pitched tone with linear phase oversampling.
