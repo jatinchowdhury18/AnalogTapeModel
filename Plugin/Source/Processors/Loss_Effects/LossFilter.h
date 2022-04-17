@@ -18,7 +18,7 @@ public:
     float getLatencySamples() const noexcept;
 
 private:
-    using MultiChannelIIR = std::vector<dsp::IIR::Filter<float>>;
+    using MultiChannelIIR = dsp::ProcessorDuplicator<dsp::IIR::Filter<float>, dsp::IIR::Coefficients<float>>;
 
     void calcCoefs (MultiChannelIIR& filter);
     static void calcHeadBumpFilter (float speedIps, float gapMeters, double fs, MultiChannelIIR& filter);
