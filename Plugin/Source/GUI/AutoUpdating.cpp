@@ -196,7 +196,9 @@ File AutoUpdater::getUpdateCheckFile()
 String AutoUpdater::getLatestVersion()
 {
     URL latestVersionURL (versionURL);
-    std::unique_ptr<InputStream> inStream (latestVersionURL.createInputStream (false, nullptr, nullptr, {}, 5000));
+    auto inStream = latestVersionURL.createInputStream (URL::InputStreamOptions (URL::ParameterHandling::inAddress)
+                                                            .withConnectionTimeoutMs (5000)
+                                                            .withNumRedirectsToFollow (5));
 
     if (inStream == nullptr)
         return {};
