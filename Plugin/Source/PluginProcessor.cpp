@@ -217,7 +217,7 @@ float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 
 bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-    return ((! layouts.getMainInputChannelSet() .isDiscreteLayout())
+    return ((! layouts.getMainInputChannelSet().isDiscreteLayout())
             && (! layouts.getMainOutputChannelSet().isDiscreteLayout())
             && (layouts.getMainInputChannelSet() == layouts.getMainOutputChannelSet())
             && (! layouts.getMainInputChannelSet().isDisabled()));

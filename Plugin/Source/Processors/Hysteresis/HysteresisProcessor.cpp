@@ -157,7 +157,6 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock,
     hProcs.resize ((size_t) numChannels);
     for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
-
         hProcs[ch].setSampleRate (sampleRate * osManager.getOSFactor());
         hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
         hProcs[ch].reset();

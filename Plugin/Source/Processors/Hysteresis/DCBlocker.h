@@ -9,7 +9,7 @@ class DCBlocker
 public:
     DCBlocker() = default;
     DCBlocker (DCBlocker&&) noexcept = default;
-    DCBlocker& operator=(DCBlocker&&) noexcept = default;
+    DCBlocker& operator= (DCBlocker&&) noexcept = default;
 
     /** Prepare the DC blocker to process samples
       *

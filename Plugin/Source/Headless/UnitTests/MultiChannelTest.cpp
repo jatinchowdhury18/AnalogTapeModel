@@ -3,6 +3,7 @@
 class MultiChannelTest : public UnitTest
 {
     using Proc = ChowtapeModelAudioProcessor;
+
 public:
     MultiChannelTest() : UnitTest ("MultiChannelTest") {}
 
