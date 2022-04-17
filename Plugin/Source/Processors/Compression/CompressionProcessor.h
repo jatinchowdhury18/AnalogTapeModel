@@ -11,7 +11,7 @@ public:
 
     static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
 
-    void prepare (double sr, int samplesPerBlock);
+    void prepare (double sr, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
 
     float getLatencySamples() const noexcept;
@@ -22,15 +22,15 @@ private:
     std::atomic<float>* attackParam = nullptr;
     std::atomic<float>* releaseParam = nullptr;
 
-    chowdsp::LevelDetector<float> slewLimiter[2];
+    std::vector<chowdsp::LevelDetector<float>> slewLimiter;
     BypassProcessor bypass;
 
-    dsp::Oversampling<float> oversample { 2, 1, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR, true, true };
+    std::unique_ptr<dsp::Oversampling<float>> oversample;
 
-    SmoothedValue<float, ValueSmoothingTypes::Linear> dbPlusSmooth[2];
+    std::vector<SmoothedValue<float, ValueSmoothingTypes::Linear>> dbPlusSmooth;
 
-    std::vector<float, XSIMD_DEFAULT_ALLOCATOR (float)> xDBVec;
-    std::vector<float, XSIMD_DEFAULT_ALLOCATOR (float)> compGainVec;
+    std::vector<float, xsimd::aligned_allocator<float>> xDBVec;
+    std::vector<float, xsimd::aligned_allocator<float>> compGainVec;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (CompressionProcessor)
 };

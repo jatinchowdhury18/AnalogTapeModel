@@ -49,15 +49,6 @@ HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts) : o
     widthParam = vts.getRawParameterValue ("width");
     modeParam = vts.getRawParameterValue ("mode");
     onOffParam = vts.getRawParameterValue ("hyst_onoff");
-
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        drive[ch].reset (numSteps);
-        width[ch].reset (numSteps);
-        sat[ch].reset (numSteps);
-    }
-
-    makeup.reset (numSteps);
 }
 
 void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
@@ -107,29 +98,27 @@ double HysteresisProcessor::calcMakeup()
 
 void HysteresisProcessor::setDrive (float newDrive)
 {
-    for (int ch = 0; ch < 2; ++ch)
-    {
-        drive[ch].setTargetValue ((double) newDrive);
-    }
+    for (auto& driveVal : drive)
+        driveVal.setTargetValue ((double) newDrive);
 }
 
 void HysteresisProcessor::setWidth (float newWidth)
 {
-    for (int ch = 0; ch < 2; ++ch)
-        width[ch].setTargetValue ((double) newWidth);
+    for (auto& widthVal : width)
+        widthVal.setTargetValue ((double) newWidth);
 }
 
 void HysteresisProcessor::setSaturation (float newSaturation)
 {
-    for (int ch = 0; ch < 2; ++ch)
-        sat[ch].setTargetValue ((double) newSaturation);
+    for (auto& satVal : sat)
+        satVal.setTargetValue ((double) newSaturation);
 }
 
 void HysteresisProcessor::setOversampling()
 {
     if (osManager.updateOSFactor())
     {
-        for (int ch = 0; ch < 2; ++ch)
+        for (size_t ch = 0; ch < hProcs.size(); ++ch)
         {
             hProcs[ch].setSampleRate (fs * osManager.getOSFactor());
             hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
@@ -145,39 +134,53 @@ void HysteresisProcessor::calcBiasFreq()
     biasFreq = fs * osManager.getOSFactor() / 2.0;
 }
 
-void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
 {
     fs = sampleRate;
     wasV1 = useV1;
+
+    osManager.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
     calcBiasFreq();
 
-    for (int ch = 0; ch < 2; ++ch)
+    drive.resize ((size_t) numChannels);
+    for (auto& val : drive)
+        val.reset (numSteps);
+
+    width.resize ((size_t) numChannels);
+    for (auto& val : width)
+        val.reset (numSteps);
+
+    sat.resize ((size_t) numChannels);
+    for (auto& val : sat)
+        val.reset (numSteps);
+
+    hProcs.resize ((size_t) numChannels);
+    for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
-        drive[ch].skip (numSteps);
-        width[ch].skip (numSteps);
-        sat[ch].skip (numSteps);
 
         hProcs[ch].setSampleRate (sampleRate * osManager.getOSFactor());
         hProcs[ch].cook (drive[ch].getCurrentValue(), width[ch].getCurrentValue(), sat[ch].getCurrentValue(), wasV1);
         hProcs[ch].reset();
-
-        biasAngle[ch] = 0.0;
     }
 
-    makeup.skip (numSteps);
+    biasAngle.resize ((size_t) numChannels, 0.0);
+    makeup.reset (numSteps);
 
-    osManager.prepareToPlay (sampleRate, samplesPerBlock);
-    for (int ch = 0; ch < 2; ++ch)
-        dcBlocker[ch].prepare (sampleRate, dcFreq);
+    dcBlocker.resize ((size_t) numChannels);
+    for (auto& filt : dcBlocker)
+        filt.prepare (sampleRate, dcFreq);
 
-    doubleBuffer.setSize (2, samplesPerBlock);
-    bypass.prepare (samplesPerBlock, bypass.toBool (onOffParam));
+    doubleBuffer.setSize (numChannels, samplesPerBlock);
+    bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOffParam));
 
 #if HYSTERESIS_USE_SIMD
     const auto maxOSBlockSize = (uint32) samplesPerBlock * 16;
-    interleaved = dsp::AudioBlock<Vec2> (interleavedBlockData, 1, maxOSBlockSize);
-    zero = dsp::AudioBlock<double> (zeroData, Vec2::size(), maxOSBlockSize);
-    zero.clear();
+    const auto numVecChannels = chowdsp::ceiling_divide ((size_t) numChannels, Vec2::size());
+    interleavedBlock = dsp::AudioBlock<Vec2> (interleavedBlockData, numVecChannels, maxOSBlockSize);
+    zeroBlock = dsp::AudioBlock<double> (zeroData, Vec2::size(), maxOSBlockSize);
+    zeroBlock.clear();
+
+    channelPointers.resize (numVecChannels * Vec2::size());
 #endif
 }
 
@@ -195,6 +198,8 @@ float HysteresisProcessor::getLatencySamples() const noexcept
 
 void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
 {
+    const auto numChannels = buffer.getNumChannels();
+
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
 
@@ -209,14 +214,14 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     if (useV1 != wasV1)
     {
-        for (int ch = 0; ch < 2; ++ch)
-            hProcs[ch].reset();
+        for (auto& hProc : hProcs)
+            hProc.reset();
     }
 
     wasV1 = useV1;
 
     // clip input to avoid unstable hysteresis
-    for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+    for (int ch = 0; ch < numChannels; ++ch)
     {
         auto* bufferPtr = buffer.getWritePointer (ch);
         FloatVectorOperations::clip (bufferPtr,
@@ -233,16 +238,21 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
 #if HYSTERESIS_USE_SIMD
     const auto n = osBlock.getNumSamples();
-    auto* inout = channelPointers.getData();
-    for (size_t ch = 0; ch < Vec2::size(); ++ch)
-        inout[ch] = (ch < osBlock.getNumChannels() ? const_cast<double*> (osBlock.getChannelPointer (ch)) : zero.getChannelPointer (ch));
+    auto* inout = channelPointers.data();
+    const auto numChannelsPadded = channelPointers.size();
+    for (size_t ch = 0; ch < numChannelsPadded; ++ch)
+        inout[ch] = (ch < osBlock.getNumChannels() ? const_cast<double*> (osBlock.getChannelPointer (ch)) : zeroBlock.getChannelPointer (ch % Vec2::size()));
 
     // interleave channels
-    interleaveSamples (inout, reinterpret_cast<double*> (interleaved.getChannelPointer (0)), static_cast<int> (n), static_cast<int> (Vec2::size()));
+    for (size_t ch = 0; ch < numChannelsPadded; ch += Vec2::size())
+    {
+        auto* simdBlockData = reinterpret_cast<double*> (interleavedBlock.getChannelPointer (ch / Vec2::size()));
+        interleaveSamples (&inout[ch], simdBlockData, static_cast<int> (n), static_cast<int> (Vec2::size()));
+    }
 
-    auto processBlock = interleaved.getSubBlock (0, n);
+    auto&& processBlock = interleavedBlock;
 #else
-    auto processBlock = osBlock;
+    auto&& processBlock = osBlock;
 #endif
 
     if (useV1)
@@ -293,10 +303,14 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
 #if HYSTERESIS_USE_SIMD
     // de-interleave channels
-    deinterleaveSamples (reinterpret_cast<double*> (interleaved.getChannelPointer (0)),
-                         const_cast<double**> (inout),
-                         static_cast<int> (n),
-                         static_cast<int> (Vec2::size()));
+    for (size_t ch = 0; ch < numChannelsPadded; ch += Vec2::size())
+    {
+        auto* simdBlockData = reinterpret_cast<double*> (interleavedBlock.getChannelPointer (ch / Vec2::size()));
+        deinterleaveSamples (simdBlockData,
+                             const_cast<double**> (&inout[ch]),
+                             static_cast<int> (n),
+                             static_cast<int> (Vec2::size()));
+    }
 #endif
 
     osManager.processSamplesDown (block);
@@ -310,7 +324,7 @@ void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 template <typename T, typename SmoothType>
 void applyMakeup (dsp::AudioBlock<T>& block, SmoothType& makeup)
 {
-#if 1 // HYSTERESIS_USE_SIMD
+#if HYSTERESIS_USE_SIMD
     const auto numSamples = block.getNumSamples();
     const auto numChannels = block.getNumChannels();
 
@@ -342,11 +356,15 @@ void applyMakeup (dsp::AudioBlock<T>& block, SmoothType& makeup)
 template <SolverType solverType, typename T>
 void HysteresisProcessor::process (dsp::AudioBlock<T>& block)
 {
-    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
+    const auto numChannels = block.getNumChannels();
+    const auto numSamples = block.getNumSamples();
+
+    for (size_t channel = 0; channel < numChannels; ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
-            x[samp] = hProcs[channel].process<solverType> (x[samp]);
+        auto& hProc = hProcs[channel];
+        for (size_t samp = 0; samp < numSamples; samp++)
+            x[samp] = hProc.process<solverType> (x[samp]);
     }
 
     applyMakeup (block, makeup);
@@ -355,13 +373,17 @@ void HysteresisProcessor::process (dsp::AudioBlock<T>& block)
 template <SolverType solverType, typename T>
 void HysteresisProcessor::processSmooth (dsp::AudioBlock<T>& block)
 {
-    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
+    const auto numChannels = block.getNumChannels();
+    const auto numSamples = block.getNumSamples();
+
+    for (size_t channel = 0; channel < numChannels; ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
+        auto& hProc = hProcs[channel];
+        for (size_t samp = 0; samp < numSamples; samp++)
         {
-            hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), false);
-            x[samp] = hProcs[channel].process<solverType> (x[samp]);
+            hProc.cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), false);
+            x[samp] = hProc.process<solverType> (x[samp]);
         }
     }
 
@@ -371,18 +393,23 @@ void HysteresisProcessor::processSmooth (dsp::AudioBlock<T>& block)
 template <typename T>
 void HysteresisProcessor::processV1 (dsp::AudioBlock<T>& block)
 {
+    const auto numChannels = block.getNumChannels();
+    const auto numSamples = block.getNumSamples();
     const auto angleDelta = MathConstants<double>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
-    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < numChannels; ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
+        auto& hProc = hProcs[channel];
+        auto& bAngle = biasAngle[channel];
+        const auto bAngleMult = biasGain * (1.0 - width[channel].getCurrentValue());
+        for (size_t samp = 0; samp < numSamples; samp++)
         {
-            auto bias = biasGain * (1.0 - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            biasAngle[channel] += angleDelta;
-            biasAngle[channel] -= MathConstants<double>::twoPi * (biasAngle[channel] >= MathConstants<double>::twoPi);
+            auto bias = bAngleMult * std::sin (bAngle);
+            bAngle += angleDelta;
+            bAngle -= MathConstants<double>::twoPi * (bAngle >= MathConstants<double>::twoPi);
 
-            x[samp] = hProcs[channel].process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
+            x[samp] = hProc.process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
         }
     }
 }
@@ -390,20 +417,24 @@ void HysteresisProcessor::processV1 (dsp::AudioBlock<T>& block)
 template <typename T>
 void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<T>& block)
 {
+    const auto numChannels = block.getNumChannels();
+    const auto numSamples = block.getNumSamples();
     const auto angleDelta = MathConstants<double>::twoPi * biasFreq / (fs * osManager.getOSFactor());
 
-    for (size_t channel = 0; channel < block.getNumChannels(); ++channel)
+    for (size_t channel = 0; channel < numChannels; ++channel)
     {
         auto* x = block.getChannelPointer (channel);
-        for (size_t samp = 0; samp < block.getNumSamples(); samp++)
+        auto& hProc = hProcs[channel];
+        auto& bAngle = biasAngle[channel];
+        for (size_t samp = 0; samp < numSamples; samp++)
         {
-            hProcs[channel].cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), true);
+            hProc.cook (drive[channel].getNextValue(), width[channel].getNextValue(), sat[channel].getNextValue(), true);
 
-            auto bias = biasGain * (1.0 - width[channel].getCurrentValue()) * std::sin (biasAngle[channel]);
-            biasAngle[channel] += angleDelta;
-            biasAngle[channel] -= MathConstants<double>::twoPi * (biasAngle[channel] >= MathConstants<double>::twoPi);
+            auto bias = biasGain * (1.0 - width[channel].getCurrentValue()) * std::sin (bAngle);
+            bAngle += angleDelta;
+            bAngle -= MathConstants<double>::twoPi * (bAngle >= MathConstants<double>::twoPi);
 
-            x[samp] = hProcs[channel].process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
+            x[samp] = hProc.process<RK4> ((x[samp] + bias) * 10000.0) * v1Norm;
         }
     }
 }
@@ -411,5 +442,5 @@ void HysteresisProcessor::processSmoothV1 (dsp::AudioBlock<T>& block)
 void HysteresisProcessor::applyDCBlockers (AudioBuffer<float>& buffer)
 {
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
-        dcBlocker[ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
+        dcBlocker[(size_t) ch].processBlock (buffer.getWritePointer (ch), buffer.getNumSamples());
 }

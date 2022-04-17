@@ -18,6 +18,7 @@ target_sources(ChowTapeModel_Headless PRIVATE
     UnitTests/UnitTests.cpp
     UnitTests/HysteresisOpsTest.cpp
     UnitTests/MixGroupsTest.cpp
+    UnitTests/MultiChannelTest.cpp
     UnitTests/SpeedTest.cpp
     UnitTests/STNTest.cpp
 )

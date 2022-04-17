@@ -81,11 +81,12 @@
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
-          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes" margin="5" padding="0"
+          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)" margin="5" padding="0"
                       parameter="mid_side" text="Stereo" text_on="Mid/Side" width="100" height="35"
                       min-height="30" min-width="100" flex-align-self="center" max-height="40"
                       name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
-                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
+                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
+                      enabled="plugin:is_stereo"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
@@ -188,8 +189,8 @@
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds."
-                  caption-placement="top-left" max-height="75"/>
+                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds. (Stereo only)"
+                  caption-placement="top-left" max-height="75" enabled="plugin:is_stereo"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"

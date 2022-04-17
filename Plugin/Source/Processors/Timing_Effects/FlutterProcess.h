@@ -8,19 +8,19 @@ class FlutterProcess
 public:
     FlutterProcess() = default;
 
-    void prepare (double sampleRate, int samplesPerBlock);
-    void prepareBlock (float curDepth, float flutterFreq, int numSamples);
+    void prepare (double sampleRate, int samplesPerBlock, int numChannels);
+    void prepareBlock (float curDepth, float flutterFreq, int numSamples, int numChannels);
     void plotBuffer (foleys::MagicPlotSource* plot);
 
     inline bool shouldTurnOff() const noexcept { return depthSlew[0].getTargetValue() == depthSlewMin; }
-    inline void updatePhase (int ch) noexcept
+    inline void updatePhase (size_t ch) noexcept
     {
         phase1[ch] += angleDelta1;
         phase2[ch] += angleDelta2;
         phase3[ch] += angleDelta3;
     }
 
-    inline std::pair<float, float> getLFO (int n, int ch) noexcept
+    inline std::pair<float, float> getLFO (int n, size_t ch) noexcept
     {
         updatePhase (ch);
         flutterPtrs[ch][n] = depthSlew[ch].getNextValue()
@@ -30,7 +30,7 @@ public:
         return std::make_pair (flutterPtrs[ch][n], dcOffset);
     }
 
-    inline void boundPhase (int ch) noexcept
+    inline void boundPhase (size_t ch) noexcept
     {
         while (phase1[ch] >= MathConstants<float>::twoPi)
             phase1[ch] -= MathConstants<float>::twoPi;
@@ -41,14 +41,14 @@ public:
     }
 
 private:
-    float phase1[2] = { 0.0f, 0.0f };
-    float phase2[2] = { 0.0f, 0.0f };
-    float phase3[2] = { 0.0f, 0.0f };
+    std::vector<float> phase1;
+    std::vector<float> phase2;
+    std::vector<float> phase3;
 
     float amp1 = 0.0f;
     float amp2 = 0.0f;
     float amp3 = 0.0f;
-    SmoothedValue<float, ValueSmoothingTypes::Multiplicative> depthSlew[2];
+    std::vector<SmoothedValue<float, ValueSmoothingTypes::Multiplicative>> depthSlew;
 
     float angleDelta1 = 0.0f;
     float angleDelta2 = 0.0f;

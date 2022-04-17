@@ -10,26 +10,24 @@ public:
 
     void setMix (float newMix)
     {
-        for (int ch = 0; ch < 2; ++ch)
-            mixSmooth[ch].setTargetValue (newMix);
+        for (auto& mix : mixSmooth)
+            mix.setTargetValue (newMix);
     }
 
     void setPower (float newPow)
     {
-        for (int ch = 0; ch < 2; ++ch)
-            powerSmooth[ch].setTargetValue (newPow);
+        for (auto& power : powerSmooth)
+            power.setTargetValue (newPow);
     }
 
-    void prepare (double sr)
+    void prepare (double sr, int numChannels)
     {
-        for (int ch = 0; ch < 2; ++ch)
-        {
-            mixSmooth[ch].reset (sr, 0.01);
-            mixSmooth[ch].setCurrentAndTargetValue (mixSmooth[ch].getTargetValue());
+        mixSmooth.resize ((size_t) numChannels);
+        for (auto& mix : mixSmooth)
+            mix.reset (sr, 0.01);
 
-            powerSmooth[ch].reset (sr, 0.005);
-            powerSmooth[ch].setCurrentAndTargetValue (powerSmooth[ch].getTargetValue());
-        }
+        for (auto& power : powerSmooth)
+            power.reset (sr, 0.005);
     }
 
     void process (AudioBuffer<float>& buffer)
@@ -37,9 +35,9 @@ public:
         if (mixSmooth[0].getTargetValue() == 0.0f && ! mixSmooth[0].isSmoothing())
             return;
 
-        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        for (size_t ch = 0; ch < (size_t) buffer.getNumChannels(); ++ch)
         {
-            auto* x = buffer.getWritePointer (ch);
+            auto* x = buffer.getWritePointer ((int) ch);
             for (int n = 0; n < buffer.getNumSamples(); ++n)
             {
                 auto mix = mixSmooth[ch].getNextValue();
@@ -48,15 +46,15 @@ public:
         }
     }
 
-    inline float dropout (float x, int ch)
+    inline float dropout (float x, size_t ch)
     {
         auto sign = (float) chowdsp::signum (x);
         return pow (abs (x), powerSmooth[ch].getNextValue()) * sign;
     }
 
 private:
-    LinearSmoothedValue<float> mixSmooth[2];
-    LinearSmoothedValue<float> powerSmooth[2];
+    std::vector<LinearSmoothedValue<float>> mixSmooth;
+    std::vector<LinearSmoothedValue<float>> powerSmooth;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Dropout)
 };

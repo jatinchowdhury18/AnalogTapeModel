@@ -25,6 +25,9 @@
         <XYDragComponent border="0" margin="0" padding="0" background-color="00000000"
                          radius="0"/>
       </Types>
+      <Palettes>
+        <default/>
+      </Palettes>
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
@@ -47,11 +50,12 @@
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
-          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes" margin="5" padding="0"
-                      parameter="mid_side" text="Stereo" text_on="Mid/Side" width="100" height="35"
-                      min-height="30" min-width="100" flex-align-self="center" max-height="40"
-                      name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
-                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
+          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
+                      margin="5" padding="0" parameter="mid_side" text="Stereo" text_on="Mid/Side"
+                      width="100" height="35" min-height="30" min-width="100" flex-align-self="center"
+                      max-height="40" name="Mid/Side" lookAndFeel="LookAndFeel_V3"
+                      button-color="FF33343D" button-on-color="FFB41717" button-off-text="FFFFFFFF"
+                      button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
@@ -135,8 +139,8 @@
                   caption-placement="top-left"/>
           <Slider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds."
-                  caption-placement="top-left"/>
+                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds. (Stereo only)"
+                  caption-placement="top-left" enabled="plugin:is_stereo"/>
           <Slider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
@@ -255,9 +259,9 @@
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
       <View background-color="00000000" flex-grow="0.05"/>
-      <OversamplingMenu caption="Oversampling" class="Slider" flex-grow="1.2" caption-size="0" padding="0"
-                        combo-text="FFEAA92C" menu-accent="FFEAA92C" combo-background="00000000" max-height="100"
-                        margin="0" lookAndFeel="ComboBoxLNF"  name="Oversampling"
+      <OversamplingMenu caption="Oversampling" class="Slider" flex-grow="1.2" caption-size="0"
+                        padding="0" combo-text="FFEAA92C" menu-accent="FFEAA92C" combo-background="00000000"
+                        max-height="100" margin="0" lookAndFeel="ComboBoxLNF" name="Oversampling"
                         tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
       <ComboBox lookAndFeel="ComboBoxLNF" padding="0" border="0" background-color="00000000"
                 name="Hysteresis Mode" caption="Hysteresis Mode" caption-size="0"
