@@ -1,68 +1,66 @@
-#ifndef PRESETCOMP_H_INCLUDED
-#define PRESETCOMP_H_INCLUDED
-
-#include "../PluginProcessor.h"
-#include "PresetManager.h"
-
-class PresetComp : public Component,
-                   private PresetManager::Listener
-{
-public:
-    enum ColourIDs
-    {
-        backgroundColourId,
-        textColourId,
-    };
-
-    PresetComp (ChowtapeModelAudioProcessor& proc, PresetManager& manager);
-    ~PresetComp() override;
-
-    void paint (Graphics& g) override;
-    void resized() override;
-    void presetUpdated() override;
-
-private:
-    void loadPresetChoices();
-    void addPresetOptions();
-    void saveUserPreset();
-
-    ChowtapeModelAudioProcessor& proc;
-    PresetManager& manager;
-
-    ComboBox presetBox;
-    TextEditor presetNameEditor;
-
-    DrawableButton presetsLeft, presetsRight;
-
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
-};
-
-class PresetComponentItem : public foleys::GuiItem
-{
-public:
-    FOLEYS_DECLARE_GUI_FACTORY (PresetComponentItem)
-
-    PresetComponentItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
-    {
-        setColourTranslation ({ { "presets-background", PresetComp::backgroundColourId },
-                                { "presets-text", PresetComp::textColourId } });
-
-        if (auto* proc = dynamic_cast<ChowtapeModelAudioProcessor*> (builder.getMagicState().getProcessor()))
-        {
-            presetComp = std::make_unique<PresetComp> (*proc, proc->getPresetManager());
-            addAndMakeVisible (presetComp.get());
-        }
-    }
-
-    void update() override {}
-
-    Component* getWrappedComponent() override
-    {
-        return presetComp.get();
-    }
-
-private:
-    std::unique_ptr<PresetComp> presetComp;
-};
-
-#endif // PRESETCOMP_H_INCLUDED
+//#ifndef PRESETCOMP_H_INCLUDED
+//#define PRESETCOMP_H_INCLUDED
+//
+//#include "../PluginProcessor.h"
+//#include "PresetManager.h"
+//
+//class PresetComp : public chowdsp::PresetsComp
+//{
+//public:
+//    enum ColourIDs
+//    {
+//        backgroundColourId,
+//        textColourId,
+//    };
+//
+//    explicit PresetsComp (PresetManager& presetMgr);
+//
+//    void presetListUpdated() final;
+//    int createPresetsMenu (int optionID) override;
+//    int addPresetOptions (int optionID) override;
+//
+//private:
+//    void loadPresetChoices();
+//    void addPresetOptions();
+//    void saveUserPreset();
+//
+//    ChowtapeModelAudioProcessor& proc;
+//    PresetManager& manager;
+//
+//    ComboBox presetBox;
+//    TextEditor presetNameEditor;
+//
+//    DrawableButton presetsLeft, presetsRight;
+//
+//    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PresetComp)
+//};
+//
+//class PresetComponentItem : public foleys::GuiItem
+//{
+//public:
+//    FOLEYS_DECLARE_GUI_FACTORY (PresetComponentItem)
+//
+//    PresetComponentItem (foleys::MagicGUIBuilder& builder, const ValueTree& node) : foleys::GuiItem (builder, node)
+//    {
+//        setColourTranslation ({ { "presets-background", PresetComp::backgroundColourId },
+//                                { "presets-text", PresetComp::textColourId } });
+//
+//        if (auto* proc = dynamic_cast<ChowtapeModelAudioProcessor*> (builder.getMagicState().getProcessor()))
+//        {
+//            presetComp = std::make_unique<PresetComp> (*proc, proc->getPresetManager());
+//            addAndMakeVisible (presetComp.get());
+//        }
+//    }
+//
+//    void update() override {}
+//
+//    Component* getWrappedComponent() override
+//    {
+//        return presetComp.get();
+//    }
+//
+//private:
+//    std::unique_ptr<PresetComp> presetComp;
+//};
+//
+//#endif // PRESETCOMP_H_INCLUDED

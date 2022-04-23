@@ -23,10 +23,8 @@
 
 namespace
 {
-constexpr int maxNumPresets = 999;
 const String settingsFilePath = "ChowdhuryDSP/ChowTape/.plugin_settings.json";
 
-//constexpr std::initializer_list<const short[2]> channelLayoutList = {{1, 1}, {2, 2}};
 const String isStereoTag = "plugin:is_stereo";
 
 const String inGainTag = "ingain";
@@ -81,7 +79,6 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     params.push_back (std::make_unique<AudioParameterFloat> (inGainTag, "Input Gain", -30.0f, 6.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (outGainTag, "Output Gain", -30.0f, 30.0f, 0.0f));
     params.push_back (std::make_unique<AudioParameterFloat> (dryWetTag, "Dry/Wet", 0.0f, 100.0f, 100.0f));
-    params.push_back (std::make_unique<AudioParameterInt> ("preset", "Preset", 0, maxNumPresets, 0));
 
     InputFilters::createParameterLayout (params);
     ToneControl::createParameterLayout (params);
@@ -142,24 +139,12 @@ int ChowtapeModelAudioProcessor::getNumPrograms()
 
 int ChowtapeModelAudioProcessor::getCurrentProgram()
 {
-    return (int) *vts.getRawParameterValue ("preset");
+    return presetManager.getCurrentPresetIndex();
 }
 
 void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
 {
-    if (index > maxNumPresets)
-        return;
-
-    auto& presetParam = *vts.getRawParameterValue ("preset");
-    if ((int) presetParam == index)
-        return;
-
-    if (presetManager.setPreset (vts, index))
-    {
-        presetParam = (float) index;
-        presetManager.presetUpdated();
-        updateHostDisplay();
-    }
+    presetManager.loadPresetFromIndex (index);
 }
 
 const String ChowtapeModelAudioProcessor::getProgramName (int index)
@@ -311,7 +296,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
-    presetManager.registerPresetsComponent (*builder);
+    builder->registerFactory ("presets", &chowdsp::PresetsItem<ChowtapeModelAudioProcessor>::factory);
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
@@ -383,27 +368,45 @@ String ChowtapeModelAudioProcessor::getWrapperTypeString() const
 //==============================================================================
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
-#if JUCE_IOS
+    auto xml = std::make_unique<XmlElement> ("state");
+    xml->setAttribute("version", chowdsp::VersionUtils::Version(JucePlugin_VersionString).getVersionString());
+
     auto state = vts.copyState();
-    std::unique_ptr<XmlElement> xml (state.createXml());
+    xml->addChildElement (state.createXml().release());
+    xml->addChildElement (presetManager.saveXmlState().release());
+
     copyXmlToBinary (*xml, destData);
-#else
-    magicState.getStateInformation (destData);
-#endif
 }
 
 void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-#if JUCE_IOS
-    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+    auto xmlState = getXmlFromBinary (data, sizeInBytes);
+    if (xmlState == nullptr)
+    {
+        // let's check if state was saved with Foley's methods
+        auto tree = ValueTree::readFromData (data, size_t (sizeInBytes));
+        if (tree.isValid())
+            vts.replaceState (tree);
 
-    if (xmlState.get() != nullptr)
+        return;
+    }
+
+    if (xmlState->hasAttribute("version"))
+    {
+        auto* vtsXml = xmlState->getChildByName (vts.state.getType());
+        if (vtsXml == nullptr) // invalid ValueTreeState
+            return;
+
+        presetManager.loadXmlState (xmlState->getChildByName (chowdsp::PresetManager::presetStateTag));
+        vts.replaceState (ValueTree::fromXml (*vtsXml));
+    }
+    else
+    {
+        // state was saved before we started tracking the version with the state,
+        // so let's load state the old way...
         if (xmlState->hasTagName (vts.state.getType()))
             vts.replaceState (juce::ValueTree::fromXml (*xmlState));
-#else
-    magicState.setStateInformation (data, sizeInBytes, getActiveEditor());
-#endif
-    presetManager.presetUpdated();
+    }
 }
 
 //==============================================================================

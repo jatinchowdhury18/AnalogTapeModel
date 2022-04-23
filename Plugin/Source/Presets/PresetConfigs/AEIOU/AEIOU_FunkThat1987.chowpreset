@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset name="AEIOU_Funk That 1987">
+<Preset name="Funk That 1987" plugin="CHOWTapeModel" vendor="AEIOU" category="" version="2.10.0">
   <Parameters>
     <PARAM id="chew_depth" value="0.009999999776482582"/>
     <PARAM id="chew_freq" value="0.009999999776482582"/>
