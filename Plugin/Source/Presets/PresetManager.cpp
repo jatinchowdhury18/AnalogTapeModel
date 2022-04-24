@@ -12,13 +12,15 @@ PresetManager::PresetManager (AudioProcessorValueTreeState& vts) : chowdsp::Pres
 
 #if JUCE_IOS
     File appDataDir = File::getSpecialLocation (File::userApplicationDataDirectory);
-    userPresetFolder = appDataDir.getChildFile (userPresetPath).getSiblingFile ("Presets");
+    auto userPresetFolder = appDataDir.getChildFile (userPresetPath).getSiblingFile ("Presets");
     if (! userPresetFolder.isDirectory())
     {
         userPresetFolder.deleteFile();
         userPresetFolder.createDirectory();
     }
-#endif
+
+    setUserPresetPath (userPresetFolder);
+#endif // JUCE_IOS
 }
 
 void PresetManager::loadFactoryPresets()
