@@ -31,7 +31,7 @@
     </Style>
   </Styles>
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
-        padding="0" width="640" height="620" background-color="FF8B3232"
+        padding="0" width="720" height="620" background-color="FF8B3232"
         background-image="Background_svg" image-placement="stretch">
     <View max-height="100" padding="0" margin="0" background-color="">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
@@ -47,15 +47,10 @@
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
     <View padding="0" margin="" background-color="" lookAndFeel="">
-      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF"
+            flex-grow="1.5">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
-          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
-                      margin="5" padding="0" parameter="mid_side" text="Stereo" text_on="Mid/Side"
-                      width="100" height="35" min-height="30" min-width="100" flex-align-self="center"
-                      max-height="40" name="Mid/Side" lookAndFeel="LookAndFeel_V3"
-                      button-color="FF33343D" button-on-color="FFB41717" button-off-text="FFFFFFFF"
-                      button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
@@ -77,6 +72,24 @@
           <PowerButton background-color="00000000" max-height="25" min-height="20" margin="0"
                        padding="0" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
+        </View>
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Stereo">
+          <TextButton tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
+                      margin="0" padding="5" parameter="mid_side" text="Stereo" text_on="Mid/Side"
+                      flex-grow="0.35" name="Mid/Side" lookAndFeel="LookAndFeel_V3"
+                      button-color="FF33343D" button-on-color="FFB41717" button-off-text="FFFFFFFF"
+                      button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
+          <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
+          <Slider caption="Balance" parameter="stereo_balance" class="Slider" name="Stereo Balance"
+                  padding="5" margin="0" enabled="plugin:is_stereo"
+                  tooltip="Controls the balance between the two channels (stereo or mid/side)."/>
+          <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
+          <TextButton parameter="stereo_makeup" text="Makeup" text_on="Makeup" background-color="00000000"
+                      margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
+                      button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Stereo Makeup"
+                      tooltip="Compensates for the stereo balance at the plugin output."
+                      button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF"
@@ -211,8 +224,7 @@
                        parameter="chew_onoff" name="Chew On/Off" tooltip="Turns the chew processing on or off."/>
         </View>
       </View>
-      <View display="tabbed" padding="0" margin="2" background-color="FF31323A"
-            lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
           <FlutterMenu margin="0" padding="0" background-color="00000000" max-height="30"
                        name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>

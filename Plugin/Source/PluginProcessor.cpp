@@ -165,7 +165,7 @@ void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
     inGain.prepareToPlay (sampleRate, samplesPerBlock);
     inputFilters.prepareToPlay (sampleRate, samplesPerBlock, numChannels);
-    midSideController.prepare (sampleRate);
+    midSideController.prepare (sampleRate, samplesPerBlock);
     toneControl.prepare (sampleRate, numChannels);
     compressionProcessor.prepare (sampleRate, samplesPerBlock, numChannels);
     hysteresis.prepareToPlay (sampleRate, samplesPerBlock, numChannels);

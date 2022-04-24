@@ -78,15 +78,9 @@
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
     <ScrollView padding="0" margin="1" background-color="00000000" lookAndFeel="MyLNF">
-      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF" flex-grow="1.5">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain">
-          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)" margin="5" padding="0"
-                      parameter="mid_side" text="Stereo" text_on="Mid/Side" width="100" height="35"
-                      min-height="30" min-width="100" flex-align-self="center" max-height="40"
-                      name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D"
-                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
-                      enabled="plugin:is_stereo"/>
           <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
@@ -111,6 +105,24 @@
                       button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Makeup"
                       tooltip="Adds the signal cut out by the cut filters back to the processed signal."
                       button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
+        </View>
+        <View flex-direction="column" tab-color="" background-color="FF31323A"
+              padding="0" tab-caption="Gain">
+          <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
+                      parameter="mid_side" text="Stereo" text_on="Mid/Side" margin="5" padding="0"
+                      name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D" flex-grow="0.35"
+                      button-on-color="FFB41717" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
+                      enabled="plugin:is_stereo"/>
+          <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
+          <Slider caption="Balance" parameter="stereo_balance" class="Slider" name="Stereo Balance"
+                  padding="5" margin="0" enabled="plugin:is_stereo"
+                  tooltip="Controls the balance between the two channels (stereo or mid/side)."/>
+          <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
+          <TextButton parameter="stereo_makeup" text="Makeup" text_on="Makeup" background-color="00000000"
+                      margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
+                      button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Stereo Makeup"
+                      tooltip="Compensates for the stereo balance at the plugin output."
+                      button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
         </View>
       </View>
       <View margin="0" padding="0" flex-grow="0.07" background-color="00000000"/>
@@ -264,7 +276,7 @@
         </View>
       </View>
       <View margin="0" padding="0" flex-grow="0.07" background-color="00000000"/>
-      <View display="tabbed" padding="0" margin="2" background-color="FF31323A" lookAndFeel="MyLNF">
+      <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A">
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="32"
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
