@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset name="AEIOU_Warehouse 1997">
+<Preset name="Warehouse 1997" plugin="CHOWTapeModel" vendor="AEIOU" category="" version="2.10.0">
   <Parameters>
     <PARAM id="azimuth" value="10.0"/>
     <PARAM id="chew_depth" value="0.01999999955296516"/>

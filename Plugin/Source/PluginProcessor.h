@@ -87,7 +87,6 @@ public:
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     AudioProcessorValueTreeState& getVTS() { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
-    HysteresisProcessor& getHysteresisProcessor() { return hysteresis; }
     auto* getOpenGLHelper() { return openGLHelper.get(); }
     auto& getOversampling() { return hysteresis.getOSManager(); }
 
@@ -124,7 +123,7 @@ private:
     foleys::MagicProcessorState magicState { *this, vts };
     TapeScope* scope = nullptr;
 
-    PresetManager presetManager;
+    PresetManager presetManager { vts };
     MyLNF myLNF;
     MixGroupsController mixGroupsController;
     AudioPlayHead::CurrentPositionInfo positionInfo;

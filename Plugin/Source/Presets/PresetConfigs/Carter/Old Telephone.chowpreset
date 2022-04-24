@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Old Telephone" plugin="CHOWTapeModel" vendor="Carter" category="" version="2.10.0">
+  <Parameters>
+    <PARAM id="azimuth" value="0.0"/>
+    <PARAM id="chew_depth" value="0.009999999776482582"/>
+    <PARAM id="chew_freq" value="0.009999999776482582"/>
+    <PARAM id="chew_onoff" value="1.0"/>
+    <PARAM id="chew_var" value="0.009999999776482582"/>
+    <PARAM id="deg_amt" value="0.1700000017881393"/>
+    <PARAM id="deg_depth" value="0.3400000035762787"/>
+    <PARAM id="deg_env" value="0.1499999910593033"/>
+    <PARAM id="deg_onoff" value="1.0"/>
+    <PARAM id="deg_point1x" value="0.0"/>
+    <PARAM id="deg_var" value="0.02999999932944775"/>
+    <PARAM id="depth" value="0.199999988079071"/>
+    <PARAM id="drive" value="0.5799999833106995"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="gap" value="1.105759501457214"/>
+    <PARAM id="h_bass" value="0.25"/>
+    <PARAM id="h_tfreq" value="588.5361328125"/>
+    <PARAM id="h_treble" value="-0.1100000143051147"/>
+    <PARAM id="hyst_onoff" value="1.0"/>
+    <PARAM id="ifilt_high" value="2000.0"/>
+    <PARAM id="ifilt_low" value="349.1326599121094"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="loss_onoff" value="1.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="7.069999694824219"/>
+    <PARAM id="preset" value="25"/>
+    <PARAM id="rate" value="0.1799999922513962"/>
+    <PARAM id="sat" value="0.6200000047683716"/>
+    <PARAM id="spacing" value="1.031176090240479"/>
+    <PARAM id="speed" value="30.0"/>
+    <PARAM id="thick" value="0.3239526748657227"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+    <PARAM id="width" value="0.8799999952316284"/>
+    <PARAM id="wow_depth" value="0.2699999809265137"/>
+    <PARAM id="wow_drift" value="0.1899999976158142"/>
+    <PARAM id="wow_rate" value="0.25"/>
+    <PARAM id="wow_var" value="0.07999999821186066"/>
+  </Parameters>
+</Preset>

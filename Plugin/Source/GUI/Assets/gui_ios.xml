@@ -69,7 +69,7 @@
           <View flex-grow="0.15" background-color="00000000"/>
           <presets margin="0" padding="0" background-color="00000000" border-color="33000000"
                    radius="" border="" lookAndFeel="PresetsLNF" flex-grow="0.25"
-                   max-height="100"/>
+                   max-height="100" text-highlight="FF8B3232"/>
           <View flex-grow="0.15" background-color="00000000"/>
         </View>
         <View flex-grow="0.05" background-color="00000000"/>

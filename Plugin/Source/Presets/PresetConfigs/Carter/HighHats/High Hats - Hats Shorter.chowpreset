@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Hats Shorter" plugin="CHOWTapeModel" vendor="Carter" category="High Hats" version="2.10.0">
+  <Parameters>
+    <PARAM id="azimuth" value="0.0"/>
+    <PARAM id="chew_depth" value="0.04999999701976776"/>
+    <PARAM id="chew_freq" value="0.04999999701976776"/>
+    <PARAM id="chew_onoff" value="0.0"/>
+    <PARAM id="chew_var" value="0.02999999932944775"/>
+    <PARAM id="deg_amt" value="0.09999999403953552"/>
+    <PARAM id="deg_depth" value="0.09999999403953552"/>
+    <PARAM id="deg_env" value="0.04999999701976776"/>
+    <PARAM id="deg_onoff" value="1.0"/>
+    <PARAM id="deg_point1x" value="1.0"/>
+    <PARAM id="deg_var" value="0.07999999821186066"/>
+    <PARAM id="depth" value="0.199999988079071"/>
+    <PARAM id="drive" value="0.8999999761581421"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="gap" value="1.138202428817749"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_tfreq" value="1215.144287109375"/>
+    <PARAM id="h_treble" value="0.3999999761581421"/>
+    <PARAM id="hyst_onoff" value="1.0"/>
+    <PARAM id="ifilt_high" value="22000.0"/>
+    <PARAM id="ifilt_low" value="38.51891326904297"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="loss_onoff" value="1.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.25"/>
+    <PARAM id="preset" value="61"/>
+    <PARAM id="rate" value="0.04999999701976776"/>
+    <PARAM id="sat" value="0.699999988079071"/>
+    <PARAM id="spacing" value="1.226983547210693"/>
+    <PARAM id="speed" value="30.0"/>
+    <PARAM id="thick" value="0.4140152931213379"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+    <PARAM id="width" value="0.1499999910593033"/>
+    <PARAM id="wow_depth" value="0.25"/>
+    <PARAM id="wow_drift" value="0.0"/>
+    <PARAM id="wow_rate" value="0.02999999932944775"/>
+    <PARAM id="wow_var" value="0.2699999809265137"/>
+    <PARAM id="os_mode" value="0.0"/>
+    <PARAM id="os_render_factor" value="1.0"/>
+    <PARAM id="os_render_mode" value="0.0"/>
+    <PARAM id="os_render_like_realtime" value="1.0"/>
+    <PARAM id="comp_amt"/>
+    <PARAM id="comp_attack"/>
+    <PARAM id="comp_onoff"/>
+    <PARAM id="comp_release"/>
+  </Parameters>
+</Preset>

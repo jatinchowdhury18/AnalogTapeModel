@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset name="Sink_Slightly Wobbly">
+<Preset name="Slightly Wobbly" plugin="CHOWTapeModel" vendor="Sink" category="" version="2.10.0">
   <Parameters>
     <PARAM id="chew_depth" value="0.04999999701976776"/>
     <PARAM id="chew_freq" value="0.07000000029802322"/>
