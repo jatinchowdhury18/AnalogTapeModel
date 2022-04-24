@@ -369,7 +369,7 @@ String ChowtapeModelAudioProcessor::getWrapperTypeString() const
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     auto xml = std::make_unique<XmlElement> ("state");
-    xml->setAttribute("version", chowdsp::VersionUtils::Version(JucePlugin_VersionString).getVersionString());
+    xml->setAttribute ("version", chowdsp::VersionUtils::Version (JucePlugin_VersionString).getVersionString());
 
     auto state = vts.copyState();
     xml->addChildElement (state.createXml().release());
@@ -391,7 +391,7 @@ void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int siz
         return;
     }
 
-    if (xmlState->hasAttribute("version"))
+    if (xmlState->hasAttribute ("version"))
     {
         auto* vtsXml = xmlState->getChildByName (vts.state.getType());
         if (vtsXml == nullptr) // invalid ValueTreeState
