@@ -58,3 +58,56 @@ void PresetManager::loadFactoryPresets()
     addPresets (factoryPresets);
     loadDefaultPreset();
 }
+
+chowdsp::Preset PresetManager::loadUserPresetFromFile (const File& file)
+{
+    chowdsp::Preset compatiblePreset { file };
+    if (compatiblePreset.isValid())
+        return std::move (compatiblePreset);
+
+    auto xml = XmlDocument::parse (file);
+    if (xml == nullptr)
+        return compatiblePreset;
+
+    if (xml->getTagName() != chowdsp::Preset::presetTag.toString())
+        return compatiblePreset;
+
+    auto name = xml->getStringAttribute (chowdsp::Preset::nameTag);
+    if (name.isEmpty())
+        return compatiblePreset;
+
+    auto vendor = xml->getStringAttribute (chowdsp::Preset::vendorTag);
+    if (vendor.isEmpty())
+    {
+        vendor = name.upToFirstOccurrenceOf ("_", false, false);
+        name = name.fromLastOccurrenceOf ("_", false, false);
+    }
+
+    auto category = xml->getStringAttribute (chowdsp::Preset::categoryTag);
+
+    auto* xmlState = xml->getChildElement (0);
+    if (xmlState == nullptr)
+        return compatiblePreset;
+
+    return { name, vendor, *xmlState, category };
+}
+
+void PresetManager::loadPresetState (const XmlElement* xml)
+{
+    StringArray presetAgnosticParams { "os_factor", "os_mode", "os_render_factor", "os_render_mode", "os_render_like_realtime" };
+
+    auto newState = juce::ValueTree::fromXml (*xml);
+    for (auto& param : presetAgnosticParams)
+    {
+        auto curParamTree = vts.state.getChildWithProperty ("id", param);
+        jassert (curParamTree.isValid());
+
+        auto presetParamTree = newState.getChildWithProperty ("id", param);
+        if (presetParamTree.isValid())
+            presetParamTree.copyPropertiesFrom (curParamTree, nullptr);
+        else
+            newState.appendChild (curParamTree.createCopy(), nullptr);
+    }
+
+    vts.replaceState (newState);
+}

@@ -8,6 +8,9 @@ class PresetManager : public chowdsp::PresetManager
 public:
     PresetManager (AudioProcessorValueTreeState& vts);
 
+    chowdsp::Preset loadUserPresetFromFile (const File& file) override;
+    void loadPresetState (const XmlElement* xml) override;
+
 private:
     void loadFactoryPresets();
 
