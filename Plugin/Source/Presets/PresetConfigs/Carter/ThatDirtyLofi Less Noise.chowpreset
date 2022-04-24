@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="User_ThatDirtyLofi Less Noise">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.01999999955296516"/>
+    <PARAM id="chew_freq" value="0.08999999612569809"/>
+    <PARAM id="chew_onoff" value="1.0"/>
+    <PARAM id="chew_var" value="0.119999997317791"/>
+    <PARAM id="deg_amt" value="0.1099999994039536"/>
+    <PARAM id="deg_depth" value="0.02999999932944775"/>
+    <PARAM id="deg_onoff" value="1.0"/>
+    <PARAM id="deg_var" value="0.1299999952316284"/>
+    <PARAM id="depth" value="0.2899999916553497"/>
+    <PARAM id="drive" value="0.5"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="gap" value="1.226065754890442"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_tfreq" value="310.1037292480469"/>
+    <PARAM id="h_treble" value="-0.03000003099441528"/>
+    <PARAM id="hyst_onoff" value="1.0"/>
+    <PARAM id="ifilt_high" value="2532.06103515625"/>
+    <PARAM id="ifilt_low" value="20.0"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="0.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="loss_onoff" value="1.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="preset" value="20"/>
+    <PARAM id="rate" value="0.09999999403953552"/>
+    <PARAM id="sat" value="0.6599999666213989"/>
+    <PARAM id="spacing" value="1.797835111618042"/>
+    <PARAM id="speed" value="3.750000476837158"/>
+    <PARAM id="thick" value="1.965399146080017"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+    <PARAM id="width" value="0.6499999761581421"/>
+    <PARAM id="wow_depth" value="0.4199999868869781"/>
+    <PARAM id="wow_rate" value="0.199999988079071"/>
+    <PARAM id="azimuth"/>
+    <PARAM id="deg_env" value="0.0"/>
+    <PARAM id="deg_point1x" value="1.0"/>
+    <PARAM id="wow_drift" value="0.0"/>
+    <PARAM id="wow_var" value="0.0"/>
+  </Parameters>
+</Preset>

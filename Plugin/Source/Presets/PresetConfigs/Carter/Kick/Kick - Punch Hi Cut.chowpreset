@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Punch Hi Cut" plugin="CHOWTapeModel" vendor="Carter" category="Kick" version="2.10.0">
+  <Parameters>
+    <PARAM id="azimuth" value="0.0"/>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_onoff" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
+    <PARAM id="deg_amt" value="0.04999999701976776"/>
+    <PARAM id="deg_depth" value="0.04999999701976776"/>
+    <PARAM id="deg_env" value="0.03999999910593033"/>
+    <PARAM id="deg_onoff" value="1.0"/>
+    <PARAM id="deg_point1x" value="1.0"/>
+    <PARAM id="deg_var" value="0.02999999932944775"/>
+    <PARAM id="depth" value="0.07999999821186066"/>
+    <PARAM id="drive" value="0.699999988079071"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="gap" value="1.042783617973328"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_tfreq" value="499.9999084472656"/>
+    <PARAM id="h_treble" value="0.0"/>
+    <PARAM id="hyst_onoff" value="1.0"/>
+    <PARAM id="ifilt_high" value="5032.67578125"/>
+    <PARAM id="ifilt_low" value="20.0"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="loss_onoff" value="1.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="3.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="outgain" value="-1.030000686645508"/>
+    <PARAM id="preset" value="46"/>
+    <PARAM id="rate" value="0.1499999910593033"/>
+    <PARAM id="sat" value="0.6499999761581421"/>
+    <PARAM id="spacing" value="1.59982430934906"/>
+    <PARAM id="speed" value="7.5"/>
+    <PARAM id="thick" value="0.2335111200809479"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+    <PARAM id="width" value="0.3999999761581421"/>
+    <PARAM id="wow_depth" value="0.04999999701976776"/>
+    <PARAM id="wow_drift" value="0.07000000029802322"/>
+    <PARAM id="wow_rate" value="0.08999999612569809"/>
+    <PARAM id="wow_var" value="0.04999999701976776"/>
+  </Parameters>
+</Preset>

@@ -1,138 +1,158 @@
 #include "PresetManager.h"
-#include "../PluginProcessor.h"
-#include "PresetComp.h"
 
 namespace
 {
 const String userPresetPath = "ChowdhuryDSP/ChowTape/UserPresets.txt";
 }
 
-Preset::Preset (String presetFile)
+PresetManager::PresetManager (AudioProcessorValueTreeState& vts) : chowdsp::PresetManager (vts)
 {
-    // load xml text from BinaryData
-    String xmlText;
-    for (int i = 0; i < BinaryData::namedResourceListSize; ++i)
-    {
-        if (String (BinaryData::originalFilenames[i]) == presetFile)
-        {
-            int dummy = 0;
-            xmlText = String (BinaryData::getNamedResource (BinaryData::namedResourceList[i], dummy));
-        }
-    }
+    loadFactoryPresets();
+    setUserPresetConfigFile (userPresetPath);
 
-    jassert (xmlText.isNotEmpty()); // preset does not exist!!
-    initialise (ValueTree::fromXml (xmlText));
-}
-
-Preset::Preset (const File& presetFile)
-{
-    String xmlText = presetFile.loadFileAsString();
-    initialise (ValueTree::fromXml (xmlText));
-}
-
-void Preset::initialise (const ValueTree& parentTree)
-{
-    name = parentTree.getProperty ("name").toString();
-    jassert (name.isNotEmpty()); // Preset name not found!!
-
-    state = parentTree.getChildWithName ("Parameters");
-    for (int i = 0; i < state.getNumChildren(); ++i)
-    {
-        auto child = state.getChild (i);
-        if (child.getProperty ("id").toString() == "preset")
-            index = (int) child.getProperty ("value");
-    }
-}
-
-//====================================================
-PresetManager::PresetManager()
-{
 #if JUCE_IOS
     File appDataDir = File::getSpecialLocation (File::userApplicationDataDirectory);
-    userPresetFolder = appDataDir.getChildFile (userPresetPath).getSiblingFile ("Presets");
+    auto userPresetFolder = appDataDir.getChildFile (userPresetPath).getSiblingFile ("Presets");
     if (! userPresetFolder.isDirectory())
     {
         userPresetFolder.deleteFile();
         userPresetFolder.createDirectory();
     }
-#endif
 
-    loadPresets();
+    setUserPresetPath (userPresetFolder);
+#endif // JUCE_IOS
 }
 
-StringArray PresetManager::getPresetChoices()
+void PresetManager::loadFactoryPresets()
 {
-    StringArray choices;
-    for (int i = 0; i < maxIdx; ++i)
-    {
-        if (presetMap[i] != nullptr)
-            choices.add (presetMap[i]->name);
-    }
+    setDefaultPreset (chowdsp::Preset { BinaryData::Default_chowpreset, BinaryData::Default_chowpresetSize });
 
-    return choices;
+    std::vector<chowdsp::Preset> factoryPresets;
+
+    // CHOW
+    factoryPresets.emplace_back (BinaryData::TC260_chowpreset, BinaryData::TC260_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::LoFi_chowpreset, BinaryData::LoFi_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::WoozyChorus_chowpreset, BinaryData::WoozyChorus_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::OldTape_chowpreset, BinaryData::OldTape_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Underbiased_chowpreset, BinaryData::Underbiased_chowpresetSize);
+
+    // SINK
+    factoryPresets.emplace_back (BinaryData::SNK_BassPusher_chowpreset, BinaryData::SNK_BassPusher_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Chorus2_chowpreset, BinaryData::SNK_Chorus2_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Chorus3_chowpreset, BinaryData::SNK_Chorus3_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Chorus4_chowpreset, BinaryData::SNK_Chorus4_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_CleanFat_chowpreset, BinaryData::SNK_CleanFat_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Fat2_chowpreset, BinaryData::SNK_Fat2_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Gritty_chowpreset, BinaryData::SNK_Gritty_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_Gritty2_chowpreset, BinaryData::SNK_Gritty2_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_lofi_chowpreset, BinaryData::SNK_lofi_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::SNK_SlightlyWobbly_chowpreset, BinaryData::SNK_SlightlyWobbly_chowpresetSize);
+
+    // AEIOU
+    factoryPresets.emplace_back (BinaryData::AEIOU_DisintegratedMemories_chowpreset, BinaryData::AEIOU_DisintegratedMemories_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::AEIOU_FunkThat1987_chowpreset, BinaryData::AEIOU_FunkThat1987_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::AEIOU_HelloHangover_chowpreset, BinaryData::AEIOU_HelloHangover_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::AEIOU_IHaveARadio_chowpreset, BinaryData::AEIOU_IHaveARadio_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::AEIOU_Warehouse1997_chowpreset, BinaryData::AEIOU_Warehouse1997_chowpresetSize);
+
+    // Carter
+    factoryPresets.emplace_back (BinaryData::Bad_Tape_Good_Player_chowpreset, BinaryData::Bad_Tape_Good_Player_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Cozy_Unstable_chowpreset, BinaryData::Cozy_Unstable_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Fast_Wobble_chowpreset, BinaryData::Fast_Wobble_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Found_Tape_Player_chowpreset, BinaryData::Found_Tape_Player_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Good_Tape_Bad_Player_chowpreset, BinaryData::Good_Tape_Bad_Player_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::INIT_chowpreset, BinaryData::INIT_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Just_Warmth_chowpreset, BinaryData::Just_Warmth_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Low_Cut_High_Cut_chowpreset, BinaryData::Low_Cut_High_Cut_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Old_Telephone_chowpreset, BinaryData::Old_Telephone_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Punchy_Lofi_Drums_chowpreset, BinaryData::Punchy_Lofi_Drums_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::That_Dirty_LoFi_chowpreset, BinaryData::That_Dirty_LoFi_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::ThatDirtyLofi_Less_Noise_chowpreset, BinaryData::ThatDirtyLofi_Less_Noise_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Underwater_chowpreset, BinaryData::Underwater_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Perc__Noise_After_Hit_chowpreset, BinaryData::Perc__Noise_After_Hit_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Bass__Sub_Beef_chowpreset, BinaryData::Bass__Sub_Beef_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Bass__Warm_Tape_chowpreset, BinaryData::Bass__Warm_Tape_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Bass__808_Comp_and_Tone_chowpreset, BinaryData::Bass__808_Comp_and_Tone_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Bass__808_Maker_chowpreset, BinaryData::Bass__808_Maker_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Guitar__Phaser_Like_chowpreset, BinaryData::Guitar__Phaser_Like_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Guitar__Short_Plucked_chowpreset, BinaryData::Guitar__Short_Plucked_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Guitar__Slower_Chorus_chowpreset, BinaryData::Guitar__Slower_Chorus_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Guitar__Vintage_Chorus_chowpreset, BinaryData::Guitar__Vintage_Chorus_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::High_Hats__Hats_Shorter_chowpreset, BinaryData::High_Hats__Hats_Shorter_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::High_Hats__Lofi_Vibe_chowpreset, BinaryData::High_Hats__Lofi_Vibe_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::High_Hats__Old_MPC_chowpreset, BinaryData::High_Hats__Old_MPC_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Kick__A_Little_Punch_chowpreset, BinaryData::Kick__A_Little_Punch_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Kick__Broken_Kick_chowpreset, BinaryData::Kick__Broken_Kick_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Kick__In_the_Cut_chowpreset, BinaryData::Kick__In_the_Cut_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Kick__LoFi_Kick_chowpreset, BinaryData::Kick__LoFi_Kick_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Kick__LoFi_Kick_Short_chowpreset, BinaryData::Kick__LoFi_Kick_Short_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Kick__Punch_Hi_Cut_chowpreset, BinaryData::Kick__Punch_Hi_Cut_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Mix__Cassette_Like_chowpreset, BinaryData::Mix__Cassette_Like_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Mix__Super_LoFi_chowpreset, BinaryData::Mix__Super_LoFi_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Mix__30ips_Glue_chowpreset, BinaryData::Mix__30ips_Glue_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Just_Tape_Noise_chowpreset, BinaryData::Just_Tape_Noise_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Subtle_Tape_Noise_chowpreset, BinaryData::Subtle_Tape_Noise_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Tape_Noise_Hard_Rain_chowpreset, BinaryData::Tape_Noise_Hard_Rain_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Tape_Noise_Rain_chowpreset, BinaryData::Tape_Noise_Rain_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Almost_LoFi_Piano_chowpreset, BinaryData::Almost_LoFi_Piano_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Piano__Clean_Cassette_chowpreset, BinaryData::Piano__Clean_Cassette_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Piano__Dirtier_Cassette_chowpreset, BinaryData::Piano__Dirtier_Cassette_chowpresetSize);
+
+    factoryPresets.emplace_back (BinaryData::Snare__Almost_Bitcrushed_chowpreset, BinaryData::Snare__Almost_Bitcrushed_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Snare__Cut_the_Lows_chowpreset, BinaryData::Snare__Cut_the_Lows_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Snare__LoFi_Vibe_chowpreset, BinaryData::Snare__LoFi_Vibe_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Snare__Shorter_LoFi_chowpreset, BinaryData::Snare__Shorter_LoFi_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Snare__Shorter_Snare_chowpreset, BinaryData::Snare__Shorter_Snare_chowpresetSize);
+
+    addPresets (factoryPresets);
+    loadDefaultPreset();
 }
 
-void PresetManager::loadPresets()
+chowdsp::Preset PresetManager::loadUserPresetFromFile (const File& file)
 {
-    // load factory presets
-    presets.add (std::make_unique<Preset> ("Default.chowpreset"));
-    presets.add (std::make_unique<Preset> ("TC260.chowpreset"));
-    presets.add (std::make_unique<Preset> ("LoFi.chowpreset"));
-    presets.add (std::make_unique<Preset> ("WoozyChorus.chowpreset"));
-    presets.add (std::make_unique<Preset> ("OldTape.chowpreset"));
-    presets.add (std::make_unique<Preset> ("Underbiased.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_BassPusher.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Chorus2.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Chorus3.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Chorus4.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_CleanFat.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Fat2.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Gritty.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_Gritty2.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_lofi.chowpreset"));
-    presets.add (std::make_unique<Preset> ("SNK_SlightlyWobbly.chowpreset"));
-    presets.add (std::make_unique<Preset> ("AEIOU_DisintegratedMemories.chowpreset"));
-    presets.add (std::make_unique<Preset> ("AEIOU_FunkThat1987.chowpreset"));
-    presets.add (std::make_unique<Preset> ("AEIOU_HelloHangover.chowpreset"));
-    presets.add (std::make_unique<Preset> ("AEIOU_IHaveARadio.chowpreset"));
-    presets.add (std::make_unique<Preset> ("AEIOU_Warehouse1997.chowpreset"));
-    numFactoryPresets = presets.size();
+    chowdsp::Preset compatiblePreset { file };
+    if (compatiblePreset.isValid())
+        return std::move (compatiblePreset);
 
-    for (auto* p : presets)
+    auto xml = XmlDocument::parse (file);
+    if (xml == nullptr)
+        return compatiblePreset;
+
+    if (xml->getTagName() != chowdsp::Preset::presetTag.toString())
+        return compatiblePreset;
+
+    auto name = xml->getStringAttribute (chowdsp::Preset::nameTag);
+    if (name.isEmpty())
+        return compatiblePreset;
+
+    auto vendor = xml->getStringAttribute (chowdsp::Preset::vendorTag);
+    if (vendor.isEmpty())
     {
-        jassert (! presetMap.contains (p->index)); // no two presets can have the same index
-        presetMap.set (p->index, p);
-        maxIdx = jmax (maxIdx, p->index);
+        vendor = name.upToFirstOccurrenceOf ("_", false, false);
+        name = name.fromLastOccurrenceOf ("_", false, false);
     }
 
-    maxIdx++;
+    auto category = xml->getStringAttribute (chowdsp::Preset::categoryTag);
 
-    updateUserPresets();
+    auto* xmlState = xml->getChildElement (0);
+    if (xmlState == nullptr)
+        return compatiblePreset;
+
+    return { name, vendor, *xmlState, category };
 }
 
-String PresetManager::getPresetName (int idx)
+void PresetManager::loadPresetState (const XmlElement* xml)
 {
-    if (! isPositiveAndBelow (idx, presets.size())) // invalid index
-    {
-        jassertfalse;
-        return {};
-    }
+    StringArray presetAgnosticParams { "os_factor", "os_mode", "os_render_factor", "os_render_mode", "os_render_like_realtime" };
 
-    return presetMap[idx]->name;
-}
-
-bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
-{
-    if (! isPositiveAndBelow (idx, presets.size())) // invalid index
-    {
-        jassertfalse;
-        return false;
-    }
-
-    StringArray presetAgnosticParams { "os", "os_mode", "os_render_factor", "os_render_mode", "os_render_like_realtime" };
-
-    auto newState = presetMap[idx]->state.createCopy();
-
+    auto newState = juce::ValueTree::fromXml (*xml);
     for (auto& param : presetAgnosticParams)
     {
         auto curParamTree = vts.state.getChildWithProperty ("id", param);
@@ -146,124 +166,4 @@ bool PresetManager::setPreset (AudioProcessorValueTreeState& vts, int idx)
     }
 
     vts.replaceState (newState);
-    return true;
-}
-
-void PresetManager::registerPresetsComponent (foleys::MagicGUIBuilder& builder)
-{
-    static Identifier presetsID { "presets" };
-    builder.registerFactory (presetsID, &PresetComponentItem::factory);
-}
-
-bool PresetManager::saveUserPreset (const String& name, const AudioProcessorValueTreeState& vts)
-{
-    if (! userPresetFolder.isDirectory()) // if not set, choose preset folder
-        chooseUserPresetFolder();
-
-    if (! userPresetFolder.isDirectory()) // user doesn't want to choose preset folder, cancelling...
-        return false;
-
-    // create file to save preset
-    File saveFile = userPresetFolder.getChildFile (name + ".chowpreset");
-    saveFile.deleteFile();
-    auto result = saveFile.create();
-
-    if (result.failed()) // unable to create file;
-        return false;
-
-    auto stateXml = vts.state.createXml();
-    if (stateXml == nullptr) // invalid xml
-        return false;
-
-    // create preset XML
-    auto presetXml = std::make_unique<XmlElement> ("Preset");
-    presetXml->setAttribute ("name", "User_" + name);
-
-    auto xmlParameters = std::make_unique<XmlElement> ("Parameters");
-
-    for (auto* p : stateXml->getChildWithTagNameIterator ("PARAM"))
-    {
-        if (p->getAttributeValue (0) == "preset")
-            p->setAttribute ("value", maxIdx);
-
-        xmlParameters->addChildElement (new XmlElement (*p));
-    }
-    presetXml->addChildElement (xmlParameters.release());
-
-    saveFile.replaceWithText (presetXml->toString());
-    updateUserPresets();
-    return true;
-}
-
-File PresetManager::getUserPresetConfigFile() const
-{
-    File updatePresetFile = File::getSpecialLocation (File::userApplicationDataDirectory);
-    return updatePresetFile.getChildFile (userPresetPath);
-}
-
-void PresetManager::chooseUserPresetFolder()
-{
-#if ! JUCE_IOS
-    constexpr auto flags = FileBrowserComponent::openMode | FileBrowserComponent::canSelectDirectories;
-    fileChooser = std::make_shared<FileChooser> ("Choose preset folder");
-    fileChooser->launchAsync (flags, [=] (const FileChooser& fc) {
-        auto result = fc.getResult();
-        auto config = getUserPresetConfigFile();
-        config.deleteFile();
-        config.create();
-        config.replaceWithText (result.getFullPathName());
-        updateUserPresets();
-    });
-#endif
-}
-
-void PresetManager::loadPresetFolder (PopupMenu& menu, File& directory)
-{
-    Array<File> presetFiles;
-    for (auto& userPreset : directory.findChildFiles (File::findFilesAndDirectories, false))
-    {
-        if (userPreset.isDirectory())
-        {
-            auto relativePath = userPreset.getRelativePathFrom (userPresetFolder);
-            auto firstSubfolder = relativePath.fromLastOccurrenceOf (File::getSeparatorString(), false, false);
-
-            PopupMenu subMenu;
-            loadPresetFolder (subMenu, userPreset);
-            menu.addSubMenu (firstSubfolder, subMenu);
-        }
-
-        if (userPreset.hasFileExtension (".chowpreset"))
-            presetFiles.add (userPreset);
-    }
-
-    for (auto& userPreset : presetFiles)
-    {
-        auto relativePath = userPreset.getRelativePathFrom (userPresetFolder);
-        auto newPreset = presets.add (std::make_unique<Preset> (userPreset));
-        newPreset->index = maxIdx;
-        presetMap.set (newPreset->index, newPreset);
-        menu.addItem (newPreset->index + 1, newPreset->name.fromFirstOccurrenceOf ("User_", false, false));
-        maxIdx++;
-    }
-}
-
-void PresetManager::updateUserPresets()
-{
-#if ! JUCE_IOS
-    // set preset folder
-    auto config = getUserPresetConfigFile();
-    if (config.existsAsFile())
-        userPresetFolder = File (config.loadFileAsString());
-    else
-        userPresetFolder = File();
-#endif
-
-    // remove existing user presets
-    presets.removeRange (numFactoryPresets, maxIdx - numFactoryPresets);
-    for (; maxIdx > numFactoryPresets; maxIdx--)
-        presetMap.remove (maxIdx - 1);
-    userPresetMenu.clear();
-
-    if (userPresetFolder.isDirectory())
-        loadPresetFolder (userPresetMenu, userPresetFolder);
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset name="AEIOU_I Have A Radio">
+<Preset name="I Have A Radio" plugin="CHOWTapeModel" vendor="AEIOU" category="" version="2.10.0">
   <Parameters>
     <PARAM id="azimuth" value="10.0"/>
     <PARAM id="chew_depth" value="0.04999999701976776"/>
