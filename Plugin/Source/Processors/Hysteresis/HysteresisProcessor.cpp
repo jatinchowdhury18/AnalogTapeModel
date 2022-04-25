@@ -78,16 +78,16 @@ void HysteresisProcessor::setSolver (int newSolver)
     {
         case RK2:
         case RK4:
-            clipLevel = 10.0;
+            clipLevel = 10.0f;
             return;
 
         case NR4:
         case NR8:
-            clipLevel = 12.5;
+            clipLevel = 12.5f;
             return;
 
         default:
-            clipLevel = 20.0;
+            clipLevel = 20.0f;
     };
 }
 
