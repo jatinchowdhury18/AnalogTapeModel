@@ -74,7 +74,7 @@
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
-              padding="0" tab-caption="Stereo">
+              padding="0" tab-caption="Stereo" enabled="plugin:is_stereo">
           <TextButton tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
                       margin="0" padding="5" parameter="mid_side" text="Stereo" text_on="Mid/Side"
                       flex-grow="0.35" name="Mid/Side" lookAndFeel="LookAndFeel_V3"

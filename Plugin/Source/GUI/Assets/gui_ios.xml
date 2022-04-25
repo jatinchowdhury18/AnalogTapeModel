@@ -107,7 +107,7 @@
                       button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
-              padding="0" tab-caption="Gain">
+              padding="0" tab-caption="Stereo" enabled="plugin:is_stereo">
           <TextButton id="mid_side" tooltip="Toggles between left/right and mid/side processing modes (Stereo only)"
                       parameter="mid_side" text="Stereo" text_on="Mid/Side" margin="5" padding="0"
                       name="Mid/Side" lookAndFeel="LookAndFeel_V3" button-color="FF33343D" flex-grow="0.35"

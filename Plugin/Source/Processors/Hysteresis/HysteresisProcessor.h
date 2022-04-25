@@ -67,7 +67,7 @@ private:
     double biasFreq = 48000.0;
     std::vector<double> biasAngle;
     bool wasV1 = false, useV1 = false;
-    double clipLevel = 20.0;
+    float clipLevel = 20.0f;
 
     AudioBuffer<double> doubleBuffer;
     BypassProcessor bypass;

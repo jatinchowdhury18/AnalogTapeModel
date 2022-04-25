@@ -2,7 +2,7 @@
 
 namespace
 {
-constexpr auto balanceGain = 12.0f;
+constexpr auto balanceGainDB = 6.0f;
 }
 
 MidSideProcessor::MidSideProcessor (AudioProcessorValueTreeState& vts)
@@ -18,7 +18,7 @@ void MidSideProcessor::createParameterLayout (std::vector<std::unique_ptr<Ranged
     using namespace chowdsp::ParamUtils;
     params.push_back (std::make_unique<AudioParameterBool> ("mid_side", "Mid/Side Mode", false));
     params.push_back (std::make_unique<VTSParam> ("stereo_balance", "Stereo Balance", String(), NormalisableRange { -1.0f, 1.0f }, 0.0f, &percentValToString, &stringToPercentVal));
-    params.push_back (std::make_unique<AudioParameterBool> ("stereo_makeup", "Stereo Makeup", false));
+    params.push_back (std::make_unique<AudioParameterBool> ("stereo_makeup", "Stereo Makeup", true));
 }
 
 void MidSideProcessor::prepare (double sampleRate, int samplesPerBlock)
@@ -64,10 +64,10 @@ void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
     auto&& leftBlock = stereoBlock.getSingleChannelBlock (0);
     auto&& rightBlock = stereoBlock.getSingleChannelBlock (1);
 
-    inBalanceGain[0].setGainDecibels (curBalance * balanceGain);
+    inBalanceGain[0].setGainDecibels (curBalance * balanceGainDB);
     inBalanceGain[0].process (dsp::ProcessContextReplacing<float> { leftBlock });
 
-    inBalanceGain[1].setGainDecibels (curBalance * -balanceGain);
+    inBalanceGain[1].setGainDecibels (curBalance * -balanceGainDB);
     inBalanceGain[1].process (dsp::ProcessContextReplacing<float> { rightBlock });
 }
 
@@ -90,10 +90,10 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
         auto&& leftBlock = stereoBlock.getSingleChannelBlock (0);
         auto&& rightBlock = stereoBlock.getSingleChannelBlock (1);
 
-        outBalanceGain[0].setGainDecibels (curBalance * -balanceGain);
+        outBalanceGain[0].setGainDecibels (curBalance * -balanceGainDB);
         outBalanceGain[0].process (dsp::ProcessContextReplacing<float> { leftBlock });
 
-        outBalanceGain[1].setGainDecibels (curBalance * balanceGain);
+        outBalanceGain[1].setGainDecibels (curBalance * balanceGainDB);
         outBalanceGain[1].process (dsp::ProcessContextReplacing<float> { rightBlock });
     }
 
