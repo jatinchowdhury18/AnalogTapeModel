@@ -4,8 +4,10 @@ this file.
 
 ## [UNRELEASED]
 - Added multi-channel processing support.
+- Added stereo/mid-side "balance" controls.
 - Added CLAP plugin format support.
 - Added option to enable/disable OpenGL on Windows/Linux systems with sufficient OpenGL support.
+- Improved presets system, and added more built-in presets.
 - Fixed V1 mode creating high-pitched tone with linear phase oversampling.
 - Fixed compatibility issue related to `xsimd::isnan`.
 
