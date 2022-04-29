@@ -6,7 +6,7 @@
     <PARAM id="chew_freq" value="0.0"/>
     <PARAM id="chew_onoff" value="0.0"/>
     <PARAM id="chew_var" value="0.0"/>
-    <PARAM id="deg_amt" value="0.01999999955296516"/>
+    <PARAM id="deg_amt" value="0.1499999910593033"/>
     <PARAM id="deg_depth" value="0.08999999612569809"/>
     <PARAM id="deg_onoff" value="1.0"/>
     <PARAM id="deg_var" value="0.0"/>
@@ -40,10 +40,10 @@
     <PARAM id="wow_depth" value="0.2999999821186066"/>
     <PARAM id="wow_rate" value="0.3999999761581421"/>
     <PARAM id="azimuth"/>
-    <PARAM id="deg_env"/>
-    <PARAM id="deg_point1x"/>
-    <PARAM id="wow_drift"/>
-    <PARAM id="wow_var"/>
+    <PARAM id="deg_env" value="0.04999999701976776"/>
+    <PARAM id="deg_point1x" value="0.0"/>
+    <PARAM id="wow_drift" value="0.0"/>
+    <PARAM id="wow_var" value="0.0"/>
     <PARAM id="os_mode" value="0.0"/>
     <PARAM id="os_render_factor" value="1.0"/>
     <PARAM id="os_render_mode" value="0.0"/>
@@ -52,5 +52,8 @@
     <PARAM id="comp_attack"/>
     <PARAM id="comp_onoff"/>
     <PARAM id="comp_release"/>
+    <PARAM id="os_factor" value="1.0"/>
+    <PARAM id="mid_side"/>
   </Parameters>
+  <extra_info/>
 </Preset>

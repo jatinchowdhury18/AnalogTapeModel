@@ -80,6 +80,7 @@ void PresetManager::loadFactoryPresets()
     factoryPresets.emplace_back (BinaryData::Guitar__Short_Plucked_chowpreset, BinaryData::Guitar__Short_Plucked_chowpresetSize);
     factoryPresets.emplace_back (BinaryData::Guitar__Slower_Chorus_chowpreset, BinaryData::Guitar__Slower_Chorus_chowpresetSize);
     factoryPresets.emplace_back (BinaryData::Guitar__Vintage_Chorus_chowpreset, BinaryData::Guitar__Vintage_Chorus_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Guitar__Breaking_Up_chowpreset, BinaryData::Guitar__Breaking_Up_chowpresetSize);
 
     factoryPresets.emplace_back (BinaryData::High_Hats__Hats_Shorter_chowpreset, BinaryData::High_Hats__Hats_Shorter_chowpresetSize);
     factoryPresets.emplace_back (BinaryData::High_Hats__Lofi_Vibe_chowpreset, BinaryData::High_Hats__Lofi_Vibe_chowpresetSize);

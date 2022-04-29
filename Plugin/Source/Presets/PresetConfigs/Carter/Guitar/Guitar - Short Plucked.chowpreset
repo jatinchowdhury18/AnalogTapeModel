@@ -8,8 +8,8 @@
     <PARAM id="chew_onoff" value="1.0"/>
     <PARAM id="chew_var" value="0.04999999701976776"/>
     <PARAM id="deg_amt" value="0.1099999994039536"/>
-    <PARAM id="deg_depth" value="0.1499999910593033"/>
-    <PARAM id="deg_env" value="0.25"/>
+    <PARAM id="deg_depth" value="0.07999999821186066"/>
+    <PARAM id="deg_env" value="0.119999997317791"/>
     <PARAM id="deg_onoff" value="1.0"/>
     <PARAM id="deg_point1x" value="0.0"/>
     <PARAM id="deg_var" value="0.05999999865889549"/>
@@ -44,5 +44,16 @@
     <PARAM id="wow_drift" value="0.09999999403953552"/>
     <PARAM id="wow_rate" value="0.5"/>
     <PARAM id="wow_var" value="0.1099999994039536"/>
+    <PARAM id="os_factor"/>
+    <PARAM id="os_mode"/>
+    <PARAM id="os_render_factor"/>
+    <PARAM id="os_render_mode"/>
+    <PARAM id="os_render_like_realtime"/>
+    <PARAM id="comp_amt"/>
+    <PARAM id="comp_attack"/>
+    <PARAM id="comp_onoff"/>
+    <PARAM id="comp_release"/>
+    <PARAM id="mid_side"/>
   </Parameters>
+  <extra_info/>
 </Preset>
