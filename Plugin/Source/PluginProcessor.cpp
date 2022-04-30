@@ -10,6 +10,7 @@
 
 #include "PluginProcessor.h"
 #include "GUI/OnOff/PowerButton.h"
+#include "GUI/OversamplingMenu.h"
 #include "GUI/SettingsButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
@@ -301,7 +302,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
-    builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor>::factory);
+    builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor, OversamplingMenu>::factory);
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
     builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowTapeInfoProvider, ChowtapeModelAudioProcessor>::factory);
 
