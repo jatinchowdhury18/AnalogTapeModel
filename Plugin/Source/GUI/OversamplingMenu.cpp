@@ -30,8 +30,7 @@ void OversamplingMenu::generateComboBoxMenu()
     // update menu after parameter change has propagated
     Timer::callAfterDelay (
         50,
-        [this, safeComp = Component::SafePointer<OversamplingMenu>(this)]
-        {
+        [this, safeComp = Component::SafePointer<OversamplingMenu> (this)] {
             if (safeComp != nullptr)
             {
                 BaseOSMenuType::generateComboBoxMenu();
