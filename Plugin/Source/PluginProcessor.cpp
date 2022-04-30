@@ -15,6 +15,7 @@
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
+#include "GUI/OversamplingMenu.h"
 
 #if JUCE_IOS
 #include "GUI/IOSOnly/ScrollView.h"
@@ -301,7 +302,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
-    builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor>::factory);
+    builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor, OversamplingMenu>::factory);
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
     builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowTapeInfoProvider, ChowtapeModelAudioProcessor>::factory);
 
