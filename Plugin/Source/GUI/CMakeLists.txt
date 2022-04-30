@@ -1,6 +1,7 @@
 target_sources(CHOWTapeModel PRIVATE
     AutoUpdating.cpp
     MyLNF.cpp
+    OversamplingMenu.cpp
     SettingsButton.cpp
     TitleComp.cpp
     TooltipComp.cpp
