@@ -3,12 +3,12 @@
 cd Plugin
 
 build64(){
-    cmake -Bbuild -G"Visual Studio 15 2017 Win64"
+    cmake -Bbuild -G"Visual Studio 16 2019" -A x64
     cmake --build build --config Release -j4
 }
 
 build32(){
-    cmake -Bbuild32 -G"Visual Studio 15 2017"
+    cmake -Bbuild32 -G"Visual Studio 16 2019" -A Win32
     cmake --build build32 --config Release -j4
 }
 
