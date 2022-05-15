@@ -49,26 +49,18 @@ void CompressionProcessor::prepare (double sr, int samplesPerBlock, int numChann
     compGainVec.resize (osFactor * (size_t) samplesPerBlock, 0.0f);
 }
 
-inline float compressionDB (float xDB, float dbPlus)
-{
-    auto window = 2.0f * dbPlus;
-
-    if (dbPlus <= 0.0f || xDB < -window)
-        return dbPlus;
-
-    return std::log (xDB + window + 1.0f) - dbPlus - xDB;
-}
-
-inline dsp::SIMDRegister<float> compressionDB (dsp::SIMDRegister<float> xDB, float dbPlus)
+template <typename T>
+inline T compressionDB (const T& xDB, float dbPlus)
 {
     using namespace chowdsp::SIMDUtils;
+    CHOWDSP_USING_XSIMD_STD (log)
 
     if (dbPlus <= 0.0f)
-        return (vec4) dbPlus;
+        return (T) dbPlus;
 
     auto window = 2.0f * dbPlus;
-    auto belowWin = vec4::lessThan (xDB, -window);
-    return ((logSIMD (xDB + window + 1.0f) - dbPlus - xDB) & ~belowWin) + ((vec4) dbPlus & belowWin);
+    auto belowWin = xDB < -window;
+    return select (belowWin, (T) dbPlus, log (xDB + window + 1.0f) - dbPlus - xDB);
 }
 
 void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
@@ -92,14 +84,14 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         size_t n = 0;
         for (; n < (size_t) numSamples; n += inc)
         {
-            auto xDB = dsp::SIMDRegister<float>::fromRawArray (&xDBVec[n]);
+            auto xDB = xsimd::load_aligned (&xDBVec[n]);
 
             xDB = chowdsp::SIMDUtils::gainToDecibels (xDB);
             auto compDB = compressionDB (xDB, dbPlusSmooth[ch].skip ((int) inc));
             auto compGain = chowdsp::SIMDUtils::decibelsToGain (compDB);
 
-            xDB.copyToRawArray (&xDBVec[n]);
-            compGain.copyToRawArray (&compGainVec[n]);
+            xsimd::store_aligned (&xDBVec[n], xDB);
+            xsimd::store_aligned (&compGainVec[n], compGain);
         }
 
         // remaining samples that can't be vectorized

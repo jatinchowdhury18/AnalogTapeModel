@@ -61,7 +61,7 @@ public:
 
                 // check for instability
 #if HYSTERESIS_USE_SIMD
-        auto notIllCondition = ~(chowdsp::SIMDUtils::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
+        auto notIllCondition = ~(HysteresisOps::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
         M = M & notIllCondition;
         H_d = H_d & notIllCondition;
 #else
@@ -118,8 +118,9 @@ private:
         Float deltaNR;
         for (int n = 0; n < nIterations; ++n)
         {
-            dMdt = HysteresisOps::hysteresisFunc (M, H, H_d, hpState);
-            dMdtPrime = HysteresisOps::hysteresisFuncPrime (H_d, dMdt, hpState);
+            using namespace HysteresisOps;
+            dMdt = hysteresisFunc (M, H, H_d, hpState);
+            dMdtPrime = hysteresisFuncPrime (H_d, dMdt, hpState);
             deltaNR = (M - M_n1 - (Float) Talpha * (dMdt + last_dMdt)) / (Float (1.0) - (Float) Talpha * dMdtPrime);
             M -= deltaNR;
         }

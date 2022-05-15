@@ -26,9 +26,11 @@ target_link_libraries(juce_plugin_modules
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
         chowdsp_juce_dsp
-        chowdsp_dsp
-        chowdsp_gui
-        chowdsp_plugin_utils
+        chowdsp::chowdsp_dsp_utils
+        chowdsp::chowdsp_plugin_base
+        chowdsp::chowdsp_plugin_utils
+        chowdsp::chowdsp_presets
+        chowdsp::chowdsp_foleys
         foleys_gui_magic
         RTNeural
     PUBLIC
