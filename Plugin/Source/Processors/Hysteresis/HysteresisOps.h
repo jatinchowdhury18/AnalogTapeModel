@@ -35,7 +35,7 @@ inline typename juce::dsp::SIMDRegister<T>::vMaskType isnanSIMD (juce::dsp::SIMD
     // For some reason, xsimd::isnan returns a batch of doubles when using SSE
     // but returns a batch of unsigned ints when using ARM NEON.
 #if JUCE_ARM
-    return (chowdsp::SampleTypeHelpers::vMaskTypeSIMD<T>) xsimd::isnan ((x_type) x.value);
+    return (typename juce::dsp::SIMDRegister<T>::vMaskType) xsimd::isnan ((x_type) x.value);
 #else
     using Vec = juce::dsp::SIMDRegister<T>;
     return Vec::notEqual ((Vec) xsimd::isnan ((x_type) x.value), (Vec) 0);
