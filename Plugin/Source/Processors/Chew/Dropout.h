@@ -49,7 +49,7 @@ public:
 
     inline float dropout (float x, size_t ch)
     {
-        auto sign = (float) chowdsp::signum (x);
+        auto sign = (float) chowdsp::sign (x);
         return pow (abs (x), powerSmooth[ch].getNextValue()) * sign;
     }
 

@@ -40,7 +40,7 @@ public:
 #if HYSTERESIS_USE_SIMD
         auto testFunc = [=] (Vec2 H_d, Vec2 M_diff, Vec2 nc, double kap1_exp, double f1_exp) {
             const auto delta = ((Vec2) 1.0 & Vec2::greaterThanOrEqual (H_d, (Vec2) 0.0)) - ((Vec2) 1.0 & Vec2::lessThan (H_d, (Vec2) 0.0));
-            const auto delta_M = Vec2::equal (chowdsp::signumSIMD (delta), chowdsp::signumSIMD (M_diff));
+            const auto delta_M = Vec2::equal (HysteresisOps::signumSIMD (delta), HysteresisOps::signumSIMD (M_diff));
 
             auto kap1 = (Vec2) nc & delta_M;
             auto f1 = (Vec2) nc * delta;
