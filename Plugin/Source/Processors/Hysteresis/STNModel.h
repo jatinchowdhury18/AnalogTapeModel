@@ -1,10 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-
-JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE ("-Wshorten-64-to-32")
 #include <RTNeural/RTNeural.h>
-JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
 #define USE_RTNEURAL_POLY 0
 #define USE_RTNEURAL_STATIC 1
