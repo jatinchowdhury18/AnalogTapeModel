@@ -5,11 +5,12 @@
 #include <JuceHeader.h>
 
 class MixGroupViz : public Component,
-                    private AudioProcessorParameter::Listener
+                    private AudioProcessorParameter::Listener,
+                    private AsyncUpdater
 {
 public:
     MixGroupViz (AudioProcessorParameter* mixGroupParam);
-    ~MixGroupViz();
+    ~MixGroupViz() override;
 
     void parameterValueChanged (int parameterIndex, float newValue) override;
     void parameterGestureChanged (int, bool) override {}
@@ -17,8 +18,13 @@ public:
     void setMixGroupColour (int mixGroupIdx);
 
 private:
+    void handleAsyncUpdate() override;
+    void mixGroupChanged();
+
     Colour circleColour;
     AudioProcessorParameter* mixGroupParam;
+
+    int newMixGroupIndex = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MixGroupViz)
 };
