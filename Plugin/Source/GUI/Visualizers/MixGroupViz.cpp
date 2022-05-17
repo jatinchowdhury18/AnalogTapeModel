@@ -13,7 +13,22 @@ MixGroupViz::~MixGroupViz()
 
 void MixGroupViz::parameterValueChanged (int, float newValue)
 {
-    MessageManager::callAsync ([this, newValue] { setMixGroupColour (int (newValue * MixGroupsConstants::numMixGroups)); });
+    newMixGroupIndex = int (newValue * MixGroupsConstants::numMixGroups);
+
+    if (MessageManager::existsAndIsCurrentThread())
+        mixGroupChanged();
+    else
+        triggerAsyncUpdate();
+}
+
+void MixGroupViz::handleAsyncUpdate()
+{
+    mixGroupChanged();
+}
+
+void MixGroupViz::mixGroupChanged()
+{
+    setMixGroupColour (newMixGroupIndex);
 }
 
 void MixGroupViz::setMixGroupColour (int mixGroupIdx)
