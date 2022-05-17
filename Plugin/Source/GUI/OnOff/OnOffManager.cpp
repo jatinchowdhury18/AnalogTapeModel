@@ -68,10 +68,10 @@ void OnOffManager::setOnOffForNewEditor (AudioProcessorEditor* editor)
 void OnOffManager::parameterChanged (const String& paramID, float newValue)
 {
     MessageManager::callAsync ([this, paramID = paramID, newValue] {
-                                   if (const auto triggerMapIter = triggerMap.find (paramID); triggerMapIter != triggerMap.end())
-                                   {
-                                       StringArray compNames { triggerMapIter->second };
-                                       toggleEnableDisable (proc->getActiveEditor(), compNames, (bool) newValue);
-                                   }
+        if (const auto triggerMapIter = triggerMap.find (paramID); triggerMapIter != triggerMap.end())
+        {
+            StringArray compNames { triggerMapIter->second };
+            toggleEnableDisable (proc->getActiveEditor(), compNames, (bool) newValue);
+        }
     });
 }
