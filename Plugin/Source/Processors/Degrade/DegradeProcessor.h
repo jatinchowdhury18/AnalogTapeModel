@@ -18,6 +18,8 @@ public:
     void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
 
 private:
+    void processShortBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
+
     std::atomic<float>* point1xParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
     std::atomic<float>* depthParam = nullptr;
@@ -39,6 +41,9 @@ private:
     float fs = 44100.0f;
 
     BypassProcessor bypass;
+
+    static constexpr int smallBlockSize = 2048;
+    int sampleCounter = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DegradeProcessor)
 };

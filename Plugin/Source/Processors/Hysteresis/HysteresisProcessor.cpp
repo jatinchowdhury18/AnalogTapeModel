@@ -174,7 +174,7 @@ void HysteresisProcessor::prepareToPlay (double sampleRate, int samplesPerBlock,
 
 #if HYSTERESIS_USE_SIMD
     const auto maxOSBlockSize = (uint32) samplesPerBlock * 16;
-    const auto numVecChannels = chowdsp::ceiling_divide ((size_t) numChannels, Vec2::size());
+    const auto numVecChannels = chowdsp::Math::ceiling_divide ((size_t) numChannels, Vec2::size());
     interleavedBlock = dsp::AudioBlock<Vec2> (interleavedBlockData, numVecChannels, maxOSBlockSize);
     zeroBlock = dsp::AudioBlock<double> (zeroData, Vec2::size(), maxOSBlockSize);
     zeroBlock.clear();
