@@ -58,9 +58,26 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock, in
     levelDetector.prepare ({ sampleRate, (uint32) samplesPerBlock, (uint32) numChannels });
     gainProc.prepareToPlay (sampleRate, samplesPerBlock);
     bypass.prepare (samplesPerBlock, numChannels, bypass.toBool (onOffParam));
+
+    sampleCounter = 0;
 }
 
 void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
+{
+    const auto numChannels = buffer.getNumChannels();
+    const auto numSamples = buffer.getNumSamples();
+    for (int i = 0; i < numSamples;)
+    {
+        int samplesToProcess = jmin (smallBlockSize, numSamples - i);
+
+        auto&& smallBuffer = AudioBuffer<float> { buffer.getArrayOfWritePointers(), numChannels, i, samplesToProcess };
+        processShortBlock (smallBuffer, midi);
+
+        i += samplesToProcess;
+    }
+}
+
+void DegradeProcessor::processShortBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
 {
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
@@ -68,7 +85,14 @@ void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& mid
     const auto numChannels = buffer.getNumChannels();
     const auto numSamples = buffer.getNumSamples();
 
-    cookParams();
+    sampleCounter += numSamples;
+    if (sampleCounter >= smallBlockSize)
+    {
+        cookParams();
+        sampleCounter = 0;
+    }
+
+    noiseBuffer.setSize (numChannels, numSamples, false, false, true);
     noiseBuffer.clear();
 
     dsp::AudioBlock<float> block (buffer);
