@@ -28,7 +28,9 @@
 #include "Processors/Timing_Effects/WowFlutterProcessor.h"
 
 #if HAS_CLAP_JUCE_EXTENSIONS
+JUCE_BEGIN_IGNORE_WARNINGS_GCC_LIKE("-Wunused-parameter")
 #include "clap-juce-extensions/clap-juce-extensions.h"
+JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 #endif
 
 #if CHOWDSP_AUTO_UPDATE
