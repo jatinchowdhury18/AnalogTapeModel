@@ -65,7 +65,7 @@ if(NOT IOS)
     clap_juce_extensions_plugin(
         TARGET CHOWTapeModel
         CLAP_ID "org.chowdsp.CHOWTapeModel"
-        CLAP_FEATURES distortion audio_effect
+        CLAP_FEATURES audio-effect distortion
     )
 endif()
 
