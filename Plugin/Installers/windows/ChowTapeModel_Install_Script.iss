@@ -32,7 +32,7 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 [Components]
 Name: "VST3_64"; Description: "VST3 Plugin"; Types: full
 Name: "VST_64"; Description: "VST Plugin"; Types: full
-Name: "CLAP_64"; Description: "Clap (Clap 0.25)"; Types: full
+Name: "CLAP_64"; Description: "Clap (Clap 0.26)"; Types: full
 Name: "Standalone"; Description: "Standalone Plugin"; Types: full
 Name: "AAX"; Description: "AAX Plugin"; Types: full
 

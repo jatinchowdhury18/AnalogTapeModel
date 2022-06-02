@@ -4,14 +4,16 @@ if(CUSTOM_JUCE_PATH)
 endif()
 
 add_subdirectory(${JUCE_PATH} juce)
-include(cmake/SubprojectVersion.cmake)
-subproject_version(JUCE juce_version)
-message(STATUS "VERSION for JUCE: ${juce_version}")
 
 juce_add_modules(foleys_gui_magic)
 add_subdirectory(chowdsp_utils)
 juce_add_modules(chowdsp_juce_dsp)
 add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
+
+subproject_version(JUCE juce_version)
+message(STATUS "VERSION for JUCE: ${juce_version}")
+subproject_version(chowdsp_utils chowdsp_version)
+message(STATUS "VERSION for chowdsp: ${chowdsp_version}")
 
 # Using RTNeural with XSimd backend
 set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with XSimd backend" FORCE)
