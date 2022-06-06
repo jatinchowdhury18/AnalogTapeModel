@@ -46,7 +46,7 @@
       <Plot source="scope" plot-color="FFEAA92C" padding="0" background-color="33000000"
             plot-decay="0.0" plot-fill-color="FFFFFFFF"/>
     </View>
-    <View padding="0" margin="" background-color="" lookAndFeel="">
+    <View padding="0" margin="" background-color="" lookAndFeel="" group="Main Controls View">
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF"
             flex-grow="1.5" group="Basic Controls">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
@@ -269,7 +269,7 @@
     <TooltipComp flex-grow="0.13" background-color="00000000" tooltip-name="FFEAA92C"
                  tooltip-text="FFFFFFFF"/>
     <View max-height="35" margin="0" padding="0" background-color="FF31323A"
-          flex-grow="0.1">
+          flex-grow="0.1" group="Extra Controls Bar">
       <View background-color="00000000" flex-grow="0.05"/>
       <OversamplingMenu caption="Oversampling" class="Slider" flex-grow="1.2" caption-size="0"
                         padding="0" combo-text="FFEAA92C" menu-accent="FFEAA92C" combo-background="00000000"
@@ -290,7 +290,8 @@
                radius="" border="" text-highlight="FF8B3232" lookAndFeel="PresetsLNF" flex-grow="1.95"
                max-height="100"/>
       <SettingsButton lookAndFeel="ComboBoxLNF" background-color="00000000" flex-grow="0.06"
-                      margin="0" padding="5" max-width="40" min-width="25"/>
+                      margin="0" padding="5" max-width="40" min-width="25" name="Settings"
+                      tooltip="Opens the plugin settings menu."/>
     </View>
   </View>
 </magic>

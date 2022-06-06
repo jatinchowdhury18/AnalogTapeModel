@@ -51,6 +51,7 @@ float wowFreqToParam (float freq)
 
 WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const String& type) : proc (proc)
 {
+    setDescription (type + " Sync Menu");
     setupUI();
 
     const bool isFlutter = type == "Flutter";

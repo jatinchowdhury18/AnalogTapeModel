@@ -61,7 +61,10 @@ void PowerButtonItem::update()
 
     auto parameter = getControlledParameterID ({});
     if (parameter.isNotEmpty())
+    {
+        button.setTitle (getMagicState().getParameter (parameter)->name);
         attachment = getMagicState().createAttachment (parameter, button);
+    }
 
     auto triggerID = getProperty (pOnClick).toString();
     if (triggerID.isNotEmpty())
