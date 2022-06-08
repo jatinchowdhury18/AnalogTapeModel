@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Goodbye Highs" plugin="CHOWTapeModel" vendor="Cool WAV" category="" version="2.10.0">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.01999999955296516"/>
+    <PARAM id="drive" value="0.5"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="3.369254112243652"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_treble" value="0.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mode" value="0"/>
+    <PARAM id="os" value="4.0"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.2999999821186066"/>
+    <PARAM id="sat" value="0.5"/>
+    <PARAM id="spacing" value="5.949470996856689"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="11.44243907928467"/>
+    <PARAM id="width" value="0.5"/>
+    <PARAM id="wow_depth" value="0.0"/>
+    <PARAM id="wow_rate" value="0.25"/>
+    <PARAM id="preset" value="25"/>
+    <PARAM id="os_mode" value="0.0"/>
+    <PARAM id="os_render_factor" value="1.0"/>
+    <PARAM id="os_render_mode" value="0.0"/>
+    <PARAM id="os_render_like_realtime" value="1.0"/>
+    <PARAM id="azimuth" value="0.0"/>
+    <PARAM id="chew_onoff" value="0.0"/>
+    <PARAM id="comp_amt" value="0.0"/>
+    <PARAM id="comp_attack" value="5.0"/>
+    <PARAM id="comp_onoff" value="0.0"/>
+    <PARAM id="comp_release" value="200.0000152587891"/>
+    <PARAM id="deg_env"/>
+    <PARAM id="deg_onoff" value="0.0"/>
+    <PARAM id="deg_point1x" value="0.0"/>
+    <PARAM id="flutter_onoff"/>
+    <PARAM id="h_tfreq"/>
+    <PARAM id="hyst_onoff"/>
+    <PARAM id="ifilt_high" value="3003.734375"/>
+    <PARAM id="ifilt_low" value="111.8036193847656"/>
+    <PARAM id="ifilt_makeup"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="loss_onoff"/>
+    <PARAM id="mid_side"/>
+    <PARAM id="mix_group"/>
+    <PARAM id="tone_onoff"/>
+    <PARAM id="wow_drift"/>
+    <PARAM id="wow_var"/>
+  </Parameters>
+</Preset>
