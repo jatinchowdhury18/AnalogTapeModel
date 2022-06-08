@@ -112,6 +112,18 @@ void PresetManager::loadFactoryPresets()
     factoryPresets.emplace_back (BinaryData::Snare__Shorter_LoFi_chowpreset, BinaryData::Snare__Shorter_LoFi_chowpresetSize);
     factoryPresets.emplace_back (BinaryData::Snare__Shorter_Snare_chowpreset, BinaryData::Snare__Shorter_Snare_chowpresetSize);
 
+    // Cool WAV
+    factoryPresets.emplace_back (BinaryData::CoolWAV_ChewLoss_chowpreset, BinaryData::CoolWAV_ChewLoss_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_DriftwithMe_chowpreset, BinaryData::CoolWAV_DriftwithMe_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_GoodbyeHighs_chowpreset, BinaryData::CoolWAV_GoodbyeHighs_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_HeavyDrumloop_chowpreset, BinaryData::CoolWAV_HeavyDrumloop_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_StudioTime_chowpreset, BinaryData::CoolWAV_StudioTime_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_TapeWide_chowpreset, BinaryData::CoolWAV_TapeWide_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_ThatsCool_chowpreset, BinaryData::CoolWAV_ThatsCool_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_VibeDrive_chowpreset, BinaryData::CoolWAV_VibeDrive_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_Wack_chowpreset, BinaryData::CoolWAV_Wack_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::CoolWAV_WowDude_chowpreset, BinaryData::CoolWAV_WowDude_chowpresetSize);
+
     addPresets (factoryPresets);
     loadDefaultPreset();
 }

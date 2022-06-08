@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Vibe Drive" plugin="CHOWTapeModel" vendor="Cool WAV" category="" version="2.10.0">
+  <Parameters>
+    <PARAM id="azimuth" value="17.06999969482422"/>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_onoff" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
+    <PARAM id="comp_amt" value="0.4356507956981659"/>
+    <PARAM id="comp_attack" value="23.12575340270996"/>
+    <PARAM id="comp_onoff" value="1.0"/>
+    <PARAM id="comp_release" value="13.55984497070312"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_env" value="0.0"/>
+    <PARAM id="deg_onoff" value="0.0"/>
+    <PARAM id="deg_point1x" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.1799999922513962"/>
+    <PARAM id="drive" value="0.5799999833106995"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="gap" value="1.259596824645996"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_tfreq" value="499.9999084472656"/>
+    <PARAM id="h_treble" value="0.1399999856948853"/>
+    <PARAM id="hyst_onoff" value="1.0"/>
+    <PARAM id="ifilt_high" value="17783.1015625"/>
+    <PARAM id="ifilt_low" value="36.01041412353516"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="ingain" value="1.0"/>
+    <PARAM id="loss_onoff" value="1.0"/>
+    <PARAM id="mid_side" value="0.0"/>
+    <PARAM id="mix_group" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1.0"/>
+    <PARAM id="os_mode" value="0.0"/>
+    <PARAM id="os_render_factor" value="1.0"/>
+    <PARAM id="os_render_like_realtime" value="1.0"/>
+    <PARAM id="os_render_mode" value="0.0"/>
+    <PARAM id="outgain" value="-1.239999771118164"/>
+    <PARAM id="preset" value="21"/>
+    <PARAM id="rate" value="0.2999999821186066"/>
+    <PARAM id="sat" value="0.5799999833106995"/>
+    <PARAM id="spacing" value="2.533167362213135"/>
+    <PARAM id="speed" value="15.00000095367432"/>
+    <PARAM id="thick" value="0.570967972278595"/>
+    <PARAM id="tone_onoff" value="1.0"/>
+    <PARAM id="width" value="1.0"/>
+    <PARAM id="wow_depth" value="0.239999994635582"/>
+    <PARAM id="wow_drift" value="0.3400000035762787"/>
+    <PARAM id="wow_rate" value="0.4199999868869781"/>
+    <PARAM id="wow_var" value="0.09999999403953552"/>
+  </Parameters>
+</Preset>
