@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Preset name="Studio 54" plugin="CHOWTapeModel" vendor="Cool WAV" category="" version="2.10.0">
+<Preset name="Studio Time" plugin="CHOWTapeModel" vendor="Cool WAV" category="" version="2.10.0">
   <Parameters>
     <PARAM id="azimuth" value="0.0"/>
     <PARAM id="chew_depth" value="0.0"/>
