@@ -290,11 +290,6 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     if (openGLHelper == nullptr)
         openGLHelper = std::make_unique<chowdsp::OpenGLHelper>();
 
-    struct ChowTapeInfoProvider : public chowdsp::StandardInfoProvider
-    {
-        static juce::String getWrapperTypeString (const ChowtapeModelAudioProcessor& proc) { return proc.getWrapperTypeString(); }
-    };
-
     auto builder = std::make_unique<foleys::MagicGUIBuilder> (magicState);
     builder->registerJUCEFactories();
     builder->registerFactory ("presets", &chowdsp::PresetsItem<ChowtapeModelAudioProcessor>::factory);
@@ -304,7 +299,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
     builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor, OversamplingMenu>::factory);
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
-    builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowTapeInfoProvider, ChowtapeModelAudioProcessor>::factory);
+    builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowtapeModelAudioProcessor>::factory);
 
     builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
