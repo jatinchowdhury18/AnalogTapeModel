@@ -38,7 +38,7 @@ Name: "Standalone"; Description: "Standalone Plugin"; Types: full
 [Files]
 Source: "../../Bin/Win32/CHOWTapeModel.vst3"; Excludes: "*.aaxplugin,*.clap"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.dll"; Excludes: "*.vst3,*.aaxplugin,*.clap"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../../Bin/Win32/CHOWTapeModel.clap"; Excludes: "*.vst3,*.aaxplugin"; DestDir: "{commoncf32}\Clap"; Components: CLAP_32; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win32/CHOWTapeModel.clap"; Excludes: "*.vst3,*.aaxplugin"; DestDir: "{commoncf32}\CLAP"; Components: CLAP_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.exe"; Excludes: "*.vst3,*.aaxplugin,*.clap"; DestDir: "{code:GetDir|Standalone}"; Components: Standalone; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
