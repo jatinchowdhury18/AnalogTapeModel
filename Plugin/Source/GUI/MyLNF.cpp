@@ -270,12 +270,13 @@ Slider::SliderLayout MyLNF::getSliderLayout (Slider& slider)
 
 Label* MyLNF::createSliderTextBox (Slider& slider)
 {
-    struct ReturnFocusSliderLabel  : public juce::Label
+    struct ReturnFocusSliderLabel : public juce::Label
     {
     public:
         explicit ReturnFocusSliderLabel (Slider& baseSlider) : juce::Label ({}, {}),
                                                                slider (baseSlider)
-        {}
+        {
+        }
 
         ~ReturnFocusSliderLabel() override = default;
 
@@ -291,10 +292,10 @@ Label* MyLNF::createSliderTextBox (Slider& slider)
             slider.grabKeyboardFocus();
         }
 
-//        void textEditorFocusLost (TextEditor&) override
-//        {
-//            slider.grabKeyboardFocus();
-//        }
+        //        void textEditorFocusLost (TextEditor&) override
+        //        {
+        //            slider.grabKeyboardFocus();
+        //        }
 
         std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
         {
@@ -311,15 +312,16 @@ Label* MyLNF::createSliderTextBox (Slider& slider)
 
     label->setColour (Label::textColourId, slider.findColour (Slider::textBoxTextColourId));
     label->setColour (Label::backgroundColourId,
-                  (slider.getSliderStyle() == Slider::LinearBar || slider.getSliderStyle() == Slider::LinearBarVertical)
-                      ? Colours::transparentBlack
-                      : slider.findColour (Slider::textBoxBackgroundColourId));
+                      (slider.getSliderStyle() == Slider::LinearBar || slider.getSliderStyle() == Slider::LinearBarVertical)
+                          ? Colours::transparentBlack
+                          : slider.findColour (Slider::textBoxBackgroundColourId));
     label->setColour (Label::outlineColourId, slider.findColour (Slider::textBoxOutlineColourId));
     label->setColour (TextEditor::textColourId, slider.findColour (Slider::textBoxTextColourId));
     label->setColour (TextEditor::backgroundColourId,
-                  slider.findColour (Slider::textBoxBackgroundColourId)
-                      .withAlpha ((slider.getSliderStyle() == Slider::LinearBar || slider.getSliderStyle() == Slider::LinearBarVertical)
-                                      ? 0.7f : 1.0f));
+                      slider.findColour (Slider::textBoxBackgroundColourId)
+                          .withAlpha ((slider.getSliderStyle() == Slider::LinearBar || slider.getSliderStyle() == Slider::LinearBarVertical)
+                                          ? 0.7f
+                                          : 1.0f));
     label->setColour (TextEditor::outlineColourId, slider.findColour (Slider::textBoxOutlineColourId));
     label->setColour (TextEditor::highlightColourId, slider.findColour (Slider::textBoxHighlightColourId));
 
