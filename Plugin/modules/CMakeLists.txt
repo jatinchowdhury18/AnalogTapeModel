@@ -80,7 +80,14 @@ if(IOS)
     target_compile_definitions(juce_plugin_modules PUBLIC JUCE_IN_APP_PURCHASES=1)
 endif()
 
-if(NOT APPLE)
+# Enable OpenGL on Windows by default.
+if (WIN32)
+    option(CHOWDSP_ENABLE_OPENGL "Enable OpenGL for this plugin" ON)
+else()
+    option(CHOWDSP_ENABLE_OPENGL "Enable OpenGL for this plugin" OFF)
+endif()
+
+if(CHOWDSP_ENABLE_OPENGL)
     message(STATUS "Linking with OpenGL")
     target_link_libraries(juce_plugin_modules PRIVATE juce::juce_opengl)
 endif()
