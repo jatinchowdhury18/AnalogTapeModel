@@ -292,11 +292,6 @@ Label* MyLNF::createSliderTextBox (Slider& slider)
             slider.grabKeyboardFocus();
         }
 
-        //        void textEditorFocusLost (TextEditor&) override
-        //        {
-        //            slider.grabKeyboardFocus();
-        //        }
-
         std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override
         {
             return createIgnoredAccessibilityHandler (*this);
