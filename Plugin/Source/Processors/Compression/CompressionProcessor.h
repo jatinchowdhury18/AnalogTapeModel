@@ -9,7 +9,7 @@ class CompressionProcessor
 public:
     CompressionProcessor (AudioProcessorValueTreeState& vts);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void prepare (double sr, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
@@ -18,9 +18,9 @@ public:
 
 private:
     std::atomic<float>* onOff = nullptr;
-    std::atomic<float>* amountParam = nullptr;
-    std::atomic<float>* attackParam = nullptr;
-    std::atomic<float>* releaseParam = nullptr;
+    chowdsp::FloatParameter* amountParam = nullptr;
+    chowdsp::FloatParameter* attackParam = nullptr;
+    chowdsp::FloatParameter* releaseParam = nullptr;
 
     std::vector<chowdsp::LevelDetector<float>> slewLimiter;
     BypassProcessor bypass;

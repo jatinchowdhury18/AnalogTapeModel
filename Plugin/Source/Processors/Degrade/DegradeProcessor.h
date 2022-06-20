@@ -11,21 +11,21 @@ class DegradeProcessor
 public:
     DegradeProcessor (AudioProcessorValueTreeState& vts);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void cookParams();
     void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
+    void processBlock (AudioBuffer<float>& buffer);
 
 private:
-    void processShortBlock (AudioBuffer<float>& buffer, MidiBuffer& midi);
+    void processShortBlock (AudioBuffer<float>& buffer);
 
     std::atomic<float>* point1xParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
-    std::atomic<float>* depthParam = nullptr;
-    std::atomic<float>* amtParam = nullptr;
-    std::atomic<float>* varParam = nullptr;
-    std::atomic<float>* envParam = nullptr;
+    chowdsp::FloatParameter* depthParam = nullptr;
+    chowdsp::FloatParameter* amtParam = nullptr;
+    chowdsp::FloatParameter* varParam = nullptr;
+    chowdsp::FloatParameter* envParam = nullptr;
 
     std::vector<DegradeFilter> filterProc;
     GainProcessor gainProc;

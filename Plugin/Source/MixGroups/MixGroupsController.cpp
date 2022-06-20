@@ -21,9 +21,10 @@ MixGroupsController::~MixGroupsController()
     sharedData->removeListener (this);
 }
 
-void MixGroupsController::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void MixGroupsController::createParameterLayout (chowdsp::Parameters& params)
 {
-    params.push_back (std::make_unique<AudioParameterChoice> (mixGroupParamID, "Mix Group", StringArray ({ "N/A", "1", "2", "3", "4" }), 0));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::ChoiceParameter> (params, mixGroupParamID, "Mix Group", StringArray ({ "N/A", "1", "2", "3", "4" }), 0);
 }
 
 void MixGroupsController::loadParameterList (Array<AudioProcessorParameter*>& params)

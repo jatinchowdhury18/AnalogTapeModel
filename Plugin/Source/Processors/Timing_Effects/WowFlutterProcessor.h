@@ -12,22 +12,22 @@ public:
     WowFlutterProcessor (AudioProcessorValueTreeState& vts);
 
     void initialisePlots (foleys::MagicGUIState& magicState);
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
-    void processBlock (AudioBuffer<float>&, MidiBuffer&);
+    void processBlock (AudioBuffer<float>&);
 
 private:
     void processWetBuffer (AudioBuffer<float>& buffer);
     void processBypassed (const AudioBuffer<float>& buffer);
 
     std::atomic<float>* flutterOnOff = nullptr;
-    std::atomic<float>* flutterRate = nullptr;
-    std::atomic<float>* flutterDepth = nullptr;
-    std::atomic<float>* wowRate = nullptr;
-    std::atomic<float>* wowDepth = nullptr;
-    std::atomic<float>* wowVariance = nullptr;
-    std::atomic<float>* wowDrift = nullptr;
+    chowdsp::FloatParameter* flutterRate = nullptr;
+    chowdsp::FloatParameter* flutterDepth = nullptr;
+    chowdsp::FloatParameter* wowRate = nullptr;
+    chowdsp::FloatParameter* wowDepth = nullptr;
+    chowdsp::FloatParameter* wowVariance = nullptr;
+    chowdsp::FloatParameter* wowDrift = nullptr;
 
     BypassProcessor bypass;
     float fs = 48000.0f;

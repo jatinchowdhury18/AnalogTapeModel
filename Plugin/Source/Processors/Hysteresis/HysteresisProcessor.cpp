@@ -44,21 +44,23 @@ static void deinterleaveSamples (const T* source, T** dest, int numSamples, int 
 
 HysteresisProcessor::HysteresisProcessor (AudioProcessorValueTreeState& vts) : osManager (vts)
 {
-    driveParam = vts.getRawParameterValue ("drive");
-    satParam = vts.getRawParameterValue ("sat");
-    widthParam = vts.getRawParameterValue ("width");
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (driveParam, vts, "drive");
+    loadParameterPointer (satParam, vts, "sat");
+    loadParameterPointer (widthParam, vts, "width");
     modeParam = vts.getRawParameterValue ("mode");
     onOffParam = vts.getRawParameterValue ("hyst_onoff");
 }
 
-void HysteresisProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void HysteresisProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
-    params.push_back (std::make_unique<AudioParameterBool> ("hyst_onoff", "Tape On/Off", true));
-    params.push_back (std::make_unique<AudioParameterFloat> ("drive", "Tape Drive", 0.0f, 1.0f, 0.5f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("sat", "Tape Saturation", 0.0f, 1.0f, 0.5f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("width", "Tape Bias", 0.0f, 1.0f, 0.5f));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "hyst_onoff", "Tape On/Off", true);
+    emplace_param<chowdsp::FloatParameter> (params, "drive", "Tape Drive", NormalisableRange { 0.0f, 1.0f }, 0.5f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "sat", "Tape Saturation", NormalisableRange { 0.0f, 1.0f }, 0.5f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "width", "Tape Bias", NormalisableRange { 0.0f, 1.0f }, 0.5f, &floatValToString, &stringToFloatVal);
 
-    params.push_back (std::make_unique<AudioParameterChoice> ("mode", "Tape Mode", StringArray ({ "RK2", "RK4", "NR4", "NR8", "STN", "V1" }), 0));
+    emplace_param<chowdsp::ChoiceParameter> (params, "mode", "Tape Mode", StringArray ({ "RK2", "RK4", "NR4", "NR8", "STN", "V1" }), 0);
 
     using OSManager = decltype (osManager);
     OSManager::createParameterLayout (params, OSManager::OSFactor::TwoX, OSManager::OSMode::MinPhase);
@@ -195,7 +197,7 @@ float HysteresisProcessor::getLatencySamples() const noexcept
                                       : 0.0f; // off
 }
 
-void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midi*/)
+void HysteresisProcessor::processBlock (AudioBuffer<float>& buffer)
 {
     const auto numChannels = buffer.getNumChannels();
 

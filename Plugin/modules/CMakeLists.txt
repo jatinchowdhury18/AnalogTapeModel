@@ -35,6 +35,7 @@ target_link_libraries(juce_plugin_modules
         chowdsp::chowdsp_foleys
         foleys_gui_magic
         RTNeural
+        clap_juce_extensions
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags

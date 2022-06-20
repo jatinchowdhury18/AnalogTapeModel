@@ -9,16 +9,16 @@ MidSideProcessor::MidSideProcessor (AudioProcessorValueTreeState& vts)
 {
     // set up parameter handle here
     midSideParam = vts.getRawParameterValue ("mid_side");
-    balanceParam = vts.getRawParameterValue ("stereo_balance");
+    chowdsp::ParamUtils::loadParameterPointer (balanceParam, vts, "stereo_balance");
     makeupParam = vts.getRawParameterValue ("stereo_makeup");
 }
 
-void MidSideProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void MidSideProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
     using namespace chowdsp::ParamUtils;
-    params.push_back (std::make_unique<AudioParameterBool> ("mid_side", "Mid/Side Mode", false));
-    params.push_back (std::make_unique<VTSParam> ("stereo_balance", "Stereo Balance", String(), NormalisableRange { -1.0f, 1.0f }, 0.0f, &percentValToString, &stringToPercentVal));
-    params.push_back (std::make_unique<AudioParameterBool> ("stereo_makeup", "Stereo Makeup", true));
+    emplace_param<chowdsp::BoolParameter> (params, "mid_side", "Mid/Side Mode", false);
+    emplace_param<chowdsp::FloatParameter> (params, "stereo_balance", "Stereo Balance", NormalisableRange { -1.0f, 1.0f }, 0.0f, &percentValToString, &stringToPercentVal);
+    emplace_param<chowdsp::BoolParameter> (params, "stereo_makeup", "Stereo Makeup", true);
 }
 
 void MidSideProcessor::prepare (double sampleRate, int samplesPerBlock)
@@ -59,7 +59,7 @@ void MidSideProcessor::processInput (AudioBuffer<float>& buffer)
     }
 
     // balance processing
-    const auto curBalance = balanceParam->load();
+    const auto curBalance = balanceParam->getCurrentValue();
     auto&& stereoBlock = dsp::AudioBlock<float> { buffer };
     auto&& leftBlock = stereoBlock.getSingleChannelBlock (0);
     auto&& rightBlock = stereoBlock.getSingleChannelBlock (1);
@@ -85,7 +85,7 @@ void MidSideProcessor::processOutput (AudioBuffer<float>& buffer)
     // inverse balance processing
     if (*makeupParam == 1.0f)
     {
-        const auto curBalance = balanceParam->load();
+        const auto curBalance = balanceParam->getCurrentValue();
         auto&& stereoBlock = dsp::AudioBlock<float> { buffer };
         auto&& leftBlock = stereoBlock.getSingleChannelBlock (0);
         auto&& rightBlock = stereoBlock.getSingleChannelBlock (1);

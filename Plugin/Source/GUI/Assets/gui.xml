@@ -39,7 +39,7 @@
         <View flex-grow="0.15" background-color="00000000"/>
         <TitleComp background-color="00000000" title="Chow Tape Model" font="35"
                    padding="3" flex-grow="1.0"/>
-        <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.7"
+        <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.8"
                   padding="0" margin="5" border=""/>
         <View background-color="00000000" flex-grow="0.15"/>
       </View>
@@ -51,11 +51,11 @@
             flex-grow="1.5" group="Basic Controls">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain" group="Gain Controls Tab">
-          <Slider caption="Input Gain [dB]" parameter="ingain" class="Slider" name="Input Gain"
+          <Slider caption="Input Gain" parameter="ingain" class="Slider" name="Input Gain"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <Slider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
                   padding="0" margin="0" name="Dry/Wet" slider-track="FF0BBDC2"/>
-          <Slider caption="Output Gain [dB]" parameter="outgain" class="Slider"
+          <Slider caption="Output Gain" parameter="outgain" class="Slider"
                   padding="0" margin="0" name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
@@ -110,11 +110,11 @@
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Comp" margin="0" group="Compression Controls Tab">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-          <Slider caption="Amount [dB]" parameter="comp_amt" class="Slider" name="Compression Amount"
+          <Slider caption="Amount" parameter="comp_amt" class="Slider" name="Compression Amount"
                   padding="0" margin="0" tooltip="Controls the amount of tape compression applied by the effect."/>
-          <Slider caption="Attack [ms]" parameter="comp_attack" class="Slider"
+          <Slider caption="Attack" parameter="comp_attack" class="Slider"
                   name="Compression Attack" padding="0" margin="0" tooltip="Controls the attack speed of the tape compression."/>
-          <Slider caption="Release [ms]" parameter="comp_release" class="Slider"
+          <Slider caption="Release" parameter="comp_release" class="Slider"
                   name="Compression Release" padding="0" margin="0" tooltip="Controls the release speed of the tape compression."/>
           <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
                        button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"

@@ -2,18 +2,20 @@
 
 ChewProcessor::ChewProcessor (AudioProcessorValueTreeState& vts)
 {
-    depth = vts.getRawParameterValue ("chew_depth");
-    freq = vts.getRawParameterValue ("chew_freq");
-    var = vts.getRawParameterValue ("chew_var");
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (depth, vts, "chew_depth");
+    loadParameterPointer (freq, vts, "chew_freq");
+    loadParameterPointer (var, vts, "chew_var");
     onOff = vts.getRawParameterValue ("chew_onoff");
 }
 
-void ChewProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void ChewProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
-    params.push_back (std::make_unique<AudioParameterBool> ("chew_onoff", "Chew On/Off", false));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_depth", "Chew Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_freq", "Chew Freq", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("chew_var", "Chew Variance", 0.0f, 1.0f, 0.0f));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "chew_onoff", "Chew On/Off", false);
+    emplace_param<chowdsp::FloatParameter> (params, "chew_depth", "Chew Depth", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "chew_freq", "Chew Freq", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "chew_var", "Chew Variance", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
 }
 
 void ChewProcessor::prepare (double sr, int samplesPerBlock, int numChannels)

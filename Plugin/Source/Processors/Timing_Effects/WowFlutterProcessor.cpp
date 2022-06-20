@@ -3,14 +3,13 @@
 
 WowFlutterProcessor::WowFlutterProcessor (AudioProcessorValueTreeState& vts)
 {
-    flutterRate = vts.getRawParameterValue ("rate");
-    flutterDepth = vts.getRawParameterValue ("depth");
-
-    wowRate = vts.getRawParameterValue ("wow_rate");
-    wowDepth = vts.getRawParameterValue ("wow_depth");
-    wowVariance = vts.getRawParameterValue ("wow_var");
-    wowDrift = vts.getRawParameterValue ("wow_drift");
-
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (flutterRate, vts, "rate");
+    loadParameterPointer (flutterDepth, vts, "depth");
+    loadParameterPointer (wowRate, vts, "wow_rate");
+    loadParameterPointer (wowDepth, vts, "wow_depth");
+    loadParameterPointer (wowVariance, vts, "wow_var");
+    loadParameterPointer (wowDrift, vts, "wow_drift");
     flutterOnOff = vts.getRawParameterValue ("flutter_onoff");
 }
 
@@ -23,17 +22,16 @@ void WowFlutterProcessor::initialisePlots (foleys::MagicGUIState& magicState)
     magicState.addBackgroundProcessing (flutterPlot);
 }
 
-void WowFlutterProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void WowFlutterProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
-    params.push_back (std::make_unique<AudioParameterBool> ("flutter_onoff", "Wow/Flutter On/Off", true));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("rate", "Flutter Rate", 0.0f, 1.0f, 0.3f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("depth", "Flutter Depth", 0.0f, 1.0f, 0.0f));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_rate", "Wow Rate", 0.0f, 1.0f, 0.25f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_depth", "Wow Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_var", "Wow Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("wow_drift", "Wow Drift", 0.0f, 1.0f, 0.0f));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "flutter_onoff", "Wow/Flutter On/Off", true);
+    emplace_param<chowdsp::FloatParameter> (params, "rate", "Flutter Rate", NormalisableRange { 0.0f, 1.0f }, 0.3f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "depth", "Flutter Depth", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "wow_rate", "Wow Rate", NormalisableRange { 0.0f, 1.0f }, 0.25f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "wow_depth", "Wow Depth", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "wow_var", "Wow Variance", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "wow_drift", "Wow Drift", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
 }
 
 void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
@@ -55,7 +53,7 @@ void WowFlutterProcessor::prepareToPlay (double sampleRate, int samplesPerBlock,
     flutterPlot->prepareToPlay (sampleRate, samplesPerBlock);
 }
 
-void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
+void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer)
 {
     ScopedNoDenormals noDenormals;
 
@@ -64,7 +62,7 @@ void WowFlutterProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& 
 
     auto curDepthWow = powf (*wowDepth, 3.0f);
     auto wowFreq = powf (4.5, *wowRate) - 1.0f;
-    wowProcessor.prepareBlock (curDepthWow, wowFreq, wowVariance->load(), wowDrift->load(), numSamples, numChannels);
+    wowProcessor.prepareBlock (curDepthWow, wowFreq, wowVariance->getCurrentValue(), wowDrift->getCurrentValue(), numSamples, numChannels);
 
     auto curDepthFlutter = powf (powf (*flutterDepth, 3.0f) * 81.0f / 625.0f, 0.5f);
     auto flutterFreq = 0.1f * powf (1000.0f, *flutterRate);
