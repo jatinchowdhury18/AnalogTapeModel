@@ -9,15 +9,15 @@
 */
 
 #include "PluginProcessor.h"
-#include "Presets/PresetManager.h"
-#include "GUI/OnOff/PowerButton.h"
 #include "GUI/ModulatableSlider.h"
+#include "GUI/OnOff/PowerButton.h"
 #include "GUI/OversamplingMenu.h"
 #include "GUI/SettingsButton.h"
 #include "GUI/TitleComp.h"
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
+#include "Presets/PresetManager.h"
 
 #if JUCE_IOS
 #include "GUI/IOSOnly/ScrollView.h"
@@ -36,18 +36,17 @@ const String dryWetTag = "drywet";
 } // namespace
 
 //==============================================================================
-ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor() :
-      inputFilters (vts),
-      midSideController (vts),
-      toneControl (vts),
-      compressionProcessor (vts),
-      hysteresis (vts),
-      degrade (vts),
-      chewer (vts),
-      lossFilter (vts),
-      flutter (vts),
-      onOffManager (vts, this),
-      mixGroupsController (vts, this)
+ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor() : inputFilters (vts),
+                                                             midSideController (vts),
+                                                             toneControl (vts),
+                                                             compressionProcessor (vts),
+                                                             hysteresis (vts),
+                                                             degrade (vts),
+                                                             chewer (vts),
+                                                             lossFilter (vts),
+                                                             flutter (vts),
+                                                             onOffManager (vts, this),
+                                                             mixGroupsController (vts, this)
 {
     pluginSettings->initialise (settingsFilePath);
 

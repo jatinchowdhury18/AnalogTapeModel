@@ -43,24 +43,22 @@ private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)
 };
 
-
 class ModSliderItem : public foleys::GuiItem
 {
-
 public:
     FOLEYS_DECLARE_GUI_FACTORY (ModSliderItem)
 
-    static const juce::Identifier  pSliderType;
+    static const juce::Identifier pSliderType;
     static const juce::StringArray pSliderTypes;
 
-    static const juce::Identifier  pSliderTextBox;
+    static const juce::Identifier pSliderTextBox;
     static const juce::StringArray pTextBoxPositions;
-    static const juce::Identifier  pSliderTextBoxWidth;
-    static const juce::Identifier  pSliderTextBoxHeight;
+    static const juce::Identifier pSliderTextBoxWidth;
+    static const juce::Identifier pSliderTextBoxHeight;
 
-    static const juce::Identifier  pValue;
-    static const juce::Identifier  pMinValue;
-    static const juce::Identifier  pMaxValue;
+    static const juce::Identifier pValue;
+    static const juce::Identifier pMinValue;
+    static const juce::Identifier pMaxValue;
 
     ModSliderItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node);
 
