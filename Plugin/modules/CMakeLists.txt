@@ -32,6 +32,7 @@ target_link_libraries(juce_plugin_modules
         chowdsp::chowdsp_plugin_base
         chowdsp::chowdsp_plugin_utils
         chowdsp::chowdsp_presets
+        chowdsp::chowdsp_clap_extensions
         chowdsp::chowdsp_foleys
         foleys_gui_magic
         RTNeural

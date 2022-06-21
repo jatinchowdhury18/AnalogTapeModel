@@ -11,6 +11,7 @@
 #include "PluginProcessor.h"
 #include "Presets/PresetManager.h"
 #include "GUI/OnOff/PowerButton.h"
+#include "GUI/ModulatableSlider.h"
 #include "GUI/OversamplingMenu.h"
 #include "GUI/SettingsButton.h"
 #include "GUI/TitleComp.h"
@@ -218,6 +219,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCEFactories();
     builder->registerFactory ("presets", &chowdsp::PresetsItem<ChowtapeModelAudioProcessor>::factory);
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
+    builder->registerFactory ("ModSlider", &ModSliderItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);

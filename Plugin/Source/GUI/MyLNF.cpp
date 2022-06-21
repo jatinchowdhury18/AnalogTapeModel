@@ -1,4 +1,5 @@
 #include "MyLNF.h"
+#include "ModulatableSlider.h"
 
 MyLNF::MyLNF()
 {
@@ -41,7 +42,11 @@ void MyLNF::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int he
     knob->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, alpha);
     pointer->drawWithin (g, knobBounds, RectanglePlacement::stretchToFit, alpha);
 
-    const auto toAngle = rotaryStartAngle + sliderPos * (rotaryEndAngle - rotaryStartAngle);
+    auto modSliderPos = sliderPos;
+    if (auto* modSlider = dynamic_cast<ModulatableSlider*> (&s))
+        modSliderPos = (float) modSlider->getModulatedPosition();
+
+    const auto toAngle = rotaryStartAngle + modSliderPos * (rotaryEndAngle - rotaryStartAngle);
     constexpr float arcFactor = 0.9f;
 
     Path valueArc;
@@ -234,7 +239,7 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
     g.strokePath (backgroundTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
     Path valueTrack;
-    Point<float> minPoint, maxPoint;
+    Point<float> minPoint, maxPoint, modPoint;
 
     {
         auto kx = slider.isHorizontal() ? sliderPos : ((float) x + (float) width * 0.5f);
@@ -242,12 +247,22 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
 
         minPoint = startPoint;
         maxPoint = { kx, ky };
+
+        modPoint = maxPoint;
+        if (auto* modSlider = dynamic_cast<ModulatableSlider*> (&slider))
+        {
+            const auto modSliderPos = (float) modSlider->getModulatedPosition();
+            auto kmx = slider.isHorizontal() ? (startPoint.x + (endPoint.x - startPoint.x) * modSliderPos) : ((float) x + (float) width * 0.5f);
+            auto kmy = slider.isHorizontal() ? ((float) y + (float) height * 0.5f) : (startPoint.y + (endPoint.y - startPoint.y) * modSliderPos);
+
+            modPoint = { kmx, kmy };
+        }
     }
 
     auto thumbWidth = getSliderThumbRadius (slider);
 
     valueTrack.startNewSubPath (minPoint);
-    valueTrack.lineTo (maxPoint);
+    valueTrack.lineTo (modPoint);
     g.setColour (slider.findColour (Slider::trackColourId).withAlpha (alpha));
     g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
