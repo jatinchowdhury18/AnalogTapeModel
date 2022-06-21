@@ -10,7 +10,7 @@ class ChewProcessor
 public:
     ChewProcessor (AudioProcessorValueTreeState& vts);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void prepare (double sr, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
@@ -18,9 +18,9 @@ public:
 
 private:
     std::atomic<float>* onOff = nullptr;
-    std::atomic<float>* depth = nullptr;
-    std::atomic<float>* freq = nullptr;
-    std::atomic<float>* var = nullptr;
+    chowdsp::FloatParameter* depth = nullptr;
+    chowdsp::FloatParameter* freq = nullptr;
+    chowdsp::FloatParameter* var = nullptr;
     float mix = 0.0f;
     float power = 0.0f;
 
@@ -38,7 +38,7 @@ private:
     inline int getDryTime()
     {
         auto tScale = pow (*freq, 0.1f);
-        auto varScale = pow (random.nextFloat() * 2.0f, var->load());
+        auto varScale = pow (random.nextFloat() * 2.0f, var->getCurrentValue());
         return random.nextInt (Range<int> ((int) ((1.0 - tScale) * sampleRate * varScale),
                                            (int) ((2 - 1.99 * tScale) * sampleRate * varScale)));
     }
@@ -48,7 +48,7 @@ private:
         auto tScale = pow (*freq, 0.1f);
         auto start = 0.2 + 0.8 * *depth;
         auto end = start - (0.001 + 0.01 * *depth);
-        auto varScale = pow (random.nextFloat() * 2.0f, var->load());
+        auto varScale = pow (random.nextFloat() * 2.0f, var->getCurrentValue());
 
         return random.nextInt (Range<int> ((int) ((1.0 - tScale) * sampleRate * varScale),
                                            (int) (((1.0 - tScale) + start - end * tScale) * sampleRate * varScale)));

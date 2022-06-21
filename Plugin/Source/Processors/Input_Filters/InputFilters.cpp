@@ -8,13 +8,14 @@ constexpr float maxFreq = 22000.0f;
 
 InputFilters::InputFilters (AudioProcessorValueTreeState& vts)
 {
-    lowCutParam = vts.getRawParameterValue ("ifilt_low");
-    highCutParam = vts.getRawParameterValue ("ifilt_high");
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (lowCutParam, vts, "ifilt_low");
+    loadParameterPointer (highCutParam, vts, "ifilt_high");
     makeupParam = vts.getRawParameterValue ("ifilt_makeup");
     onOffParam = vts.getRawParameterValue ("ifilt_onoff");
 }
 
-void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void InputFilters::createParameterLayout (chowdsp::Parameters& params)
 {
     NormalisableRange lowFreqRange { minFreq, 2000.0f };
     lowFreqRange.setSkewForCentre (250.0f);
@@ -22,7 +23,8 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
     NormalisableRange highFreqRange { 2000.0f, maxFreq };
     highFreqRange.setSkewForCentre (10000.0f);
 
-    auto freqToString = [] (float freq, int) -> String {
+    auto freqToString = [] (float freq) -> String
+    {
         String suffix = " Hz";
         if (freq > 1000.0f)
         {
@@ -32,7 +34,8 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
         return String (freq, 2, false) + suffix;
     };
 
-    auto stringToFreq = [] (const String& string) -> float {
+    auto stringToFreq = [] (const String& string) -> float
+    {
         float freq = string.getFloatValue();
         if (string.getLastCharacter() == 'k')
             freq *= 1000.0f;
@@ -40,10 +43,11 @@ void InputFilters::createParameterLayout (std::vector<std::unique_ptr<RangedAudi
         return freq;
     };
 
-    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_onoff", "Input Filters On/Off", false));
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_low", "Input Low Cut", lowFreqRange, minFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterFloat> ("ifilt_high", "Input High Cut", highFreqRange, maxFreq, String(), AudioProcessorParameter::genericParameter, freqToString, stringToFreq));
-    params.push_back (std::make_unique<AudioParameterBool> ("ifilt_makeup", "Input Cut Makeup", false));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "ifilt_onoff", "Input Filters On/Off", false);
+    emplace_param<chowdsp::FloatParameter> (params, "ifilt_low", "Input Low Cut", lowFreqRange, minFreq, freqToString, stringToFreq);
+    emplace_param<chowdsp::FloatParameter> (params, "ifilt_high", "Input High Cut", highFreqRange, maxFreq, freqToString, stringToFreq);
+    emplace_param<chowdsp::BoolParameter> (params, "ifilt_makeup", "Input Cut Makeup", false);
 }
 
 void InputFilters::prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels)
@@ -67,8 +71,8 @@ void InputFilters::processBlock (AudioBuffer<float>& buffer)
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
 
-    lowCutFilter.setCutoff (lowCutParam->load());
-    highCutFilter.setCutoff (jmin (highCutParam->load(), fs * 0.48f));
+    lowCutFilter.setCutoff (lowCutParam->getCurrentValue());
+    highCutFilter.setCutoff (jmin (highCutParam->getCurrentValue(), fs * 0.48f));
 
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {

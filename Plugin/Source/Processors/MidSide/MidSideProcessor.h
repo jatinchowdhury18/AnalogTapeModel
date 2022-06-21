@@ -7,7 +7,7 @@ class MidSideProcessor
 public:
     MidSideProcessor (AudioProcessorValueTreeState& vts);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void prepare (double sampleRate, int samplesPerBlock);
 
@@ -16,7 +16,7 @@ public:
 
 private:
     std::atomic<float>* midSideParam = nullptr; // parameter handle
-    std::atomic<float>* balanceParam = nullptr;
+    chowdsp::FloatParameter* balanceParam = nullptr;
     std::atomic<float>* makeupParam = nullptr;
 
     bool curMS = false;

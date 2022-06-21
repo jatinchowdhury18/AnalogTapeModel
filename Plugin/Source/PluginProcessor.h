@@ -14,7 +14,6 @@
 #include "GUI/OnOff/OnOffManager.h"
 #include "GUI/Visualizers/TapeScope.h"
 #include "MixGroups/MixGroupsController.h"
-#include "Presets/PresetManager.h"
 #include "Processors/Chew/ChewProcessor.h"
 #include "Processors/Compression/CompressionProcessor.h"
 #include "Processors/Degrade/DegradeProcessor.h"
@@ -35,57 +34,29 @@ JUCE_END_IGNORE_WARNINGS_GCC_LIKE
 
 #if CHOWDSP_AUTO_UPDATE
 #include "GUI/AutoUpdating.h"
-#endif // CHOWDSP_AUTO_UPDATE
-
-//==============================================================================
-/**
-*/
-class ChowtapeModelAudioProcessor : public AudioProcessor
-#if HAS_CLAP_JUCE_EXTENSIONS
-    ,
-                                    private clap_juce_extensions::clap_properties
 #endif
+
+class ChowtapeModelAudioProcessor : public chowdsp::PluginBase<ChowtapeModelAudioProcessor>
 {
 public:
-    //==============================================================================
     ChowtapeModelAudioProcessor();
-    ~ChowtapeModelAudioProcessor() override;
 
-    //==============================================================================
+    static void addParameters (Parameters& params);
+
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
 
-    void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
+    void processAudioBlock (AudioBuffer<float>&) override;
     void processBlockBypassed (AudioBuffer<float>&, MidiBuffer&) override;
-
-    //==============================================================================
-    AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override;
-
-    //==============================================================================
-    const String getName() const override;
-
-    bool acceptsMidi() const override;
-    bool producesMidi() const override;
-    bool isMidiEffect() const override;
-    double getTailLengthSeconds() const override;
     float calcLatencySamples() const noexcept;
 
-    //==============================================================================
-    int getNumPrograms() override;
-    int getCurrentProgram() override;
-    void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    AudioProcessorEditor* createEditor() override;
 
-    //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    String getWrapperTypeString() const;
-    PresetManager& getPresetManager() { return presetManager; }
     const AudioProcessorValueTreeState& getVTS() const { return vts; }
     AudioProcessorValueTreeState& getVTS() { return vts; }
     const AudioPlayHead::CurrentPositionInfo& getPositionInfo() const { return positionInfo; }
@@ -94,16 +65,13 @@ public:
 
 private:
     using DryDelayType = chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange5th>;
-
-    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     void latencyCompensation();
 
     chowdsp::SharedPluginSettings pluginSettings;
-    AudioProcessorValueTreeState vts;
 
-    std::atomic<float>* inGainDBParam = nullptr;
-    std::atomic<float>* outGainDBParam = nullptr;
-    std::atomic<float>* dryWetParam = nullptr;
+    chowdsp::FloatParameter* inGainDBParam = nullptr;
+    chowdsp::FloatParameter* outGainDBParam = nullptr;
+    chowdsp::FloatParameter* dryWetParam = nullptr;
 
     GainProcessor inGain;
     InputFilters inputFilters;
@@ -125,7 +93,6 @@ private:
     foleys::MagicProcessorState magicState { *this, vts };
     TapeScope* scope = nullptr;
 
-    PresetManager presetManager { vts };
     MyLNF myLNF;
     MixGroupsController mixGroupsController;
     AudioPlayHead::CurrentPositionInfo positionInfo;
@@ -134,8 +101,7 @@ private:
 
 #if CHOWDSP_AUTO_UPDATE
     AutoUpdater updater;
-#endif // CHOWDSP_AUTO_UPDATE
+#endif
 
-    //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChowtapeModelAudioProcessor)
 };

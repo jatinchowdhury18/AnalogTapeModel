@@ -36,9 +36,9 @@ private:
     ToneStage toneIn, toneOut;
 
     std::atomic<float>* onOffParam = nullptr;
-    std::atomic<float>* bassParam = nullptr;
-    std::atomic<float>* trebleParam = nullptr;
-    std::atomic<float>* tFreqParam = nullptr;
+    chowdsp::FloatParameter* bassParam = nullptr;
+    chowdsp::FloatParameter* trebleParam = nullptr;
+    chowdsp::FloatParameter* tFreqParam = nullptr;
 
     float dbScale = 1.0f;
 

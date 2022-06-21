@@ -2,28 +2,30 @@
 
 DegradeProcessor::DegradeProcessor (AudioProcessorValueTreeState& vts)
 {
+    using namespace chowdsp::ParamUtils;
     point1xParam = vts.getRawParameterValue ("deg_point1x");
     onOffParam = vts.getRawParameterValue ("deg_onoff");
-    depthParam = vts.getRawParameterValue ("deg_depth");
-    amtParam = vts.getRawParameterValue ("deg_amt");
-    varParam = vts.getRawParameterValue ("deg_var");
-    envParam = vts.getRawParameterValue ("deg_env");
+    loadParameterPointer (depthParam, vts, "deg_depth");
+    loadParameterPointer (amtParam, vts, "deg_amt");
+    loadParameterPointer (varParam, vts, "deg_var");
+    loadParameterPointer (envParam, vts, "deg_env");
 }
 
-void DegradeProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void DegradeProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
-    params.push_back (std::make_unique<AudioParameterBool> ("deg_point1x", "Degrade Point1x", false));
-    params.push_back (std::make_unique<AudioParameterBool> ("deg_onoff", "Degrade On/Off", false));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_depth", "Degrade Depth", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_amt", "Degrade Amount", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_var", "Degrade Variance", 0.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("deg_env", "Degrade Envelope", 0.0f, 1.0f, 0.0f));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "deg_point1x", "Degrade Point1x", false);
+    emplace_param<chowdsp::BoolParameter> (params, "deg_onoff", "Degrade On/Off", false);
+    emplace_param<chowdsp::FloatParameter> (params, "deg_depth", "Degrade Depth", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "deg_amt", "Degrade Amount", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "deg_var", "Degrade Variance", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "deg_env", "Degrade Envelope", NormalisableRange { 0.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
 }
 
 void DegradeProcessor::cookParams()
 {
     auto point1x = static_cast<bool> (point1xParam->load());
-    auto depthValue = point1x ? depthParam->load() * 0.1f : depthParam->load();
+    auto depthValue = point1x ? depthParam->getCurrentValue() * 0.1f : depthParam->getCurrentValue();
 
     float freqHz = 200.0f * powf (20000.0f / 200.0f, 1.0f - *amtParam);
     float gainDB = -24.0f * depthValue;
@@ -34,7 +36,7 @@ void DegradeProcessor::cookParams()
     for (auto& filter : filterProc)
         filter.setFreq (jmin (freqHz + (*varParam * (freqHz / 0.6f) * (random.nextFloat() - 0.5f)), 0.49f * fs));
 
-    auto envSkew = 1.0f - std::pow (envParam->load(), 0.8f);
+    auto envSkew = 1.0f - std::pow (envParam->getCurrentValue(), 0.8f);
     levelDetector.setParameters (10.0f, 20.0f * std::pow (5000.0f / 20.0f, envSkew));
     gainProc.setGain (Decibels::decibelsToGain (jmin (gainDB + (*varParam * 36.0f * (random.nextFloat() - 0.5f)), 3.0f)));
 }
@@ -62,7 +64,7 @@ void DegradeProcessor::prepareToPlay (double sampleRate, int samplesPerBlock, in
     sampleCounter = 0;
 }
 
-void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
+void DegradeProcessor::processBlock (AudioBuffer<float>& buffer)
 {
     const auto numChannels = buffer.getNumChannels();
     const auto numSamples = buffer.getNumSamples();
@@ -71,13 +73,13 @@ void DegradeProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& mid
         int samplesToProcess = jmin (smallBlockSize, numSamples - i);
 
         auto&& smallBuffer = AudioBuffer<float> { buffer.getArrayOfWritePointers(), numChannels, i, samplesToProcess };
-        processShortBlock (smallBuffer, midi);
+        processShortBlock (smallBuffer);
 
         i += samplesToProcess;
     }
 }
 
-void DegradeProcessor::processShortBlock (AudioBuffer<float>& buffer, MidiBuffer& midi)
+void DegradeProcessor::processShortBlock (AudioBuffer<float>& buffer)
 {
     if (! bypass.processBlockIn (buffer, bypass.toBool (onOffParam)))
         return;
@@ -101,7 +103,7 @@ void DegradeProcessor::processShortBlock (AudioBuffer<float>& buffer, MidiBuffer
     levelDetector.process (levelContext);
     const auto* levelPtr = levelBuffer.getReadPointer (0);
 
-    const auto applyEnvelope = envParam->load() > 0.0f;
+    const auto applyEnvelope = envParam->getCurrentValue() > 0.0f;
     for (int ch = 0; ch < numChannels; ++ch)
     {
         auto* noisePtr = noiseBuffer.getWritePointer (ch);
@@ -116,6 +118,6 @@ void DegradeProcessor::processShortBlock (AudioBuffer<float>& buffer, MidiBuffer
         filterProc[(size_t) ch].process (xPtr, numSamples);
     }
 
-    gainProc.processBlock (buffer, midi);
+    gainProc.processBlock (buffer);
     bypass.processBlockOut (buffer, bypass.toBool (onOffParam));
 }

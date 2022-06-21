@@ -9,7 +9,7 @@ class InputFilters
 public:
     InputFilters (AudioProcessorValueTreeState& vts);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
     void prepareToPlay (double sampleRate, int samplesPerBlock, int numChannels);
     void setMakeupDelay (float newDelaySamples) { makeupDelay.setDelay (newDelaySamples); }
 
@@ -18,8 +18,8 @@ public:
 
 private:
     std::atomic<float>* onOffParam = nullptr;
-    std::atomic<float>* lowCutParam = nullptr;
-    std::atomic<float>* highCutParam = nullptr;
+    chowdsp::FloatParameter* lowCutParam = nullptr;
+    chowdsp::FloatParameter* highCutParam = nullptr;
     std::atomic<float>* makeupParam = nullptr;
 
     float fs = 44100.0f;
