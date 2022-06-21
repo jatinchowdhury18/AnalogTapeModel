@@ -13,7 +13,7 @@ public:
 
     static void createParameterLayout (chowdsp::Parameters& params);
 
-    void prepare (float sampleRate, int samplesPerBlock, int numSamples);
+    void prepare (float sampleRate, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
     float getLatencySamples() const noexcept;
 

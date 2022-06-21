@@ -68,11 +68,8 @@ void HysteresisProcessor::createParameterLayout (chowdsp::Parameters& params)
 
 void HysteresisProcessor::setSolver (int newSolver)
 {
-    if (newSolver == SolverType::NUM_SOLVERS) // V1
-        useV1 = true;
-    else
-        useV1 = false;
-
+    // Hack for V1 solver mode
+    useV1 = newSolver == SolverType::NUM_SOLVERS;
     solver = useV1 ? RK4 : static_cast<SolverType> (newSolver);
 
     // set clip level for solver

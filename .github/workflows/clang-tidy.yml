@@ -14,7 +14,7 @@ on:
 jobs:
   build_and_test:
     if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
-    name: Apply clang-format to pull request
+    name: Run clang-tidy on pull request
     runs-on: ubuntu-latest
     
     steps:
@@ -33,7 +33,7 @@ jobs:
     - name: Run clang-tidy
       shell: bash
       working-directory: ${{github.workspace}}/Plugin
-      run: find Source -iname *.cpp | xargs clang-tidy > tidy_log.txt && status=0 || status=1
+      run: find Source -iname "*.cpp" -not -path "Source/Headless*" | xargs clang-tidy > tidy_log.txt && status=0 || status=1
 
     - name: Check results
       shell: bash
