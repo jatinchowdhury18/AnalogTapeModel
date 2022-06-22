@@ -17,7 +17,7 @@ public:
     MixGroupsController (AudioProcessorValueTreeState& vts, AudioProcessor* proc);
     ~MixGroupsController() override;
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     void parameterChanged (const String& parameterID, float newValue) override;
     void mixGroupParamChanged (const String& paramID, int mixGroup, float value, String otherUuid) override;

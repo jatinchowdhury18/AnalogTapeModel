@@ -11,9 +11,9 @@ public:
     LossFilter (AudioProcessorValueTreeState& vts, int order = 64);
     ~LossFilter() {}
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
-    void prepare (float sampleRate, int samplesPerBlock, int numSamples);
+    void prepare (float sampleRate, int samplesPerBlock, int numChannels);
     void processBlock (AudioBuffer<float>& buffer);
     float getLatencySamples() const noexcept;
 
@@ -31,11 +31,11 @@ private:
     AudioBuffer<float> fadeBuffer;
 
     std::atomic<float>* onOff = nullptr;
-    std::atomic<float>* speed = nullptr;
-    std::atomic<float>* spacing = nullptr;
-    std::atomic<float>* thickness = nullptr;
-    std::atomic<float>* gap = nullptr;
-    std::atomic<float>* azimuth = nullptr;
+    chowdsp::FloatParameter* speed = nullptr;
+    chowdsp::FloatParameter* spacing = nullptr;
+    chowdsp::FloatParameter* thickness = nullptr;
+    chowdsp::FloatParameter* gap = nullptr;
+    chowdsp::FloatParameter* azimuth = nullptr;
 
     float prevSpeed = 0.5f;
     float prevSpacing = 0.5f;

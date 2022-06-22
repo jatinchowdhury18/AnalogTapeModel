@@ -16,6 +16,7 @@ readability-*,\
 -modernize-use-trailing-return-type,\
 -readability-avoid-const-params-in-decls,\
 -readability-convert-member-functions-to-static,\
+-readability-implicit-bool-conversion,\
 -readability-magic-numbers,\
 -readability-uppercase-literal-suffix,\
 -readability-const-return-type,\

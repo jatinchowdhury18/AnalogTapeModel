@@ -2,44 +2,25 @@
 
 LossFilter::LossFilter (AudioProcessorValueTreeState& vts, int order) : order (order)
 {
-    speed = vts.getRawParameterValue ("speed");
-    spacing = vts.getRawParameterValue ("spacing");
-    thickness = vts.getRawParameterValue ("thick");
-    gap = vts.getRawParameterValue ("gap");
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (speed, vts, "speed");
+    loadParameterPointer (spacing, vts, "spacing");
+    loadParameterPointer (thickness, vts, "thick");
+    loadParameterPointer (gap, vts, "gap");
+    loadParameterPointer (azimuth, vts, "azimuth");
     onOff = vts.getRawParameterValue ("loss_onoff");
-    azimuth = vts.getRawParameterValue ("azimuth");
 }
 
-void LossFilter::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void LossFilter::createParameterLayout (chowdsp::Parameters& params)
 {
+    using namespace chowdsp::ParamUtils;
     constexpr float minDist = 0.1f;
-
-    auto valueToString = [] (float value, int) { return String (value, 4); };
-    auto stringToValue = [] (const String& text) { return text.getFloatValue(); };
-
-    NormalisableRange<float> speedRange (1.0f, 50.0f); // meters per second
-    speedRange.setSkewForCentre (15.0f);
-
-    NormalisableRange<float> spaceRange (minDist, 20.0f);
-    spaceRange.setSkewForCentre (10.0f);
-
-    NormalisableRange<float> thickRange (minDist, 50.0f);
-    thickRange.setSkewForCentre (15.0f);
-
-    NormalisableRange<float> gapRange (1.0f, 50.0f);
-    gapRange.setSkewForCentre (10.0f);
-
-    params.push_back (std::make_unique<AudioParameterBool> ("loss_onoff", "Loss On/Off", true));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("speed", "Tape Speed", speedRange, 30.0f, String(), AudioProcessorParameter::genericParameter, [] (float value, int) { return String (value, 2); }));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("spacing", "Tape Spacing", spaceRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("thick", "Tape Thickness", thickRange, minDist, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("gap", "Playhead Gap", gapRange, 1.0f, String(), AudioProcessorParameter::genericParameter, valueToString, stringToValue));
-
-    params.push_back (std::make_unique<AudioParameterFloat> ("azimuth", "Azimuth", -75.0f, 75.0f, 0.0f));
+    emplace_param<chowdsp::BoolParameter> (params, "loss_onoff", "Loss On/Off", true);
+    emplace_param<chowdsp::FloatParameter> (params, "speed", "Tape Speed", createNormalisableRange (1.0f, 50.0f, 15.0f), 30.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "spacing", "Tape Spacing", createNormalisableRange (minDist, 20.0f, 10.0f), minDist, &floatValToStringDecimal<4>, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "thick", "Tape Thickness", createNormalisableRange (minDist, 50.0f, 15.0f), minDist, &floatValToStringDecimal<4>, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "gap", "Playhead Gap", createNormalisableRange (1.0f, 50.0f, 10.0f), 1.0, &floatValToStringDecimal<4>, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "azimuth", "Azimuth", NormalisableRange { -75.0f, 75.0f }, 0.0f, &floatValToString, &stringToFloatVal);
 }
 
 float LossFilter::getLatencySamples() const noexcept
@@ -55,7 +36,7 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock, int numChannels
     fadeLength = jmax (1024, samplesPerBlock);
 
     fsFactor = (float) fs / 44100.0f;
-    curOrder = int (order * fsFactor);
+    curOrder = int ((float) order * fsFactor);
     currentCoefs.resize (curOrder);
     Hcoefs.resize (curOrder);
 
@@ -190,7 +171,7 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
             activeFilter = ! activeFilter;
     }
 
-    azimuthProc.setAzimuthAngle (azimuth->load(), speed->load());
+    azimuthProc.setAzimuthAngle (azimuth->getCurrentValue(), speed->getCurrentValue());
     azimuthProc.processBlock (buffer);
 
     bypass.processBlockOut (buffer, bypass.toBool (onOff));

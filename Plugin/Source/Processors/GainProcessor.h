@@ -13,7 +13,7 @@ public:
         oldGain = curGain;
     }
 
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& /*midiMessages*/)
+    void processBlock (AudioBuffer<float>& buffer)
     {
         if (curGain != oldGain)
         {

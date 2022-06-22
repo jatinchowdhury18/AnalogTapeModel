@@ -72,9 +72,10 @@ void ToneStage::processBlock (AudioBuffer<float>& buffer)
 //===================================================
 ToneControl::ToneControl (AudioProcessorValueTreeState& vts)
 {
-    bassParam = vts.getRawParameterValue ("h_bass");
-    trebleParam = vts.getRawParameterValue ("h_treble");
-    tFreqParam = vts.getRawParameterValue ("h_tfreq");
+    using namespace chowdsp::ParamUtils;
+    loadParameterPointer (bassParam, vts, "h_bass");
+    loadParameterPointer (trebleParam, vts, "h_treble");
+    loadParameterPointer (tFreqParam, vts, "h_tfreq");
     onOffParam = vts.getRawParameterValue ("tone_onoff");
 }
 
@@ -83,18 +84,11 @@ void ToneControl::createParameterLayout (std::vector<std::unique_ptr<RangedAudio
     NormalisableRange freqRange { 100.0f, 4000.0f };
     freqRange.setSkewForCentre (transFreq);
 
-    params.push_back (std::make_unique<AudioParameterBool> ("tone_onoff", "Tone On/Off", true));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_bass", "Tone Bass", -1.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_treble", "Tone Treble", -1.0f, 1.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> ("h_tfreq", "Tone Transition Frequency", freqRange, transFreq, String(), AudioProcessorParameter::genericParameter, [=] (float val, int) {
-        String suffix = " Hz";
-        if (val > 1000.0f)
-        {
-            val /= 1000.0f;
-            suffix = " kHz";
-        }
-        return String (val, 2, false) + suffix;
-    }));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "tone_onoff", "Tone On/Off", true);
+    emplace_param<chowdsp::FloatParameter> (params, "h_bass", "Tone Bass", NormalisableRange { -1.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    emplace_param<chowdsp::FloatParameter> (params, "h_treble", "Tone Treble", NormalisableRange { -1.0f, 1.0f }, 0.0f, &floatValToString, &stringToFloatVal);
+    createFreqParameter (params, "h_tfreq", "Tone Transition Frequency", 100.0f, 4000.0f, transFreq, transFreq);
 }
 
 void ToneControl::prepare (double sampleRate, int numChannels)
@@ -107,15 +101,15 @@ void ToneControl::processBlockIn (AudioBuffer<float>& buffer)
 {
     if (static_cast<bool> (onOffParam->load()))
     {
-        toneIn.setLowGain (dbScale * bassParam->load());
-        toneIn.setHighGain (dbScale * trebleParam->load());
+        toneIn.setLowGain (dbScale * bassParam->getCurrentValue());
+        toneIn.setHighGain (dbScale * trebleParam->getCurrentValue());
     }
     else
     {
         toneIn.setLowGain (0.0f);
         toneIn.setHighGain (0.0f);
     }
-    toneIn.setTransFreq (tFreqParam->load());
+    toneIn.setTransFreq (tFreqParam->getCurrentValue());
 
     toneIn.processBlock (buffer);
 }
@@ -124,15 +118,15 @@ void ToneControl::processBlockOut (AudioBuffer<float>& buffer)
 {
     if (static_cast<bool> (onOffParam->load()))
     {
-        toneOut.setLowGain (-1.0f * dbScale * bassParam->load());
-        toneOut.setHighGain (-1.0f * dbScale * trebleParam->load());
+        toneOut.setLowGain (-1.0f * dbScale * bassParam->getCurrentValue());
+        toneOut.setHighGain (-1.0f * dbScale * trebleParam->getCurrentValue());
     }
     else
     {
         toneOut.setLowGain (0.0f);
         toneOut.setHighGain (0.0f);
     }
-    toneOut.setTransFreq (tFreqParam->load());
+    toneOut.setTransFreq (tFreqParam->getCurrentValue());
 
     toneOut.processBlock (buffer);
 }

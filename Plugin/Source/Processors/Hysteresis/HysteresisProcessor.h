@@ -18,9 +18,9 @@ public:
     void releaseResources();
 
     /* Proceess a buffer. */
-    void processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiBuffer);
+    void processBlock (AudioBuffer<float>& buffer);
 
-    static void createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params);
+    static void createParameterLayout (chowdsp::Parameters& params);
 
     float getLatencySamples() const noexcept;
     auto& getOSManager() { return osManager; }
@@ -44,9 +44,9 @@ private:
     void processSmoothV1 (dsp::AudioBlock<T>& block);
     void applyDCBlockers (AudioBuffer<float>& buffer);
 
-    std::atomic<float>* driveParam = nullptr;
-    std::atomic<float>* satParam = nullptr;
-    std::atomic<float>* widthParam = nullptr;
+    chowdsp::FloatParameter* driveParam = nullptr;
+    chowdsp::FloatParameter* satParam = nullptr;
+    chowdsp::FloatParameter* widthParam = nullptr;
     std::atomic<float>* modeParam = nullptr;
     std::atomic<float>* onOffParam = nullptr;
 

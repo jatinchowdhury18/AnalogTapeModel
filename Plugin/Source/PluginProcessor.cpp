@@ -9,6 +9,7 @@
 */
 
 #include "PluginProcessor.h"
+#include "GUI/ModulatableSlider.h"
 #include "GUI/OnOff/PowerButton.h"
 #include "GUI/OversamplingMenu.h"
 #include "GUI/SettingsButton.h"
@@ -16,6 +17,7 @@
 #include "GUI/TooltipComp.h"
 #include "GUI/Visualizers/MixGroupViz.h"
 #include "GUI/WowFlutterMenu.h"
+#include "Presets/PresetManager.h"
 
 #if JUCE_IOS
 #include "GUI/IOSOnly/ScrollView.h"
@@ -34,25 +36,25 @@ const String dryWetTag = "drywet";
 } // namespace
 
 //==============================================================================
-ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
-    : AudioProcessor (BusesProperties().withInput ("Input", juce::AudioChannelSet::stereo(), true).withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
-      vts (*this, nullptr, Identifier ("Parameters"), createParameterLayout()),
-      inGainDBParam (vts.getRawParameterValue (inGainTag)),
-      outGainDBParam (vts.getRawParameterValue (outGainTag)),
-      dryWetParam (vts.getRawParameterValue (dryWetTag)),
-      inputFilters (vts),
-      midSideController (vts),
-      toneControl (vts),
-      compressionProcessor (vts),
-      hysteresis (vts),
-      degrade (vts),
-      chewer (vts),
-      lossFilter (vts),
-      flutter (vts),
-      onOffManager (vts, this),
-      mixGroupsController (vts, this)
+ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor() : inputFilters (vts),
+                                                             midSideController (vts),
+                                                             toneControl (vts),
+                                                             compressionProcessor (vts),
+                                                             hysteresis (vts),
+                                                             degrade (vts),
+                                                             chewer (vts),
+                                                             lossFilter (vts),
+                                                             flutter (vts),
+                                                             onOffManager (vts, this),
+                                                             mixGroupsController (vts, this)
 {
     pluginSettings->initialise (settingsFilePath);
+
+    chowdsp::ParamUtils::loadParameterPointer (inGainDBParam, vts, inGainTag);
+    chowdsp::ParamUtils::loadParameterPointer (outGainDBParam, vts, outGainTag);
+    chowdsp::ParamUtils::loadParameterPointer (dryWetParam, vts, dryWetTag);
+
+    presetManager = std::make_unique<PresetManager> (vts);
 
     positionInfo.bpm = 120.0;
     positionInfo.timeSigNumerator = 4;
@@ -69,17 +71,12 @@ ChowtapeModelAudioProcessor::ChowtapeModelAudioProcessor()
         toneControl.setDBScale (18.0f);
 }
 
-ChowtapeModelAudioProcessor::~ChowtapeModelAudioProcessor()
+void ChowtapeModelAudioProcessor::addParameters (Parameters& params)
 {
-}
-
-AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::createParameterLayout()
-{
-    std::vector<std::unique_ptr<RangedAudioParameter>> params;
-
-    params.push_back (std::make_unique<AudioParameterFloat> (inGainTag, "Input Gain", -30.0f, 6.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> (outGainTag, "Output Gain", -30.0f, 30.0f, 0.0f));
-    params.push_back (std::make_unique<AudioParameterFloat> (dryWetTag, "Dry/Wet", 0.0f, 100.0f, 100.0f));
+    using namespace chowdsp::ParamUtils;
+    createGainDBParameter (params, inGainTag, "Input Gain", -30.0f, 6.0f, 0.0f);
+    createGainDBParameter (params, outGainTag, "Output Gain", -30.0f, 30.0f, 0.0f);
+    createPercentParameter (params, dryWetTag, "Dry/Wet", 1.0f);
 
     InputFilters::createParameterLayout (params);
     ToneControl::createParameterLayout (params);
@@ -91,74 +88,8 @@ AudioProcessorValueTreeState::ParameterLayout ChowtapeModelAudioProcessor::creat
     ChewProcessor::createParameterLayout (params);
     MidSideProcessor::createParameterLayout (params);
     MixGroupsController::createParameterLayout (params);
-
-    return { params.begin(), params.end() };
 }
 
-//==============================================================================
-const String ChowtapeModelAudioProcessor::getName() const
-{
-    return JucePlugin_Name;
-}
-
-bool ChowtapeModelAudioProcessor::acceptsMidi() const
-{
-#if JucePlugin_WantsMidiInput
-    return true;
-#else
-    return false;
-#endif
-}
-
-bool ChowtapeModelAudioProcessor::producesMidi() const
-{
-#if JucePlugin_ProducesMidiOutput
-    return true;
-#else
-    return false;
-#endif
-}
-
-bool ChowtapeModelAudioProcessor::isMidiEffect() const
-{
-#if JucePlugin_IsMidiEffect
-    return true;
-#else
-    return false;
-#endif
-}
-
-double ChowtapeModelAudioProcessor::getTailLengthSeconds() const
-{
-    return 0.0;
-}
-
-int ChowtapeModelAudioProcessor::getNumPrograms()
-{
-    return presetManager.getNumPresets();
-}
-
-int ChowtapeModelAudioProcessor::getCurrentProgram()
-{
-    return presetManager.getCurrentPresetIndex();
-}
-
-void ChowtapeModelAudioProcessor::setCurrentProgram (int index)
-{
-    presetManager.loadPresetFromIndex (index);
-}
-
-const String ChowtapeModelAudioProcessor::getProgramName (int index)
-{
-    return presetManager.getPresetName (index);
-}
-
-void ChowtapeModelAudioProcessor::changeProgramName (int index, const String& newName)
-{
-    ignoreUnused (index, newName);
-}
-
-//==============================================================================
 void ChowtapeModelAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     const auto numChannels = getTotalNumInputChannels();
@@ -218,19 +149,17 @@ void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buff
     buffer.makeCopyOf (dryBuffer, true);
 }
 
-void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ChowtapeModelAudioProcessor::processAudioBlock (AudioBuffer<float>& buffer)
 {
-    ScopedNoDenormals noDenormals;
-
     if (auto playhead = getPlayHead())
         playhead->getCurrentPosition (positionInfo);
 
-    inGain.setGain (Decibels::decibelsToGain (inGainDBParam->load()));
-    outGain.setGain (Decibels::decibelsToGain (outGainDBParam->load()));
-    dryWet.setDryWet (dryWetParam->load() / 100.0f);
+    inGain.setGain (Decibels::decibelsToGain (inGainDBParam->getCurrentValue()));
+    outGain.setGain (Decibels::decibelsToGain (outGainDBParam->getCurrentValue()));
+    dryWet.setDryWet (dryWetParam->getCurrentValue());
 
     dryBuffer.makeCopyOf (buffer, true);
-    inGain.processBlock (buffer, midiMessages);
+    inGain.processBlock (buffer);
     inputFilters.processBlock (buffer);
 
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Input);
@@ -238,18 +167,18 @@ void ChowtapeModelAudioProcessor::processBlock (AudioBuffer<float>& buffer, Midi
     midSideController.processInput (buffer);
     toneControl.processBlockIn (buffer);
     compressionProcessor.processBlock (buffer);
-    hysteresis.processBlock (buffer, midiMessages);
+    hysteresis.processBlock (buffer);
     toneControl.processBlockOut (buffer);
     chewer.processBlock (buffer);
-    degrade.processBlock (buffer, midiMessages);
-    flutter.processBlock (buffer, midiMessages);
+    degrade.processBlock (buffer);
+    flutter.processBlock (buffer);
     lossFilter.processBlock (buffer);
 
     latencyCompensation();
 
     midSideController.processOutput (buffer);
     inputFilters.processBlockMakeup (buffer);
-    outGain.processBlock (buffer, midiMessages);
+    outGain.processBlock (buffer);
     dryWet.processBlock (dryBuffer, buffer);
 
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Output);
@@ -280,11 +209,6 @@ void ChowtapeModelAudioProcessor::latencyCompensation()
     dryDelay.process (dsp::ProcessContextReplacing<float> { block });
 }
 
-bool ChowtapeModelAudioProcessor::hasEditor() const
-{
-    return true;
-}
-
 AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 {
     if (openGLHelper == nullptr)
@@ -294,6 +218,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerJUCEFactories();
     builder->registerFactory ("presets", &chowdsp::PresetsItem<ChowtapeModelAudioProcessor>::factory);
     builder->registerFactory ("TooltipComp", &TooltipItem::factory);
+    builder->registerFactory ("ModSlider", &ModSliderItem::factory);
     builder->registerFactory ("TitleComp", &TitleItem::factory);
     builder->registerFactory ("MixGroupViz", &MixGroupVizItem::factory);
     builder->registerFactory ("PowerButton", &PowerButtonItem::factory);
@@ -340,7 +265,7 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
 
 #if CHOWDSP_AUTO_UPDATE
     updater.showUpdaterScreen (editor);
-#endif // CHOWDSP_AUTO_UPDATE
+#endif
 
     // we need to set resize limits for StandalonePluginHolder
     editor->setResizeLimits (10, 10, 2000, 2000);
@@ -350,18 +275,6 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     return editor;
 }
 
-String ChowtapeModelAudioProcessor::getWrapperTypeString() const
-{
-#if HAS_CLAP_JUCE_EXTENSIONS
-    // Since we are using 'external clap' this is the one JUCE API we can't override
-    if (wrapperType == wrapperType_Undefined && is_clap)
-        return "CLAP";
-#endif
-
-    return AudioProcessor::getWrapperTypeDescription (wrapperType);
-}
-
-//==============================================================================
 void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     auto xml = std::make_unique<XmlElement> ("state");
@@ -369,7 +282,7 @@ void ChowtapeModelAudioProcessor::getStateInformation (MemoryBlock& destData)
 
     auto state = vts.copyState();
     xml->addChildElement (state.createXml().release());
-    xml->addChildElement (presetManager.saveXmlState().release());
+    xml->addChildElement (presetManager->saveXmlState().release());
 
     copyXmlToBinary (*xml, destData);
 }
@@ -393,7 +306,7 @@ void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int siz
         if (vtsXml == nullptr) // invalid ValueTreeState
             return;
 
-        presetManager.loadXmlState (xmlState->getChildByName (chowdsp::PresetManager::presetStateTag));
+        presetManager->loadXmlState (xmlState->getChildByName (chowdsp::PresetManager::presetStateTag));
         vts.replaceState (ValueTree::fromXml (*vtsXml));
     }
     else
@@ -405,7 +318,6 @@ void ChowtapeModelAudioProcessor::setStateInformation (const void* data, int siz
     }
 }
 
-//==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {

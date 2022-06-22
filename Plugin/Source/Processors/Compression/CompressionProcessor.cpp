@@ -2,29 +2,20 @@
 
 CompressionProcessor::CompressionProcessor (AudioProcessorValueTreeState& vts)
 {
+    using namespace chowdsp::ParamUtils;
     onOff = vts.getRawParameterValue ("comp_onoff");
-    amountParam = vts.getRawParameterValue ("comp_amt");
-    attackParam = vts.getRawParameterValue ("comp_attack");
-    releaseParam = vts.getRawParameterValue ("comp_release");
+    loadParameterPointer (amountParam, vts, "comp_amt");
+    loadParameterPointer (attackParam, vts, "comp_attack");
+    loadParameterPointer (releaseParam, vts, "comp_release");
 }
 
-void CompressionProcessor::createParameterLayout (std::vector<std::unique_ptr<RangedAudioParameter>>& params)
+void CompressionProcessor::createParameterLayout (chowdsp::Parameters& params)
 {
-    auto twoDecimalFloat = [] (float value, int) { return String (value, 2); };
-
-    params.push_back (std::make_unique<AudioParameterBool> ("comp_onoff", "Compression On/Off", false));
-
-    static NormalisableRange<float> amtRange { 0.0f, 9.0f };
-    amtRange.setSkewForCentre (3.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_amt", "Compression Amount", amtRange, 0.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
-
-    static NormalisableRange<float> attRange { 0.1f, 50.0f };
-    attRange.setSkewForCentre (10.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_attack", "Compression Attack", attRange, 5.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
-
-    static NormalisableRange<float> relRange { 10.0f, 1000.0f };
-    relRange.setSkewForCentre (100.0f);
-    params.push_back (std::make_unique<AudioParameterFloat> ("comp_release", "Compression Release", relRange, 200.0f, String(), AudioProcessorParameter::genericParameter, twoDecimalFloat));
+    using namespace chowdsp::ParamUtils;
+    emplace_param<chowdsp::BoolParameter> (params, "comp_onoff", "Compression On/Off", false);
+    createGainDBParameter (params, "comp_amt", "Compression Amount", 0.0f, 9.0f, 0.0f, 3.0f);
+    createTimeMsParameter (params, "comp_attack", "Compression Attack", createNormalisableRange (0.1f, 50.0f, 10.0f), 5.0f);
+    createTimeMsParameter (params, "comp_release", "Compression Release", createNormalisableRange (10.0f, 1000.0f, 100.0f), 200.0f);
 }
 
 void CompressionProcessor::prepare (double sr, int samplesPerBlock, int numChannels)
@@ -74,7 +65,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
     const auto numSamples = (int) osBlock.getNumSamples();
     for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
     {
-        dbPlusSmooth[ch].setTargetValue (amountParam->load());
+        dbPlusSmooth[ch].setTargetValue (amountParam->getCurrentValue());
 
         auto* x = osBlock.getChannelPointer ((size_t) ch);
         FloatVectorOperations::copy (xDBVec.data(), x, numSamples);
@@ -103,7 +94,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         }
 
         // since the slew will be applied to the gain, we need to reverse the attack and release parameters!
-        slewLimiter[ch].setParameters (releaseParam->load(), attackParam->load());
+        slewLimiter[ch].setParameters (releaseParam->getCurrentValue(), attackParam->getCurrentValue());
         for (size_t k = 0; k < (size_t) numSamples; ++k)
             compGainVec[k] = jmin (compGainVec[k], slewLimiter[ch].processSample (compGainVec[k]));
 
