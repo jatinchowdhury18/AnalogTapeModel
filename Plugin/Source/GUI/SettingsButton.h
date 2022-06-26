@@ -15,7 +15,7 @@ public:
 
 private:
     void showSettingsMenu();
-    void openGLManu (PopupMenu& menu, int itemID);
+    void openGLMenu (PopupMenu& menu, int itemID);
     void copyDiagnosticInfo();
 
     const ChowtapeModelAudioProcessor& proc;
