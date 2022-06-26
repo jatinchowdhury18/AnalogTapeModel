@@ -151,7 +151,7 @@ void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buff
 
 void ChowtapeModelAudioProcessor::processAudioBlock (AudioBuffer<float>& buffer)
 {
-    if (auto playhead = getPlayHead())
+    if (auto* playhead = getPlayHead())
         playhead->getCurrentPosition (positionInfo);
 
     inGain.setGain (Decibels::decibelsToGain (inGainDBParam->getCurrentValue()));

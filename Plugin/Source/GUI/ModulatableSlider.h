@@ -8,41 +8,26 @@ class ModulatableSlider : public foleys::AutoOrientationSlider,
 public:
     ModulatableSlider() = default;
 
-    void attachToParameter (juce::RangedAudioParameter* param)
-    {
-        if (param == nullptr)
-        {
-            attachment.reset();
-            modParameter = nullptr;
-            stopTimer();
-            return;
-        }
+    void attachToParameter (juce::RangedAudioParameter* param);
+    double getModulatedPosition();
 
-        attachment = std::make_unique<juce::SliderParameterAttachment> (*param, *this, nullptr);
-        modParameter = dynamic_cast<chowdsp::FloatParameter*> (param);
-        startTimerHz (24);
-    }
+    void mouseDown (const MouseEvent& e) override;
+    virtual juce::PopupMenu getContextMenu();
 
-    double getModulatedPosition()
-    {
-        if (modParameter == nullptr)
-            return valueToProportionOfLength (getValue());
-
-        return jlimit (0.0, 1.0, valueToProportionOfLength ((double) modParameter->getCurrentValue()));
-    }
+    using PluginEditorCallback = std::function<juce::AudioProcessorEditor*()>;
+    void setPluginEditorCallback (PluginEditorCallback&& newCallback);
 
 private:
-    void timerCallback() override
-    {
-        repaint();
-    }
+    void timerCallback() override;
 
     std::unique_ptr<juce::SliderParameterAttachment> attachment;
     chowdsp::FloatParameter* modParameter = nullptr;
+    PluginEditorCallback pluginEditorCallback = nullptr;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)
 };
 
+//====================================================================
 class ModSliderItem : public foleys::GuiItem
 {
 public:
