@@ -38,7 +38,7 @@ Name: "Standalone"; Description: "Standalone Plugin"; Types: full
 [Files]
 Source: "../../Bin/Win32/CHOWTapeModel.vst3"; Excludes: "*.aaxplugin,*.clap"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.dll"; Excludes: "*.vst3,*.aaxplugin,*.clap"; DestDir: "{code:GetDir|VST_32}"; Components: VST_32; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../../Bin/Win32/CHOWTapeModel.clap"; Excludes: "*.vst3,*.aaxplugin"; DestDir: "{commoncf32}\CLAP"; Components: CLAP_32; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../Bin/Win32/CHOWTapeModel.clap"; Excludes: "*.vst3,*.aaxplugin"; DestDir: "{code:GetDir|CLAP_32}"; Components: CLAP_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../Bin/Win32/CHOWTapeModel.exe"; Excludes: "*.vst3,*.aaxplugin,*.clap"; DestDir: "{code:GetDir|Standalone}"; Components: Standalone; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
@@ -138,6 +138,8 @@ begin
     Result := Vst_32DirPage.values[0]
   else if (Param = 'Standalone') then
     Result := StandaloneDirPage.values[0]
+  else if (Param = 'CLAP_32') then
+    Result := ExpandConstant('{commoncf32}\CLAP')
 end;
 
 function UpdateReadyMemo(Space, NewLine, MemoUserInfoInfo, MemoDirInfo, MemoTypeInfo,
@@ -156,6 +158,9 @@ begin
 
   if IsSelected('vst_32') then
     S := S + Space +  GetDir('VST_32') + ' (VST 32-bit)' + NewLine;
+
+  if IsSelected('clap_32') then
+    S := S + Space +  GetDir('CLAP_32') + ' (CLAP 32-bit)' + NewLine;
 
   if IsSelected('standalone') then
     S := S + Space +  GetDir('Standalone') + ' (Standalone)' + NewLine;
