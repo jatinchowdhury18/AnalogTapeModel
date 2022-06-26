@@ -44,9 +44,9 @@ void HysteresisProcessing::cook (double drive, double width, double sat, bool v1
 
     hpState.nc = 1.0 - hpState.c;
     hpState.M_s_oa = hpState.M_s / hpState.a;
-    hpState.M_s_oa_talpha = hpState.alpha * hpState.M_s_oa;
+    hpState.M_s_oa_talpha = HysteresisOps::HysteresisState::alpha * hpState.M_s_oa;
     hpState.M_s_oa_tc = hpState.c * hpState.M_s_oa;
-    hpState.M_s_oa_tc_talpha = hpState.alpha * hpState.M_s_oa_tc;
+    hpState.M_s_oa_tc_talpha = HysteresisOps::HysteresisState::alpha * hpState.M_s_oa_tc;
     hpState.M_s_oaSq_tc_talpha = hpState.M_s_oa_tc_talpha / hpState.a;
-    hpState.M_s_oaSq_tc_talphaSq = hpState.alpha * hpState.M_s_oaSq_tc_talpha;
+    hpState.M_s_oaSq_tc_talphaSq = HysteresisOps::HysteresisState::alpha * hpState.M_s_oaSq_tc_talpha;
 }

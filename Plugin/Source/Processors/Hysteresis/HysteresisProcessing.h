@@ -61,9 +61,9 @@ public:
 
                 // check for instability
 #if HYSTERESIS_USE_SIMD
-        auto notIllCondition = ~(HysteresisOps::isnanSIMD (M) | Float::greaterThan (M, (Float) upperLim));
-        M = M & notIllCondition;
-        H_d = H_d & notIllCondition;
+        auto notIllCondition = ! (xsimd::isnan (M) || (M > upperLim));
+        M = xsimd::select (notIllCondition, M, (Float) 0.0);
+        H_d = xsimd::select (notIllCondition, H_d, (Float) 0.0);
 #else
         bool illCondition = std::isnan (M) || M > upperLim;
         M = illCondition ? 0.0 : M;
@@ -133,22 +133,22 @@ private:
     inline Float STNSolver (Float H, Float H_d) noexcept
     {
 #if HYSTERESIS_USE_SIMD
-        double H_arr alignas (16)[2];
-        double H_d_arr alignas (16)[2];
-        double H_n1_arr alignas (16)[2];
-        double H_d_n1_arr alignas (16)[2];
-        double M_n1_arr alignas (16)[2];
-        double M_out alignas (16)[2];
+        double H_arr alignas (xsimd::default_arch::alignment())[2];
+        double H_d_arr alignas (xsimd::default_arch::alignment())[2];
+        double H_n1_arr alignas (xsimd::default_arch::alignment())[2];
+        double H_d_n1_arr alignas (xsimd::default_arch::alignment())[2];
+        double M_n1_arr alignas (xsimd::default_arch::alignment())[2];
+        double M_out alignas (xsimd::default_arch::alignment())[2];
 
-        H.copyToRawArray (H_arr);
-        H_d.copyToRawArray (H_d_arr);
-        H_n1.copyToRawArray (H_n1_arr);
-        H_d_n1.copyToRawArray (H_d_n1_arr);
-        M_n1.copyToRawArray (M_n1_arr);
+        H.store_aligned ((double*) H_arr);
+        H_d.store_aligned ((double*) H_d_arr);
+        H_n1.store_aligned ((double*) H_n1_arr);
+        H_d_n1.store_aligned ((double*) H_d_n1_arr);
+        M_n1.store_aligned ((double*) M_n1_arr);
 
         for (int ch = 0; ch < 2; ++ch)
         {
-            double input alignas (16)[5] = { H_arr[ch], H_d_arr[ch], H_n1_arr[ch], H_d_n1_arr[ch], M_n1_arr[ch] };
+            double input alignas (xsimd::default_arch::alignment())[5] = { H_arr[ch], H_d_arr[ch], H_n1_arr[ch], H_d_n1_arr[ch], M_n1_arr[ch] };
 
             // scale derivatives
             input[1] *= HysteresisSTN::diffMakeup;
@@ -158,10 +158,10 @@ private:
             M_out[ch] = hysteresisSTN.process (input) + M_n1_arr[ch];
         }
 
-        return Float::fromRawArray (M_out);
+        return Float::load_aligned (M_out);
 
 #else
-        double input alignas (16)[5] = { H, H_d, H_n1, H_d_n1, M_n1 };
+        double input alignas (xsimd::default_arch::alignment())[5] = { H, H_d, H_n1, H_d_n1, M_n1 };
 
         // scale derivatives
         input[1] *= HysteresisSTN::diffMakeup;
@@ -180,9 +180,9 @@ private:
 
     // state variables
 #if HYSTERESIS_USE_SIMD
-    dsp::SIMDRegister<double> M_n1 = 0.0;
-    dsp::SIMDRegister<double> H_n1 = 0.0;
-    dsp::SIMDRegister<double> H_d_n1 = 0.0;
+    xsimd::batch<double> M_n1 = 0.0;
+    xsimd::batch<double> H_n1 = 0.0;
+    xsimd::batch<double> H_d_n1 = 0.0;
 #else
     double M_n1 = 0.0;
     double H_n1 = 0.0;

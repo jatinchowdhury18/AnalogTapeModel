@@ -71,7 +71,7 @@ void CompressionProcessor::processBlock (AudioBuffer<float>& buffer)
         FloatVectorOperations::copy (xDBVec.data(), x, numSamples);
         FloatVectorOperations::abs (xDBVec.data(), xDBVec.data(), numSamples);
 
-        constexpr auto inc = dsp::SIMDRegister<float>::size();
+        constexpr auto inc = xsimd::batch<float>::size;
         size_t n = 0;
         for (; n < (size_t) numSamples; n += inc)
         {
