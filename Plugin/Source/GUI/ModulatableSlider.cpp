@@ -1,5 +1,70 @@
 #include "ModulatableSlider.h"
 
+void ModulatableSlider::attachToParameter (juce::RangedAudioParameter* param)
+{
+    if (param == nullptr)
+    {
+        attachment.reset();
+        modParameter = nullptr;
+        stopTimer();
+        return;
+    }
+
+    attachment = std::make_unique<juce::SliderParameterAttachment> (*param, *this, nullptr);
+    modParameter = dynamic_cast<chowdsp::FloatParameter*> (param);
+    startTimerHz (24);
+}
+
+double ModulatableSlider::getModulatedPosition()
+{
+    if (modParameter == nullptr)
+        return valueToProportionOfLength (getValue());
+
+    return jlimit (0.0, 1.0, valueToProportionOfLength ((double) modParameter->getCurrentValue()));
+}
+
+void ModulatableSlider::mouseDown (const MouseEvent& e)
+{
+    if (e.mods.isPopupMenu())
+    {
+        auto popupMenu = getContextMenu();
+        if (popupMenu.containsAnyActiveItems())
+            popupMenu.showMenuAsync (juce::PopupMenu::Options());
+
+        return;
+    }
+
+    foleys::AutoOrientationSlider::mouseDown (e);
+}
+
+void ModulatableSlider::setPluginEditorCallback (PluginEditorCallback&& newCallback)
+{
+    pluginEditorCallback = std::move (newCallback);
+}
+
+juce::PopupMenu ModulatableSlider::getContextMenu()
+{
+    if (pluginEditorCallback != nullptr)
+    {
+        if (auto* pluginEditor = pluginEditorCallback())
+        {
+            if (auto* hostContext = pluginEditor->getHostContext())
+            {
+                if (auto menu = hostContext->getContextMenuForParameter (modParameter))
+                    return menu->getEquivalentPopupMenu();
+            }
+        }
+    }
+
+    return {};
+}
+
+void ModulatableSlider::timerCallback()
+{
+    repaint();
+}
+
+//====================================================================
 ModSliderItem::ModSliderItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node) : GuiItem (builder, node)
 {
     setColourTranslation (
@@ -18,6 +83,8 @@ ModSliderItem::ModSliderItem (foleys::MagicGUIBuilder& builder, const juce::Valu
 
 void ModSliderItem::update()
 {
+    slider.setPluginEditorCallback ([this] { return magicBuilder.getMagicState().getProcessor()->getActiveEditor(); });
+
     slider.setTitle (magicBuilder.getStyleProperty (foleys::IDs::name, configNode));
 
     auto type = getProperty (pSliderType).toString();

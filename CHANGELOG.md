@@ -7,6 +7,7 @@ this file.
 - Added stereo/mid-side "balance" controls.
 - Added CLAP plugin format support (with Parameter modulation).
 - Added option to enable/disable OpenGL on Windows/Linux systems with sufficient OpenGL support.
+- Added host context menus for slider controls.
 - Improved presets system, and added new built-in presets from Carter and Cool WAV.
 - Fixed V1 mode creating high-pitched tone with linear phase oversampling.
 - Fixed compatibility issue related to `xsimd::isnan`.
