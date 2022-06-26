@@ -359,7 +359,7 @@ Component* MyLNF::getParentComponentForMenuOptions (const PopupMenu::Options& op
 PopupMenu::Options MyLNF::getOptionsForComboBoxPopupMenu (ComboBox& comboBox, Label& label)
 {
     auto&& baseOptions = LookAndFeel_V4::getOptionsForComboBoxPopupMenu (comboBox, label);
-    
+
 #if JUCE_IOS
     return baseOptions.withParentComponent (comboBox.getTopLevelComponent());
 #else
@@ -387,7 +387,7 @@ void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, i
 
 void ComboBoxLNF::positionComboBoxText (ComboBox& box, Label& label)
 {
-    auto b = box.getBounds().withPosition({});
+    auto b = box.getBounds().withPosition ({});
 
     if (box.getName().isNotEmpty())
     {
