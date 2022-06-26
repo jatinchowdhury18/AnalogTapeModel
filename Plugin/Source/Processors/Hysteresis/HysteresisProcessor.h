@@ -35,13 +35,13 @@ private:
     void calcBiasFreq();
 
     template <SolverType solverType, typename T>
-    void process (dsp::AudioBlock<T>& block);
+    void process (chowdsp::AudioBlock<T>& block);
     template <SolverType solverType, typename T>
-    void processSmooth (dsp::AudioBlock<T>& block);
+    void processSmooth (chowdsp::AudioBlock<T>& block);
     template <typename T>
-    void processV1 (dsp::AudioBlock<T>& block);
+    void processV1 (chowdsp::AudioBlock<T>& block);
     template <typename T>
-    void processSmoothV1 (dsp::AudioBlock<T>& block);
+    void processSmoothV1 (chowdsp::AudioBlock<T>& block);
     void applyDCBlockers (AudioBuffer<float>& buffer);
 
     chowdsp::FloatParameter* driveParam = nullptr;
@@ -73,9 +73,9 @@ private:
     BypassProcessor bypass;
 
 #if HYSTERESIS_USE_SIMD
-    using Vec2 = dsp::SIMDRegister<double>;
-    dsp::AudioBlock<Vec2> interleavedBlock;
-    dsp::AudioBlock<double> zeroBlock;
+    using Vec2 = xsimd::batch<double>;
+    chowdsp::AudioBlock<Vec2> interleavedBlock;
+    chowdsp::AudioBlock<double> zeroBlock;
 
     HeapBlock<char> interleavedBlockData, zeroData;
     std::vector<const double*> channelPointers;
