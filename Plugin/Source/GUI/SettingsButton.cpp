@@ -10,8 +10,7 @@ SettingsButton::SettingsButton (const ChowtapeModelAudioProcessor& processor, ch
                                                                                                                   proc (processor),
                                                                                                                   openGLHelper (oglHelper)
 {
-    const auto shouldUseOpenGLByDefault = openGLHelper != nullptr && openGLHelper->isOpenGLAvailable();
-    pluginSettings->addProperties ({ { openglID, shouldUseOpenGLByDefault } }, this);
+    pluginSettings->addProperties ({ { openglID, false } }, this);
     globalSettingChanged (openglID);
 
     auto cog = Drawable::createFromImageData (BinaryData::cogsolid_svg, BinaryData::cogsolid_svgSize);
@@ -45,7 +44,7 @@ void SettingsButton::showSettingsMenu()
 {
     PopupMenu menu;
 
-    openGLManu (menu, 100);
+    openGLMenu (menu, 100);
 
     menu.addSeparator();
     menu.addItem ("View Source Code", [=] { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
@@ -77,7 +76,7 @@ void SettingsButton::showSettingsMenu()
     menu.showMenuAsync (options);
 }
 
-void SettingsButton::openGLManu (PopupMenu& menu, int itemID)
+void SettingsButton::openGLMenu (PopupMenu& menu, int itemID)
 {
     if (openGLHelper == nullptr || ! openGLHelper->isOpenGLAvailable())
         return;
