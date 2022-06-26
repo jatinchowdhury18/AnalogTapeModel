@@ -24,6 +24,8 @@ public:
     Label* createSliderTextBox (Slider& slider) override;
 
     Component* getParentComponentForMenuOptions (const PopupMenu::Options& options) override;
+    
+    juce::PopupMenu::Options getOptionsForComboBoxPopupMenu (ComboBox& comboBox, Label& label) override;
 
 private:
     std::unique_ptr<Drawable> knob = Drawable::createFromImageData (BinaryData::knob_svg, BinaryData::knob_svgSize);
