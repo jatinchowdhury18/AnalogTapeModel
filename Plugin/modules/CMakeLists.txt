@@ -27,7 +27,6 @@ target_link_libraries(juce_plugin_modules
         BinaryData
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
-        chowdsp_juce_dsp
         chowdsp::chowdsp_dsp_utils
         chowdsp::chowdsp_plugin_base
         chowdsp::chowdsp_plugin_utils
@@ -57,8 +56,6 @@ target_compile_definitions(juce_plugin_modules
         FOLEYS_SHOW_GUI_EDITOR_PALLETTE=0
         FOLEYS_ENABLE_BINARY_DATA=1
         FOLEYS_ENABLE_OPEN_GL_CONTEXT=0
-        CHOWDSP_USE_XSIMD=1
-        CHOWDSP_USE_CUSTOM_JUCE_DSP=1
         JucePlugin_Manufacturer="chowdsp"
         JucePlugin_VersionString="${CMAKE_PROJECT_VERSION}"
         JucePlugin_Name="${CMAKE_PROJECT_NAME}"
