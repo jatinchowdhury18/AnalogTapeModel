@@ -7,7 +7,6 @@ add_subdirectory(${JUCE_PATH} juce)
 
 juce_add_modules(foleys_gui_magic)
 add_subdirectory(chowdsp_utils)
-juce_add_modules(chowdsp_juce_dsp)
 add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
 
 subproject_version(JUCE juce_version)
