@@ -48,8 +48,8 @@ void SettingsButton::showSettingsMenu()
 
     menu.addSeparator();
     menu.addItem ("View Source Code", [=] { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
-
     menu.addItem ("Copy Diagnostic Info", [=] { copyDiagnosticInfo(); });
+    menu.addItem ("View User Manual", [=] { URL ("https://chowdsp.com/manuals/ChowTapeManual.pdf").launchInDefaultBrowser(); });
 
     // get top level component that is big enough
     Component* parentComp = this;
