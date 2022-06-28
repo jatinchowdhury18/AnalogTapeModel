@@ -7,7 +7,6 @@ add_subdirectory(${JUCE_PATH} juce)
 
 juce_add_modules(foleys_gui_magic)
 add_subdirectory(chowdsp_utils)
-add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
 
 subproject_version(JUCE juce_version)
 message(STATUS "VERSION for JUCE: ${juce_version}")
@@ -30,16 +29,23 @@ target_link_libraries(juce_plugin_modules
         chowdsp::chowdsp_plugin_base
         chowdsp::chowdsp_plugin_utils
         chowdsp::chowdsp_presets
-        chowdsp::chowdsp_clap_extensions
         chowdsp::chowdsp_foleys
         foleys_gui_magic
         RTNeural
-        clap_juce_extensions
     PUBLIC
         juce::juce_recommended_config_flags
         juce::juce_recommended_lto_flags
         warning_flags
 )
+
+if(NOT IOS)
+    add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
+    target_link_libraries(juce_plugin_modules
+        PRIVATE
+            chowdsp::chowdsp_clap_extensions
+            clap_juce_extensions
+    )
+endif()
 
 add_diagnostic_info(juce_plugin_modules)
 
