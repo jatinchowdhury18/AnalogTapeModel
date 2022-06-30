@@ -158,7 +158,7 @@ chowdsp::Preset PresetManager::loadUserPresetFromFile (const File& file)
     if (xmlState == nullptr)
         return compatiblePreset;
 
-    return { name, vendor, *xmlState, category };
+    return { name, vendor, *xmlState, category, file };
 }
 
 void PresetManager::loadPresetState (const XmlElement* xml)
