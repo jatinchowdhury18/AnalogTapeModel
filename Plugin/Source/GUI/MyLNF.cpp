@@ -222,7 +222,7 @@ Button* MyLNF::createTabBarExtrasButton()
 
 void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, float sliderPos, float /*minSliderPos*/, float /*maxSliderPos*/, const Slider::SliderStyle, Slider& slider)
 {
-    auto trackWidth = jmin (16.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
+    auto trackWidth = jmin (15.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
 
     Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
                              slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
@@ -259,7 +259,7 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
         }
     }
 
-    auto thumbWidth = getSliderThumbRadius (slider);
+    auto thumbWidth = trackWidth * 1.5f;
 
     valueTrack.startNewSubPath (minPoint);
     valueTrack.lineTo (modPoint);
