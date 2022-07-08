@@ -225,11 +225,11 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("OversamplingMenu", &chowdsp::OversamplingMenuItem<ChowtapeModelAudioProcessor, OversamplingMenu>::factory);
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
 
-    struct IP : chowdsp::StandardInfoProvider
-    {
-        static constexpr bool showDebugFlag() { return false; }
-    };
-    builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowtapeModelAudioProcessor, IP>::factory);
+    //    struct InfoProvider : chowdsp::StandardInfoProvider
+    //    {
+    //        static constexpr bool showDebugFlag() { return false; }
+    //    };
+    builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowtapeModelAudioProcessor>::factory);
 
     builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem>
                               { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
