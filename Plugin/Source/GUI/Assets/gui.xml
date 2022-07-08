@@ -186,12 +186,11 @@
                     tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
-            <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160"
-                        background-color="FF31323A" button-on-color="FFB41717" button-color="FF33343D"
-                        text="0.1x" text_on="0.1x" button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"
-                        height="" width="" min-height="0.0" padding="0" caption-placement="centred"
-                        min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
-                        name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
+            <TextButton parameter="deg_point1x" text="0.1x" text_on="0.1x" background-color="00000000"
+                      margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
+                      button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="0.1x"
+                      tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation."
+                      button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
           </View>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
