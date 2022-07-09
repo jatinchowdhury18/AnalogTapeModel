@@ -61,6 +61,8 @@ public:
         ignoreUnused (width, height);
     }
 
+    Font getComboBoxFont (ComboBox& box) override;
+
 private:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ComboBoxLNF)
 };
@@ -77,6 +79,11 @@ public:
 
         g.setColour (box.findColour (ComboBox::backgroundColourId));
         g.fillRoundedRectangle (boxBounds.toFloat(), cornerSize);
+    }
+
+    Font getComboBoxFont (ComboBox& box) override
+    {
+        return { juce::jmin (28.0f, (float) box.proportionOfHeight (0.55f)) };
     }
 
     void positionComboBoxText (ComboBox& box, Label& label) override
