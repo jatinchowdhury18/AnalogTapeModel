@@ -33,7 +33,7 @@
         <View max-height="40" min-height="20" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.1">
     <View background-color="00000000" flex-grow="0.1"/>
-      <OversamplingMenu caption="Oversampling" class="Slider"
+      <OversamplingMenu caption="Oversampling" class="Slider" margin="0" border="0"
                         caption-size="0" padding="0" combo-text="FFEAA92C" combo-background="00000000"
                         menu-accent="FFEAA92C" max-height="100" lookAndFeel="ComboBoxLNF" name="Oversampling"
                         tooltip="Sets the amount of oversampling used for the hysteresis processing. More oversampling will reduce aliasing artifacts, but requires more CPU resources."/>
@@ -59,8 +59,7 @@
         <TitleComp background-color="00000000" title="Chow Tape Model" font="35"
                    padding="1" flex-grow="1.0"/>
         <InfoComp background-color="00000000" text1="FFEAA92C" flex-grow="0.8"
-                  padding="0" margin="5" border=""/>
-        <View background-color="00000000" flex-grow="0.15"/>
+                  padding="0" margin="0" border=""/>
       </View>
       <View margin="0" padding="" background-color="00000000" flex-direction="row"
             flex-grow="0.41">
@@ -187,27 +186,27 @@
           <ModSlider caption="Gap [microns]" parameter="gap" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
-                  slidertext-height="18" caption-placement="top-left" max-height="75"/>
+                  caption-placement="top-left" max-height="75" slidertext-height="14"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Thickness [microns]" parameter="thick" class="Slider"
                   slider-type="linear-horizontal" padding="0" slider-background="ff595c6b"
                   slider-track="ff9cbcbd" name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
-                  caption-placement="top-left" max-height="75"/>
+                  caption-placement="top-left" max-height="75" slidertext-height="14"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Spacing [microns]" parameter="spacing" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
-                  caption-placement="top-left" max-height="75"/>
+                  caption-placement="top-left" max-height="75" slidertext-height="14"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds. (Stereo only)"
-                  caption-placement="top-left" max-height="75" enabled="plugin:is_stereo"/>
+                  caption-placement="top-left" max-height="75" slidertext-height="14" enabled="plugin:is_stereo"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
-                  caption-placement="top-left" max-height="75"/>
+                  caption-placement="top-left" max-height="75" slidertext-height="14"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <View flex-grow="0.53" margin="0" padding="2" background-color="00000000" max-height="50" min-height="10">
             <TextButton margin="0" padding="2" text="3.75" button-color="00000000" background-color="00000000"
@@ -237,25 +236,24 @@
                     tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding=""/>
-            <TextButton flex-align-self="auto" parameter="deg_point1x" max-height="160" background-color="FF31323A"
-                        button-on-color="FFB41717" button-color="FF33343D" text="0.1x" text_on="0.1x"
-                        button-off-text="FFFFFFFF" button-on-text="FFFFFFFF" height=""
-                        width="" min-height="0.0" padding="0" caption-placement="centred"
-                        min-width="" margin="5" caption="" flex-grow="1.0" flex-shrink="0.1"
-                        name="0.1x" lookAndFeel="LookAndFeel_V3" tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation"/>
+            <TextButton parameter="deg_point1x" text="0.1x" text_on="0.1x" background-color="00000000"
+                    margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
+                    button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="0.1x"
+                    tooltip="Scales the Depth value by 0.1 to allow for more subtle degradation."
+                    button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
           </View>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
                   margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."
-                  slider-type="linear-horizontal" max-height="70"/>
+                  slider-type="linear-horizontal"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
                   margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."
-                  slider-type="linear-horizontal" max-height="70"/>
+                  slider-type="linear-horizontal"/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
           <ModSlider parameter="deg_env" caption="Envelope" class="Slider" name="Envelope"
                   margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation. At 0, the degradation will have no envelope."
-                  slider-type="linear-horizontal" max-height="70"/>
+                  slider-type="linear-horizontal"/>
           <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
         </View>
         <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A"

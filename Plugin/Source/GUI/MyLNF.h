@@ -83,7 +83,7 @@ public:
 
     Font getComboBoxFont (ComboBox& box) override
     {
-        return { juce::jmin (28.0f, (float) box.proportionOfHeight (0.65f)) };
+        return { juce::jmin (28.0f, (float) box.proportionOfHeight (0.55f)) };
     }
 
     void positionComboBoxText (ComboBox& box, Label& label) override
