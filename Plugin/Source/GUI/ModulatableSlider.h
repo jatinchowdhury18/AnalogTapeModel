@@ -48,6 +48,7 @@ public:
     ModSliderItem (foleys::MagicGUIBuilder& builder, const juce::ValueTree& node);
 
     void update() override;
+    void resized() override;
 
     std::vector<foleys::SettableProperty> getSettableProperties() const override;
     juce::String getControlledParameterID (juce::Point<int>) override;
@@ -57,6 +58,10 @@ public:
 
 private:
     ModulatableSlider slider;
+
+    int defaultHeight = 0;
+    int sliderTextBoxHeight = 0;
+    juce::Slider::TextEntryBoxPosition textBoxPosition;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModSliderItem)
 };

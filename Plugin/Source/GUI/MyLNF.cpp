@@ -222,7 +222,7 @@ Button* MyLNF::createTabBarExtrasButton()
 
 void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, float sliderPos, float /*minSliderPos*/, float /*maxSliderPos*/, const Slider::SliderStyle, Slider& slider)
 {
-    auto trackWidth = jmin (6.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
+    auto trackWidth = jmin (10.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
 
     Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
                              slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
@@ -259,15 +259,14 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
         }
     }
 
-    auto thumbWidth = getSliderThumbRadius (slider);
+    auto thumbWidth = juce::jmax (trackWidth * 2.5f, (float) getSliderThumbRadius (slider));
 
     valueTrack.startNewSubPath (minPoint);
     valueTrack.lineTo (modPoint);
     g.setColour (slider.findColour (Slider::trackColourId).withAlpha (alpha));
     g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
-    auto thumbRect = Rectangle<float> (static_cast<float> (thumbWidth),
-                                       static_cast<float> (thumbWidth))
+    auto thumbRect = Rectangle<float> (thumbWidth, thumbWidth)
                          .withCentre (maxPoint);
     knob->drawWithin (g, thumbRect, RectanglePlacement::stretchToFit, alpha);
 }
@@ -368,6 +367,11 @@ PopupMenu::Options MyLNF::getOptionsForComboBoxPopupMenu (ComboBox& comboBox, La
 }
 
 //==============================================================
+Font ComboBoxLNF::getComboBoxFont (ComboBox& box)
+{
+    return { juce::jmin (28.0f, (float) box.proportionOfHeight (0.48f)) };
+}
+
 void ComboBoxLNF::drawComboBox (Graphics& g, int width, int height, bool, int, int, int, int, ComboBox& box)
 {
     auto cornerSize = 5.0f;

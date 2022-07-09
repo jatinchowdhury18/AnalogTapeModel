@@ -86,6 +86,7 @@ void ModSliderItem::update()
     slider.setPluginEditorCallback ([this] { return magicBuilder.getMagicState().getProcessor()->getActiveEditor(); });
 
     slider.setTitle (magicBuilder.getStyleProperty (foleys::IDs::name, configNode));
+    defaultHeight = magicBuilder.getStyleProperty (foleys::IDs::defaultHeight, configNode);
 
     auto type = getProperty (pSliderType).toString();
     slider.setAutoOrientation (type.isEmpty() || type == pSliderTypes[0]);
@@ -102,18 +103,17 @@ void ModSliderItem::update()
         slider.setSliderStyle (juce::Slider::IncDecButtons);
 
     auto textbox = getProperty (pSliderTextBox).toString();
-    int textBoxWidth = getProperty (pSliderTextBoxWidth);
-    int textBoxHeight = getProperty (pSliderTextBoxHeight);
+    sliderTextBoxHeight = getProperty (pSliderTextBoxHeight);
     if (textbox == pTextBoxPositions[0])
-        slider.setTextBoxStyle (juce::Slider::NoTextBox, false, textBoxWidth, textBoxHeight);
+        textBoxPosition = juce::Slider::NoTextBox;
     else if (textbox == pTextBoxPositions[1])
-        slider.setTextBoxStyle (juce::Slider::TextBoxAbove, false, textBoxWidth, textBoxHeight);
+        textBoxPosition = juce::Slider::TextBoxAbove;
     else if (textbox == pTextBoxPositions[3])
-        slider.setTextBoxStyle (juce::Slider::TextBoxLeft, false, textBoxWidth, textBoxHeight);
+        textBoxPosition = juce::Slider::TextBoxLeft;
     else if (textbox == pTextBoxPositions[4])
-        slider.setTextBoxStyle (juce::Slider::TextBoxRight, false, textBoxWidth, textBoxHeight);
+        textBoxPosition = juce::Slider::TextBoxRight;
     else
-        slider.setTextBoxStyle (juce::Slider::TextBoxBelow, false, textBoxWidth, textBoxHeight);
+        textBoxPosition = juce::Slider::TextBoxBelow;
 
     double minValue = getProperty (pMinValue);
     double maxValue = getProperty (pMaxValue);
@@ -129,6 +129,23 @@ void ModSliderItem::update()
         slider.attachToParameter (getMagicState().getParameter (paramID));
     else
         slider.attachToParameter (nullptr);
+
+    resized();
+}
+
+void ModSliderItem::resized()
+{
+    const auto sliderTextHeightToUse = [this]
+    {
+        if (defaultHeight == 0)
+            return sliderTextBoxHeight;
+
+        return proportionOfHeight ((float) sliderTextBoxHeight / (float) defaultHeight);
+    }();
+
+    slider.setTextBoxStyle (textBoxPosition, false, proportionOfWidth (0.75f), sliderTextHeightToUse);
+
+    foleys::GuiItem::resized();
 }
 
 std::vector<foleys::SettableProperty> ModSliderItem::getSettableProperties() const
@@ -141,6 +158,8 @@ std::vector<foleys::SettableProperty> ModSliderItem::getSettableProperties() con
     props.push_back ({ configNode, pValue, foleys::SettableProperty::Choice, 1.0f, magicBuilder.createPropertiesMenuLambda() });
     props.push_back ({ configNode, pMinValue, foleys::SettableProperty::Number, 0.0f, {} });
     props.push_back ({ configNode, pMaxValue, foleys::SettableProperty::Number, 2.0f, {} });
+    props.push_back ({ configNode, pSliderTextBoxWidth, foleys::SettableProperty::Number, 85.0f, {} });
+    props.push_back ({ configNode, pSliderTextBoxHeight, foleys::SettableProperty::Number, 17.0f, {} });
 
     return props;
 }
