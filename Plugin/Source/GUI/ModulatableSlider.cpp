@@ -135,8 +135,7 @@ void ModSliderItem::update()
 
 void ModSliderItem::resized()
 {
-    const auto sliderTextHeightToUse = [this]
-    {
+    const auto sliderTextHeightToUse = [this] {
         if (defaultHeight == 0)
             return sliderTextBoxHeight;
 
