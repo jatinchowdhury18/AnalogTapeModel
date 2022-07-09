@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0a9b59c (More work on UI scaling)
 <?xml version="1.0" encoding="UTF-8"?>
 
 <magic>
@@ -56,47 +51,25 @@
             flex-grow="1.5" group="Basic Controls">
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Gain" group="Gain Controls Tab">
-<<<<<<< HEAD
-          <ModSlider caption="Input Gain" parameter="ingain" class="Slider" name="Input Gain"
-                  padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
-          <ModSlider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
-                  padding="0" margin="0" name="Dry/Wet" slider-track="FF0BBDC2"/>
-          <ModSlider caption="Output Gain" parameter="outgain" class="Slider"
-=======
           <ModSlider caption="Input Gain" parameter="ingain" class="Slider" name="Input Gain" default-height="120"
                   padding="0" margin="0" tooltip="Sets the input gain to the tape model in Decibels."/>
           <ModSlider caption="Dry/Wet" parameter="drywet" class="Slider" tooltip="Sets dry/wet mix of the entire plugin."
                   padding="0" margin="0" name="Dry/Wet" slider-track="FF0BBDC2" default-height="120"/>
           <ModSlider caption="Output Gain" parameter="outgain" class="Slider" default-height="120"
->>>>>>> 0a9b59c (More work on UI scaling)
                   padding="0" margin="0" name="Output Gain" tooltip="Sets the output gain from the tape model in Decibels."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Filters" margin="0" group="Input/Output Filter Controls Tab">
-<<<<<<< HEAD
-          <ModSlider caption="Low Cut" parameter="ifilt_low" class="Slider" name="Low Cut"
-                  tooltip="Applies a low cut filter before applying tape processing."/>
-          <ModSlider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut"
-=======
           <ModSlider caption="Low Cut" parameter="ifilt_low" class="Slider" name="Low Cut" default-height="120"
                   tooltip="Applies a low cut filter before applying tape processing."/>
           <ModSlider caption="High Cut" parameter="ifilt_high" class="Slider" name="High Cut" default-height="120"
->>>>>>> 0a9b59c (More work on UI scaling)
                   tooltip="Applies a high cut filter before applying tape processing."/>
           <TextButton parameter="ifilt_makeup" text="Makeup" text_on="Makeup" background-color="00000000"
                       margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
                       button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="Makeup"
                       tooltip="Adds the signal cut out by the cut filters back to the processed signal."
                       button-off-text="FFFFFFFF" button-on-text="FFFFFFFF"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <PowerButton background-color="00000000" max-height="25" min-height="20" margin="0"
-=======
-          <PowerButton background-color="00000000" max-height="35" flex-grow="0.1" min-height="20" margin="0"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton background-color="00000000" max-height="30" flex-grow="0.1" min-height="20" margin="0"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        padding="0" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="ifilt_onoff" name="Filters On/Off" tooltip="Turns the pre-processing filters on or off."/>
         </View>
@@ -109,11 +82,7 @@
                       button-on-text="FFFFFFFF" enabled="plugin:is_stereo"/>
           <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
           <ModSlider caption="Balance" parameter="stereo_balance" class="Slider" name="Stereo Balance"
-<<<<<<< HEAD
-                  padding="5" margin="0" enabled="plugin:is_stereo"
-=======
                   padding="5" margin="0" enabled="plugin:is_stereo" default-height="120"
->>>>>>> 0a9b59c (More work on UI scaling)
                   tooltip="Controls the balance between the two channels (stereo or mid/side)."/>
           <View margin="0" padding="0" flex-grow="0.2" background-color="00000000"/>
           <TextButton parameter="stereo_makeup" text="Makeup" text_on="Makeup" background-color="00000000"
@@ -128,16 +97,6 @@
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tape" margin="0" group="Tape Controls Tab">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-<<<<<<< HEAD
-          <ModSlider caption="Bias" parameter="width" class="Slider" name="Bias" padding="0"
-                  margin="0" tooltip="Controls the amount of bias used by the tape recorder. Turning down the bias can create &quot;deadzone&quot; distortion."/>
-          <ModSlider caption="Saturation" parameter="sat" class="Slider" name="Saturation"
-                  padding="0" margin="0" tooltip="Controls the amount of tape saturation applied to the signal."/>
-          <ModSlider caption="Drive" parameter="drive" class="Slider" name="Drive"
-                  padding="0" margin="0" tooltip="Controls the amount of amplification done during the tape magnetisation process. Note that unlike the &quot;Input Gain&quot;, this amplification is highly nonlinear."/>
-          <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
-                       button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
-=======
           <ModSlider caption="Bias" parameter="width" class="Slider" name="Bias" padding="0" default-height="120"
                   margin="0" tooltip="Controls the amount of bias used by the tape recorder. Turning down the bias can create &quot;deadzone&quot; distortion."/>
           <ModSlider caption="Saturation" parameter="sat" class="Slider" name="Saturation" default-height="120"
@@ -146,22 +105,11 @@
                   padding="0" margin="0" tooltip="Controls the amount of amplification done during the tape magnetisation process. Note that unlike the &quot;Input Gain&quot;, this amplification is highly nonlinear."/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
                        button-on-color="FFEAA92C" min-height="20" button-color="ff595c6b"
->>>>>>> 0a9b59c (More work on UI scaling)
                        parameter="hyst_onoff" name="Tape On/Off" tooltip="Turns the tape processing on or off."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Comp" margin="0" group="Compression Controls Tab">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-<<<<<<< HEAD
-          <ModSlider caption="Amount" parameter="comp_amt" class="Slider" name="Compression Amount"
-                  padding="0" margin="0" tooltip="Controls the amount of tape compression applied by the effect."/>
-          <ModSlider caption="Attack" parameter="comp_attack" class="Slider"
-                  name="Compression Attack" padding="0" margin="0" tooltip="Controls the attack speed of the tape compression."/>
-          <ModSlider caption="Release" parameter="comp_release" class="Slider"
-                  name="Compression Release" padding="0" margin="0" tooltip="Controls the release speed of the tape compression."/>
-          <PowerButton flex-grow="1.0" margin="0" padding="0" background-color="00000000"
-                       button-on-color="FFEAA92C" min-height="20" max-height="25" button-color="ff595c6b"
-=======
           <ModSlider caption="Amount" parameter="comp_amt" class="Slider" name="Compression Amount" default-height="120"
                   padding="0" margin="0" tooltip="Controls the amount of tape compression applied by the effect."/>
           <ModSlider caption="Attack" parameter="comp_attack" class="Slider" default-height="120"
@@ -170,33 +118,18 @@
                   name="Compression Release" padding="0" margin="0" tooltip="Controls the release speed of the tape compression."/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
                        button-on-color="FFEAA92C" min-height="20" button-color="ff595c6b"
->>>>>>> 0a9b59c (More work on UI scaling)
                        parameter="comp_onoff" name="Comp. On/Off" tooltip="Turns the tape compression on or off."/>
         </View>
         <View flex-direction="column" tab-color="" background-color="FF31323A"
               padding="0" tab-caption="Tone" margin="0" group="Tape Tone Controls Tab">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-<<<<<<< HEAD
-          <ModSlider caption="Treble" parameter="h_treble" class="Slider" name="Treble"
-                  padding="0" margin="0" tooltip="Controls the treble response of the pre/post-emphasis filters."/>
-          <ModSlider caption="Bass" parameter="h_bass" class="Slider" name="Bass"
-                  padding="0" margin="0" tooltip="Controls the bass response of the pre/post-emphasis filters."/>
-          <ModSlider caption="Frequency" parameter="h_tfreq" class="Slider" name="Transition Frequency"
-                  padding="0" margin="0" tooltip="Controls the transition frequency between the bass and treble sections of the EQ."/>
-          <PowerButton max-height="25" min-height="20" margin="0" padding="0" background-color="00000000"
-=======
           <ModSlider caption="Treble" parameter="h_treble" class="Slider" name="Treble" default-height="120"
                   padding="0" margin="0" tooltip="Controls the treble response of the pre/post-emphasis filters."/>
           <ModSlider caption="Bass" parameter="h_bass" class="Slider" name="Bass" default-height="120"
                   padding="0" margin="0" tooltip="Controls the bass response of the pre/post-emphasis filters."/>
           <ModSlider caption="Frequency" parameter="h_tfreq" class="Slider" name="Transition Frequency" default-height="120"
                   padding="0" margin="0" tooltip="Controls the transition frequency between the bass and treble sections of the EQ."/>
-<<<<<<< HEAD
-          <PowerButton max-height="35" flex-grow="0.1" min-height="20" margin="0" padding="0" background-color="00000000"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton max-height="30" flex-grow="0.1" min-height="20" margin="0" padding="0" background-color="00000000"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        button-color="ff595c6b" button-on-color="FFEAA92C" parameter="tone_onoff"
                        name="Tone On/Off" tooltip="Turns the tone control processing on or off."/>
         </View>
@@ -205,28 +138,6 @@
             lookAndFeel="MyLNF" group="Degradation Controls">
         <View flex-direction="column" tab-caption="Loss" tab-color="" background-color="FF31323A"
               padding="0" margin="0" group="Loss Controls Tab">
-<<<<<<< HEAD
-          <ModSlider caption="Gap [microns]" parameter="gap" slider-type="linear-horizontal"
-                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
-                  slidertext-height="18" caption-placement="top-left"/>
-          <ModSlider caption="Thickness [microns]" parameter="thick" class="Slider"
-                  slider-type="linear-horizontal" padding="0" slider-background="ff595c6b"
-                  slider-track="ff9cbcbd" name="Thickness" tooltip="Sets the thickness of the tape. Thicker tape has a more muted high-frequency response."
-                  caption-placement="top-left"/>
-          <ModSlider caption="Spacing [microns]" parameter="spacing" slider-type="linear-horizontal"
-                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Spacing" tooltip="Sets the spacing between the tape and the playhead. A larger spacing means more high frequency signal is lost during playback."
-                  caption-placement="top-left"/>
-          <ModSlider caption="Azimuth [degrees]" parameter="azimuth" slider-type="linear-horizontal"
-                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Azimuth" tooltip="Sets the azimuth angle between the playhead and the tape. This can create a stereo widening effect at higher tape speeds. (Stereo only)"
-                  caption-placement="top-left" enabled="plugin:is_stereo"/>
-          <ModSlider caption="Speed [ips]" parameter="speed" slider-type="linear-horizontal"
-                  class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
-                  name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
-                  caption-placement="top-left"/>
-=======
           <ModSlider caption="Gap [microns]" parameter="gap" slider-type="linear-horizontal" default-height="60"
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Gap" tooltip="Sets the width of the playhead gap. Certain frequencies that resonate with the gap width will be emphasized."
@@ -247,7 +158,6 @@
                   class="Slider" padding="0" slider-background="ff595c6b" slider-track="ff9cbcbd"
                   name="Speed" tooltip="Sets the speed of the tape as it affects the playhead loss effects. Note that this control does not affect the wow/flutter processing."
                   caption-placement="top-left" slidertext-height="15"/>
->>>>>>> 0a9b59c (More work on UI scaling)
           <View flex-grow="0.53" margin="0" padding="2" background-color="00000000" group="Discrete Tape Speed Options">
             <TextButton margin="0" padding="2" text="3.75" button-color="00000000" background-color="00000000"
                         onClick="set_speed_3.75" lookAndFeel="SpeedButtonLNF" button-on-color="00000000"
@@ -263,15 +173,7 @@
                         button-on-color="00000000" name="30 ips" tooltip="Snaps the tape speed to 30 inches per second."/>
           </View>
           <View flex-grow="0.01" background-color="00000000"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
-=======
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="35" flex-grow="0.1"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="loss_onoff" name="Loss On/Off" tooltip="Turns the loss filters on or off."/>
         </View>
@@ -280,17 +182,10 @@
           <View flex-direction="column" max-height="140" background-color="FF1E1F22"
                 flex-grow="2.0" flex-shrink="2.0" padding="0">
             <View max-height="5"/>
-<<<<<<< HEAD
-            <ModSlider parameter="deg_depth" caption="Depth" class="Slider" name="Depth"
-                    tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
-                    max-height="70" margin="0" min-height="0" slidertext-width="80"
-                    flex-grow="2.5" flex-shrink="2.5" padding=""/>
-=======
             <ModSlider parameter="deg_depth" caption="Depth" class="Slider" name="Depth" default-height="60"
                     tooltip="Sets the depth of the tape degradation." slider-type="linear-horizontal"
                     max-height="70" margin="0" min-height="0" slidertext-width="80"
                     flex-grow="2.5" flex-shrink="2.5" padding="" slidertext-height="15"/>
->>>>>>> 0a9b59c (More work on UI scaling)
             <TextButton parameter="deg_point1x" text="0.1x" text_on="0.1x" background-color="00000000"
                       margin="0" padding="5" button-color="FF33343D" flex-grow="0.35"
                       button-on-color="FFB41717" lookAndFeel="LookAndFeel_V3" name="0.1x"
@@ -300,84 +195,36 @@
           <View margin="0" padding="0" max-height="15" flex-grow="0.05" background-color="00000000"/>
           <ModSlider caption="Amount" parameter="deg_amt" class="Slider" name="Amount"
                   margin="0" tooltip="Sets the amount of the tape that is degraded. At large values all of the tape will be affected, at small values only some sections will be affected."
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  slider-type="linear-horizontal" max-height="70"/>
-          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
-          <ModSlider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
-                  margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."
-                  slider-type="linear-horizontal" max-height="70"/>
-          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
-          <ModSlider parameter="deg_env" caption="Envelope" class="Slider" name="Envelope"
-                  margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation. At 0, the degradation will have no envelope."
-                  slider-type="linear-horizontal" max-height="70"/>
-          <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
-=======
-                  slider-type="linear-horizontal" default-height="60" max-height="70" slidertext-height="15"/>
-          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
-=======
                   slider-type="linear-horizontal" default-height="60" slidertext-height="15"/>
           <View margin="0" padding="0" max-height="15" flex-grow="0.05" background-color="00000000"/>
->>>>>>> bf540eb (More tweaks to gui.xml)
           <ModSlider parameter="deg_var" caption="Variance" class="Slider" name="Variance"
                   margin="0" tooltip="Sets the variance of the tape degradation. Use lower values for uniform degradation, or higher values for variation across different sections of tape."
                   slider-type="linear-horizontal" default-height="60" slidertext-height="15"/>
           <View margin="0" padding="0" max-height="15" flex-grow="0.05" background-color="00000000"/>
           <ModSlider parameter="deg_env" caption="Envelope" class="Slider" name="Envelope"
                   margin="0" tooltip="Sets the amount of amplitude envelope applied to the tape degradation. At 0, the degradation will have no envelope."
-<<<<<<< HEAD
-                  slider-type="linear-horizontal" default-height="60" max-height="70" slidertext-height="15"/>
-          <View margin="0" padding="0" flex-grow="0.15" background-color="00000000"/>
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="35" flex-grow="0.1"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
                   slider-type="linear-horizontal" default-height="60" slidertext-height="15"/>
           <View margin="0" padding="0" max-height="15" flex-grow="0.1" background-color="00000000"/>
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="deg_onoff" name="Degrade On/Off" tooltip="Turns the degradation processing on or off."/>
         </View>
         <View tab-caption="CHEW" padding="0" flex-direction="column" background-color="FF31323A"
               margin="0" group="Chew Controls Tab">
           <View margin="0" padding="0" flex-grow="0.05" background-color="00000000"/>
-<<<<<<< HEAD
-          <ModSlider parameter="chew_depth" caption="Depth" padding="0" margin="0"
-                  class="Slider" name="Chew Depth" tooltip="Controls how intensely the tape has been chewed up."/>
-          <ModSlider caption="Frequency" parameter="chew_freq" padding="0" margin="0"
-                  class="Slider" name="Chew Frequency" tooltip="Controls the amount of time in between chewed-up sections of tape."/>
-          <ModSlider caption="Variance" parameter="chew_var" padding="0" margin="0"
-                  class="Slider" name="Chew Variance" tooltip="Controls the amount of variance in the chew frequency."/>
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
-=======
           <ModSlider parameter="chew_depth" caption="Depth" padding="0" margin="0" default-height="120"
                   class="Slider" name="Chew Depth" tooltip="Controls how intensely the tape has been chewed up."/>
           <ModSlider caption="Frequency" parameter="chew_freq" padding="0" margin="0" default-height="120"
                   class="Slider" name="Chew Frequency" tooltip="Controls the amount of time in between chewed-up sections of tape."/>
           <ModSlider caption="Variance" parameter="chew_var" padding="0" margin="0" default-height="120"
                   class="Slider" name="Chew Variance" tooltip="Controls the amount of variance in the chew frequency."/>
-<<<<<<< HEAD
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="35" flex-grow="0.1"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="chew_onoff" name="Chew On/Off" tooltip="Turns the chew processing on or off."/>
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF" group="Wow/Flutter Controls">
         <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A" group="Flutter Controls Tab">
-<<<<<<< HEAD
-          <FlutterMenu margin="0" padding="0" background-color="00000000" max-height="30"
-                       name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
-          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
-          <ModSlider caption="Depth" parameter="depth" max-height="150" class="Slider"
-                  name="Flutter Depth" tooltip="Sets depth of the tape flutter."
-                  margin="0" padding="0"/>
-          <ModSlider caption="Rate" parameter="rate" class="Slider" max-height="150"
-=======
           <FlutterMenu margin="0" padding="0" background-color="00000000" min-height="15" max-height="55" flex-grow="0.25"
                        name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
           <View margin="0" padding="0" max-height="15" flex-grow="0.1" background-color="00000000"/>
@@ -385,45 +232,16 @@
                   name="Flutter Depth" tooltip="Sets depth of the tape flutter."
                   margin="0" padding="0"/>
           <ModSlider caption="Rate" parameter="rate" class="Slider" max-height="150" default-height="120"
->>>>>>> 0a9b59c (More work on UI scaling)
                   name="Flutter Rate" tooltip="Sets the rate of the tape flutter."
                   margin="0" padding="0"/>
           <Plot source="flutter" plot-decay="0.8" background-color="FF1E1F22"
                 flex-grow="0.8" plot-color="FFEAA92C" plot-fill-color="CC8B3232"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
-=======
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="35" flex-grow="0.1"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="flutter_onoff" name="Wow/Flutter On/Off" tooltip="Turns the wow and flutter processing on or off."/>
         </View>
         <View tab-caption="Wow" flex-direction="column" background-color="FF31323A"
               padding="0" margin="3" group="Wow Controls Tab">
-<<<<<<< HEAD
-          <WowMenu margin="0" padding="0" background-color="00000000" max-height="30"
-                   name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
-          <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
-          <ModSlider caption="Depth" parameter="wow_depth" max-height="150" class="Slider"
-                  name="Wow Depth" tooltip="Sets the depth of the tape wow." margin="0"
-                  padding="0" slider-type="linear-horizontal"/>
-          <ModSlider caption="Rate" parameter="wow_rate" class="Slider" max-height="150"
-                  name="Wow Rate" tooltip="Sets the rate of the tape wow." margin="0"
-                  padding="0" slider-type="linear-horizontal"/>
-          <ModSlider caption="Variance" parameter="wow_var" class="Slider" max-height="150"
-                  name="Wow Variance" tooltip="Sets the amount of variance in the tape wow."
-                  margin="0" padding="0" slider-type="linear-horizontal"/>
-          <ModSlider caption="Drift" parameter="wow_drift" class="Slider" max-height="150"
-                  name="Wow Drift" tooltip="Sets the amount of drift in the tape wow."
-                  margin="0" padding="0" slider-type="linear-horizontal"/>
-          <Plot source="wow" plot-decay="0.8" flex-grow="1.45" background-color="FF1E1F22"
-                plot-color="FFEAA92C" plot-fill-color="CC8B3232"/>
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="25"
-=======
           <WowMenu margin="0" padding="0" background-color="00000000" min-height="15" max-height="55" flex-grow="0.35"
                    name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
@@ -441,12 +259,7 @@
                   margin="0" padding="0" slider-type="linear-horizontal" default-height="60"/>
           <Plot source="wow" plot-decay="0.8" flex-grow="1.45" background-color="FF1E1F22"
                 plot-color="FFEAA92C" plot-fill-color="CC8B3232"/>
-<<<<<<< HEAD
-          <PowerButton margin="0" padding="0" background-color="00000000" max-height="35" flex-grow="0.1"
->>>>>>> 0a9b59c (More work on UI scaling)
-=======
           <PowerButton margin="0" padding="0" background-color="00000000" max-height="30" flex-grow="0.1"
->>>>>>> bf540eb (More tweaks to gui.xml)
                        min-height="20" button-color="ff595c6b" button-on-color="FFEAA92C"
                        parameter="flutter_onoff" name="Wow/Flutter On/Off" tooltip="Turns the wow and flutter processing on or off."/>
         </View>
@@ -454,13 +267,8 @@
     </View>
     <TooltipComp flex-grow="0.13" background-color="00000000" tooltip-name="FFEAA92C"
                  tooltip-text="FFFFFFFF"/>
-<<<<<<< HEAD
-    <View max-height="35" margin="0" padding="0" background-color="FF31323A"
-          flex-grow="0.1" group="Extra Controls Bar">
-=======
     <View min-height="20" max-height="80" margin="0" padding="0" background-color="FF31323A"
           flex-grow="0.04" group="Extra Controls Bar">
->>>>>>> 0a9b59c (More work on UI scaling)
       <View background-color="00000000" flex-grow="0.05"/>
       <OversamplingMenu caption="Oversampling" class="Slider" flex-grow="1.2" caption-size="0"
                         padding="0" combo-text="FFEAA92C" menu-accent="FFEAA92C" combo-background="00000000"
@@ -486,8 +294,4 @@
     </View>
   </View>
 </magic>
-<<<<<<< HEAD
  
-=======
- 
->>>>>>> 0a9b59c (More work on UI scaling)
