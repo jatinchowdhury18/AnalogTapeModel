@@ -26,7 +26,7 @@ can be used to emulate a wide variety of reel-to-reel tape
 machines, using physics-based emulation algorithms\footnote{The
 plugin is based off a 2019 DAFx paper \href{http://dafx2019.bcu.ac.uk/papers/DAFx2019_paper_3.pdf}{``Real-time Physical Modelling for Analog Tape Machines''}.}.
 The plugin is currently available for Windows, Linux, Mac, and iOS
-in the following formats: VST/VST3, AU, LV2,
+in the following formats: VST/VST3, AU, CLAP, LV2,
 AAX, AUv3, and Standalone.
 
 \subsection{Installation}
@@ -133,13 +133,6 @@ signal they want to the plugin's processing to affect.
 \newpar
 \boldtheme{Output Gain} controls the level coming out of the plugin.
 \newpar
-\boldtheme{Stereo - Mid/Side}: When using ChowTape in ``Stereo''
-mode, the plugin will process the input signal as a left/right
-pair. In ``Mid/Side'' mode, the plugin will encode the input
-signal as a mid/side pair, process the mid/side signal, and
-then decode the signal back to a left/right stereo pair at
-the output.
-\newpar
 \boldtheme{Oversampling} controls the amount of oversampling
 being done internally within the plugin. More oversampling
 will result in a higher quality sound with fewer aliasing
@@ -166,8 +159,32 @@ plugin. The \boldtheme{Low Cut} and \boldtheme{High Cut} knobs
 control the cutoff frequencies of the two filters. The
 \boldtheme{Makeup} control allows the signal cut out by the
 input filters to be added back to the output of the plugin.
-This can be useful for allowing sub-bass frequencies to pass
+Makeup be useful by allowing sub-bass frequencies to pass
 through the plugin unaffected.
+
+\begin{figure}[ht]
+    \center
+    \includegraphics[height=0.32\paperheight]{../Plugin/Screenshots/Stereo.png}
+    \caption{\label{h_inputs}{\it Stereo controls}}
+\end{figure}
+
+\subsection{Stereo Controls}
+
+When using ChowTape in \boldtheme{Stereo} mode, the plugin
+will process the input signal as a left/right pair. In \boldtheme{Mid/Side}
+mode, the plugin will encode the input signal as a mid/side pair,
+process the mid/side signal, and then decode the signal back to a
+left/right stereo pair at the output.
+\newpar
+The \boldtheme{Balance} control
+makes one of the channels louder than the other, either ``panning'' the
+signal, or emphasizing either the mid or side part of the signal. The
+\boldtheme{Makeup} control allows the signal which was attenuated by
+the Balance control to be amplified by the same amount at the output
+of the plugin. Makeup can be useful by allowing either the mid or side
+part of the signal to be distorted more heavily by the plugin.
+When using the plugin with a channel configuration other than stereo,
+these controls will have no effect.
 
 \begin{figure}[ht]
     \center
@@ -417,8 +434,53 @@ well as any subfolders, to load new user presets.
 Presets located in subfolders will be placed in their
 own groups in the preset menu.
 \newline
-\newline
-\newline
+
+\subsection{Accessibility}
+ChowTape includes accessibility for screen readers on Windows
+and Mac OS. All the controls in the user interface may be navigated
+using either the screen reader's navigation keys, or using the ``Tab''
+key. Users may interact with buttons and menus using the ``Enter'' key.
+For continuous slider controls, the following keyboard shortcuts are
+supported:
+\renewcommand{\labelitemi}{\textendash}
+\begin{itemize}
+    \itemsep-1mm
+    \item Up/Down Arrow Key: Nudge the slider value.
+    \item Page-Up/Page-Down Key: ``Big'' nudge the slider value.
+    \item Delete Key: Move the slider to its default value.
+    \item Home Key: Move the slider to its minimum value.
+    \item End Key: Move the slider to its maximum value.
+\end{itemize}
+%
+Note that Windows users will want to ensure that OpenGL is turned off
+when using the plugin with a screen reader, otherwise the screen reader
+software may not be able to navigate into the plugin window.
+
+\subsection{Troubleshooting}
+If you run into issues when using ChowTape, you may submit bug reports
+using GitHub Issues. However, it is recommended to read the following
+troubleshooting suggestions first.
+
+\subsubsection{Resetting Global Settings}
+If you run into any issues that require the global settings to
+be changed or reset, the global settings file can be found in the
+users ``AppData'' directory (Windows), ``Library'' directory (Mac OS),
+or ``.config'' directory (Linux). To reset the global settings, you may
+delete this file, and it will automatically be regenerated the next time
+the plugin is used.
+
+\subsubsection{OpenGL Rendering}
+On Windows and Linux, ChowTape will have the option to use OpenGL
+for rendering the UI, unless the host system does not support OpenGL
+version 2.0 or greater. If OpenGL is available, it is possible to turn
+rendering with OpenGL on or off in the global settings menu. If you
+need to override your chosen OpenGL setting, please visit the global
+settings file.
+
+\subsubsection{Copying Plugin Diagnostics}
+If you need to submit a bug report, it is very useful to include
+the plugin's diagnostic information in your bug report. The diagnostic
+info can be copied from the global settings menu.
 
 \subsection{Open Source}
 ChowTape is open-source software that is free (as in ``free

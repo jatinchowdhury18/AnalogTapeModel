@@ -73,10 +73,10 @@ void ScreenshotHelper::takeScreenshots (const ArgumentList& args)
 
     std::cout << "Generating screenshots... Saving to " << outputDir.getFullPathName() << std::endl;
 
-    // auto plugin = std::make_unique<ChowtapeModelAudioProcessor>();
     std::unique_ptr<AudioProcessor> plugin (createPluginFilterOfType (AudioProcessor::WrapperType::wrapperType_Standalone));
     processAudio (plugin.get());
     std::unique_ptr<AudioProcessorEditor> editor (plugin->createEditorIfNeeded());
+    MessageManager::getInstance()->runDispatchLoopUntil (100);
 
     // make sure all plugin sections are enabled
     StringArray onOffIDs { "ifilt_onoff", "hyst_onoff", "tone_onoff", "loss_onoff", "chew_onoff", "deg_onoff", "flutter_onoff", "comp_onoff" };
