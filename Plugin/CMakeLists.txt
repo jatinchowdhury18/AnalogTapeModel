@@ -66,6 +66,8 @@ if(NOT IOS)
         TARGET CHOWTapeModel
         CLAP_ID "org.chowdsp.CHOWTapeModel"
         CLAP_FEATURES audio-effect distortion
+        CLAP_PROCESS_EVENTS_RESOLUTION_SAMPLES 64
+        CLAP_USE_JUCE_PARAMETER_RANGES DISCRETE
     )
 endif()
 
