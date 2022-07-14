@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [UNRELEASED]
+## [2.11.0] - 2022-07-14
 - Added multi-channel processing support.
 - Added stereo/mid-side "balance" controls.
 - Added CLAP plugin format support (with parameter modulation).
