@@ -68,7 +68,7 @@ Depending on your Linux distribution, you may also need to install:
 Note that Linux dependencies may sometimes change during
 the development process. If you're local builds are failing
 due to a missing dependency, please review the latest
-depenendencies used for our CI builds [here](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/.github/workflows/cmake.yml#L32).
+dependencies used for our CI builds [here](https://github.com/jatinchowdhury18/AnalogTapeModel/blob/master/.github/workflows/cmake.yml#L32).
 
 ## Building with the GUI Editor
 If you need to make changes to the GUI, you can build
