@@ -104,7 +104,7 @@ MH = plt.figure (1)
 plt.plot (H_in[0:20000] / 1000, M_out[0:20000] / M_s)
 plt.xlabel ("Magnetic Field (A/m)")
 plt.ylabel ("Tape Magnetisation (A/m)")
-plt.title ("Simulated Ditigal Tape Magnetization Hysteresis Loop")
+plt.title ("Simulated Digital Tape Magnetization Hysteresis Loop")
 #MH.show()
 
 #Mt = plt.figure (2)
