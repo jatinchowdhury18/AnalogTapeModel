@@ -11,7 +11,7 @@ ScrollView::ScrollView (foleys::MagicGUIBuilder& builder, ValueTree node)
     viewport.setScrollBarsShown (true, false);
     viewport.getVerticalScrollBar().setColour (ScrollBar::thumbColourId, Colour (0xFFEAA92C).withAlpha (0.7f));
     viewport.setScrollBarThickness (10);
-    viewport.setScrollOnDragMode (Viewport::ScrollOnDragMode::all);
+    viewport.setScrollOnDragMode (Viewport::ScrollOnDragMode::never);
 
     dragToScrollListener = std::make_unique<DragToScrollListener> (viewport);
 }
