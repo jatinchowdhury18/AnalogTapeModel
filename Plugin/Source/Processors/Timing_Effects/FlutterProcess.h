@@ -36,8 +36,8 @@ public:
             phase1[ch] -= MathConstants<float>::twoPi;
         while (phase2[ch] >= MathConstants<float>::twoPi)
             phase2[ch] -= MathConstants<float>::twoPi;
-        while (phase2[ch] >= MathConstants<float>::twoPi)
-            phase2[ch] -= MathConstants<float>::twoPi;
+        while (phase3[ch] >= MathConstants<float>::twoPi)
+            phase3[ch] -= MathConstants<float>::twoPi;
     }
 
 private:
