@@ -23,6 +23,8 @@ private:
     std::unique_ptr<juce::SliderParameterAttachment> attachment;
     chowdsp::FloatParameter* modParameter = nullptr;
     PluginEditorCallback pluginEditorCallback = nullptr;
+    
+    double modulatedValue;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)
 };

@@ -12,6 +12,7 @@ void ModulatableSlider::attachToParameter (juce::RangedAudioParameter* param)
 
     attachment = std::make_unique<juce::SliderParameterAttachment> (*param, *this, nullptr);
     modParameter = dynamic_cast<chowdsp::FloatParameter*> (param);
+    modulatedValue = modParameter->getCurrentValue();
     startTimerHz (24);
 }
 
@@ -61,6 +62,14 @@ juce::PopupMenu ModulatableSlider::getContextMenu()
 
 void ModulatableSlider::timerCallback()
 {
+    const auto newModulatedValue = modParameter->getCurrentValue();
+    if (std::abs (modulatedValue - newModulatedValue) < 0.01)
+    {
+        modulatedValue = modParameter->getCurrentValue();
+        return;
+    }
+    
+    
     repaint();
 }
 
