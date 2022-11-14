@@ -64,12 +64,9 @@ void ModulatableSlider::timerCallback()
 {
     const auto newModulatedValue = modParameter->getCurrentValue();
     if (std::abs (modulatedValue - newModulatedValue) < 0.01)
-    {
-        modulatedValue = modParameter->getCurrentValue();
         return;
-    }
     
-    
+    modulatedValue = modParameter->getCurrentValue();
     repaint();
 }
 
