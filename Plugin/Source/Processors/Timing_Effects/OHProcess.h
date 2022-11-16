@@ -2,6 +2,7 @@
 #define OHPROCESS_H_INCLUDED
 
 #include <JuceHeader.h>
+#include <chowdsp_sources/Other/chowdsp_Noise.h>
 
 /**
  * Class to simulate the Ornstein-Uhlenbeck process.
@@ -17,7 +18,7 @@ public:
     {
         dsp::ProcessSpec spec { sampleRate, (uint32) samplesPerBlock, (uint32) numChannels };
         dsp::ProcessSpec monoSpec { sampleRate, (uint32) samplesPerBlock, 1 };
-
+        
         noiseGen.setNoiseType (chowdsp::Noise<float>::Normal);
         noiseGen.setGainLinear (1.0f / 2.33f);
         noiseGen.prepare (monoSpec);
@@ -68,7 +69,7 @@ private:
     float amt = 0.0f;
     float mean = 0.0f;
     float damping = 0.0f;
-
+    
     chowdsp::Noise<float> noiseGen;
     AudioBuffer<float> noiseBuffer;
     const float* rPtr = nullptr;

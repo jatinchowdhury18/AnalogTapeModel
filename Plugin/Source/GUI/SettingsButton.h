@@ -3,15 +3,14 @@
 #include "../PluginProcessor.h"
 
 class SettingsButton : public DrawableButton,
-                       private chowdsp::GlobalPluginSettings::Listener
+                       public chowdsp::TrackedByBroadcasters
 {
     using SettingID = chowdsp::GlobalPluginSettings::SettingID;
 
 public:
     SettingsButton (const ChowtapeModelAudioProcessor& processor, chowdsp::OpenGLHelper* openGLHelper);
-    ~SettingsButton() override;
-
-    void globalSettingChanged (SettingID settingID) final;
+    
+    void globalSettingChanged (SettingID settingID);
 
 private:
     void showSettingsMenu();

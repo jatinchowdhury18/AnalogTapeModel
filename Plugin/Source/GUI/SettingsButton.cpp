@@ -10,18 +10,13 @@ SettingsButton::SettingsButton (const ChowtapeModelAudioProcessor& processor, ch
                                                                                                                   proc (processor),
                                                                                                                   openGLHelper (oglHelper)
 {
-    pluginSettings->addProperties ({ { openglID, false } }, this);
+    pluginSettings->addProperties<&SettingsButton::globalSettingChanged> ({ { openglID, false } }, *this);
     globalSettingChanged (openglID);
 
     auto cog = Drawable::createFromImageData (BinaryData::cogsolid_svg, BinaryData::cogsolid_svgSize);
     setImages (cog.get());
 
     onClick = [=] { showSettingsMenu(); };
-}
-
-SettingsButton::~SettingsButton()
-{
-    pluginSettings->removePropertyListener (this);
 }
 
 void SettingsButton::globalSettingChanged (SettingID settingID)

@@ -1,4 +1,5 @@
 #include "ModulatableSlider.h"
+#include "../PluginProcessor.h"
 
 void ModulatableSlider::attachToParameter (juce::RangedAudioParameter* param)
 {
@@ -13,7 +14,6 @@ void ModulatableSlider::attachToParameter (juce::RangedAudioParameter* param)
     attachment = std::make_unique<juce::SliderParameterAttachment> (*param, *this, nullptr);
     modParameter = dynamic_cast<chowdsp::FloatParameter*> (param);
     modulatedValue = modParameter->getCurrentValue();
-    startTimerHz (24);
 }
 
 double ModulatableSlider::getModulatedPosition()
@@ -65,8 +65,8 @@ void ModulatableSlider::timerCallback()
     const auto newModulatedValue = modParameter->getCurrentValue();
     if (std::abs (modulatedValue - newModulatedValue) < 0.01)
         return;
-    
-    modulatedValue = modParameter->getCurrentValue();
+
+    modulatedValue = newModulatedValue;
     repaint();
 }
 
@@ -89,6 +89,12 @@ ModSliderItem::ModSliderItem (foleys::MagicGUIBuilder& builder, const juce::Valu
 
 void ModSliderItem::update()
 {
+    if(const auto* plugin = dynamic_cast<const ChowtapeModelAudioProcessor*> (magicBuilder.getMagicState().getProcessor()))
+    {
+        if(plugin->supportsParameterModulation())
+            slider.startTimerHz(24);
+    }
+    
     slider.setPluginEditorCallback ([this] { return magicBuilder.getMagicState().getProcessor()->getActiveEditor(); });
 
     slider.setTitle (magicBuilder.getStyleProperty (foleys::IDs::name, configNode));
