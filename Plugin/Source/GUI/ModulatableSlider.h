@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 
 class ModulatableSlider : public foleys::AutoOrientationSlider,
-                          private Timer
+                          public Timer
 {
 public:
     ModulatableSlider() = default;
@@ -17,7 +17,6 @@ public:
     using PluginEditorCallback = std::function<juce::AudioProcessorEditor*()>;
     void setPluginEditorCallback (PluginEditorCallback&& newCallback);
     
-    friend class ModSliderItem;
 
 private:
     void timerCallback() override;

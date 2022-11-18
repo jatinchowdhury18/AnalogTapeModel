@@ -2,7 +2,6 @@
 #define OHPROCESS_H_INCLUDED
 
 #include <JuceHeader.h>
-#include <chowdsp_sources/Other/chowdsp_Noise.h>
 
 /**
  * Class to simulate the Ornstein-Uhlenbeck process.
