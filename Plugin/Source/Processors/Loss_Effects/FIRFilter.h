@@ -5,7 +5,7 @@
 #if JUCE_MAC || JUCE_IOS
 #define Point CarbonDummyPointName
 #define Component CarbonDummyCompName
-#include <Accelerate/Accelerate.h>
+//#include <Accelerate/Accelerate.h>
 #undef Point
 #undef Component
 #endif
@@ -47,7 +47,7 @@ public:
 
 #if JUCE_MAC || JUCE_IOS
             y = 0.0f;
-            vDSP_dotpr (z.data() + zPtr, 1, h.data(), 1, &y, order); // use Acclerate inner product (if available)
+            //vDSP_dotpr (z.data() + zPtr, 1, h.data(), 1, &y, order); // use Acclerate inner product (if available)
 #else
             y = std::inner_product (z.data() + zPtr, z.data() + zPtr + order, h.data(), 0.0f); // comput inner product
 #endif

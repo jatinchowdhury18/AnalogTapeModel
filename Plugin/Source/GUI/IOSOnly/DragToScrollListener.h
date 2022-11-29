@@ -23,7 +23,7 @@ public:
 private:
     Viewport& viewport;
     ViewportDragPosition offsetX, offsetY;
-    Point<int> originalViewPos;
+    juce::Point<int> originalViewPos;
     bool isDragging = false;
     bool isGlobalMouseListener = false;
 

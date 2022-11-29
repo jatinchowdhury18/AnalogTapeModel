@@ -89,7 +89,7 @@ std::vector<foleys::SettableProperty> PowerButtonItem::getSettableProperties() c
     return itemProperties;
 }
 
-String PowerButtonItem::getControlledParameterID (Point<int>)
+String PowerButtonItem::getControlledParameterID (juce::Point<int>)
 {
     return configNode.getProperty (foleys::IDs::parameter, String()).toString();
 }
