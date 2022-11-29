@@ -16,7 +16,6 @@ public:
 
     using PluginEditorCallback = std::function<juce::AudioProcessorEditor*()>;
     void setPluginEditorCallback (PluginEditorCallback&& newCallback);
-    
 
 private:
     void timerCallback() override;
@@ -24,7 +23,7 @@ private:
     std::unique_ptr<juce::SliderParameterAttachment> attachment;
     chowdsp::FloatParameter* modParameter = nullptr;
     PluginEditorCallback pluginEditorCallback = nullptr;
-    
+
     double modulatedValue = 0.0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)

@@ -225,10 +225,10 @@ void MyLNF::drawLinearSlider (Graphics& g, int x, int y, int width, int height, 
     auto trackWidth = jmin (10.0f, slider.isHorizontal() ? (float) height * 0.25f : (float) width * 0.25f);
 
     juce::Point<float> startPoint (slider.isHorizontal() ? (float) x : (float) x + (float) width * 0.5f,
-                             slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
+                                   slider.isHorizontal() ? (float) y + (float) height * 0.5f : (float) (height + y));
 
     juce::Point<float> endPoint (slider.isHorizontal() ? (float) (width + x) : startPoint.x,
-                           slider.isHorizontal() ? startPoint.y : (float) y);
+                                 slider.isHorizontal() ? startPoint.y : (float) y);
 
     const auto alpha = slider.isEnabled() ? 1.0f : 0.4f;
 

@@ -9,7 +9,7 @@ class SettingsButton : public DrawableButton,
 
 public:
     SettingsButton (const ChowtapeModelAudioProcessor& processor, chowdsp::OpenGLHelper* openGLHelper);
-    
+
     void globalSettingChanged (SettingID settingID);
 
 private:

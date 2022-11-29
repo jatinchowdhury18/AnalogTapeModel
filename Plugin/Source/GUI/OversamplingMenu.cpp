@@ -11,7 +11,7 @@ OversamplingMenu::OversamplingMenu (OversamplerType& osManager,
                                                                              processor (vts.processor)
 {
     generateComboBoxMenu();
-    
+
     for (const auto& tag : latencyChangeParameters)
         vts.addParameterListener (tag, this);
 }
