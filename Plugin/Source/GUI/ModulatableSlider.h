@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 
 class ModulatableSlider : public foleys::AutoOrientationSlider,
-                          private Timer
+                          public Timer
 {
 public:
     ModulatableSlider() = default;
@@ -23,6 +23,8 @@ private:
     std::unique_ptr<juce::SliderParameterAttachment> attachment;
     chowdsp::FloatParameter* modParameter = nullptr;
     PluginEditorCallback pluginEditorCallback = nullptr;
+
+    double modulatedValue = 0.0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)
 };

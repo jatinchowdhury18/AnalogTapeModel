@@ -66,7 +66,7 @@ void MixGroupViz::setMixGroupColour (int mixGroupIdx)
 void MixGroupViz::paint (Graphics& g)
 {
     const auto height = float (getHeight() - getPosition().getY());
-    const auto centre = Point<int> (getWidth() / 2, getHeight() / 2).toFloat();
+    const auto centre = juce::Point<int> (getWidth() / 2, getHeight() / 2).toFloat();
     auto bounds = Rectangle<float> (height, height)
                       .withCentre (centre);
 

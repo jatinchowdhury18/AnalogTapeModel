@@ -36,7 +36,7 @@ public:
     void resized() override;
     void update() override;
     std::vector<foleys::SettableProperty> getSettableProperties() const override;
-    String getControlledParameterID (Point<int>) override;
+    String getControlledParameterID (juce::Point<int>) override;
 
     juce::Component* getWrappedComponent() override
     {

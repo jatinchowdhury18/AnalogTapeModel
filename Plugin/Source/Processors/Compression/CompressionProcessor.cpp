@@ -44,7 +44,7 @@ template <typename T>
 inline T compressionDB (const T& xDB, float dbPlus)
 {
     using namespace chowdsp::SIMDUtils;
-    CHOWDSP_USING_XSIMD_STD (log)
+    CHOWDSP_USING_XSIMD_STD (log);
 
     if (dbPlus <= 0.0f)
         return (T) dbPlus;
