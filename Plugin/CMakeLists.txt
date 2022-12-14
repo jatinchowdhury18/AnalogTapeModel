@@ -3,6 +3,16 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment tar
 set(CMAKE_CXX_STANDARD 17)
 project(CHOWTapeModel VERSION 2.11.0)
 
+if(IOS)
+    option(CHOWTAPE_BUILD_CLAP "Create a CLAP target for ChowTape" OFF)
+else()
+    option(CHOWTAPE_BUILD_CLAP "Create a CLAP target for ChowTape" ON)
+endif()
+
+if (CHOWTAPE_BUILD_CLAP AND (CMAKE_VERSION VERSION_LESS 3.21.0))
+    message(WARNING "CLAP builds require CMake version 3.21 or higher! To disable CLAP builds, run CMake configuration with \"-DCHOWTAPE_BUILD_CLAP=OFF\"")
+endif()
+
 add_subdirectory(modules)
 include_directories(modules/RTNeural)
 
@@ -61,7 +71,7 @@ juce_generate_juce_header(CHOWTapeModel)
 
 add_subdirectory(Source)
 
-if(NOT IOS)
+if(CHOWTAPE_BUILD_CLAP)
     clap_juce_extensions_plugin(
         TARGET CHOWTapeModel
         CLAP_ID "org.chowdsp.CHOWTapeModel"

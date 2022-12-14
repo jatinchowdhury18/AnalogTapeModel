@@ -39,7 +39,7 @@ target_link_libraries(juce_plugin_modules
         warning_flags
 )
 
-if(NOT IOS)
+if(CHOWTAPE_BUILD_CLAP)
     add_subdirectory(clap-juce-extensions EXCLUDE_FROM_ALL)
     target_link_libraries(juce_plugin_modules
         PRIVATE
