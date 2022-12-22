@@ -76,6 +76,9 @@ void HysteresisProcessor::setSolver (int newSolver)
     switch (solver)
     {
         case RK2:
+            clipLevel = 8.0f;
+            return;
+
         case RK4:
             clipLevel = 10.0f;
             return;
