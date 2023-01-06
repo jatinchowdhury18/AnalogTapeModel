@@ -8,6 +8,7 @@ class ModulatableSlider : public foleys::AutoOrientationSlider,
 public:
     ModulatableSlider() = default;
 
+    void paint (Graphics& g) override;
     void attachToParameter (juce::RangedAudioParameter* param);
     double getModulatedPosition();
 
@@ -19,12 +20,21 @@ public:
 
 private:
     void timerCallback() override;
+    void drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float modSliderPos);
+    void drawLinearSlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float modSliderPos);
 
     std::unique_ptr<juce::SliderParameterAttachment> attachment;
     chowdsp::FloatParameter* modParameter = nullptr;
     PluginEditorCallback pluginEditorCallback = nullptr;
 
     double modulatedValue = 0.0;
+
+    struct KnobAssets
+    {
+        std::unique_ptr<Drawable> knob = Drawable::createFromImageData (chowdsp_BinaryData::knob_svg, chowdsp_BinaryData::knob_svgSize);
+        std::unique_ptr<Drawable> pointer = Drawable::createFromImageData (chowdsp_BinaryData::pointer_svg, chowdsp_BinaryData::pointer_svgSize);
+    };
+    SharedResourcePointer<KnobAssets> sharedAssets;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ModulatableSlider)
 };
@@ -52,7 +62,7 @@ public:
     void update() override;
     void resized() override;
 
-    std::vector<foleys::SettableProperty> getSettableProperties() const override;
+    [[nodiscard]] std::vector<foleys::SettableProperty> getSettableProperties() const override;
     juce::String getControlledParameterID (juce::Point<int>) override;
     juce::Component* getWrappedComponent() override;
 
