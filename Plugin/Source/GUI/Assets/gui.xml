@@ -33,7 +33,7 @@
   <View id="root" resizable="1" resize-corner="1" flex-direction="column"
         padding="0" width="720" height="620" background-color="FF8B3232"
         background-image="Background_svg" image-placement="stretch">
-    <View max-height="100" padding="0" margin="0" background-color="">
+    <View max-height="100" padding="0" margin="0" background-color="" repaint-hz="27">
       <View margin="2" padding="" background-color="00000000" flex-direction="column"
             flex-grow="0.75">
         <View flex-grow="0.15" background-color="00000000"/>
@@ -224,7 +224,7 @@
         </View>
       </View>
       <View display="tabbed" padding="0" background-color="FF31323A" lookAndFeel="MyLNF" group="Wow/Flutter Controls">
-        <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A" group="Flutter Controls Tab">
+        <View tab-caption="Flutter" flex-direction="column" background-color="FF31323A" group="Flutter Controls Tab" repaint-hz="27">
           <FlutterMenu margin="0" padding="0" background-color="00000000" min-height="15" max-height="55" flex-grow="0.25"
                        name="Flutter Sync" tooltip="Snaps the flutter rate to a synchronized value."/>
           <View margin="0" padding="0" max-height="15" flex-grow="0.1" background-color="00000000"/>
@@ -241,7 +241,7 @@
                        parameter="flutter_onoff" name="Wow/Flutter On/Off" tooltip="Turns the wow and flutter processing on or off."/>
         </View>
         <View tab-caption="Wow" flex-direction="column" background-color="FF31323A"
-              padding="0" margin="3" group="Wow Controls Tab">
+              padding="0" margin="3" group="Wow Controls Tab" repaint-hz="27">
           <WowMenu margin="0" padding="0" background-color="00000000" min-height="15" max-height="55" flex-grow="0.35"
                    name="Wow Sync" tooltip="Snaps the wow rate to a synchronized value."/>
           <View margin="0" padding="0" flex-grow="0.1" background-color="00000000"/>
