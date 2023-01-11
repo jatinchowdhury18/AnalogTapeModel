@@ -3,7 +3,6 @@
 
 #include "../BypassProcessor.h"
 #include "AzimuthProc.h"
-#include "FIRFilter.h"
 
 class LossFilter
 {
@@ -23,7 +22,7 @@ private:
     void calcCoefs (MultiChannelIIR& filter);
     static void calcHeadBumpFilter (float speedIps, float gapMeters, double fs, MultiChannelIIR& filter);
 
-    std::vector<FIRFilter> filters[2];
+    std::array<chowdsp::FIRFilter<float>, 2> filters;
     MultiChannelIIR bumpFilter[2];
     int activeFilter = 0;
     int fadeCount = 0;
