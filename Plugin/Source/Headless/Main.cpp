@@ -1,5 +1,4 @@
 #include "Benchmarks.h"
-#include "FirBench.h"
 #include "ScreenshotHelper.h"
 #include "UnitTests/UnitTests.h"
 
@@ -33,9 +32,6 @@ int main (int argc, char* argv[])
 
     Benchmarks benchmarks;
     app.addCommand (benchmarks);
-
-    FirBench firBench;
-    app.addCommand (firBench);
 
     UnitTests unitTests;
     app.addCommand (unitTests);
