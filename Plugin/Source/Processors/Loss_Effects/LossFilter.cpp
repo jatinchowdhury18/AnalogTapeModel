@@ -46,13 +46,9 @@ void LossFilter::prepare (float sampleRate, int samplesPerBlock, int numChannels
 
     for (auto& filter : filters)
     {
-        filter.clear();
-        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
-        {
-            filter.emplace_back (curOrder);
-            filter[ch].reset();
-            filter[ch].setCoefs (currentCoefs.getRawDataPointer());
-        }
+        filter.setOrder (curOrder);
+        filter.prepare (numChannels);
+        filter.setCoefficients (currentCoefs.getRawDataPointer());
     }
 
     prevSpeed = *speed;
@@ -116,8 +112,7 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     if ((*speed != prevSpeed || *spacing != prevSpacing || *thickness != prevThickness || *gap != prevGap) && fadeCount == 0)
     {
         calcCoefs (bumpFilter[! activeFilter]);
-        for (auto& filt : filters[! activeFilter])
-            filt.setCoefs (currentCoefs.getRawDataPointer());
+        filters[! activeFilter].setCoefficients (currentCoefs.getRawDataPointer());
 
         bumpFilter[! activeFilter].reset();
 
@@ -129,20 +124,14 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     }
 
     if (fadeCount > 0)
-    {
         fadeBuffer.makeCopyOf (buffer, true);
-    }
     else
-    {
-        for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
-            filters[! activeFilter][ch].processBypassed (buffer.getReadPointer ((int) ch), numSamples);
-    }
+        filters[! activeFilter].processBlockBypassed (buffer);
 
     // normal processing here...
     {
         dsp::AudioBlock<float> block (buffer);
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[activeFilter][(size_t) ch].process (buffer.getWritePointer (ch), numSamples);
+        filters[activeFilter].processBlock (buffer);
 
         bumpFilter[activeFilter].process (dsp::ProcessContextReplacing<float> { block });
     }
@@ -150,8 +139,7 @@ void LossFilter::processBlock (AudioBuffer<float>& buffer)
     if (fadeCount > 0)
     {
         dsp::AudioBlock<float> fadeBlock (fadeBuffer);
-        for (int ch = 0; ch < numChannels; ++ch)
-            filters[! activeFilter][(size_t) ch].process (fadeBuffer.getWritePointer (ch), numSamples);
+        filters[! activeFilter].processBlock (fadeBuffer);
 
         bumpFilter[! activeFilter].process (dsp::ProcessContextReplacing<float> { fadeBlock });
 
