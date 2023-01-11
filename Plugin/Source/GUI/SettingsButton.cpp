@@ -16,7 +16,8 @@ SettingsButton::SettingsButton (const ChowtapeModelAudioProcessor& processor, ch
     auto cog = Drawable::createFromImageData (BinaryData::cogsolid_svg, BinaryData::cogsolid_svgSize);
     setImages (cog.get());
 
-    onClick = [=] { showSettingsMenu(); };
+    onClick = [=]
+    { showSettingsMenu(); };
 }
 
 void SettingsButton::globalSettingChanged (SettingID settingID)
@@ -42,9 +43,12 @@ void SettingsButton::showSettingsMenu()
     openGLMenu (menu, 100);
 
     menu.addSeparator();
-    menu.addItem ("View Source Code", [=] { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
-    menu.addItem ("Copy Diagnostic Info", [=] { copyDiagnosticInfo(); });
-    menu.addItem ("View User Manual", [=] { URL ("https://chowdsp.com/manuals/ChowTapeManual.pdf").launchInDefaultBrowser(); });
+    menu.addItem ("View Source Code", [=]
+                  { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
+    menu.addItem ("Copy Diagnostic Info", [=]
+                  { copyDiagnosticInfo(); });
+    menu.addItem ("View User Manual", [=]
+                  { URL ("https://chowdsp.com/manuals/ChowTapeManual.pdf").launchInDefaultBrowser(); });
 
     // get top level component that is big enough
     Component* parentComp = this;
@@ -81,7 +85,8 @@ void SettingsButton::openGLMenu (PopupMenu& menu, int itemID)
     PopupMenu::Item item;
     item.itemID = ++itemID;
     item.text = "Use OpenGL";
-    item.action = [=] { pluginSettings->setProperty (openglID, ! isCurrentlyOn); };
+    item.action = [=]
+    { pluginSettings->setProperty (openglID, ! isCurrentlyOn); };
     item.colour = isCurrentlyOn ? onColour : offColour;
 
     menu.addItem (item);

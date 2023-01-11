@@ -226,9 +226,11 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     builder->registerFactory ("SettingsButton", &SettingsButtonItem::factory);
     builder->registerFactory ("InfoComp", &chowdsp::InfoItem<ChowtapeModelAudioProcessor>::factory);
 
-    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
+    builder->registerFactory ("FlutterMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem>
+                              { return std::make_unique<WowFlutterMenuItem> (b, node, "Flutter"); });
 
-    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem> { return std::make_unique<WowFlutterMenuItem> (b, node, "Wow"); });
+    builder->registerFactory ("WowMenu", [] (foleys::MagicGUIBuilder& b, const ValueTree& node) -> std::unique_ptr<foleys::GuiItem>
+                              { return std::make_unique<WowFlutterMenuItem> (b, node, "Wow"); });
 
     builder->registerJUCELookAndFeels();
     builder->registerLookAndFeel ("MyLNF", std::make_unique<MyLNF>());
@@ -240,11 +242,11 @@ AudioProcessorEditor* ChowtapeModelAudioProcessor::createEditor()
     {
         for (auto speed : { 3.75f, 7.5f, 15.0f, 30.0f })
         {
-            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed] {
+            magicState.addTrigger ("set_speed_" + String (speed, 2, false), [speedHandle, speed]
+                                   {
                 speedHandle->beginChangeGesture();
                 speedHandle->setValueNotifyingHost (speedHandle->convertTo0to1 (speed));
-                speedHandle->endChangeGesture();
-            });
+                speedHandle->endChangeGesture(); });
         }
     }
     else

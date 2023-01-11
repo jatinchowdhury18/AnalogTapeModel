@@ -55,7 +55,8 @@ void MixGroupsSharedData::copyPluginState (int mixGroup, AudioProcessorValueTree
 void MixGroupsSharedData::setParameter (const String& paramID, int mixGroup, float value, String uuid)
 {
     paramMaps[(size_t) mixGroup - 1]->set (paramID, value);
-    MessageManager::callAsync ([=] { listeners.call (&Listener::mixGroupParamChanged, paramID, mixGroup, value, uuid); });
+    MessageManager::callAsync ([=]
+                               { listeners.call (&Listener::mixGroupParamChanged, paramID, mixGroup, value, uuid); });
 }
 
 float MixGroupsSharedData::getParameter (const String& paramID, int mixGroup) const
