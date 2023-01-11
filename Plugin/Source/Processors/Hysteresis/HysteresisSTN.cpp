@@ -50,7 +50,8 @@ HysteresisSTN::HysteresisSTN()
     std::vector<std::future<void>> futures;
     for (const auto& width : widthTags)
     {
-        auto loadModelSet = [=] (size_t widthModelIdx) {
+        auto loadModelSet = [=] (size_t widthModelIdx)
+        {
             auto modelsStream = getModelFileStream ("hyst_width_" + width + ".json");
             jassert (modelsStream != nullptr);
 
@@ -66,7 +67,8 @@ HysteresisSTN::HysteresisSTN()
         };
 
         futures.push_back (std::async (std::launch::async,
-                                       [=, &widthLoadIdx] { loadModelSet (widthLoadIdx++); }));
+                                       [=, &widthLoadIdx]
+                                       { loadModelSet (widthLoadIdx++); }));
     }
 
     for (auto& f : futures)

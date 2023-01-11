@@ -56,7 +56,8 @@ const Colour textColour = Colour (0xFFEAA92C);
 
 AutoUpdater::AutoUpdater()
 {
-    auto setupButton = [=] (TextButton& button) {
+    auto setupButton = [=] (TextButton& button)
+    {
         addAndMakeVisible (button);
         button.setColour (TextButton::buttonColourId, backgroundColour);
         button.setColour (TextButton::textColourOffId, textColour);

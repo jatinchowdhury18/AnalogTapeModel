@@ -57,7 +57,8 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
     const bool isFlutter = type == "Flutter";
     setupRateParam (isFlutter);
 
-    auto snycToTapeSpeed = [=, &proc] {
+    auto snycToTapeSpeed = [=, &proc]
+    {
         const auto& vts = proc.getVTS();
         if (auto speedParam = dynamic_cast<AudioParameterFloat*> (vts.getParameter ("speed")))
         {
@@ -75,7 +76,8 @@ WowFlutterMenu::WowFlutterMenu (const ChowtapeModelAudioProcessor& proc, const S
         }
     };
 
-    auto syncToRhythm = [=, &proc] (float multipleOfQuarterNote) {
+    auto syncToRhythm = [=, &proc] (float multipleOfQuarterNote)
+    {
         const auto& posInfo = proc.getPositionInfo();
         auto quarterNoteTime = 60.0f / (float) posInfo.bpm;
 
@@ -116,7 +118,8 @@ void WowFlutterMenu::setupUI()
     lnf = std::make_unique<WowFlutterMenuLNF>();
     setLookAndFeel (lnf.get());
 
-    onChange = [=] { setSelectedItemIndex (-1); };
+    onChange = [=]
+    { setSelectedItemIndex (-1); };
 }
 
 void WowFlutterMenu::setupRateParam (bool isFlutter)

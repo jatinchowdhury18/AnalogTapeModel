@@ -38,7 +38,8 @@ void TapeScope::createPlotPaths (Path& path, Path& filledPath, Rectangle<float> 
     filledPath.clear();
 
     // get strings for I/O dB meters
-    auto getDBString = [] (const MagicLevelSource& source, AudioType type) -> String {
+    auto getDBString = [] (const MagicLevelSource& source, AudioType type) -> String
+    {
         String prefix = type == Input ? "IN: " : "OUT: ";
         auto dBVal = Decibels::gainToDecibels (source.getRMSvalue (0), -80.0f);
         return prefix + String (dBVal, 1) + " dB";
@@ -53,7 +54,8 @@ void TapeScope::createPlotPaths (Path& path, Path& filledPath, Rectangle<float> 
     const auto fontHeight = labelHeight * 0.9f;
     const auto font = Font (fontHeight);
 
-    auto drawLabel = [b, &filledPath, labelHeight, font] (const String& textStr, float x) {
+    auto drawLabel = [b, &filledPath, labelHeight, font] (const String& textStr, float x)
+    {
         auto width = font.getStringWidthFloat (textStr);
         x = x < b.getCentreX() ? x : x - width;
 

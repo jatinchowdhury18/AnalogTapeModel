@@ -70,7 +70,6 @@ void ModulatableSlider::timerCallback()
     repaint();
 }
 
-
 void ModulatableSlider::drawRotarySlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float modSliderPos)
 {
     int diameter = (width > height) ? height : width;
@@ -152,7 +151,7 @@ void ModulatableSlider::drawLinearSlider (juce::Graphics& g, int x, int y, int w
     auto thumbWidth = getLookAndFeel().getSliderThumbRadius (*this);
     auto thumbRect = juce::Rectangle<float> (static_cast<float> (thumbWidth),
                                              static_cast<float> (thumbWidth))
-            .withCentre (maxPoint);
+                         .withCentre (maxPoint);
     sharedAssets->knob->drawWithin (g, thumbRect, juce::RectanglePlacement::stretchToFit, alphaMult);
 }
 
@@ -218,7 +217,8 @@ void ModSliderItem::update()
             slider.startTimerHz (24);
     }
 
-    slider.setPluginEditorCallback ([this] { return magicBuilder.getMagicState().getProcessor()->getActiveEditor(); });
+    slider.setPluginEditorCallback ([this]
+                                    { return magicBuilder.getMagicState().getProcessor()->getActiveEditor(); });
 
     slider.setTitle (magicBuilder.getStyleProperty (foleys::IDs::name, configNode));
     defaultHeight = magicBuilder.getStyleProperty (foleys::IDs::defaultHeight, configNode);
@@ -270,7 +270,8 @@ void ModSliderItem::update()
 
 void ModSliderItem::resized()
 {
-    const auto sliderTextHeightToUse = [this] {
+    const auto sliderTextHeightToUse = [this]
+    {
         if (defaultHeight == 0)
             return sliderTextBoxHeight;
 

@@ -19,7 +19,8 @@ void ToneStage::prepare (double sampleRate, int numChannels)
 
     for (size_t ch = 0; ch < (size_t) numChannels; ++ch)
     {
-        auto resetSmoothValue = [sampleRate] (SmoothGain& value, float startValue) {
+        auto resetSmoothValue = [sampleRate] (SmoothGain& value, float startValue)
+        {
             value.reset (sampleRate, slewTime);
             value.setCurrentAndTargetValue (startValue);
         };

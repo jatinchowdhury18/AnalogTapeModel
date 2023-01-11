@@ -12,7 +12,8 @@ void TitleComp::paint (Graphics& g)
     auto curFont = g.getCurrentFont();
     auto b = getLocalBounds();
 
-    auto drawText = [=, &g, &b] (const String& text) {
+    auto drawText = [=, &g, &b] (const String& text)
+    {
         auto width = curFont.getStringWidth (text);
         g.drawFittedText (text, b.removeFromLeft (width), Justification::left, 1);
     };
