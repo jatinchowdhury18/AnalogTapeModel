@@ -10,13 +10,20 @@ SettingsButton::SettingsButton (const ChowtapeModelAudioProcessor& processor, ch
                                                                                                                   proc (processor),
                                                                                                                   openGLHelper (oglHelper)
 {
-    pluginSettings->addProperties<&SettingsButton::globalSettingChanged> ({ { openglID, true } }, *this);
+    Logger::writeToLog ("Checking OpenGL availability...");
+    const auto shouldUseOpenGLByDefault = openGLHelper != nullptr && openGLHelper->isOpenGLAvailable();
+#if CHOWDSP_OPENGL_IS_AVAILABLE
+    Logger::writeToLog ("OpenGL is available on this system: " + String (shouldUseOpenGLByDefault ? "TRUE" : "FALSE"));
+#else
+    Logger::writeToLog ("Plugin was built without linking to OpenGL!");
+#endif
+    pluginSettings->addProperties<&SettingsButton::globalSettingChanged> ({ { openglID, shouldUseOpenGLByDefault } }, *this);
     globalSettingChanged (openglID);
 
     auto cog = Drawable::createFromImageData (BinaryData::cogsolid_svg, BinaryData::cogsolid_svgSize);
     setImages (cog.get());
 
-    onClick = [=]
+    onClick = [this]
     { showSettingsMenu(); };
 }
 
@@ -25,7 +32,7 @@ void SettingsButton::globalSettingChanged (SettingID settingID)
     if (settingID != openglID)
         return;
 
-    if (openGLHelper != nullptr)
+    if (openGLHelper != nullptr && openGLHelper->isOpenGLAvailable())
     {
         const auto shouldUseOpenGL = pluginSettings->getProperty<bool> (openglID);
         if (shouldUseOpenGL == openGLHelper->isAttached())
@@ -43,11 +50,11 @@ void SettingsButton::showSettingsMenu()
     openGLMenu (menu, 100);
 
     menu.addSeparator();
-    menu.addItem ("View Source Code", [=]
+    menu.addItem ("View Source Code", []
                   { URL ("https://github.com/jatinchowdhury18/AnalogTapeModel").launchInDefaultBrowser(); });
-    menu.addItem ("Copy Diagnostic Info", [=]
+    menu.addItem ("Copy Diagnostic Info", [this]
                   { copyDiagnosticInfo(); });
-    menu.addItem ("View User Manual", [=]
+    menu.addItem ("View User Manual", []
                   { URL ("https://chowdsp.com/manuals/ChowTapeManual.pdf").launchInDefaultBrowser(); });
 
     // get top level component that is big enough
@@ -85,7 +92,7 @@ void SettingsButton::openGLMenu (PopupMenu& menu, int itemID)
     PopupMenu::Item item;
     item.itemID = ++itemID;
     item.text = "Use OpenGL";
-    item.action = [=]
+    item.action = [this, isCurrentlyOn]
     { pluginSettings->setProperty (openglID, ! isCurrentlyOn); };
     item.colour = isCurrentlyOn ? onColour : offColour;
 
