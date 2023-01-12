@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in
 this file.
 
+## [UNRELEASED]
+- Improved graphics rendering performance.
+- Improved strategy for handling OpenGL option on Windows.
+- Adjusted clip guard for RK2 Hysteresis mode.
+- Fixed phase bound for Flutter processor.
+- Fixed main view scrolling when dragging sliders on iOS.
+
 ## [2.11.0] - 2022-07-14
 - Added multi-channel processing support.
 - Added stereo/mid-side "balance" controls.
