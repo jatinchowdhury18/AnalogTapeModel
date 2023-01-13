@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [UNRELEASED]
+## [2.11.1] - 2023-01-13
 - Improved graphics rendering performance.
 - Improved strategy for handling OpenGL option on Windows.
 - Adjusted clip guard for RK2 Hysteresis mode.
