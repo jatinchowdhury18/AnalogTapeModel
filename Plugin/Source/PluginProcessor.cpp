@@ -134,10 +134,18 @@ float ChowtapeModelAudioProcessor::calcLatencySamples() const noexcept
 
 bool ChowtapeModelAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-    return ((! layouts.getMainInputChannelSet().isDiscreteLayout())
-            && (! layouts.getMainOutputChannelSet().isDiscreteLayout())
-            && (layouts.getMainInputChannelSet() == layouts.getMainOutputChannelSet())
-            && (! layouts.getMainInputChannelSet().isDisabled()));
+    if (wrapperType == juce::AudioProcessor::WrapperType::wrapperType_LV2)
+    {
+        return ((layouts.getMainOutputChannelSet() == AudioChannelSet::stereo())
+                && (layouts.getMainInputChannelSet() == AudioChannelSet::stereo()));
+    }
+    else
+    {
+        return ((! layouts.getMainInputChannelSet().isDiscreteLayout())
+                && (! layouts.getMainOutputChannelSet().isDiscreteLayout())
+                && (layouts.getMainInputChannelSet() == layouts.getMainOutputChannelSet())
+                && (! layouts.getMainInputChannelSet().isDisabled()));
+    }
 }
 
 void ChowtapeModelAudioProcessor::processBlockBypassed (AudioBuffer<float>& buffer, MidiBuffer&)
