@@ -189,6 +189,8 @@ void ChowtapeModelAudioProcessor::processAudioBlock (AudioBuffer<float>& buffer)
     outGain.processBlock (buffer);
     dryWet.processBlock (dryBuffer, buffer);
 
+    chowdsp::BufferMath::sanitizeBuffer (buffer);
+
     scope->pushSamplesIO (buffer, TapeScope::AudioType::Output);
 }
 
