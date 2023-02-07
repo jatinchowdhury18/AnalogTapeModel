@@ -41,7 +41,7 @@ private:
         HISTORY_SIZE = 1 << 21,
     };
 
-    dsp::DelayLine<float, dsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
+    chowdsp::DelayLine<float, chowdsp::DelayLineInterpolationTypes::Lagrange3rd> delay { HISTORY_SIZE };
     std::vector<DCBlocker> dcBlocker;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (WowFlutterProcessor)
