@@ -124,6 +124,25 @@ void PresetManager::loadFactoryPresets()
     factoryPresets.emplace_back (BinaryData::CoolWAV_Wack_chowpreset, BinaryData::CoolWAV_Wack_chowpresetSize);
     factoryPresets.emplace_back (BinaryData::CoolWAV_WowDude_chowpreset, BinaryData::CoolWAV_WowDude_chowpresetSize);
 
+    // RK
+    factoryPresets.emplace_back (BinaryData::Bleak_chowpreset, BinaryData::Bleak_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Crane_I_chowpreset, BinaryData::Crane_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Crane_II_chowpreset, BinaryData::Crane_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Flavor_I_chowpreset, BinaryData::Flavor_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Flavor_II_chowpreset, BinaryData::Flavor_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Flow_I_chowpreset, BinaryData::Flow_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Flow_II_chowpreset, BinaryData::Flow_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::High_Sauce_I_chowpreset, BinaryData::High_Sauce_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::High_Sauce_II_chowpreset, BinaryData::High_Sauce_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Low_Grinder_chowpreset, BinaryData::Low_Grinder_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Low_Rider_chowpreset, BinaryData::Low_Rider_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Low_Smasher_chowpreset, BinaryData::Low_Smasher_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Solid_Tape_I_chowpreset, BinaryData::Solid_Tape_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Solid_Tape_II_chowpreset, BinaryData::Solid_Tape_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Spice_I_chowpreset, BinaryData::Spice_I_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::Spice_II_chowpreset, BinaryData::Spice_II_chowpresetSize);
+    factoryPresets.emplace_back (BinaryData::String_Mojo_chowpreset, BinaryData::String_Mojo_chowpresetSize);
+
     addPresets (factoryPresets);
     loadDefaultPreset();
 }

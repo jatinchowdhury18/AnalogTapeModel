@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="Flavor II" plugin="CHOWTapeModel" vendor="RK" category="Low"
+        version="2.11.1">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.06000001728534698"/>
+    <PARAM id="chew_freq" value="0.024000009521842"/>
+    <PARAM id="chew_var" value="0.01600000075995922"/>
+    <PARAM id="deg_amt" value="0.02013422735035419"/>
+    <PARAM id="deg_depth" value="0.2013422846794128"/>
+    <PARAM id="deg_var" value="0.05369127541780472"/>
+    <PARAM id="depth" value="0.1047622263431549"/>
+    <PARAM id="drive" value="0.6000000238418579"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="12.00000095367432"/>
+    <PARAM id="h_bass" value="0.1000000238418579"/>
+    <PARAM id="h_treble" value="0.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mode" value="0.0"/>
+    <PARAM id="os" value="1"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.298555314540863"/>
+    <PARAM id="sat" value="0.5"/>
+    <PARAM id="spacing" value="6.000000953674316"/>
+    <PARAM id="speed" value="12.00000095367432"/>
+    <PARAM id="thick" value="11.99999904632568"/>
+    <PARAM id="width" value="0.5"/>
+    <PARAM id="wow_depth" value="0.1518398523330688"/>
+    <PARAM id="wow_rate" value="0.2000000029802322"/>
+    <PARAM id="preset" value="0"/>
+    <PARAM id="os_factor" value="2.0"/>
+    <PARAM id="os_mode" value="0.0"/>
+    <PARAM id="os_render_factor" value="1.0"/>
+    <PARAM id="os_render_mode" value="0.0"/>
+    <PARAM id="os_render_like_realtime" value="1.0"/>
+    <PARAM id="azimuth" value="0.0500030517578125"/>
+    <PARAM id="chew_onoff" value="0.0"/>
+    <PARAM id="comp_amt" value="0.1951621472835541"/>
+    <PARAM id="comp_attack" value="7.999999046325684"/>
+    <PARAM id="comp_onoff" value="1.0"/>
+    <PARAM id="comp_release" value="149.9999847412109"/>
+    <PARAM id="deg_env"/>
+    <PARAM id="deg_onoff" value="0.0"/>
+    <PARAM id="deg_point1x" value="1.0"/>
+    <PARAM id="flutter_onoff" value="1.0"/>
+    <PARAM id="h_tfreq" value="400.0"/>
+    <PARAM id="hyst_onoff"/>
+    <PARAM id="ifilt_high" value="13999.998046875"/>
+    <PARAM id="ifilt_low" value="40.0"/>
+    <PARAM id="ifilt_makeup" value="0.0"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="loss_onoff"/>
+    <PARAM id="mid_side" value="0.0"/>
+    <PARAM id="mix_group"/>
+    <PARAM id="stereo_balance"/>
+    <PARAM id="stereo_makeup"/>
+    <PARAM id="tone_onoff"/>
+    <PARAM id="wow_drift" value="0.05432197451591492"/>
+    <PARAM id="wow_var" value="0.09789931029081345"/>
+  </Parameters>
+  <extra_info/>
+</Preset>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Preset name="String Mojo" plugin="CHOWTapeModel" vendor="RK" category="Low"
+        version="2.11.1">
+  <Parameters>
+    <PARAM id="chew_depth" value="0.0"/>
+    <PARAM id="chew_freq" value="0.0"/>
+    <PARAM id="chew_var" value="0.0"/>
+    <PARAM id="deg_amt" value="0.0"/>
+    <PARAM id="deg_depth" value="0.0"/>
+    <PARAM id="deg_var" value="0.0"/>
+    <PARAM id="depth" value="0.05350816249847412"/>
+    <PARAM id="drive" value="0.5"/>
+    <PARAM id="drywet" value="100.0"/>
+    <PARAM id="gap" value="50.0"/>
+    <PARAM id="h_bass" value="0.0"/>
+    <PARAM id="h_treble" value="0.04999995231628418"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mode" value="0"/>
+    <PARAM id="os" value="1"/>
+    <PARAM id="outgain" value="0.0"/>
+    <PARAM id="rate" value="0.3039999902248383"/>
+    <PARAM id="sat" value="0.5960000157356262"/>
+    <PARAM id="spacing" value="0.1000000014901161"/>
+    <PARAM id="speed" value="5.999999523162842"/>
+    <PARAM id="thick" value="0.1000000014901161"/>
+    <PARAM id="width" value="0.5"/>
+    <PARAM id="wow_depth" value="0.04659327119588852"/>
+    <PARAM id="wow_rate" value="0.2000000029802322"/>
+    <PARAM id="preset" value="0"/>
+    <PARAM id="os_factor" value="2.0"/>
+    <PARAM id="os_mode" value="0.0"/>
+    <PARAM id="os_render_factor" value="1.0"/>
+    <PARAM id="os_render_mode" value="0.0"/>
+    <PARAM id="os_render_like_realtime" value="1.0"/>
+    <PARAM id="azimuth" value="0.0500030517578125"/>
+    <PARAM id="chew_onoff"/>
+    <PARAM id="comp_amt" value="0.1951621472835541"/>
+    <PARAM id="comp_attack" value="7.999999046325684"/>
+    <PARAM id="comp_onoff" value="1.0"/>
+    <PARAM id="comp_release" value="149.9999847412109"/>
+    <PARAM id="deg_env"/>
+    <PARAM id="deg_onoff"/>
+    <PARAM id="deg_point1x" value="0.0"/>
+    <PARAM id="flutter_onoff"/>
+    <PARAM id="h_tfreq" value="700.0"/>
+    <PARAM id="hyst_onoff"/>
+    <PARAM id="ifilt_high" value="18000.0"/>
+    <PARAM id="ifilt_low"/>
+    <PARAM id="ifilt_makeup"/>
+    <PARAM id="ifilt_onoff" value="1.0"/>
+    <PARAM id="loss_onoff"/>
+    <PARAM id="mid_side" value="0.0"/>
+    <PARAM id="mix_group"/>
+    <PARAM id="stereo_balance"/>
+    <PARAM id="stereo_makeup"/>
+    <PARAM id="tone_onoff"/>
+    <PARAM id="wow_drift" value="0.05432197451591492"/>
+    <PARAM id="wow_var" value="0.09789931029081345"/>
+  </Parameters>
+  <extra_info/>
+</Preset>
