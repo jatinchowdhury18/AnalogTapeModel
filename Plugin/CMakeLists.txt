@@ -75,7 +75,7 @@ if(CHOWTAPE_BUILD_CLAP)
     clap_juce_extensions_plugin(
         TARGET CHOWTapeModel
         CLAP_ID "org.chowdsp.CHOWTapeModel"
-        CLAP_FEATURES audio-effect distortion
+        CLAP_FEATURES audio-effect distortion win32-dpi-aware
         CLAP_PROCESS_EVENTS_RESOLUTION_SAMPLES 64
         CLAP_USE_JUCE_PARAMETER_RANGES DISCRETE
     )
