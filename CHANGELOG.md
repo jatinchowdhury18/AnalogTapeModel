@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in
 this file.
 
+## [UNRELEASED]
+- AAX: added support for ARM Mac.
+- Added "RK" preset pack.
+- Fixed issues with "Wow" processing at higher sample rates.
+- CLAP: Fixed UI scaling on Windows.
+- LV2: Changed channel configuration to only support stereo I/O.
+
 ## [2.11.1] - 2023-01-13
 - Improved graphics rendering performance.
 - Improved strategy for handling OpenGL option on Windows.
