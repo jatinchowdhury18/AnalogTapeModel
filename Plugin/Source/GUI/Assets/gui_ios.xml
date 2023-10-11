@@ -27,7 +27,7 @@
       </Types>
     </Style>
   </Styles>
-  <View id="root" resizable="1" resize-corner="1" flex-direction="column"
+  <View id="root" resizable="1" resize-corner="0" flex-direction="column"
         padding="0" width="580" height="580" background-color="FF8B3232"
         background-image="Background_svg" image-placement="stretch">
         <View max-height="40" min-height="20" margin="0" padding="0" background-color="FF31323A"
