@@ -48,7 +48,7 @@ jobs:
     - name: Configure
       shell: bash
       working-directory: ${{github.workspace}}/Plugin
-      run: cmake -Bbuild -DBUILD_HEADLESS=ON
+      run: cmake -Bbuild -DBUILD_HEADLESS=ON -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
       shell: bash

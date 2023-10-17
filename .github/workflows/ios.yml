@@ -1,63 +1,63 @@
-name: CI-iOS
-
-on:
-  push:
-    branches:
-    - master
-    - develop
-    paths-ignore:
-    - 'Manual/**'
-    - 'Paper/**'
-    - 'Simulations/**'
-    - 'Testing/**'
-    - 'Scripts/**'
-    - '*.md'
-  pull_request:
-    branches:
-    - master
-    - develop
-    paths-ignore:
-    - 'Manual/**'
-    - 'Paper/**'
-    - 'Simulations/**'
-    - 'Testing/**'
-    - 'Scripts/**'
-    - '*.md'
-
-  workflow_dispatch:
-
-jobs:
-  build_and_test:
-    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
-    name: Build AUv3 plugin for iOS
-    runs-on: macos-latest
-    
-    steps:
-    - name: Get latest CMake
-      uses: lukka/get-cmake@latest
-
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        submodules: recursive
-
-    - uses: Apple-Actions/import-codesign-certs@v1
-      with:
-        p12-file-base64: ${{ secrets.MAC_CERTIFICATES_BASE64 }}
-        p12-password: ${{ secrets.MAC_CERTIFICATES_PASS }}
-
-    - uses: Apple-Actions/download-provisioning-profiles@v1
-      with:
-        bundle-id: com.chowdsp.CHOWTapeModel*
-        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-        api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
-        api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
-
-    - name: Configure
-      shell: bash
-      run: cmake -Bbuild-ios Plugin -GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET=11.4 -DCMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY="1,2" -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE="Manual" -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="Apple Distribution" -DCMAKE_XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER="ChowTapeModel" -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
-
-
-    - name: Build
-      shell: bash
-      run: cmake --build build-ios --config Release --parallel 4 | xcpretty
+#name: CI-iOS
+#
+#on:
+#  push:
+#    branches:
+#    - master
+#    - develop
+#    paths-ignore:
+#    - 'Manual/**'
+#    - 'Paper/**'
+#    - 'Simulations/**'
+#    - 'Testing/**'
+#    - 'Scripts/**'
+#    - '*.md'
+#  pull_request:
+#    branches:
+#    - master
+#    - develop
+#    paths-ignore:
+#    - 'Manual/**'
+#    - 'Paper/**'
+#    - 'Simulations/**'
+#    - 'Testing/**'
+#    - 'Scripts/**'
+#    - '*.md'
+#
+#  workflow_dispatch:
+#
+#jobs:
+#  build_and_test:
+#    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
+#    name: Build AUv3 plugin for iOS
+#    runs-on: macos-latest
+#
+#    steps:
+#    - name: Get latest CMake
+#      uses: lukka/get-cmake@latest
+#
+#    - name: Checkout code
+#      uses: actions/checkout@v2
+#      with:
+#        submodules: recursive
+#
+#    - uses: Apple-Actions/import-codesign-certs@v1
+#      with:
+#        p12-file-base64: ${{ secrets.MAC_CERTIFICATES_BASE64 }}
+#        p12-password: ${{ secrets.MAC_CERTIFICATES_PASS }}
+#
+#    - uses: Apple-Actions/download-provisioning-profiles@v1
+#      with:
+#        bundle-id: com.chowdsp.CHOWTapeModel*
+#        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+#        api-key-id: ${{ secrets.APPSTORE_KEY_ID }}
+#        api-private-key: ${{ secrets.APPSTORE_PRIVATE_KEY }}
+#
+#    - name: Configure
+#      shell: bash
+#      run: cmake -Bbuild-ios Plugin -GXcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_DEPLOYMENT_TARGET=11.4 -DCMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY="1,2" -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE="Manual" -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY="Apple Distribution" -DCMAKE_XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER="ChowTapeModel" -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
+#
+#
+#    - name: Build
+#      shell: bash
+#      run: cmake --build build-ios --config Release --parallel 4 | xcpretty
