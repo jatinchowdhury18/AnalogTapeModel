@@ -6,6 +6,8 @@ this file.
 - AAX: added support for ARM Mac.
 - Added "RK" preset pack.
 - Fixed issues with "Wow" processing at higher sample rates.
+- Fixed "Mix Group" being reset with preset changes.
+- Improved factory preset level normalization.
 - CLAP: Fixed UI scaling on Windows.
 - LV2: Changed channel configuration to only support stereo I/O.
 
