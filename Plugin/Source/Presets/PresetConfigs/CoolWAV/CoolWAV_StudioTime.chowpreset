@@ -34,7 +34,7 @@
     <PARAM id="loss_onoff" value="1.0"/>
     <PARAM id="mid_side" value="0.0"/>
     <PARAM id="mix_group" value="0.0"/>
-    <PARAM id="mode" value="4.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="1.0"/>
     <PARAM id="os_mode" value="0.0"/>
     <PARAM id="os_render_factor" value="1.0"/>

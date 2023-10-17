@@ -14,8 +14,8 @@
     <PARAM id="gap" value="3.102849960327148"/>
     <PARAM id="h_bass" value="-1.0"/>
     <PARAM id="h_treble" value="1.0"/>
-    <PARAM id="ingain" value="1.010000228881836"/>
-    <PARAM id="mode" value="4.0"/>
+    <PARAM id="ingain" value="0.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="4.0"/>
     <PARAM id="outgain" value="-0.720001220703125"/>
     <PARAM id="rate" value="0.2999999821186066"/>

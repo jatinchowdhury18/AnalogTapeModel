@@ -21,6 +21,7 @@ target_sources(ChowTapeModel_Headless PRIVATE
     UnitTests/MultiChannelTest.cpp
     UnitTests/SpeedTest.cpp
     UnitTests/STNTest.cpp
+    UnitTests/PresetLevelTest.cpp
 )
 
 target_include_directories(ChowTapeModel_Headless PRIVATE ../)

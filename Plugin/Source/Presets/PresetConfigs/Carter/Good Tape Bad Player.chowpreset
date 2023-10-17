@@ -29,7 +29,7 @@
     <PARAM id="ingain" value="0.0"/>
     <PARAM id="loss_onoff" value="1.0"/>
     <PARAM id="mix_group" value="0.0"/>
-    <PARAM id="mode" value="0.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="1.0"/>
     <PARAM id="outgain" value="0.0"/>
     <PARAM id="preset" value="30"/>

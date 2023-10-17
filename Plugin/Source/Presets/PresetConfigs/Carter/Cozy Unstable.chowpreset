@@ -26,9 +26,9 @@
     <PARAM id="ingain" value="0.0"/>
     <PARAM id="loss_onoff" value="1.0"/>
     <PARAM id="mix_group" value="0.0"/>
-    <PARAM id="mode" value="0.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="2.0"/>
-    <PARAM id="outgain" value="3.75"/>
+    <PARAM id="outgain" value="0.0"/>
     <PARAM id="preset" value="60"/>
     <PARAM id="rate" value="0.3599999845027924"/>
     <PARAM id="sat" value="0.5"/>

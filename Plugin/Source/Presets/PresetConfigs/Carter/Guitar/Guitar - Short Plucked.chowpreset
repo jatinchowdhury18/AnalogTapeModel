@@ -29,7 +29,7 @@
     <PARAM id="ingain" value="0.0"/>
     <PARAM id="loss_onoff" value="1.0"/>
     <PARAM id="mix_group" value="0.0"/>
-    <PARAM id="mode" value="0.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="1.0"/>
     <PARAM id="outgain" value="1.94999885559082"/>
     <PARAM id="preset" value="40"/>
@@ -39,7 +39,7 @@
     <PARAM id="speed" value="7.5"/>
     <PARAM id="thick" value="0.6129428744316101"/>
     <PARAM id="tone_onoff" value="1.0"/>
-    <PARAM id="width" value="1.0"/>
+    <PARAM id="width" value="0.85"/>
     <PARAM id="wow_depth" value="0.1599999964237213"/>
     <PARAM id="wow_drift" value="0.09999999403953552"/>
     <PARAM id="wow_rate" value="0.5"/>

@@ -16,7 +16,7 @@
     <PARAM id="h_treble" value="0.2200000286102295"/>
     <PARAM id="ingain" value="0.0"/>
     <PARAM id="mix_group" value="0.0"/>
-    <PARAM id="mode" value="0.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="1.0"/>
     <PARAM id="outgain" value="0.0"/>
     <PARAM id="rate" value="0.2599999904632568"/>
