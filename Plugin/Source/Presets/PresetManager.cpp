@@ -1,4 +1,5 @@
 #include "PresetManager.h"
+#include "../MixGroups/MixGroupsController.h"
 
 namespace
 {
@@ -182,7 +183,12 @@ chowdsp::Preset PresetManager::loadUserPresetFromFile (const File& file)
 
 void PresetManager::loadPresetState (const XmlElement* xml)
 {
-    StringArray presetAgnosticParams { "os_factor", "os_mode", "os_render_factor", "os_render_mode", "os_render_like_realtime" };
+    StringArray presetAgnosticParams { "os_factor",
+                                       "os_mode",
+                                       "os_render_factor",
+                                       "os_render_mode",
+                                       "os_render_like_realtime",
+                                       MixGroupsConstants::mixGroupParamID };
 
     auto newState = juce::ValueTree::fromXml (*xml);
     for (auto& param : presetAgnosticParams)

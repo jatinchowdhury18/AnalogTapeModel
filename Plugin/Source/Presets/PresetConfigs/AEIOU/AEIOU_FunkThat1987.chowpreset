@@ -15,7 +15,7 @@
     <PARAM id="h_bass" value="-0.6000000238418579"/>
     <PARAM id="h_treble" value="-0.4000000357627869"/>
     <PARAM id="ingain" value="0.0"/>
-    <PARAM id="mode" value="4.0"/>
+    <PARAM id="mode" value="2"/>
     <PARAM id="os" value="3.0"/>
     <PARAM id="outgain" value="0.0"/>
     <PARAM id="rate" value="0.199999988079071"/>

@@ -28,7 +28,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     plugin="Plugin/build/CHOWTapeModel_artefacts/Release/VST3/CHOWTapeModel.vst3"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     pluginval=$(install_pluginval_mac)
-    plugin="Plugin/build/CHOWTapeModel_artefacts/VST3/CHOWTapeModel.vst3"
+    plugin="Plugin/build/CHOWTapeModel_artefacts/Release/VST3/CHOWTapeModel.vst3"
 else
     pluginval=$(install_pluginval_win)
     plugin="Plugin/build/CHOWTapeModel_artefacts/Release/VST3/CHOWTapeModel.vst3"
