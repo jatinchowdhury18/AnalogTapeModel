@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [UNRELEASED]
+## [2.11.3] - 2023-10-25
 - AAX: added support for ARM Mac.
 - Added "RK" preset pack.
 - Fixed issues with "Wow" processing at higher sample rates.
