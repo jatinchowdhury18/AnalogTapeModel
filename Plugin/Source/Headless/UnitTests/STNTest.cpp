@@ -115,4 +115,6 @@ public:
     }
 };
 
+#if ! JUCE_MAC
 static STNTest stnTest;
+#endif
