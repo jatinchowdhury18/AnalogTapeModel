@@ -53,7 +53,7 @@ public:
     {
         y[ch] += sqrtdelta * rPtr[n] * amt;
         y[ch] += damping * (mean - y[ch]) * T;
-        return lpf.processSample (y[ch], (int) ch);
+        return lpf.processSample ((int) ch, y[ch]);
     }
 
 private:
