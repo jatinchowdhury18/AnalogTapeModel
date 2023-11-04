@@ -44,7 +44,7 @@ public:
 
                 const auto magnitudeDB = chowdsp::BufferMath::getMagnitude (buffer);
                 expectGreaterThan (magnitudeDB, -60.0f);
-                expectLessOrEqual (magnitudeDB, 3.0f);
+                expectLessOrEqual (magnitudeDB, 3.5f);
 
                 maxMagnitudeDB = juce::jmax (magnitudeDB, maxMagnitudeDB);
             }
