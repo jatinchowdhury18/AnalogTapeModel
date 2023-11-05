@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in
 this file.
 
-## [2.11.4]
+## [2.11.4] - 2023-11-05
 - Fixed bug in Wow processing at high levels of "Depth".
 
 ## [2.11.3] - 2023-10-25
