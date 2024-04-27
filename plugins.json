@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    {
+      "author": "jatinchowdhury18",
+      "homepage": "https://github.com/jatinchowdhury18/AnalogTapeModel",
+      "name": "CHOW Tape Model",
+      "description": "Physical modelling signal processing for analog tape recording",
+      "tags": [
+        "audio-effect",
+        "lv2",
+        "audio-unit",
+        "vst3",
+        "audio-plugin",
+        "juce",
+        "physical-modeling",
+        "auv3",
+        "analog-tape-machines"
+      ],
+      "version": "2.11.4",
+      "id": "chow-tape-model",
+      "date": "2023-11-05T17:25:12.081Z",
+      "files": {
+        "audio": {
+          "name": "chow-tape-model.wav",
+          "size": 352844
+        },
+        "image": {
+          "name": "chow-tape-model.png",
+          "size": 35091
+        },
+        "linux": {
+          "name": "ChowTapeModel-Linux-x64-2.11.4.deb",
+          "size": 5120000
+        },
+        "mac": {
+          "name": "ChowTapeModel-Mac-2.11.4.dmg",
+          "size": 28730900
+        },
+        "win": {
+          "name": "ChowTapeModel-Win-64bit-2.11.4.exe",
+          "size": 10616800
+        }
+      }
+    }
+  ]
+}
