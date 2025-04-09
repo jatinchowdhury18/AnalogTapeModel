@@ -57,7 +57,7 @@ juce_add_plugin(CHOWTapeModel
     AU_MAIN_TYPE kAudioUnitType_Effect
     AAX_CATEGORY AAX_ePlugInCategory_Harmonic
 
-    LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+    LV2URI https://github.com/jatinchowdhury18/AnalogTapeModel
 
     ICON_BIG Source/GUI/Assets/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
