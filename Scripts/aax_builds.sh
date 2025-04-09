@@ -120,6 +120,15 @@ cp -R "$aax_location" "$aax_target_dir/CHOWTapeModel.aaxplugin"
 if [[ "$*" = *deploy* ]]; then
     set +e
 
-    ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
-    scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        ssh "jatin@ccrma-gate.stanford.edu" "rm -r ~/aax_builds/${TARGET_DIR}/CHOWTapeModel.aaxplugin"
+        scp -r "$aax_location" "jatin@ccrma-gate.stanford.edu:~/aax_builds/${TARGET_DIR}/"
+    else
+         cd ~/ChowDSP/aax-builds-win64
+         git pull
+         cp -r "$aax_target_dir/CHOWTapeModel.aaxplugin" .
+         git add .
+         git commit -am "Update ChowTape AAX build"
+         git push
+    fi
 fi

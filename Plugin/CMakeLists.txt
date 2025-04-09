@@ -84,7 +84,6 @@ endif()
 include(modules/cmake/VersionInfo.cmake)
 target_compile_definitions(CHOWTapeModel
     PUBLIC
-        JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_REPORT_APP_USAGE=0
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
