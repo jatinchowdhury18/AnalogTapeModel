@@ -38,7 +38,7 @@ private:
     std::vector<SmoothedValue<float, ValueSmoothingTypes::Multiplicative>> depthSlew;
 
     AudioBuffer<float> wowBuffer;
-    float** wowPtrs = nullptr;
+    float* const* wowPtrs = nullptr;
     float fs = 44100.0f;
 
     OHProcess ohProc;

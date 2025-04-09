@@ -60,7 +60,7 @@ private:
     static constexpr float phaseOff3 = -MathConstants<float>::pi / 10.0f;
 
     AudioBuffer<float> flutterBuffer;
-    float** flutterPtrs;
+    float* const* flutterPtrs;
     float fs = 48000.0f;
 
     static constexpr float depthSlewMin = 0.001f;

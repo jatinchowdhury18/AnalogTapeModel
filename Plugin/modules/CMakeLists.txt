@@ -52,7 +52,6 @@ add_diagnostic_info(juce_plugin_modules)
 
 target_compile_definitions(juce_plugin_modules
     PUBLIC
-        JUCE_DISPLAY_SPLASH_SCREEN=0
         JUCE_REPORT_APP_USAGE=0
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0

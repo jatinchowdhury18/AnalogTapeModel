@@ -13,7 +13,8 @@ public:
 
         std::unique_ptr<ChowtapeModelAudioProcessor> proc {
             dynamic_cast<ChowtapeModelAudioProcessor*> (createPluginFilterOfType (
-                AudioProcessor::WrapperType::wrapperType_Standalone))
+                                                            AudioProcessor::WrapperType::wrapperType_Standalone)
+                                                            .release())
         };
 
         static constexpr double sampleRate = 48000.0;
