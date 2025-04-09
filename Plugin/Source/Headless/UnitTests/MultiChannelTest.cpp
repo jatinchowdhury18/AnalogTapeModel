@@ -19,7 +19,7 @@ public:
     std::unique_ptr<Proc> createPlugin()
     {
         auto proc = createPluginFilterOfType (AudioProcessor::WrapperType::wrapperType_Standalone);
-        std::unique_ptr<Proc> plugin (dynamic_cast<Proc*> (proc));
+        std::unique_ptr<Proc> plugin (dynamic_cast<Proc*> (proc.release()));
         return std::move (plugin);
     }
 
