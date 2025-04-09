@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment target")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12" CACHE STRING "Minimum OS X deployment target")
 set(CMAKE_CXX_STANDARD 17)
 project(CHOWTapeModel VERSION 2.11.4)
 
@@ -57,7 +57,7 @@ juce_add_plugin(CHOWTapeModel
     AU_MAIN_TYPE kAudioUnitType_Effect
     AAX_CATEGORY AAX_ePlugInCategory_Harmonic
 
-    LV2_URI https://github.com/jatinchowdhury18/AnalogTapeModel
+    LV2URI https://github.com/jatinchowdhury18/AnalogTapeModel
 
     ICON_BIG Source/GUI/Assets/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
