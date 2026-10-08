@@ -66,9 +66,9 @@ HysteresisSTN::HysteresisSTN()
             }
         };
 
-        futures.push_back (std::async (std::launch::async,
-                                       [=, &widthLoadIdx]
-                                       { loadModelSet (widthLoadIdx++); }));
+        // capture the index by value: incrementing a shared counter inside the
+        // async tasks is a data race and can load two width sets into one slot
+        futures.push_back (std::async (std::launch::async, loadModelSet, widthLoadIdx++));
     }
 
     for (auto& f : futures)
