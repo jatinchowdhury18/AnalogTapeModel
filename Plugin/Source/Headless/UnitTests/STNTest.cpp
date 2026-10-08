@@ -18,9 +18,6 @@ public:
 
     void runTest() override
     {
-#if JUCE_LINUX
-        return; // @TODO: figure out why this fails!
-#endif
         beginTest ("STN Accuracy Test");
         accTest();
 
